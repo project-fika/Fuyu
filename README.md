@@ -37,6 +37,6 @@ Visual Studio Code > Terminal > Run Task... > Fuyu: Test
 
 > What does Fuyu stand for? Why was it chosen?
 
-It means "Winter" in Japansese. The next season after Autumn (Aki, 秋).
+It means "Winter" in Japanese. The next season after Autumn (Aki, 秋).
 It's a reference that this is the next-in-line major architecture rework for
 SPTarkov.
