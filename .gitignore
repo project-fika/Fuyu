@@ -1,0 +1,10 @@
+# nuget
+.nuget/
+
+# build
+bin/
+obj/
+*.exe
+
+# test
+TestResults/

@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net471</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Private="False" Include="Assembly-CSharp" HintPath="../References/Assembly-CSharp.dll" />
+    <Reference Private="False" Include="UnityEngine" HintPath="../References/UnityEngine.dll" />
+    <Reference Private="False" Include="UnityEngine.CoreModule" HintPath="../References/UnityEngine.CoreModule.dll" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BepInEx.Core" Version="5.4.21" ExcludeAssets="runtime" PrivateAssets="All" />
+    <PackageReference Include="HarmonyX" Version="2.7.0" PrivateAssets="all"/>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Fuyu.Platform.Plugin/Fuyu.Platform.Plugin.csproj" />
+  </ItemGroup>
+
+</Project>

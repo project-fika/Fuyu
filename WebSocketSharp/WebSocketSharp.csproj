@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>websocket-sharp</AssemblyName>
+    <Version>1.0.2.35012</Version>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>WebSocketSharp.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+
+</Project>
