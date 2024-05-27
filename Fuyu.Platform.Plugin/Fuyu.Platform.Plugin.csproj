@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="HarmonyX" Version="2.7.0" IncludeAssets="compile" />
-    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" IncludeAssets="compile" />
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
     <PackageReference Include="UnityEngine.Modules" Version="2019.4.39" IncludeAssets="compile" />
   </ItemGroup>
 
