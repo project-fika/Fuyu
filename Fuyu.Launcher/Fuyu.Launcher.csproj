@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources/icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Fuyu.Platform.Launcher/Fuyu.Platform.Launcher.csproj" />
+  </ItemGroup>
+
+</Project>

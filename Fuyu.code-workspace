@@ -1,0 +1,104 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "Server (Debug)",
+				"preLaunchTask": "dotnet: build debug",
+				"type": "coreclr",
+				"request": "launch",
+				"env": {
+					"DOTNET_NOLOGO": "yes",
+					"DOTNET_CLI_TELEMETRY_OPTOUT": "yes"
+				},
+				"console": "internalConsole",
+				"internalConsoleOptions": "openOnSessionStart",
+				"logging": {
+					"moduleLoad": false
+				},
+				"program": "OVERWRITTEN_BY_OS_SPECIFIC",
+				"windows": {
+					"program": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/win-x64/Fuyu.Server.dll",
+					"cwd": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/win-x64/",
+				},
+				"linux": {
+					"program": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/linux-x64/Fuyu.Server.dll",
+					"cwd": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/linux-x64/",
+				},
+				"osx": {
+					"program": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/osx-x64/Fuyu.Server.dll",
+					"cwd": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/osx-x64/",
+				}
+			}
+		]
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"options": {
+			"env": {
+				"DOTNET_NOLOGO": "yes",
+				"DOTNET_CLI_TELEMETRY_OPTOUT": "yes"
+			}
+		},
+		"tasks": [
+			{
+				"label": "dotnet: restore",
+				"type": "shell",
+				"command": "dotnet restore --nologo",
+				"problemMatcher": []
+			},
+			{
+				"label": "dotnet: build debug",
+				"type": "shell",
+				"command": "dotnet build --nologo --no-restore --configuration Debug",
+				"problemMatcher": [],
+				"dependsOn": ["dotnet: restore"],
+				"dependsOrder": "sequence",
+				"group": "build"
+			},
+			{
+				"label": "dotnet: build release",
+				"type": "shell",
+				"command": "dotnet build --nologo --no-restore --configuration Release",
+				"problemMatcher": [],
+				"dependsOn": ["dotnet: restore"],
+				"dependsOrder": "sequence",
+				"group": "build"
+			},
+			{
+				"label": "dotnet: build publish",
+				"type": "shell",
+				"command": "dotnet publish --nologo --no-build",
+				"problemMatcher": [],
+				"dependsOn": ["dotnet: build release"],
+				"dependsOrder": "sequence",
+				"group": "build"
+			},
+			{
+				"label": "dotnet: test",
+				"type": "shell",
+				"command": "dotnet test --nologo --no-build",
+				"problemMatcher": [],
+				"dependsOn": ["dotnet: build debug"],
+				"dependsOrder": "sequence",
+				"group": {
+					"kind": "test",
+					"isDefault": true
+				}
+			}
+		]
+	},
+	"settings": {
+		"window.title": "Fuyu"
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-dotnettools.csharp"
+		]
+	}
+}

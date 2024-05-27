@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="embedded/database/client.achievement.list.json" />
+    <EmbeddedResource Include="embedded/database/client.achievement.statistic.json" />
+    <EmbeddedResource Include="embedded/database/client.builds.list.json" />
+    <EmbeddedResource Include="embedded/database/client.customization.json" />
+    <EmbeddedResource Include="embedded/database/client.game.config.json" />
+    <EmbeddedResource Include="embedded/database/client.game.profile.list.json" />
+    <EmbeddedResource Include="embedded/database/client.globals.json" />
+    <EmbeddedResource Include="embedded/database/client.handbook.templates.json" />
+    <EmbeddedResource Include="embedded/database/client.hideout.areas.json" />
+    <EmbeddedResource Include="embedded/database/client.hideout.production.recipes.json" />
+    <EmbeddedResource Include="embedded/database/client.hideout.production.scavcase.recipes.json" />
+    <EmbeddedResource Include="embedded/database/client.hideout.qte.list.json" />
+    <EmbeddedResource Include="embedded/database/client.hideout.settings.json" />
+    <EmbeddedResource Include="embedded/database/client.items.json" />
+    <EmbeddedResource Include="embedded/database/client.locale-en.json" />
+    <EmbeddedResource Include="embedded/database/client.locations.json" />
+    <EmbeddedResource Include="embedded/database/client.mail.dialog.list.json" />
+    <EmbeddedResource Include="embedded/database/client.menu.locale-en.json" />
+    <EmbeddedResource Include="embedded/database/client.notifier.channel.create.json" />
+    <EmbeddedResource Include="embedded/database/client.profile.status.json" />
+    <EmbeddedResource Include="embedded/database/client.quest.list.json" />
+    <EmbeddedResource Include="embedded/database/client.settings.json" />
+    <EmbeddedResource Include="embedded/database/client.trading.api.traderSettings.json" />
+    <EmbeddedResource Include="embedded/database/client.weather.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Fuyu.Platform.Common/Fuyu.Platform.Common.csproj" />
+  </ItemGroup>
+
+</Project>
