@@ -16,11 +16,6 @@ See `Documentation/CONTRIBUTING.md` for more information on standards.
 - Visual Studio Code
 - .NET 8.0 SDK
 
-## Setup
-
-- Fuyu developer: `git submodule update --init --recursive`
-- Collaborator: Copy-paste the contents of `EscapeFromTarkov_Data/Managed/` into `References/`
-
 ## Build
 
 Visual Studio Code > Terminal > Run Build Task...
