@@ -71,6 +71,13 @@ Why: makes it easier to update from just data dumps. The exception here is
 
 Why: makes it visually distinct how the `enum` should be parsed.
 
+## Updating to a newer version of EFT
+
+1. Update the hollowed dlls inside `References/` using Seion.BatchHollower ([link](https://github.com/seionmoya/BatchHollower))
+2. Update EFT dumps inside `Fuyu.Platform.Server`
+3. Update data models inside `Fuyu.Platform.Common`
+4. Add missing required route(s) in `Fuyu.Platform.Server`
+
 ## FAQ
 
 > Why don't you deobfuscate `Assembly-CSharp.dll`?

@@ -6,13 +6,12 @@
 
   <ItemGroup>
     <Reference Private="False" Include="Assembly-CSharp" HintPath="../References/Assembly-CSharp.dll" />
-    <Reference Private="False" Include="UnityEngine" HintPath="../References/UnityEngine.dll" />
-    <Reference Private="False" Include="UnityEngine.CoreModule" HintPath="../References/UnityEngine.CoreModule.dll" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="HarmonyX" Version="2.7.0" PrivateAssets="all"/>
+    <PackageReference Include="HarmonyX" Version="2.7.0" IncludeAssets="compile" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.3" PrivateAssets="all" />
+    <PackageReference Include="UnityEngine.Modules" Version="2019.4.39" IncludeAssets="compile" />
   </ItemGroup>
 
 </Project>
