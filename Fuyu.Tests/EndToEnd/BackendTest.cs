@@ -7,7 +7,6 @@ using Fuyu.Platform.Common.Http;
 using Fuyu.Platform.Common.Models.EFT.Bots;
 using Fuyu.Platform.Common.Models.EFT.Requests;
 using Fuyu.Platform.Common.Serialization;
-using Fuyu.Platform.Common.Models.EFT.Profiles.Info;
 
 namespace Fuyu.Tests.EndToEnd
 {
@@ -116,7 +115,7 @@ namespace Fuyu.Tests.EndToEnd
                 conditions = [
                     new BotCondition()
                     {
-                        Role = EBotRole.assault,
+                        Role = WildSpawnType.assault,
                         Limit = 1,
                         Difficulty = EBotDifficulty.normal
                     }

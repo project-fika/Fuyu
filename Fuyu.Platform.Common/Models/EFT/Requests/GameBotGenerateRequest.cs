@@ -1,5 +1,5 @@
 using System.Runtime.Serialization;
-using Fuyu.Platform.Common.Models.EFT.Profiles.Info;
+using Fuyu.Platform.Common.Models.EFT.Bots;
 
 namespace Fuyu.Platform.Common.Models.EFT.Requests
 {

@@ -1,6 +1,6 @@
 using Fuyu.Platform.Server.Services;
 using Fuyu.Platform.Common.Http;
-using Fuyu.Platform.Common.Models.EFT.Locations;
+using Fuyu.Platform.Common.Models;
 using Fuyu.Platform.Common.Models.EFT.Requests;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;

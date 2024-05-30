@@ -1,15 +1,14 @@
 using System.Runtime.Serialization;
 using Newtonsoft.Json.Converters;
-using Fuyu.Platform.Common.Models.EFT.Bots;
 
-namespace Fuyu.Platform.Common.Models.EFT.Profiles.Info
+namespace Fuyu.Platform.Common.Models.EFT.Bots
 {
     [DataContract]
     public struct BotCondition
     {
         [DataMember]
         [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))] 
-        public EBotRole Role;
+        public WildSpawnType Role;
 
         [DataMember]
         public int Limit;

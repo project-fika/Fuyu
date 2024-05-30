@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.Serialization;
 
 namespace Fuyu.Platform.Common.Models.EFT.Responses
@@ -5,16 +6,13 @@ namespace Fuyu.Platform.Common.Models.EFT.Responses
     [DataContract]
     public struct FriendListResponse
     {
-        // TODO: proper type
         [DataMember]
-        public object[] Friends;
+        public UpdatableChatMember[] Friends;
 
-        // TODO: proper type
         [DataMember]
-        public object[] Ignore;
+        public String[] Ignore;
 
-        // TODO: proper type
         [DataMember]
-        public object[] InIgnoreList;
+        public String[] InIgnoreList;
     }
 }

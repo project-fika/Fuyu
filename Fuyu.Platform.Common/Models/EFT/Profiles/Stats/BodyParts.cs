@@ -2,6 +2,8 @@ using System.Runtime.Serialization;
 
 namespace Fuyu.Platform.Common.Models.EFT.Profiles.Stats
 {
+    
+    //TODO: Figure out what this is Looks like an enum EBodyPart but im not sure.
     [DataContract]
     public struct BodyParts
     {

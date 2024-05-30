@@ -1,5 +1,5 @@
 using Fuyu.Platform.Common.IO;
-using Fuyu.Platform.Common.Models.EFT.Locations;
+using Fuyu.Platform.Common.Models;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
 

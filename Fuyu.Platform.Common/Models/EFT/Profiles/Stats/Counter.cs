@@ -5,7 +5,7 @@ namespace Fuyu.Platform.Common.Models.EFT.Profiles.Stats
     [DataContract]
     public struct Counter
     {
-        // TODO: proper type
+        // TODO: proper type. Unable to find
         [DataMember]
         public object[] Items;
     }

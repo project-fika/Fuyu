@@ -9,12 +9,10 @@ namespace Fuyu.Platform.Common.Models.EFT.Responses
         [DataMember]
         public EquipmentBuild[] equipmentBuild;
 
-        // TODO: proper type
         [DataMember]
-        public object[] weaponBuilds;
+        public WeaponBuildTemplate[] weaponBuilds;
 
-        // TODO: proper type
         [DataMember]
-        public object[] magazineBuilds;
+        public MagazineBuildTemplate[] magazineBuilds;
     }
 }

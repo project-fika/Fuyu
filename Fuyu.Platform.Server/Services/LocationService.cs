@@ -1,5 +1,5 @@
 using System;
-using Fuyu.Platform.Common.Models.EFT.Locations;
+using Fuyu.Platform.Common.Models;
 using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Services

@@ -1,6 +1,6 @@
 using Fuyu.Platform.Common.Http;
 using Fuyu.Platform.Common.IO;
-using Fuyu.Platform.Common.Models.EFT.Profiles;
+using Fuyu.Platform.Common.Models.EFT;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
 
