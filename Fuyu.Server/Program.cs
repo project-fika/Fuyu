@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Server;
 using Fuyu.Platform.Server.Databases;
 
@@ -12,8 +12,7 @@ namespace Fuyu.Server
             EftServer.Load();
             EftServer.Start();
 
-            // Console.ReadKey doesn't work in vscode buildin terminal
-            Console.In.ReadLine();
+            Terminal.WaitForInput();
         }
     }
 }

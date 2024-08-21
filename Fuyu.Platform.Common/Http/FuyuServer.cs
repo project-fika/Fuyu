@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using WebSocketSharp.Server;
+using Fuyu.Platform.Common.IO;
 
 namespace Fuyu.Platform.Common.Http
 {
@@ -33,7 +34,7 @@ namespace Fuyu.Platform.Common.Http
             var context = new FuyuContext(e.Request, e.Response);
             var path = context.GetPath();
 
-            Console.WriteLine($"[{Name}] {path}");
+            Terminal.WriteLine($"[{Name}] {path}");
 
             if (Behaviours.ContainsKey(path))
             {
@@ -48,7 +49,7 @@ namespace Fuyu.Platform.Common.Http
         public void Start()
         {
             _httpv.Start();
-            Console.WriteLine($"[{Name}] Started on {Address}");
+            Terminal.WriteLine($"[{Name}] Started on {Address}");
         }
 
         public void AddHttpService<T>(string path) where T : FuyuBehaviour, new()

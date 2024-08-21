@@ -1,4 +1,4 @@
-using System;
+using Fuyu.Platform.Common.IO;
 
 namespace Fuyu.Platform.Common.Http
 {
@@ -6,7 +6,7 @@ namespace Fuyu.Platform.Common.Http
     {
         public override void Run(FuyuContext context)
         {
-            Console.WriteLine($"No service found for {context.GetPath()}");
+            Terminal.WriteLine($"No service found for {context.GetPath()}");
             Close(context);
         }
     }

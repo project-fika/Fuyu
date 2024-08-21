@@ -3,7 +3,6 @@
 A more recent version of `ComponentAce.Compression.Libs.Zlib` with tweaks
 
 - Based on release [1.1.4.0](https://github.com/Elskom/zlib.managed/releases/tag/1.1.4.0)
-- Includes custom `MemoryZlib` for compatability with EFT
 - Made all classes inside `Elskom/` folder `internal`
 - Uses EFT assembly info
 

@@ -17,6 +17,7 @@ that maps `FuyuBehaviour` to a path.
 ```cs
 using System;
 using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.IO;
 
 // handles a request
 public class HelloWorld : FuyuBehaviour
@@ -42,8 +43,8 @@ public class Program
         // start the server
         server.Start();
 
-        // Console.ReadKey doesn't work in vscode buildin terminal
-        Console.In.ReadLine();
+        // keep the server running
+        Terminal.WaitForInput();
     }
 }
 ```
@@ -53,6 +54,8 @@ public class Program
 It's simple wrapper around `HttpClient` that's good enough for most cases. You
 can make HTTP requests with it to a HTTP server. It only supports HTTP without
 secure connection.
+
+It supports both sync and async operations.
 
 ```cs
 using System;
@@ -109,6 +112,31 @@ public class Program
 
         // show the result
         Console.WriteLine(text);
+    }
+}
+```
+
+### Termial
+
+A simple wrapper around C#'s `Console` functions.
+
+```cs
+using System;
+using Fuyu.Platform.Common.IO;
+
+public class Program
+{
+    static void Main()
+    {
+        // print some text
+        Terminal.WriteLine("Hello, world!");
+
+        // print a number
+        var number = 1;
+        Terminal.WriteLine(number);
+
+        // wait for input
+        Terminal.WaitForInput();
     }
 }
 ```
