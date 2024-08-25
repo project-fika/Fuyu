@@ -1,6 +1,6 @@
 # Fuyu.Launcher
 
-An EFT game starter.
+An app wrapped around `Fuyu.Platform.Launcher`.
 
 ## Usage
 
