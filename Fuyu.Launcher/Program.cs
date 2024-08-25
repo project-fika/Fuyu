@@ -1,22 +1,19 @@
 ﻿using System;
-using Fuyu.Platform.Launcher;
+using Avalonia;
+using Avalonia.WebView.Desktop;
 
 namespace Fuyu.Launcher
 {
-    public class Program
+    class Program
     {
-        static void Main()
-        {
-            Console.Title = "Fuyu.Launcher";
+        [STAThread]
+        public static void Main(string[] args) => BuildAvaloniaApp()
+            .StartWithClassicDesktopLifetime(args);
 
-            var cwd = Environment.CurrentDirectory;
-            var accountId = 480892;
-            var address = "http://localhost:8000";
-
-            using (var process = EftProcess.Get(cwd, accountId, address))
-            {
-                process.Start();
-            }
-        }
+        public static AppBuilder BuildAvaloniaApp()
+            => AppBuilder.Configure<App>()
+                .UsePlatformDetect()
+                .LogToTrace()
+                .UseDesktopWebView();
     }
 }
