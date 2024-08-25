@@ -4,7 +4,9 @@
 # build
 bin/
 obj/
-*.exe
 
 # test
 TestResults/
+
+# visual studio
+.vs

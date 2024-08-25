@@ -1,9 +1,11 @@
 # Fuyu.Platform.Launcher
 
-Fuyu's launcher logic. Can be used as a starting point if you want to make your
-own launcher.
+The actual launcher pages and functionality.
+Can be used as a starting point if you want to make your own launcher.
 
-# EftProcess
+## Fuyu.Launcher.Services
+
+### EftProcess
 
 `EftProcess` is a quick way to get a new EFT instance up and running. There are
 a couple of things you need to provide:
@@ -15,22 +17,19 @@ a couple of things you need to provide:
 
 ```cs
 using System;
-using Fuyu.Platform.Launcher;
+using Fuyu.Platform.Launcher.Services;
 
-namespace Fuyu.Launcher
+public class Program
 {
-    public class Program
+    static void Main()
     {
-        static void Main()
-        {
-            var cwd = Environment.CurrentDirectory;
-            var accountId = 480892;
-            var address = "http://localhost:8000";
+        var cwd = Environment.CurrentDirectory;
+        var accountId = 480892;
+        var address = "http://localhost:8000";
 
-            using (var process = EftProcess.Get(cwd, accountId, address))
-            {
-                process.Start();
-            }
+        using (var process = EftProcess.Get(cwd, accountId, address))
+        {
+            process.Start();
         }
     }
 }

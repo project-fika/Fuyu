@@ -1,23 +1,25 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace Fuyu.Platform.Launcher
+namespace Fuyu.Platform.Launcher.Services
 {
-    public class EftProcess
+    public class ProcessService
     {
-        public static Process Get(string cwd, int accountId, string address)
+        private static string GetLaunchArguments(int accountId, string address)
         {
-            // get launch argument
-            var token = "-token=" + accountId;
+            var token = $"-token={accountId}";
             var config = "-config={\"BackendUrl\":\"" + address + "\",\"Version\":\"live\"}";
             var arguments = $"{token} {config}";
+            return arguments;
+        }
 
-            // get process to create
+        public static Process StartEft(string cwd, int accountId, string address)
+        {
             return new Process()
             {
                 StartInfo = new ProcessStartInfo()
                 {
-                    Arguments = arguments,
+                    Arguments = GetLaunchArguments(accountId, address),
                     FileName = Path.Combine(cwd, "EscapeFromTarkov.exe"),
                     WorkingDirectory = cwd
                 }
