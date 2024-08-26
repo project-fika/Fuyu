@@ -61,15 +61,15 @@
 		"version": "2.0.0",
 		"options": {
 			"env": {
-				"DOTNET_NOLOGO": "yes",
-				"DOTNET_CLI_TELEMETRY_OPTOUT": "yes"
+				"DOTNET_CLI_TELEMETRY_OPTOUT": "yes",
+				"DOTNET_NOLOGO": "yes"
 			}
 		},
 		"tasks": [
 			{
 				"label": "dotnet: restore",
 				"type": "shell",
-				"command": "dotnet restore --nologo",
+				"command": "dotnet restore --nologo --configfile Nuget.config",
 				"problemMatcher": []
 			},
 			{
