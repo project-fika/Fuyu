@@ -21,10 +21,4 @@
     <ProjectReference Include="../Fuyu.Platform.Launcher/Fuyu.Platform.Launcher.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-		<Content Update="wwwroot\**">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-
 </Project>
