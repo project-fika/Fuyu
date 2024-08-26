@@ -3,12 +3,12 @@
 The actual launcher pages and functionality.
 Can be used as a starting point if you want to make your own launcher.
 
-## Fuyu.Launcher.Services
+## Fuyu.Platform.Launcher.Services
 
-### EftProcess
+### ProcessService
 
-`EftProcess` is a quick way to get a new EFT instance up and running. There are
-a couple of things you need to provide:
+`ProcessService` is a quick way to get a new EFT instance up and running. There
+are a couple of things you need to provide:
 
 - `cwd`: Current working directory. This is also where `EscapeFromTarkov.exe`
   must be located.
@@ -17,7 +17,7 @@ a couple of things you need to provide:
 
 ```cs
 using System;
-using Fuyu.Platform.Launcher.Services;
+using Fuyu.Platform.Launcher;
 
 public class Program
 {
@@ -27,7 +27,7 @@ public class Program
         var accountId = 480892;
         var address = "http://localhost:8000";
 
-        using (var process = EftProcess.Get(cwd, accountId, address))
+        using (var process = ProcessService.StartEft(cwd, accountId, address))
         {
             process.Start();
         }

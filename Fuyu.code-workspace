@@ -51,16 +51,8 @@
 				},
 				"program": "OVERWRITTEN_BY_OS_SPECIFIC",
 				"windows": {
-					"program": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0/win-x64/Fuyu.Launcher.dll",
-					"cwd": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0/win-x64/",
-				},
-				"linux": {
-					"program": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0/linux-x64/Fuyu.Launcher.dll",
-					"cwd": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0/linux-x64/",
-				},
-				"osx": {
-					"program": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0/osx-x64/Fuyu.Launcher.dll",
-					"cwd": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0/osx-x64/",
+					"program": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0-windows/win-x64/Fuyu.Launcher.dll",
+					"cwd": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0-windows/win-x64/",
 				}
 			}
 		]
