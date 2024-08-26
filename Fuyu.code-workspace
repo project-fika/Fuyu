@@ -51,8 +51,8 @@
 				},
 				"program": "OVERWRITTEN_BY_OS_SPECIFIC",
 				"windows": {
-					"program": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0-windows/win-x64/Fuyu.Launcher.dll",
-					"cwd": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0-windows/win-x64/",
+					"program": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0-windows/Fuyu.Launcher.dll",
+					"cwd": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0-windows/",
 				}
 			}
 		]
