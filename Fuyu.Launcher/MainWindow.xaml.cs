@@ -9,12 +9,12 @@ namespace Fuyu.Launcher
         {
             InitializeComponent();
 
-            ServiceCollection serviceCollection = new ServiceCollection();
-			serviceCollection.AddWpfBlazorWebView();
+            var services = new ServiceCollection();
+			services.AddWpfBlazorWebView();
 #if DEBUG
-			serviceCollection.AddBlazorWebViewDeveloperTools();
+			services.AddBlazorWebViewDeveloperTools();
 #endif
-			Resources.Add("services", serviceCollection.BuildServiceProvider());
+			Resources.Add("services", services.BuildServiceProvider());
         }
     }
 }
