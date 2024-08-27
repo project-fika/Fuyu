@@ -11,9 +11,7 @@ namespace Fuyu.Launcher
 
             var services = new ServiceCollection();
 			services.AddWpfBlazorWebView();
-#if DEBUG
 			services.AddBlazorWebViewDeveloperTools();
-#endif
 			Resources.Add("services", services.BuildServiceProvider());
         }
     }
