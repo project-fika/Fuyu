@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace Fuyu.Launcher
 {
@@ -9,12 +10,11 @@ namespace Fuyu.Launcher
         {
             InitializeComponent();
 
-            ServiceCollection serviceCollection = new ServiceCollection();
-			serviceCollection.AddWpfBlazorWebView();
-#if DEBUG
-			serviceCollection.AddBlazorWebViewDeveloperTools();
-#endif
-			Resources.Add("services", serviceCollection.BuildServiceProvider());
+            var services = new ServiceCollection();
+			services.AddWpfBlazorWebView();
+            services.AddFluentUIComponents();
+			services.AddBlazorWebViewDeveloperTools();
+			Resources.Add("services", services.BuildServiceProvider());
         }
     }
 }

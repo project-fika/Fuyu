@@ -1,0 +1,17 @@
+﻿@namespace Fuyu.Launcher.Layout
+
+@inherits LayoutComponentBase
+
+<FluentToastProvider />
+<FluentDialogProvider />
+<FluentTooltipProvider />
+<FluentMessageBarProvider />
+<FluentDesignTheme Mode="DesignThemeModes.Dark"></FluentDesignTheme>
+
+<FluentStack Orientation="Orientation.Horizontal" Width="98.5%">
+	<FluentBodyContent>
+		<FluentCard Class="my-1">
+			@Body
+		</FluentCard>
+	</FluentBodyContent>
+</FluentStack>
