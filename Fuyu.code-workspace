@@ -51,8 +51,8 @@
 				},
 				"program": "OVERWRITTEN_BY_OS_SPECIFIC",
 				"windows": {
-					"program": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0-windows/Fuyu.Launcher.dll",
-					"cwd": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0-windows/",
+					"program": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0-windows/win-x64/Fuyu.Launcher.dll",
+					"cwd": "${workspaceFolder}/Fuyu.Launcher/bin/Debug/net8.0-windows/win-x64/",
 				}
 			}
 		]
@@ -67,10 +67,18 @@
 		},
 		"tasks": [
 			{
+				"label": "dotnet: clean",
+				"type": "shell",
+				"command": "dotnet clean --nologo",
+				"problemMatcher": []
+			},
+			{
 				"label": "dotnet: restore",
 				"type": "shell",
 				"command": "dotnet restore --nologo --configfile Nuget.config",
-				"problemMatcher": []
+				"problemMatcher": [],
+				"dependsOn": ["dotnet: clean"],
+				"dependsOrder": "sequence"
 			},
 			{
 				"label": "dotnet: build debug",

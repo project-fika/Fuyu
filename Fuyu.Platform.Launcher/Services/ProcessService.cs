@@ -25,5 +25,18 @@ namespace Fuyu.Platform.Launcher.Services
                 }
             };
         }
+
+        public static Process StartServer(string cwd)
+        {
+            return new Process()
+            {
+                StartInfo = new ProcessStartInfo()
+                {
+                    Arguments = string.Empty,
+                    FileName = Path.Combine(cwd, "Fuyu.Server.exe"),
+                    WorkingDirectory = cwd
+                }
+            };
+        }
     }
 }

@@ -1,22 +1,42 @@
-﻿@using Fuyu.Platform.Launcher.Services
+﻿@page "/"
+@page "/home"
 
-@page "/"
-
-<p>
-    <button @onclick="StartEft">
-        Start EFT
-    </button>
-</p>
+<FluentStack Orientation="Orientation.Horizontal">
+    <FluentAccordionItem Heading="Server">
+	    <FluentLabel>Path to installation:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Text" @bind-Value="serverDirectory" Style="width: 80%;"></FluentTextField>
+        <br/>
+        <FluentButton Appearance="Appearance.Accent" IconStart="@(new Icons.Regular.Size24.Play())" OnClick="StartServer">Start Server</FluentButton>
+    </FluentAccordionItem>
+    <FluentAccordionItem Heading="Client">
+        <FluentLabel>Path to installation:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Text" @bind-Value="clientDirectory" Style="width: 80%;"></FluentTextField>
+        <FluentLabel>Server address:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Url" @bind-Value="address" Style="width: 80%;"></FluentTextField>
+        <br/>
+        <FluentButton Appearance="Appearance.Accent" IconStart="@(new Icons.Regular.Size24.Play())" OnClick="StartEft">Start Game</FluentButton>
+    </FluentAccordionItem>
+</FluentStack>
 
 @code
 {
+    string serverDirectory = Environment.CurrentDirectory;
+    string clientDirectory = Environment.CurrentDirectory;
+    string address = "http://localhost:8000";
+
+    private void StartServer()
+    {
+        using (var process = ProcessService.StartServer(serverDirectory))
+        {
+            process.Start();
+        }
+    }
+
     private void StartEft()
     {
-        var cwd = Environment.CurrentDirectory;
         var accountId = 480892;
-        var address = "http://localhost:8000";
 
-        using (var process = ProcessService.StartEft(cwd, accountId, address))
+        using (var process = ProcessService.StartEft(clientDirectory, accountId, address))
         {
             process.Start();
         }

@@ -1,7 +1,7 @@
 using Fuyu.Platform.Common.Http;
 using Fuyu.Platform.Server.Behaviours;
 
-namespace Fuyu.Platform.Server
+namespace Fuyu.Platform.Server.Servers
 {
     public class EftServer
     {

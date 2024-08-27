@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Fuyu.Platform.Server;
+using Fuyu.Platform.Server.Servers;
 using Fuyu.Platform.Server.Databases;
 using Fuyu.Platform.Common.Http;
 using Fuyu.Platform.Common.Models.EFT.Bots;

@@ -1,7 +1,7 @@
 # Fuyu.Platform.Launcher
 
-The actual launcher pages and functionality.
-Can be used as a starting point if you want to make your own launcher.
+Contains the Launcher functionality. Can be used as a starting point if you
+want to make your own launcher.
 
 ## Fuyu.Platform.Launcher.Services
 
