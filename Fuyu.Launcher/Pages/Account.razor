@@ -1,0 +1,32 @@
+﻿@using Fuyu.Launcher.Services;
+
+@page "/"
+@page "/account"
+
+<FluentStack Orientation="Orientation.Vertical">
+
+    <FluentButton Appearance="Appearance.Accent" IconStart="@(new Icons.Regular.Size24.Play())" OnClick="StartServer">Start Server</FluentButton>
+    <FluentButton Appearance="Appearance.Accent" IconStart="@(new Icons.Regular.Size24.Play())" OnClick="StartEft">Start Game</FluentButton>
+
+</FluentStack>
+
+@code
+{
+    private void StartServer()
+    {
+        using (var process = ProcessService.StartServer(SettingsService.ServerDirectory))
+        {
+            process.Start();
+        }
+    }
+
+    private void StartEft()
+    {
+        var accountId = 480892;
+
+        using (var process = ProcessService.StartEft(SettingsService.ClientDirectory, accountId, SettingsService.Address))
+        {
+            process.Start();
+        }
+    }
+}

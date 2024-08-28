@@ -1,0 +1,43 @@
+@using Fuyu.Launcher.Services;
+
+@page "/settings"
+
+<FluentStack Orientation="Orientation.Vertical">
+
+    <!-- server settings -->
+    <FluentAccordionItem Heading="Server" Style="width: 100%;">
+	    <FluentLabel>Path to installation:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Text" @oninput="ServerDirectory_TextChanged" @bind-Value="serverDirectory" Style="width: 100%;"></FluentTextField>
+    </FluentAccordionItem>
+
+    <!-- client settings -->
+    <FluentAccordionItem Heading="Client" Style="width: 100%;">
+        <FluentLabel>Path to installation:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Text" @oninput="ClientDirectory_TextChanged" @bind-Value="clientDirectory" Style="width: 100%;"></FluentTextField>
+        <FluentLabel>Server address:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Url" @oninput="Address_TextChanged" @bind-Value="address" Style="width: 100%;"></FluentTextField>
+    </FluentAccordionItem>
+
+</FluentStack>
+
+@code
+{
+    string serverDirectory = SettingsService.ServerDirectory;
+    string clientDirectory = SettingsService.ClientDirectory;
+    string address = SettingsService.Address;
+
+    private void ServerDirectory_TextChanged(ChangeEventArgs e)
+    {
+        SettingsService.ServerDirectory = (string)e.Value;
+    }
+
+    private void ClientDirectory_TextChanged(ChangeEventArgs e)
+    {
+        SettingsService.ClientDirectory = (string)e.Value;
+    }
+
+    private void Address_TextChanged(ChangeEventArgs e)
+    {
+        SettingsService.Address = (string)e.Value;
+    }
+}
