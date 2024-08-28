@@ -153,6 +153,15 @@ namespace Fuyu.Tests.EndToEnd
         }
 
         [TestMethod]
+        public async Task TestClientGameMode()
+        {
+            var data = await _client.GetAsync("/client/game/mode");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
         public async Task TestClientGameProfileList()
         {
             var data = await _client.GetAsync("/client/game/profile/list");
@@ -225,15 +234,6 @@ namespace Fuyu.Tests.EndToEnd
         }
 
         [TestMethod]
-        public async Task TestClientProductionScavcaseRecipes()
-        {
-            var data = await _client.GetAsync("/client/hideout/production/scavcase/recipes");
-            var result = Encoding.UTF8.GetString(data);
-
-            Assert.IsFalse(string.IsNullOrEmpty(result));
-        }
-
-        [TestMethod]
         public async Task TestClientHideoutQteList()
         {
             var data = await _client.GetAsync("/client/hideout/qte/list");
@@ -278,22 +278,10 @@ namespace Fuyu.Tests.EndToEnd
             Assert.IsFalse(string.IsNullOrEmpty(result));
         }
 
-         [TestMethod]
-        public async Task TestClientGetLocalLoot()
+        [TestMethod]
+        public async Task TestClientLocalGameWeather()
         {
-            // get request data
-            var request = new LocationGetLocalLootRequest()
-            {
-                locationId = "factory4_day",
-                variantId = 1
-            };
-
-            // get request body
-            var json = Json.Stringify(request);
-            var body = Encoding.UTF8.GetBytes(json);
-
-            // get response
-            var data = await _client.PostAsync("/client/location/getLocalloot", body);
+            var data = await _client.GetAsync("/client/localGame/weather");
             var result = Encoding.UTF8.GetString(data);
 
             Assert.IsFalse(string.IsNullOrEmpty(result));
@@ -336,6 +324,29 @@ namespace Fuyu.Tests.EndToEnd
         }
 
         [TestMethod]
+        public async Task TestClientMatchOfflineStart()
+        {
+            // get request data
+            var request = new MatchOfflineStartRequest()
+            {
+                location = "factory4_day",
+                timeVariant = "PAST",
+                mode = "PVE",
+                playerSide = "PMC"
+            };
+
+            // get request body
+            var json = Json.Stringify(request);
+            var body = Encoding.UTF8.GetBytes(json);
+
+            // get response
+            var data = await _client.PostAsync("/client/match/offline/start", body);
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
         public async Task TestClientMatchOfflineEnd()
         {
             var data = await _client.GetAsync("/client/match/offline/end");
@@ -366,6 +377,15 @@ namespace Fuyu.Tests.EndToEnd
         public async Task TestProfileStatus()
         {
             var data = await _client.GetAsync("/client/profile/status");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestProfileSettings()
+        {
+            var data = await _client.GetAsync("/client/profile/settings");
             var result = Encoding.UTF8.GetString(data);
 
             Assert.IsFalse(string.IsNullOrEmpty(result));
@@ -411,6 +431,15 @@ namespace Fuyu.Tests.EndToEnd
         public async Task TestClientSettings()
         {
             var data = await _client.GetAsync("/client/settings");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientSurvey()
+        {
+            var data = await _client.GetAsync("/client/survey");
             var result = Encoding.UTF8.GetString(data);
 
             Assert.IsFalse(string.IsNullOrEmpty(result));

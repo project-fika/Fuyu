@@ -57,7 +57,7 @@ namespace Fuyu.Platform.Common.Models.EFT.Profiles
 
         // TODO: proper type
         [DataMember]
-        public object[] Achievements;
+        public object Achievements;
 
         [DataMember]
         public RagfairInfo RagfairInfo;

@@ -11,7 +11,7 @@ namespace Fuyu.Platform.Server.Services
             return EftDatabase.Location.GetWorldMap();
         }
 
-        public static Location GetLocation(string locationId, int variantId)
+        public static Location GetLocation(string locationId)
         {
             var worldMap = EftDatabase.Location.GetWorldMap();
 

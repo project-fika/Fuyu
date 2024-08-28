@@ -12,7 +12,7 @@ See `Documentation/CONTRIBUTING.md` for more information on standards.
 
 ## Requirements:
 
-- EFT 0.14.1.29197
+- EFT 0.15.0.32197
 - Visual Studio Code
 - .NET 8.0 SDK
 

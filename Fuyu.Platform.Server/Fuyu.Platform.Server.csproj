@@ -5,6 +5,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="embedded/database/locations/bigmap.json" />
+    <EmbeddedResource Include="embedded/database/locations/factory4_day.json" />
+    <EmbeddedResource Include="embedded/database/locations/interchange.json" />
+    <EmbeddedResource Include="embedded/database/locations/lighthouse.json" />
+    <EmbeddedResource Include="embedded/database/locations/rezervbase.json" />
+    <EmbeddedResource Include="embedded/database/locations/sandbox.json" />
+    <EmbeddedResource Include="embedded/database/locations/shoreline.json" />
+    <EmbeddedResource Include="embedded/database/locations/tarkovstreets.json" />
+    <EmbeddedResource Include="embedded/database/locations/woods.json" />
     <EmbeddedResource Include="embedded/database/client.achievement.list.json" />
     <EmbeddedResource Include="embedded/database/client.achievement.statistic.json" />
     <EmbeddedResource Include="embedded/database/client.builds.list.json" />
@@ -15,14 +24,13 @@
     <EmbeddedResource Include="embedded/database/client.handbook.templates.json" />
     <EmbeddedResource Include="embedded/database/client.hideout.areas.json" />
     <EmbeddedResource Include="embedded/database/client.hideout.production.recipes.json" />
-    <EmbeddedResource Include="embedded/database/client.hideout.production.scavcase.recipes.json" />
     <EmbeddedResource Include="embedded/database/client.hideout.qte.list.json" />
     <EmbeddedResource Include="embedded/database/client.hideout.settings.json" />
     <EmbeddedResource Include="embedded/database/client.items.json" />
     <EmbeddedResource Include="embedded/database/client.locale-en.json" />
     <EmbeddedResource Include="embedded/database/client.locations.json" />
-    <EmbeddedResource Include="embedded/database/client.mail.dialog.list.json" />
     <EmbeddedResource Include="embedded/database/client.menu.locale-en.json" />
+    <EmbeddedResource Include="embedded/database/client.localGame.weather.json" />
     <EmbeddedResource Include="embedded/database/client.notifier.channel.create.json" />
     <EmbeddedResource Include="embedded/database/client.profile.status.json" />
     <EmbeddedResource Include="embedded/database/client.quest.list.json" />

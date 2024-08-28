@@ -12,7 +12,10 @@ namespace Fuyu.Platform.Server.Behaviours
 
         public GameProfileList()
         {
-            var json = Resx.GetText("fuyu", "database.client.game.profile.list.json");
+            var json = Resx.GetText("fuyu", "database.client.game.profile.list.json")
+                // Dirty fix: BSG notes empty trader info as [] (incorrect) instead of {} (correct)
+                .Replace("\"TradersInfo\":[]", "\"TradersInfo\":{}");
+
             _response = Json.Parse<ResponseBody<Profile[]>>(json);
         }
 

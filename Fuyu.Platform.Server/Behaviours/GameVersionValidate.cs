@@ -8,7 +8,10 @@ namespace Fuyu.Platform.Server.Behaviours
     {
         public override void Run(FuyuContext context)
         {
-            var response = new ResponseBody<object>();
+            var response = new ResponseBody<object>()
+            {
+                data = null
+            };
 
             SendJson(context, Json.Stringify(response));
         }

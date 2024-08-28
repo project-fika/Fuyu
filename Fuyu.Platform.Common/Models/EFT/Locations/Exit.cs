@@ -41,10 +41,28 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         [DataMember(EmitDefaultValue = false)]
         public string RequirementTip;
 
-        [DataMember(EmitDefaultValue = false)]
-        public int? Count;
+        [DataMember]
+        public int Count;
 
         [DataMember]
         public bool EventAvailable;
+
+        [DataMember]
+        public int MinTimePVE;
+
+        [DataMember]
+        public int MaxTimePVE;
+
+        [DataMember]
+        public int ChancePVE;
+
+        [DataMember]
+        public int CountPVE;
+
+        [DataMember]
+        public int ExfiltrationTimePVE;
+
+        [DataMember]
+        public int PlayersCountPVE;
     }
 }
