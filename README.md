@@ -35,3 +35,8 @@ Visual Studio Code > Terminal > Run Task... > Fuyu: Test
 It means "Winter" in Japanese. The next season after Autumn (Aki, 秋).
 It's a reference that this is the next-in-line major architecture rework for
 SPTarkov.
+
+## Credits
+
+- seionmoya: main author
+- nexus: debugging seionmoya's issues
