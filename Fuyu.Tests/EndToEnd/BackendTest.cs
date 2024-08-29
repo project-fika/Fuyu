@@ -178,10 +178,10 @@ namespace Fuyu.Tests.EndToEnd
             // get request data
             var request = new GameProfileCreateRequest()
             {
-                side = "usec",
-                nickname = "senko",
-                headId = string.Empty,  // TODO: use real ids
-                voiceId = string.Empty  // TODO: use real ids
+                side        = "usec",
+                nickname    = "senko",
+                headId      = "5cde96047d6c8b20b577f016",
+                voiceId     = "5fc614f40b735e7b024c76e9"
             };
 
             // get request body
@@ -563,10 +563,10 @@ namespace Fuyu.Tests.EndToEnd
             // get request data
             var request = new MatchLocalStartRequest()
             {
-                location = "factory4_day",
+                location    = "factory4_day",
                 timeVariant = "CURR",           // CURR: left, PAST: right
-                mode = "PVE",
-                playerSide = "PMC"
+                mode        = "PVE",
+                playerSide  = "PMC"
             };
 
             // get request body

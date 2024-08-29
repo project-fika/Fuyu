@@ -1,3 +1,4 @@
+using Fuyu.Platform.Common.Hashing;
 using Fuyu.Platform.Common.Http;
 using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Common.Models.EFT.Profiles;
@@ -29,29 +30,30 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             var account = FuyuDatabase.Accounts.GetAccount(accountId);
 
             // TODO: PVP-PVE STATE DETECTION
-            var pve = account.EftSave.PvE;
 
             // create savage
-            pve.Savage = Json.Parse<Profile>(_savageJson);
+            var savageId = EftHash.Generate();
+            account.EftSave.PvE.Savage = Json.Parse<Profile>(_savageJson);
 
-            pve.Savage._id = "000000000000000000000002";    // TODO: generate this
-            pve.Savage.aid = accountId;
+            account.EftSave.PvE.Savage._id = savageId;
+            account.EftSave.PvE.Savage.aid = accountId;
 
             // create pmc
-            pve.Pmc = request.side == "bear"
+            var pmcId = EftHash.Generate();
+            account.EftSave.PvE.Pmc = request.side == "bear"
                 ? Json.Parse<Profile>(_bearJson)
                 : Json.Parse<Profile>(_usecJson);
 
-            pve.Pmc._id = "000000000000000000000001";       // TODO: generate this
-            pve.Pmc.savage = pve.Savage._id;
-            pve.Pmc.aid = accountId;
-            pve.Pmc.Info.Nickname = account.Username;
-            pve.Pmc.Info.LowerNickname = account.Username.ToLowerInvariant();
-            pve.Pmc.Info.Voice = request.voiceId;
-            pve.Pmc.Customization.Head = request.headId;
+            account.EftSave.PvE.Pmc._id                 = pmcId;
+            account.EftSave.PvE.Pmc.savage              = savageId;
+            account.EftSave.PvE.Pmc.aid                 = accountId;
+            account.EftSave.PvE.Pmc.Info.Nickname       = account.Username;
+            account.EftSave.PvE.Pmc.Info.LowerNickname  = account.Username.ToLowerInvariant();
+            account.EftSave.PvE.Pmc.Info.Voice          = request.voiceId;
+            account.EftSave.PvE.Pmc.Customization.Head  = request.headId;
 
             // wipe done
-            pve.ShouldWipe = false;
+            account.EftSave.PvE.ShouldWipe = false;
 
             // store account
             FuyuDatabase.Accounts.SetAccount(accountId, account);
@@ -61,7 +63,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             {
                 data = new GameProfileCreateResponse()
                 {
-                    uid = pve.Pmc._id
+                    uid = pmcId
                 }
             };
 

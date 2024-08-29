@@ -1,5 +1,5 @@
+using Fuyu.Platform.Common.Hashing;
 using Fuyu.Platform.Common.Http;
-using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
 
@@ -7,21 +7,22 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class NotifierChannelCreate : FuyuBehaviour
     {
-        private readonly ResponseBody<NotifierChannelCreateResponse> _response;
-
-        public NotifierChannelCreate()
-        {
-            var json = Resx.GetText("eft", "database.eft.client.notifier.channel.create.json")
-                .Replace("https://", "http://")
-                .Replace("wss://", "ws://")
-                .Replace("wsn-01.escapefromtarkov.com", "localhost:8000");
-
-            _response = Json.Parse<ResponseBody<NotifierChannelCreateResponse>>(json);
-        }
-
         public override void Run(FuyuContext context)
         {
-            SendJson(context, Json.Stringify(_response));
+            var channelId = EftHash.Generate(64);
+            var response = new ResponseBody<NotifierChannelCreateResponse>
+            {
+                data = new NotifierChannelCreateResponse()
+                {
+                    server = "localhost:8000",
+                    channel_id = channelId,
+                    url = string.Empty,
+                    notifierServer = $"http://localhost:8000/push/notifier/get/{channelId}",
+                    ws = $"ws://localhost:8000/push/notifier/getwebsocket/{channelId}"
+                }
+            };
+
+            SendJson(context, Json.Stringify(response));
         }
     }
 }

@@ -21,5 +21,8 @@ namespace Fuyu.Platform.Common.Models.EFT.Profiles
 
         [DataMember]
         public long UpdateTime;
+
+        [DataMember]
+        public bool Immortal;
     }
 }

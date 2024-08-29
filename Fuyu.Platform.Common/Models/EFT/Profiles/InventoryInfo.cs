@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Fuyu.Platform.Common.Models.EFT.Items;
 
@@ -28,9 +29,8 @@ namespace Fuyu.Platform.Common.Models.EFT.Profiles
         [DataMember]
         public object fastPanel;
 
-        // TODO: proper type
         [DataMember]
-        public object hideoutAreaStashes;
+        public Dictionary<string, string> hideoutAreaStashes;
 
         // TODO: proper type
         [DataMember]

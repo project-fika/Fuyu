@@ -66,7 +66,6 @@
     <EmbeddedResource Include="embedded/database/eft/client.items.json" />
     <EmbeddedResource Include="embedded/database/eft/client.locations.json" />
     <EmbeddedResource Include="embedded/database/eft/client.localGame.weather.json" />
-    <EmbeddedResource Include="embedded/database/eft/client.notifier.channel.create.json" />
     <EmbeddedResource Include="embedded/database/eft/client.quest.list.json" />
     <EmbeddedResource Include="embedded/database/eft/client.settings.json" />
     <EmbeddedResource Include="embedded/database/eft/client.trading.api.traderSettings.json" />

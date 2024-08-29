@@ -33,7 +33,7 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
         {
             var account = new Account()
             {
-                Username = "TallonX",
+                Username = "Senko-san",
                 Password = string.Empty,
                 EftSave = new EftSave()
                 {

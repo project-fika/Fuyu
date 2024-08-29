@@ -200,7 +200,7 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         public SpawnPointParam[] spawnPointParams;
 
         [DataMember]
-        public AirdropParameters[] AirdropParameters;
+        public AirdropParameters[] airdropParameters;
 
         [DataMember(EmitDefaultValue = false)]
         public MatchMakerWaitTime[] MatchMakerMinPlayersByWaitTime;

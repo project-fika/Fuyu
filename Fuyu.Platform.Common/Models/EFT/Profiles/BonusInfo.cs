@@ -10,11 +10,29 @@ namespace Fuyu.Platform.Common.Models.EFT.Profiles
         [DataMember]
         public string id;
 
+        [DataMember(EmitDefaultValue = true)]
+        public string icon;
+
         [DataMember]
         [Newtonsoft.Json.JsonConverter(typeof(StringEnumConverter))] 
         public EBonusType type;
 
         [DataMember]
+        public float value;
+
+        [DataMember(EmitDefaultValue = true)]
         public string templateId;
+
+        [DataMember]
+        public bool passive;
+
+        [DataMember]
+        public bool visible;
+
+        [DataMember]
+        public bool production;
+
+        [DataMember(EmitDefaultValue = true)]
+        public string[] filter;
     }
 }
