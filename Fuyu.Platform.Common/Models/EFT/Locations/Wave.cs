@@ -35,6 +35,8 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         [DataMember]
         public string WildSpawnType;
 
+        // Tracks which waves to send for which game mode
+        // NOTE: server-side only
         [DataMember]
         public string[] SpawnMode;
     }

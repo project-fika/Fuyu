@@ -21,16 +21,16 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         public float VisibleDistance;
 
         [DataMember]
+        public float DistToPersueAxemanCoef;
+
+        [DataMember]
         public float DistToSleep;
 
         [DataMember]
         public float DistToActivate;
 
         [DataMember]
-        public float MagnetPower;
-
-        [DataMember]
-        public float DistToPersueAxemanCoef;
+        public float MagnetPower;        
 
         [DataMember]
         public float KhorovodChance;

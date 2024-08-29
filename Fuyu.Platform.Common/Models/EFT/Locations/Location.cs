@@ -81,10 +81,6 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         [DataMember]
         public bool IsSecret;
 
-        // TODO: proper type
-        [DataMember]
-        public object[] doors;
-
         [DataMember]
         public int MaxDistToFreePoint;
 
@@ -170,30 +166,6 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         public long UnixDateTime;
 
         [DataMember]
-        public int users_gather_seconds;
-        
-        [DataMember]
-        public int users_spawn_seconds_n;
-        
-        [DataMember]
-        public int users_spawn_seconds_n2;
-        
-        [DataMember]
-        public int users_summon_seconds;
-        
-        [DataMember]
-        public int sav_summon_seconds;
-        
-        [DataMember]
-        public int matching_min_seconds;
-
-        [DataMember]
-        public bool GenerateLocalLootCache;
-
-        [DataMember]
-        public int PlayersRequestCount;
-
-        [DataMember]
         public GroupScenario NonWaveGroupScenario;
 
         [DataMember]
@@ -208,8 +180,9 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         [DataMember]
         public MinMaxBot[] MinMaxBots;
 
+        // TODO: update BotLocationModifier type
         [DataMember]
-        public BotLocationModifier BotLocationModifier;
+        public object BotLocationModifier;
 
         [DataMember]
         public Exit[] exits;
@@ -218,24 +191,22 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         public bool DisabledForScav;
 
         [DataMember]
-        public SpawnPointParam[] spawnPointParams;
-
-        // TODO: proper type
-        [DataMember]
-        public object[] AirdropParameters;
-
-        [DataMember]
         public MaxItemCount[] maxItemCountInLocation;
 
         [DataMember]
         public BossSpawn[] BossLocationSpawn;
 
+        [DataMember]
+        public SpawnPointParam[] spawnPointParams;
+
+        [DataMember]
+        public AirdropParameters[] AirdropParameters;
+
         [DataMember(EmitDefaultValue = false)]
         public MatchMakerWaitTime[] MatchMakerMinPlayersByWaitTime;
 
-        // TODO: proper type
         [DataMember]
-        public object[] transits;
+        public Transit[] transits;
 
         [DataMember]
         public string Id;
@@ -248,6 +219,6 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         public object[] Loot;
 
         [DataMember]
-        public BundleAddress[] Banners;
+        public Banner[] Banners;
     }
 }

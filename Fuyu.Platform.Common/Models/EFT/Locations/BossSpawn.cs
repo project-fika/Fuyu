@@ -12,6 +12,9 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         public int BossChance;
 
         [DataMember]
+        public string BossZone;
+
+        [DataMember]
         public bool BossPlayer;
 
         [DataMember]
@@ -29,12 +32,6 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         [DataMember]
         public int Time;
 
-        [DataMember]
-        public string TriggerId;
-
-        [DataMember]
-        public string TriggerName;
-
         [DataMember(EmitDefaultValue = false)]
         public BossSupport[] Supports;
 
@@ -42,12 +39,22 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         public bool RandomTimeSpawn;
 
         [DataMember(EmitDefaultValue = false)]
-        public int Delay;
-
-        [DataMember(EmitDefaultValue = false)]
         public bool ForceSpawn;
 
         [DataMember(EmitDefaultValue = false)]
         public bool IgnoreMaxBots;
+
+        [DataMember]
+        public string TriggerName;
+
+        [DataMember]
+        public string TriggerId;
+
+        [DataMember(EmitDefaultValue = false)]
+        public int Delay;
+
+        // NOTE: server-side only
+        [DataMember]
+        public string[] SpawnMode;
     }
 }
