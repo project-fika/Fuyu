@@ -38,6 +38,9 @@ namespace Fuyu.Platform.Common.Models.EFT.Profiles
         [DataMember]
         public EMemberCategory MemberCategory;
 
+        [DataMember]
+        public EMemberCategory SelectedMemberCategory;
+
         // SKIPPED: LockedMoveCommands
         // Reason: only used on BSG's internal server
 
@@ -76,6 +79,12 @@ namespace Fuyu.Platform.Common.Models.EFT.Profiles
 
         [DataMember]
         public bool HasCoopExtension;
+
+        [DataMember]
+        public bool isMigratedSkills;
+
+        [DataMember]
+        public bool HasPveGame;
 
         [DataMember]
         public Ban[] Bans;

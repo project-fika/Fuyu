@@ -8,7 +8,9 @@ namespace Fuyu.Server
     {
         static void Main()
         {
+            FuyuDatabase.Load();
             EftDatabase.Load();
+
             EftServer.Load();
             EftServer.Start();
 

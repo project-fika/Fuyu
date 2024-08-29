@@ -9,6 +9,11 @@ namespace Fuyu.Platform.Common.Models.EFT.Profiles.Stats
         public string LethalDamagePart;
 
         // TODO: proper type
+        [DataMember]
         public object LethalDamage;
+
+        // TODO: proper type
+        [DataMember]
+        public object[] BodyParts;
     }
 }

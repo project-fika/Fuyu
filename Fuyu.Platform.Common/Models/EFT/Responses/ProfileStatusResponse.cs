@@ -10,6 +10,6 @@ namespace Fuyu.Platform.Common.Models.EFT.Responses
         public bool maxPveCountExceeded;
 
         [DataMember]
-        public ProfileStatus[] profiles;
+        public ProfileStatusInfo[] profiles;
     }
 }

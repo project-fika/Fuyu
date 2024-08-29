@@ -49,6 +49,10 @@ namespace Fuyu.Platform.Common.Models.EFT.Profiles
         [DataMember]
         public BonusInfo[] Bonuses;
 
+        // TODO: proper type
+        [DataMember]
+        public object[] WishList;
+
         [DataMember]
         public NotesInfo Notes;
 
@@ -57,19 +61,18 @@ namespace Fuyu.Platform.Common.Models.EFT.Profiles
 
         // TODO: proper type
         [DataMember]
-        public object Achievements;
+        public Dictionary<string, string> Achievements;
 
         [DataMember]
         public RagfairInfo RagfairInfo;
-
-        // TODO: proper type
-        [DataMember]
-        public object[] WishList;
 
         [DataMember]
         public Dictionary<string, TraderInfo> TradersInfo;
 
         [DataMember]
         public UnlockedInfo UnlockedInfo;
+
+        [DataMember]
+        public MoneyTransferLimitInfo moneyTransferLimitData;
     }
 }

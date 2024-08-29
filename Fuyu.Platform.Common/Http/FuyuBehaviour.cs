@@ -11,6 +11,12 @@ namespace Fuyu.Platform.Common.Http
         {
             var response = context.Response;
 
+            // used for plaintext debugging
+            if (context.Request.Headers["fuyu-debug"] != null)
+            {
+                zipped = true;
+            }
+
             if (zipped)
             {
                 data = Zlib.Compress(data, ZlibCompression.Level9);
