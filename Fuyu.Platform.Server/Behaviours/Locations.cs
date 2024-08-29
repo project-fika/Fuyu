@@ -1,5 +1,5 @@
-using Fuyu.Platform.Server.Services;
 using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Common.Models.EFT.Locations;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
@@ -8,15 +8,18 @@ namespace Fuyu.Platform.Server.Behaviours
 {
     public class Locations : FuyuBehaviour
     {
+        private readonly ResponseBody<WorldMap> _locations;
+
+        public Locations()
+        {
+            var text = Resx.GetText("fuyu", "database.client.locations.json");
+            _locations = Json.Parse<ResponseBody<WorldMap>>(text);
+        }
+
         public override void Run(FuyuContext context)
         {
-            var worldmap = LocationService.GetWorldMap();
-            var response = new ResponseBody<WorldMap>()
-            {
-                data = worldmap
-            };
-
-            SendJson(context, Json.Stringify(response));
+            var response = Json.Stringify(_locations);
+            SendJson(context, response);
         }
     }
 }

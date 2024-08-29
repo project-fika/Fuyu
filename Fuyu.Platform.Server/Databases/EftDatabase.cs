@@ -1,15 +1,14 @@
 using Fuyu.Platform.Common.IO;
-using Fuyu.Platform.Server.Databases.Tables;
 
 namespace Fuyu.Platform.Server.Databases
 {
     public static class EftDatabase
     {
-        public static readonly LocationTable Location;
+        public static readonly LocaleTable Locales;
 
         static EftDatabase()
         {
-            Location = new LocationTable();
+            Locales = new LocaleTable();
         }
 
         public static void Load()
@@ -18,7 +17,7 @@ namespace Fuyu.Platform.Server.Databases
             Resx.SetSource("fuyu", typeof(EftDatabase).Assembly);
 
             // load tables
-            Location.Load();
+            Locales.Load();
         }
     }
 }
