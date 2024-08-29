@@ -12,9 +12,8 @@ namespace Fuyu.Platform.Server.Behaviours
         public GameConfig()
         {
             var json = Resx.GetText("fuyu", "database.client.game.config.json")
-                .Replace("https://prod.escapefromtarkov.com",    "http://localhost:8000")
-                .Replace("https://trading.escapefromtarkov.com", "http://localhost:8000")
-                .Replace("https://ragfair.escapefromtarkov.com", "http://localhost:8000")
+                .Replace("https://gw-pve.escapefromtarkov.com",    "http://localhost:8000")
+                .Replace("https://gw-pve-04.escapefromtarkov.com", "http://localhost:8000")
                 .Replace("wss://prod.escapefromtarkov.com",      "ws://localhost:8000");
 
             _response = Json.Parse<ResponseBody<GameConfigResponse>>(json);

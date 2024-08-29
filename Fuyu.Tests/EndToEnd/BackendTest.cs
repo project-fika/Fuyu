@@ -198,6 +198,15 @@ namespace Fuyu.Tests.EndToEnd
         }
 
         [TestMethod]
+        public async Task TestClientGetMetricsConfig()
+        {
+            var data = await _client.GetAsync("/client/getMetricsConfig");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
         public async Task TestClientGlobals()
         {
             var data = await _client.GetAsync("/client/globals");
@@ -324,13 +333,31 @@ namespace Fuyu.Tests.EndToEnd
         }
 
         [TestMethod]
-        public async Task TestClientMatchOfflineStart()
+        public async Task TestClientMatchGroupInviteCancelAll()
+        {
+            var data = await _client.GetAsync("/client/match/group/invite/cancel-all");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMatchLocalEnd()
+        {
+            var data = await _client.GetAsync("/client/match/local/end");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMatchLocalStart()
         {
             // get request data
-            var request = new MatchOfflineStartRequest()
+            var request = new MatchLocalStartRequest()
             {
                 location = "factory4_day",
-                timeVariant = "PAST",
+                timeVariant = "CURR",           // CURR: left, PAST: right
                 mode = "PVE",
                 playerSide = "PMC"
             };
@@ -340,16 +367,7 @@ namespace Fuyu.Tests.EndToEnd
             var body = Encoding.UTF8.GetBytes(json);
 
             // get response
-            var data = await _client.PostAsync("/client/match/offline/start", body);
-            var result = Encoding.UTF8.GetString(data);
-
-            Assert.IsFalse(string.IsNullOrEmpty(result));
-        }
-
-        [TestMethod]
-        public async Task TestClientMatchOfflineEnd()
-        {
-            var data = await _client.GetAsync("/client/match/offline/end");
+            var data = await _client.PostAsync("/client/match/local/start", body);
             var result = Encoding.UTF8.GetString(data);
 
             Assert.IsFalse(string.IsNullOrEmpty(result));

@@ -31,6 +31,7 @@ namespace Fuyu.Platform.Server.Servers
             Server.AddHttpService<GameProfileSelect>("/client/game/profile/select");
             Server.AddHttpService<GameStart>("/client/game/start");
             Server.AddHttpService<GameVersionValidate>("/client/game/version/validate");
+            Server.AddHttpService<GetMetricsConfig>("/client/getMetricsConfig");
             Server.AddHttpService<Globals>("/client/globals");
             Server.AddHttpService<HandbookTemplates>("/client/handbook/templates");
             Server.AddHttpService<HideoutAreas>("/client/hideout/areas");
@@ -45,8 +46,9 @@ namespace Fuyu.Platform.Server.Servers
             Server.AddHttpService<MailDialogList>("/client/mail/dialog/list");
             Server.AddHttpService<MatchGroupCurrent>("/client/match/group/current");
             Server.AddHttpService<MatchGroupExitFromMenu>("/client/match/group/exit_from_menu");
-            Server.AddHttpService<MatchOfflineStart>("/client/match/offline/start");
-            Server.AddHttpService<MatchOfflineEnd>("/client/match/offline/end");
+            Server.AddHttpService<MatchGroupInviteCancelAll>("/client/match/group/invite/cancel-all");
+            Server.AddHttpService<MatchLocalEnd>("/client/match/local/end");
+            Server.AddHttpService<MatchLocalStart>("/client/match/local/start");
             Server.AddHttpService<MenuLocaleEn>("/client/menu/locale/en");
             Server.AddHttpService<NotifierChannelCreate>("/client/notifier/channel/create");
             Server.AddHttpService<ProfileSettings>("/client/profile/settings");

@@ -11,7 +11,7 @@
     <EmbeddedResource Include="embedded/database/locations/lighthouse.json" />
     <EmbeddedResource Include="embedded/database/locations/rezervbase.json" />
     <EmbeddedResource Include="embedded/database/locations/sandbox.json" />
-    <EmbeddedResource Include="embedded/database/locations/shoreline.json" />
+    <EmbeddedResource Include="embedded/database/locations/shorline.json" />
     <EmbeddedResource Include="embedded/database/locations/tarkovstreets.json" />
     <EmbeddedResource Include="embedded/database/locations/woods.json" />
     <EmbeddedResource Include="embedded/database/client.achievement.list.json" />

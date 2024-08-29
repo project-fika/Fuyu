@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 namespace Fuyu.Platform.Common.Models.EFT.Requests
 {
     [DataContract]
-    public struct MatchOfflineStartRequest
+    public struct MatchLocalStartRequest
     {
         [DataMember]
         public string location;

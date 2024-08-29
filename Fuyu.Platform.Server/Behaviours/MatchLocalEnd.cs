@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours
 {
-    public class MatchOfflineEnd : FuyuBehaviour
+    public class MatchLocalEnd : FuyuBehaviour
     {
         public override void Run(FuyuContext context)
         {

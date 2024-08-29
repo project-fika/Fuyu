@@ -7,6 +7,8 @@ namespace Fuyu.Platform.Common.Models.EFT.Responses
     {
         [DataMember]
         public string gameMode;
+
+        [DataMember]
         public string backendUrl;
     }
 }
