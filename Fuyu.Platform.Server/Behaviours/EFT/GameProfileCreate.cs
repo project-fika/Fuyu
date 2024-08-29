@@ -25,9 +25,6 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
         public override void Run(FuyuContext context)
         {
             var request = context.GetJson<GameProfileCreateRequest>();
-            Terminal.WriteLine(context.GetText());
-            Terminal.WriteLine(Json.Stringify(request));
-
             var sessionId = context.GetSessionId();
             var accountId = FuyuDatabase.Accounts.GetSession(sessionId);
             var account = FuyuDatabase.Accounts.GetAccount(accountId);

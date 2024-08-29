@@ -1,20 +1,20 @@
 using Fuyu.Platform.Common.Http;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
-using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameProfileNicknameReserved : FuyuBehaviour
+    public class GameKeepalive : FuyuBehaviour
     {
         public override void Run(FuyuContext context)
         {
-            var sessionId = context.GetSessionId();
-            var account = FuyuDatabase.Accounts.GetAccount(sessionId);
-
-            var response = new ResponseBody<string>()
+            var response = new ResponseBody<GameKeepaliveResponse>
             {
-                data = account.Username
+                data = new GameKeepaliveResponse()
+                {
+                    msg = "OK",
+                    utc_time = 1724627853.791631
+                }
             };
 
             SendJson(context, Json.Stringify(response));

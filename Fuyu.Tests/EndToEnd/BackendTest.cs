@@ -155,6 +155,15 @@ namespace Fuyu.Tests.EndToEnd
         }
 
         [TestMethod]
+        public async Task TestClientGameKeepalive()
+        {
+            var data = await _client.GetAsync("/client/game/keepalive");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
         public async Task TestClientLogout()
         {
             var data = await _client.GetAsync("/client/game/logout");
@@ -746,6 +755,15 @@ namespace Fuyu.Tests.EndToEnd
         public async Task TestProfileStatus()
         {
             var data = await _client.GetAsync("/client/profile/status");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestPutMetrics()
+        {
+            var data = await _client.GetAsync("/client/putMetrics");
             var result = Encoding.UTF8.GetString(data);
 
             Assert.IsFalse(string.IsNullOrEmpty(result));
