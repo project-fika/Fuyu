@@ -279,9 +279,153 @@ namespace Fuyu.Tests.EndToEnd
         }
 
         [TestMethod]
+        public async Task TestClientLocaleCh()
+        {
+            var data = await _client.GetAsync("/client/locale/ch");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleCz()
+        {
+            var data = await _client.GetAsync("/client/locale/cz");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
         public async Task TestClientLocaleEn()
         {
             var data = await _client.GetAsync("/client/locale/en");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleEs()
+        {
+            var data = await _client.GetAsync("/client/locale/es");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleEsMx()
+        {
+            var data = await _client.GetAsync("/client/locale/es-mx");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleFr()
+        {
+            var data = await _client.GetAsync("/client/locale/fr");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleGe()
+        {
+            var data = await _client.GetAsync("/client/locale/ge");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleHu()
+        {
+            var data = await _client.GetAsync("/client/locale/hu");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleIt()
+        {
+            var data = await _client.GetAsync("/client/locale/it");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleJp()
+        {
+            var data = await _client.GetAsync("/client/locale/jp");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleKr()
+        {
+            var data = await _client.GetAsync("/client/locale/kr");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocalePo()
+        {
+            var data = await _client.GetAsync("/client/locale/po");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocalePl()
+        {
+            var data = await _client.GetAsync("/client/locale/pl");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleRo()
+        {
+            var data = await _client.GetAsync("/client/locale/ro");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleRu()
+        {
+            var data = await _client.GetAsync("/client/locale/ru");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleSk()
+        {
+            var data = await _client.GetAsync("/client/locale/sk");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientLocaleTu()
+        {
+            var data = await _client.GetAsync("/client/locale/tu");
             var result = Encoding.UTF8.GetString(data);
 
             Assert.IsFalse(string.IsNullOrEmpty(result));
@@ -374,9 +518,153 @@ namespace Fuyu.Tests.EndToEnd
         }
 
         [TestMethod]
+        public async Task TestClientMenuLocaleCh()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/ch");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleCz()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/cz");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
         public async Task TestClientMenuLocaleEn()
         {
             var data = await _client.GetAsync("/client/menu/locale/en");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleEs()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/es");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleEsMx()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/es-mx");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleFr()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/fr");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleGe()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/ge");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleHu()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/hu");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleIt()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/it");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleJp()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/jp");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleKr()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/kr");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocalePo()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/po");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocalePl()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/pl");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleRo()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/ro");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleRu()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/ru");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleSk()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/sk");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientMenuLocaleTu()
+        {
+            var data = await _client.GetAsync("/client/menu/locale/tu");
             var result = Encoding.UTF8.GetString(data);
 
             Assert.IsFalse(string.IsNullOrEmpty(result));

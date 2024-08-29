@@ -1,27 +1,47 @@
 using Fuyu.Platform.Common.Http;
-using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
+using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours
 {
     public class GameConfig : FuyuBehaviour
     {
-        private readonly ResponseBody<GameConfigResponse> _response;
-
-        public GameConfig()
-        {
-            var json = Resx.GetText("fuyu", "database.client.game.config.json")
-                .Replace("https://gw-pve.escapefromtarkov.com",    "http://localhost:8000")
-                .Replace("https://gw-pve-04.escapefromtarkov.com", "http://localhost:8000")
-                .Replace("wss://prod.escapefromtarkov.com",      "ws://localhost:8000");
-
-            _response = Json.Parse<ResponseBody<GameConfigResponse>>(json);
-        }
-
         public override void Run(FuyuContext context)
         {
-            SendJson(context, Json.Stringify(_response));
+            var languages = EftDatabase.Locales.GetLanguages();
+            var response = new ResponseBody<GameConfigResponse>
+            {
+                data = new GameConfigResponse()
+                {
+                    aid = 659885,
+                    lang = "en",            // TODO: observe how this works
+                    languages = languages,
+                    ndaFree = false,
+                    taxonomy = 6,
+                    backend = new Backends()
+                    {
+                        Lobby = "http://localhost:8000",
+                        Trading = "http://localhost:8000",
+                        Messaging = "http://localhost:8000",
+                        Main = "http://localhost:8000",
+                        RagFair = "http://localhost:8000"
+                    },
+                    useProtobuf = false,
+                    utc_time = 1724450891.010541,
+                    reportAvailable = true,
+                    twitchEventMember = false,
+                    sessionMode = "pve",
+                    purchasedGames = new PurchasedGames()
+                    {
+                        eft = true,
+                        arena = true
+                    },
+                    isGameSynced = true
+                }
+            };
+
+            SendJson(context, Json.Stringify(response));
         }
     }
 }
