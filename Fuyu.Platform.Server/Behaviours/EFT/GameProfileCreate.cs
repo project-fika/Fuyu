@@ -25,6 +25,9 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
         public override void Run(FuyuContext context)
         {
             var request = context.GetJson<GameProfileCreateRequest>();
+            Terminal.WriteLine(context.GetText());
+            Terminal.WriteLine(Json.Stringify(request));
+
             var sessionId = context.GetSessionId();
             var accountId = FuyuDatabase.Accounts.GetSession(sessionId);
             var account = FuyuDatabase.Accounts.GetAccount(accountId);
@@ -40,6 +43,8 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 
             // create pmc
             var pmcId = EftHash.Generate();
+            var voiceTemplate = EftDatabase.Templates.GetCustomization(request.voiceId);
+
             account.EftSave.PvE.Pmc = request.side == "bear"
                 ? Json.Parse<Profile>(_bearJson)
                 : Json.Parse<Profile>(_usecJson);
@@ -49,7 +54,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             account.EftSave.PvE.Pmc.aid                 = accountId;
             account.EftSave.PvE.Pmc.Info.Nickname       = account.Username;
             account.EftSave.PvE.Pmc.Info.LowerNickname  = account.Username.ToLowerInvariant();
-            account.EftSave.PvE.Pmc.Info.Voice          = request.voiceId;
+            account.EftSave.PvE.Pmc.Info.Voice          = voiceTemplate._name;
             account.EftSave.PvE.Pmc.Customization.Head  = request.headId;
 
             // wipe done

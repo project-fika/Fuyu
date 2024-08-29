@@ -49,6 +49,11 @@ namespace Fuyu.Platform.Server.Databases.EFT
             return _languages;
         }
 
+        public string GetLanguage(string languageId)
+        {
+            return _languages[languageId];
+        }
+
         public void SetLanguage(string languageId, string name)
         {
             lock (_languagesLock)
@@ -90,6 +95,11 @@ namespace Fuyu.Platform.Server.Databases.EFT
 
                 AddGlobalLocale(languageId, response.data);
             }
+        }
+
+        public Dictionary<string, Dictionary<string, string>> GetGlobalLocales()
+        {
+            return _globalLocales;
         }
 
         public Dictionary<string, string> GetGlobalLocale(string languageId)
@@ -138,6 +148,11 @@ namespace Fuyu.Platform.Server.Databases.EFT
 
                 AddMenuLocale(languageId, response.data);
             }
+        }
+
+        public Dictionary<string, MenuLocaleResponse> GetMenuLocales()
+        {
+            return _menuLocales;
         }
 
         public MenuLocaleResponse GetMenuLocale(string languageId)
