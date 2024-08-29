@@ -30,9 +30,12 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         public string BotPreset;
 
         [DataMember]
+        public bool isPlayers;
+
+        [DataMember]
         public string WildSpawnType;
 
         [DataMember]
-        public bool isPlayers;
+        public string[] SpawnMode;
     }
 }

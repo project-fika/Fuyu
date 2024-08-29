@@ -13,7 +13,7 @@ namespace Fuyu.Platform.Server.Behaviours
                 data = new CheckVersionResponse()
                 {
                     isvalid = true,
-                    latestVersion = "0.14.1.2.29197"
+                    latestVersion = "0.15.0.2.32197"
                 }
             };
 

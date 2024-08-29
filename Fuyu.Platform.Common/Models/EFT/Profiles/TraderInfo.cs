@@ -15,6 +15,6 @@ namespace Fuyu.Platform.Common.Models.EFT.Profiles
         public int salesSum;
 
         [DataMember]
-        public int standing;
+        public float standing;
     }
 }

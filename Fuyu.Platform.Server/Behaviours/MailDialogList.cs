@@ -1,20 +1,19 @@
 using Fuyu.Platform.Common.Http;
-using Fuyu.Platform.Common.IO;
+using Fuyu.Platform.Common.Models.EFT.Responses;
+using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours
 {
     public class MailDialogList : FuyuBehaviour
     {
-        private readonly string _response;
-
-        public MailDialogList()
-        {
-            _response = Resx.GetText("fuyu", "database.client.mail.dialog.list.json");
-        }
-
         public override void Run(FuyuContext context)
         {
-            SendJson(context, _response);
+            var response = new ResponseBody<object[]>
+            {
+                data = []
+            };
+
+            SendJson(context, Json.Stringify(response));
         }
     }
 }

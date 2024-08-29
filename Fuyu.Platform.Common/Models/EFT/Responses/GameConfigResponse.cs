@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
-using Fuyu.Platform.Common.Models.EFT.Servers;
 
 namespace Fuyu.Platform.Common.Models.EFT.Responses
 {
@@ -42,5 +41,24 @@ namespace Fuyu.Platform.Common.Models.EFT.Responses
 
         [DataMember]
         public bool twitchEventMember;
+
+        [DataMember]
+        public string sessionMode;
+
+        [DataMember]
+        public PurchasedGames purchasedGames;
+
+        [DataMember]
+        public bool isGameSynced;
+    }
+
+    [DataContract]
+    public struct PurchasedGames
+    {
+        [DataMember]
+        public bool eft;
+
+        [DataMember]
+        public bool arena;
     }
 }

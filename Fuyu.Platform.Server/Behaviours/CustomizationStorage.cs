@@ -12,7 +12,7 @@ namespace Fuyu.Platform.Server.Behaviours
             {
                 data = new CustomizationStorageResponse()
                 {
-                    _id = "64d61101800c8b63160d4bd0",
+                    _id = "664113fa049fd2369707c357",
                     suites = [
                         "5cde9ec17d6c8b04723cf479",
                         "5cde9e957d6c8b0474535da7"

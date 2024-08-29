@@ -13,6 +13,9 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         public bool EnableCoop;
 
         [DataMember]
+        public bool ForceOnlineRaidInPVE;
+
+        [DataMember]
         public bool Locked;
 
         [DataMember]
@@ -67,6 +70,9 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         public int EscapeTimeLimit;
 
         [DataMember]
+        public int EscapeTimeLimitPVE;
+
+        [DataMember]
         public int EscapeTimeLimitCoop;
 
         [DataMember]
@@ -108,6 +114,9 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
 
         [DataMember]
         public int BotMax;
+
+        [DataMember]
+        public int BotMaxPvE;
 
         [DataMember]
         public int BotStart;
@@ -161,6 +170,27 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         public long UnixDateTime;
 
         [DataMember]
+        public int users_gather_seconds;
+        
+        [DataMember]
+        public int users_spawn_seconds_n;
+        
+        [DataMember]
+        public int users_spawn_seconds_n2;
+        
+        [DataMember]
+        public int users_summon_seconds;
+        
+        [DataMember]
+        public int sav_summon_seconds;
+        
+        [DataMember]
+        public int matching_min_seconds;
+
+        [DataMember]
+        public bool GenerateLocalLootCache;
+
+        [DataMember]
         public int PlayersRequestCount;
 
         [DataMember]
@@ -190,6 +220,10 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
         [DataMember]
         public SpawnPointParam[] spawnPointParams;
 
+        // TODO: proper type
+        [DataMember]
+        public object[] AirdropParameters;
+
         [DataMember]
         public MaxItemCount[] maxItemCountInLocation;
 
@@ -198,6 +232,10 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
 
         [DataMember(EmitDefaultValue = false)]
         public MatchMakerWaitTime[] MatchMakerMinPlayersByWaitTime;
+
+        // TODO: proper type
+        [DataMember]
+        public object[] transits;
 
         [DataMember]
         public string Id;
