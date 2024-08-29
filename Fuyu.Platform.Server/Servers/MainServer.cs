@@ -1,5 +1,5 @@
 using Fuyu.Platform.Common.Http;
-using Fuyu.Platform.Server.Behaviours;
+using Fuyu.Platform.Server.Behaviours.EFT;
 
 namespace Fuyu.Platform.Server.Servers
 {

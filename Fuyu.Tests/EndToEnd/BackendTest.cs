@@ -21,7 +21,9 @@ namespace Fuyu.Tests.EndToEnd
         {
             _client = new FuyuClient("http://localhost:8000", "480892");
 
+            FuyuDatabase.Load();
             EftDatabase.Load();
+
             EftServer.Load();
             EftServer.Start();
         }

@@ -5,21 +5,21 @@ namespace Fuyu.Platform.Launcher.Services
 {
     public class ProcessService
     {
-        private static string GetLaunchArguments(int accountId, string address)
+        private static string GetLaunchArguments(string sessionId, string address)
         {
-            var token = $"-token={accountId}";
+            var token = $"-token={sessionId}";
             var config = "-config={\"BackendUrl\":\"" + address + "\",\"Version\":\"live\"}";
             var arguments = $"{token} {config}";
             return arguments;
         }
 
-        public static Process StartEft(string cwd, int accountId, string address)
+        public static Process StartEft(string cwd, string sessionId, string address)
         {
             return new Process()
             {
                 StartInfo = new ProcessStartInfo()
                 {
-                    Arguments = GetLaunchArguments(accountId, address),
+                    Arguments = GetLaunchArguments(sessionId, address),
                     FileName = Path.Combine(cwd, "EscapeFromTarkov.exe"),
                     WorkingDirectory = cwd
                 }

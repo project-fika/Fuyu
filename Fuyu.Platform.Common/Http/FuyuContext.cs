@@ -61,5 +61,10 @@ namespace Fuyu.Platform.Common.Http
             var json = GetText();
             return Json.Parse<T>(json);
         }
+
+        public string GetSessionId()
+        {
+            return Request.Cookies["PHPSESSID"].Value;
+        }
     }
 }

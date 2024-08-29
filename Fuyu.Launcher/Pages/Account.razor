@@ -22,9 +22,9 @@
 
     private void StartEft()
     {
-        var accountId = 659885;
+        var sessionId = "test";
 
-        using (var process = ProcessService.StartEft(SettingsService.ClientDirectory, accountId, SettingsService.Address))
+        using (var process = ProcessService.StartEft(SettingsService.ClientDirectory, sessionId, SettingsService.Address))
         {
             process.Start();
         }

@@ -1,4 +1,5 @@
 using Fuyu.Platform.Common.IO;
+using Fuyu.Platform.Server.Databases.EFT;
 
 namespace Fuyu.Platform.Server.Databases
 {
@@ -14,7 +15,7 @@ namespace Fuyu.Platform.Server.Databases
         public static void Load()
         {
             // set data source
-            Resx.SetSource("fuyu", typeof(EftDatabase).Assembly);
+            Resx.SetSource("eft", typeof(EftDatabase).Assembly);
 
             // load tables
             Locales.Load();
