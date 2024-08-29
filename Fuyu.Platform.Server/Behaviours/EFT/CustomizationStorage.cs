@@ -10,8 +10,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
         public override void Run(FuyuContext context)
         {
             var sessionId = context.GetSessionId();
-            var accountId = FuyuDatabase.Accounts.GetSession(sessionId);
-            var account = FuyuDatabase.Accounts.GetAccount(accountId);
+            var account = FuyuDatabase.Accounts.GetAccount(sessionId);
 
             // TODO: PVP-PVE STATE DETECTION
             var response = new ResponseBody<CustomizationStorageResponse>()

@@ -6,10 +6,12 @@ namespace Fuyu.Platform.Server.Databases
     public static class EftDatabase
     {
         public static readonly LocaleTable Locales;
+        public static readonly TemplateTable Templates;
 
         static EftDatabase()
         {
             Locales = new LocaleTable();
+            Templates = new TemplateTable();
         }
 
         public static void Load()
@@ -19,6 +21,7 @@ namespace Fuyu.Platform.Server.Databases
 
             // load tables
             Locales.Load();
+            Templates.Load();
         }
     }
 }

@@ -58,6 +58,17 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
             AddAccount(1, account);
         }
 
+        public Dictionary<int, Account> GetAccounts()
+        {
+            return _accounts;
+        }
+
+        public Account GetAccount(string sessionId)
+        {
+            var accountId = GetSession(sessionId);
+            return _accounts[accountId];
+        }
+
         public Account GetAccount(int accountId)
         {
             return _accounts[accountId];

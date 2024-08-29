@@ -26,6 +26,7 @@ namespace Fuyu.Platform.Server.Servers
             Server.AddHttpService<FriendRequestListOutbox>("/client/friend/request/list/outbox");
             Server.AddHttpService<GameBotGenerate>("/client/game/bot/generate");
             Server.AddHttpService<GameConfig>("/client/game/config");
+            Server.AddHttpService<GameConfig>("/client/game/keepalive");
             Server.AddHttpService<GameLogout>("/client/game/logout");
             Server.AddHttpService<GameMode>("/client/game/mode");
             Server.AddHttpService<GameProfileCreate>("/client/game/profile/create");
@@ -89,6 +90,7 @@ namespace Fuyu.Platform.Server.Servers
             Server.AddHttpService<NotifierChannelCreate>("/client/notifier/channel/create");
             Server.AddHttpService<ProfileSettings>("/client/profile/settings");
             Server.AddHttpService<ProfileStatus>("/client/profile/status");
+            Server.AddHttpService<ProfileStatus>("/client/putMetrics");
             Server.AddHttpService<QuestList>("/client/quest/list");
             Server.AddHttpService<RaidConfiguration>("/client/raid/configuration");
             Server.AddHttpService<RepeatableQuestActivityPeriods>("/client/repeatalbeQuests/activityPeriods");
