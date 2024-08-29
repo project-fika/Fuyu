@@ -32,5 +32,8 @@ namespace Fuyu.Platform.Common.Models.EFT.Locations
 
         [DataMember]
         public string BotZoneName;
+
+        [DataMember]
+        public int CorePointId;
     }
 }
