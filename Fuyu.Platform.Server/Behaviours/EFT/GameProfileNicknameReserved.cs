@@ -5,7 +5,7 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class CustomizationStorage : FuyuBehaviour
+    public class GameProfileNicknameReserved : FuyuBehaviour
     {
         public override void Run(FuyuContext context)
         {
@@ -13,14 +13,9 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             var accountId = FuyuDatabase.Accounts.GetSession(sessionId);
             var account = FuyuDatabase.Accounts.GetAccount(accountId);
 
-            // TODO: PVP-PVE STATE DETECTION
-            var response = new ResponseBody<CustomizationStorageResponse>()
+            var response = new ResponseBody<string>()
             {
-                data = new CustomizationStorageResponse()
-                {
-                    _id = account.EftSave.PvE.Pmc._id,
-                    suites = account.EftSave.PvE.Suites
-                }
+                data = account.Username
             };
 
             SendJson(context, Json.Stringify(response));

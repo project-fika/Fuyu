@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Fuyu.Platform.Common.Models.Fuyu;
 using Fuyu.Platform.Common.Models.Fuyu.Savegame;
@@ -41,16 +40,16 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
                     Edition = "Unheard",
                     PvE = new EftProfile()
                     {
-                        Savage = null,
-                        Pmc = null,
-                        Cloths = [],
+                        Savage = default,
+                        Pmc = default,
+                        Suites = [],
                         ShouldWipe = true
                     },
                     PvP = new EftProfile()
                     {
-                        Savage = null,
-                        Pmc = null,
-                        Cloths = [],
+                        Savage = default,
+                        Pmc = default,
+                        Suites = [],
                         ShouldWipe = true
                     }
                 }

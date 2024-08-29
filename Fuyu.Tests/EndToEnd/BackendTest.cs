@@ -19,13 +19,22 @@ namespace Fuyu.Tests.EndToEnd
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            _client = new FuyuClient("http://localhost:8000", "480892");
+            _client = new FuyuClient("http://localhost:8000", "test");
 
             FuyuDatabase.Load();
             EftDatabase.Load();
 
             EftServer.Load();
             EftServer.Start();
+        }
+
+        [TestMethod]
+        public async Task TestClientAccountCustomization()
+        {
+            var data = await _client.GetAsync("/client/account/customization");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
         }
 
         [TestMethod]
@@ -164,9 +173,61 @@ namespace Fuyu.Tests.EndToEnd
         }
 
         [TestMethod]
+        public async Task TestClientGameProfileCreate()
+        {
+            // get request data
+            var request = new GameProfileCreateRequest()
+            {
+                side = "usec",
+                nickname = "senko",
+                headId = string.Empty,  // TODO: use real ids
+                voiceId = string.Empty  // TODO: use real ids
+            };
+
+            // get request body
+            var json = Json.Stringify(request);
+            var body = Encoding.UTF8.GetBytes(json);
+
+            // get response
+            var data = await _client.PostAsync("/client/game/profile/create", body);
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
         public async Task TestClientGameProfileList()
         {
             var data = await _client.GetAsync("/client/game/profile/list");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientGameProfileNicknameReserved()
+        {
+            var data = await _client.GetAsync("/client/game/profile/nickname/reserved");
+            var result = Encoding.UTF8.GetString(data);
+
+            Assert.IsFalse(string.IsNullOrEmpty(result));
+        }
+
+        [TestMethod]
+        public async Task TestClientGameProfileNicknameValidate()
+        {
+            // get request data
+            var request = new GameProfileNicknameValidateRequest()
+            {
+                nickname = "senko"
+            };
+
+            // get request body
+            var json = Json.Stringify(request);
+            var body = Encoding.UTF8.GetBytes(json);
+
+            // get response
+            var data = await _client.PostAsync("/client/game/profile/nickname/validate", body);
             var result = Encoding.UTF8.GetString(data);
 
             Assert.IsFalse(string.IsNullOrEmpty(result));

@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 namespace Fuyu.Platform.Common.Models.EFT.Multiplayer
 {
     [DataContract]
-    public struct ProfileStatus
+    public struct ProfileStatusInfo
     {
         [DataMember]
         public string profileid;

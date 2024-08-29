@@ -9,12 +9,15 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         public override void Run(FuyuContext context)
         {
+            var sessionId = context.GetSessionId();
+            var accountId = FuyuDatabase.Accounts.GetSession(sessionId);
+
             var languages = EftDatabase.Locales.GetLanguages();
             var response = new ResponseBody<GameConfigResponse>
             {
                 data = new GameConfigResponse()
                 {
-                    aid = 659885,
+                    aid = accountId,
                     lang = "en",            // TODO: observe how this works
                     languages = languages,
                     ndaFree = false,

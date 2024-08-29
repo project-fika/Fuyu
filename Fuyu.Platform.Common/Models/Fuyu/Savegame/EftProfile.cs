@@ -7,13 +7,13 @@ namespace Fuyu.Platform.Common.Models.Fuyu.Savegame
     public struct EftProfile
     {
         [DataMember]
-        public Profile? Savage;
+        public Profile Savage;
 
         [DataMember]
-        public Profile? Pmc;
+        public Profile Pmc;
 
         [DataMember]
-        public string[] Cloths;
+        public string[] Suites;
 
         [DataMember]
         public bool ShouldWipe;

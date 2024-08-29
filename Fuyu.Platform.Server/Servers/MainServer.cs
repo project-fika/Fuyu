@@ -14,6 +14,7 @@ namespace Fuyu.Platform.Server.Servers
 
         public static void Load()
         {
+            Server.AddHttpService<AccountCustomization>("/client/account/customization");
             Server.AddHttpService<AchievementList>("/client/achievement/list");
             Server.AddHttpService<AchievementStatistic>("/client/achievement/statistic");
             Server.AddHttpService<BuildsList>("/client/builds/list");
@@ -27,7 +28,10 @@ namespace Fuyu.Platform.Server.Servers
             Server.AddHttpService<GameConfig>("/client/game/config");
             Server.AddHttpService<GameLogout>("/client/game/logout");
             Server.AddHttpService<GameMode>("/client/game/mode");
+            Server.AddHttpService<GameProfileCreate>("/client/game/profile/create");
             Server.AddHttpService<GameProfileList>("/client/game/profile/list");
+            Server.AddHttpService<GameProfileNicknameReserved>("/client/game/profile/nickname/reserved");
+            Server.AddHttpService<GameProfileNicknameValidate>("/client/game/profile/nickname/validate");
             Server.AddHttpService<GameProfileSelect>("/client/game/profile/select");
             Server.AddHttpService<GameStart>("/client/game/start");
             Server.AddHttpService<GameVersionValidate>("/client/game/version/validate");

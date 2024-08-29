@@ -49,11 +49,14 @@
     <EmbeddedResource Include="embedded/database/eft/locations/shorline.json" />
     <EmbeddedResource Include="embedded/database/eft/locations/tarkovstreets.json" />
     <EmbeddedResource Include="embedded/database/eft/locations/woods.json" />
+    <EmbeddedResource Include="embedded/database/eft/profiles/player.savage.json" />
+    <EmbeddedResource Include="embedded/database/eft/profiles/player.unheard-bear.json" />
+    <EmbeddedResource Include="embedded/database/eft/profiles/player.unheard-usec.json" />
+    <EmbeddedResource Include="embedded/database/eft/client.account.customization.json" />
     <EmbeddedResource Include="embedded/database/eft/client.achievement.list.json" />
     <EmbeddedResource Include="embedded/database/eft/client.achievement.statistic.json" />
     <EmbeddedResource Include="embedded/database/eft/client.builds.list.json" />
     <EmbeddedResource Include="embedded/database/eft/client.customization.json" />
-    <EmbeddedResource Include="embedded/database/eft/client.game.profile.list.json" />
     <EmbeddedResource Include="embedded/database/eft/client.globals.json" />
     <EmbeddedResource Include="embedded/database/eft/client.handbook.templates.json" />
     <EmbeddedResource Include="embedded/database/eft/client.hideout.areas.json" />
@@ -64,7 +67,6 @@
     <EmbeddedResource Include="embedded/database/eft/client.locations.json" />
     <EmbeddedResource Include="embedded/database/eft/client.localGame.weather.json" />
     <EmbeddedResource Include="embedded/database/eft/client.notifier.channel.create.json" />
-    <EmbeddedResource Include="embedded/database/eft/client.profile.status.json" />
     <EmbeddedResource Include="embedded/database/eft/client.quest.list.json" />
     <EmbeddedResource Include="embedded/database/eft/client.settings.json" />
     <EmbeddedResource Include="embedded/database/eft/client.trading.api.traderSettings.json" />
