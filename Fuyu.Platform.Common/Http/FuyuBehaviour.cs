@@ -14,7 +14,7 @@ namespace Fuyu.Platform.Common.Http
             // used for plaintext debugging
             if (context.Request.Headers["fuyu-debug"] != null)
             {
-                zipped = true;
+                zipped = false;
             }
 
             if (zipped)
