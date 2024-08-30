@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Fuyu.Platform.Common.Models.EFT.Responses
@@ -6,35 +5,35 @@ namespace Fuyu.Platform.Common.Models.EFT.Responses
     [DataContract]
     public struct GameConfigResponse
     {
-        [DataMember]
-        public int aid;
+        // SKIPPED: aid
+        // Reason: only used on BSG's internal server
 
-        [DataMember]
-        public string lang;
+        // SKIPPED: lang
+        // Reason: only used on BSG's internal server
 
-        [DataMember]
-        public Dictionary<string, string> languages;
+        // SKIPPED: languages
+        // Reason: only used on BSG's internal server
 
-        [DataMember]
-        public bool ndaFree;
+        // SKIPPED: ndaFree
+        // Reason: only used on BSG's internal server
 
-        [DataMember]
-        public int taxonomy;
+        // SKIPPED: taxomony
+        // Reason: only used on BSG's internal server
 
-        [DataMember]
-        public string activeProfileId;
+        // SKIPPED: activeProfileId
+        // Reason: only used on BSG's internal server
 
         [DataMember]
         public Backends backend;
 
-        [DataMember]
-        public bool useProtobuf;
+        // SKIPPED: useProtobuf
+        // Reason: only used on BSG's internal server
 
         [DataMember]
         public double utc_time;
 
-        [DataMember]
-        public int totalInGame;
+        // SKIPPED: totalInGame
+        // Reason: only used on BSG's internal server
 
         [DataMember]
         public bool reportAvailable;
@@ -42,12 +41,13 @@ namespace Fuyu.Platform.Common.Models.EFT.Responses
         [DataMember]
         public bool twitchEventMember;
 
-        [DataMember]
-        public string sessionMode;
+        // SKIPPED: sessionMode
+        // Reason: only used on BSG's internal server
 
         [DataMember]
         public PurchasedGames purchasedGames;
 
+        // NOTE: in relation to trader "Ref" (is game synced with Arena)
         [DataMember]
         public bool isGameSynced;
     }
