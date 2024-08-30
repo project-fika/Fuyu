@@ -45,7 +45,7 @@ namespace Fuyu.Platform.Server.Servers
             Server.AddHttpService<HideoutSettings>("/client/hideout/settings");
             Server.AddHttpService<Items>("/client/items");
             Server.AddHttpService<Languages>("/client/languages");
-            Server.AddHttpService<LocaleCh>("/client/locale/ch");
+            /*Server.AddHttpService<LocaleCh>("/client/locale/ch");
             Server.AddHttpService<LocaleCz>("/client/locale/cz");
             Server.AddHttpService<LocaleEn>("/client/locale/en");
             Server.AddHttpService<LocaleEs>("/client/locale/es");
@@ -61,7 +61,8 @@ namespace Fuyu.Platform.Server.Servers
             Server.AddHttpService<LocaleRo>("/client/locale/ro");
             Server.AddHttpService<LocaleRu>("/client/locale/ru");
             Server.AddHttpService<LocaleSk>("/client/locale/sk");
-            Server.AddHttpService<LocaleTu>("/client/locale/tu");
+            Server.AddHttpService<LocaleTu>("/client/locale/tu");*/
+            Server.AddHttpService<Locale>("/client/locale/{locale}");
             Server.AddHttpService<LocalGameWeather>("/client/localGame/weather");
             Server.AddHttpService<Locations>("/client/locations");
             Server.AddHttpService<MailDialogList>("/client/mail/dialog/list");
@@ -70,7 +71,7 @@ namespace Fuyu.Platform.Server.Servers
             Server.AddHttpService<MatchGroupInviteCancelAll>("/client/match/group/invite/cancel-all");
             Server.AddHttpService<MatchLocalEnd>("/client/match/local/end");
             Server.AddHttpService<MatchLocalStart>("/client/match/local/start");
-            Server.AddHttpService<MenuLocaleCh>("/client/menu/locale/ch");
+            /*Server.AddHttpService<MenuLocaleCh>("/client/menu/locale/ch");
             Server.AddHttpService<MenuLocaleCz>("/client/menu/locale/cz");
             Server.AddHttpService<MenuLocaleEn>("/client/menu/locale/en");
             Server.AddHttpService<MenuLocaleEs>("/client/menu/locale/es");
@@ -86,7 +87,8 @@ namespace Fuyu.Platform.Server.Servers
             Server.AddHttpService<MenuLocaleRo>("/client/menu/locale/ro");
             Server.AddHttpService<MenuLocaleRu>("/client/menu/locale/ru");
             Server.AddHttpService<MenuLocaleSk>("/client/menu/locale/sk");
-            Server.AddHttpService<MenuLocaleTu>("/client/menu/locale/tu");
+            Server.AddHttpService<MenuLocaleTu>("/client/menu/locale/tu");*/
+            Server.AddHttpService<MenuLocale>("/client/menu/locale/{locale}");
             Server.AddHttpService<NotifierChannelCreate>("/client/notifier/channel/create");
             Server.AddHttpService<ProfileSettings>("/client/profile/settings");
             Server.AddHttpService<ProfileStatus>("/client/profile/status");
