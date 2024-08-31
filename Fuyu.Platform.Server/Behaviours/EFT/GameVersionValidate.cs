@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class GameVersionValidate : FuyuBehaviour
     {
+        public GameVersionValidate() : base("/client/game/version/validate")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<object>()

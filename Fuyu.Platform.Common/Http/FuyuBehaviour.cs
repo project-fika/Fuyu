@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text;
 using Fuyu.Platform.Common.Compression;
 
@@ -5,6 +6,59 @@ namespace Fuyu.Platform.Common.Http
 {
     public abstract class FuyuBehaviour
     {
+        public readonly Dictionary<string, EFuyuSegment> Path;
+
+        public FuyuBehaviour(string path)
+        {
+            Path = InitializePath(path);
+        }
+
+        private static Dictionary<string, EFuyuSegment> InitializePath(string path)
+        {
+            var result = new Dictionary<string, EFuyuSegment>();
+            var segments = path.Split('/');
+
+            foreach (var segment in segments)
+            {
+                if (segment.StartsWith("{") && segment.EndsWith("}"))
+                {
+                    var name = segment.Trim('{', '}');
+                    result.Add(name, EFuyuSegment.Dynamic);
+                }
+                else
+                {
+                    result.Add(segment, EFuyuSegment.Static);
+                }
+            }
+
+            return result;
+        }
+
+        public bool IsMatch(FuyuContext context)
+        {
+            var segments = context.Path.Split('/');
+            var i = 0;
+
+            if (segments.Length != Path.Count)
+            {
+                // segment length does not match
+                return false;
+            }
+
+            foreach (var kvp in Path)
+            {
+                // validate static segment
+                if (kvp.Value == EFuyuSegment.Static && segments[i] != kvp.Key)
+                {
+                    return false;
+                }
+
+                ++i;
+            }
+
+            return true;
+        }
+
         public abstract void Run(FuyuContext context);
 
         public static void Send(FuyuContext context, byte[] data, string mime, bool zipped = true)

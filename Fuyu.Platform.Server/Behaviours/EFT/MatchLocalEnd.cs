@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class MatchLocalEnd : FuyuBehaviour
     {
+        public MatchLocalEnd() : base("/client/match/local/end")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<object>()

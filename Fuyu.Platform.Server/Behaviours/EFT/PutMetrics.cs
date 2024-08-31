@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class PutMetrics : FuyuBehaviour
     {
+        public PutMetrics() : base("/client/putMetrics")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<object>()

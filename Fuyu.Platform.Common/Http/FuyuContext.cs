@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Fuyu.Platform.Common.Compression;
@@ -10,14 +11,16 @@ namespace Fuyu.Platform.Common.Http
     {
         public readonly HttpListenerRequest Request;
         public readonly HttpListenerResponse Response;
+        public readonly string Path;
 
         public FuyuContext(HttpListenerRequest request, HttpListenerResponse response)
         {
             Request = request;
             Response = response;
+            Path = GetPath();
         }
 
-        public string GetPath()
+        private string GetPath()
         {
             var path = Request.Url.PathAndQuery;
 
@@ -27,6 +30,25 @@ namespace Fuyu.Platform.Common.Http
             }
 
             return path;
+        }
+
+        public Dictionary<string, string> GetParameters(FuyuBehaviour behaviour)
+        {
+            var result = new Dictionary<string, string>();
+            var segments = Path.Split('/');
+            var i = 0;
+
+            foreach (var kvp in behaviour.Path)
+            {
+                if (kvp.Value == EFuyuSegment.Dynamic)
+                {
+                    result.Add(kvp.Key, segments[i]);
+                }
+
+                ++i;
+            }
+
+            return result;
         }
 
         public bool HasBody()

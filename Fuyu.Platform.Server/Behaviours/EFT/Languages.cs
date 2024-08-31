@@ -8,6 +8,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class Languages : FuyuBehaviour
     {
+        public Languages() : base("/client/languages")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var languages = EftDatabase.Locales.GetLanguages();

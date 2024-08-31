@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class Survey : FuyuBehaviour
     {
+        public Survey() : base("/client/survey")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<object>()

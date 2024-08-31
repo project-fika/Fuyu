@@ -15,7 +15,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
         private readonly string _usecJson;
         private readonly string _savageJson;
 
-        public GameProfileCreate()
+        public GameProfileCreate() : base("/client/game/profile/create")
         {
             _bearJson = Resx.GetText("eft", "database.eft.profiles.player.unheard-bear.json");
             _usecJson = Resx.GetText("eft", "database.eft.profiles.player.unheard-usec.json");

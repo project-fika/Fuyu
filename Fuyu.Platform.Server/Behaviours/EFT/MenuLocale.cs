@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Fuyu.Platform.Common.Http;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
@@ -6,12 +5,19 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class LocaleCz : FuyuBehaviour
+    public class MenuLocale : FuyuBehaviour
     {
+        public MenuLocale() : base("/client/menu/locale/{languageId}")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
-            var locale = EftDatabase.Locales.GetGlobalLocale("cz");
-            var response = new ResponseBody<Dictionary<string, string>>
+            var arguments = context.GetParameters(this);
+
+            var languageId = arguments["languageId"];
+            var locale = EftDatabase.Locales.GetMenuLocale(languageId);
+            var response = new ResponseBody<MenuLocaleResponse>
             {
                 data = locale
             };

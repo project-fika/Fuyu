@@ -9,6 +9,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class Customization : FuyuBehaviour
     {
+        public Customization() : base("/client/customization")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var customizations = EftDatabase.Templates.GetCustomizations();

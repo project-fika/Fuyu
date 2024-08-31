@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class GetMetricsConfig : FuyuBehaviour
     {
+        public GetMetricsConfig() : base("/client/getMetricsConfig")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<GetMetricsConfigResponse>()

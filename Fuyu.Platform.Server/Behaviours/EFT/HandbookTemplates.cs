@@ -7,7 +7,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly string _response;
 
-        public HandbookTemplates()
+        public HandbookTemplates() : base("/client/handbook/templates")
         {
             _response = Resx.GetText("eft", "database.eft.client.handbook.templates.json");
         }

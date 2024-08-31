@@ -8,6 +8,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class GameProfileList : FuyuBehaviour
     {
+        public GameProfileList() : base("/client/game/profile/list")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var sessionId = context.GetSessionId();

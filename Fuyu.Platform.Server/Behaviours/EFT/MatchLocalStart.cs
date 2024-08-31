@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Fuyu.Platform.Common.Http;
 using Fuyu.Platform.Common.IO;
@@ -10,7 +9,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly Dictionary<string, string> _locations;
 
-        public MatchLocalStart()
+        public MatchLocalStart() : base("/client/match/local/start")
         {
             _locations = new Dictionary<string, string>()
             {

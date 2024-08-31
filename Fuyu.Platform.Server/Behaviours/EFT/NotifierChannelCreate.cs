@@ -7,6 +7,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class NotifierChannelCreate : FuyuBehaviour
     {
+        public NotifierChannelCreate() : base("/client/notifier/channel/create")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var channelId = EftHash.Generate(64);

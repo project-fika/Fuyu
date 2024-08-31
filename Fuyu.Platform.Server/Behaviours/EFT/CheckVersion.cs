@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class CheckVersion : FuyuBehaviour
     {
+        public CheckVersion() : base("/client/checkVersion")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<CheckVersionResponse>()

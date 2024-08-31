@@ -9,7 +9,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly ResponseBody<AchievementStatisticResponse> _response;
 
-        public AchievementStatistic()
+        public AchievementStatistic() : base("/client/achievement/statistic")
         {
             var json = Resx.GetText("eft", "database.eft.client.achievement.statistic.json");
             _response = Json.Parse<ResponseBody<AchievementStatisticResponse>>(json);

@@ -7,6 +7,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class GameProfileNicknameValidate : FuyuBehaviour
     {
+        public GameProfileNicknameValidate() : base("/client/game/profile/nickname/validate")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var request = context.GetJson<GameProfileNicknameValidateRequest>();

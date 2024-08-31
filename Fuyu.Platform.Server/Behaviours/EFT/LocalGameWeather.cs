@@ -7,7 +7,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly string _response;
 
-        public LocalGameWeather()
+        public LocalGameWeather() : base("/client/localGame/weather")
         {
             _response = Resx.GetText("eft", "database.eft.client.localGame.weather.json");
         }
