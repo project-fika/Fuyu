@@ -7,7 +7,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly string _response;
 
-        public HideoutQteList()
+        public HideoutQteList() : base("/client/hideout/qte/list")
         {
             _response = Resx.GetText("eft", "database.eft.client.hideout.qte.list.json");
         }

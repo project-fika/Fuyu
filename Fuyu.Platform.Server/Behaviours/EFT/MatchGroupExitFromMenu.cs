@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class MatchGroupExitFromMenu : FuyuBehaviour
     {
+        public MatchGroupExitFromMenu() : base("/client/match/group/exit_from_menu")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<object>()

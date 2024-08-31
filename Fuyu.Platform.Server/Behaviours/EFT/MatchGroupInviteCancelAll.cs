@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class MatchGroupInviteCancelAll : FuyuBehaviour
     {
+        public MatchGroupInviteCancelAll() : base("/client/match/group/invite/cancel-all")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<bool>()

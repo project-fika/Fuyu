@@ -7,7 +7,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly string _response;
 
-        public Globals()
+        public Globals() : base("/client/globals")
         {
             _response = Resx.GetText("eft", "database.eft.client.globals.json");
         }

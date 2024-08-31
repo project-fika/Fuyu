@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class RaidConfiguration : FuyuBehaviour
     {
+        public RaidConfiguration() : base("/client/raid/configuration")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<object>()

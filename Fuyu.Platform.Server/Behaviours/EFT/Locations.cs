@@ -10,7 +10,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly ResponseBody<WorldMap> _locations;
 
-        public Locations()
+        public Locations() : base("/client/locations")
         {
             var text = Resx.GetText("eft", "database.eft.client.locations.json");
             _locations = Json.Parse<ResponseBody<WorldMap>>(text);

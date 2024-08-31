@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using WebSocketSharp.Server;
 using Fuyu.Platform.Common.IO;
 
@@ -8,7 +10,7 @@ namespace Fuyu.Platform.Common.Http
     public class FuyuServer
     {
         private readonly HttpServer _httpv;
-        public readonly Dictionary<string, FuyuBehaviour> Behaviours;
+        public readonly List<FuyuBehaviour> Behaviours;
         public readonly FuyuBehaviour OnError; 
         public readonly string Address;
         public readonly string Name;
@@ -20,8 +22,7 @@ namespace Fuyu.Platform.Common.Http
             Address = address;
             Name = name;
 
-            Behaviours = new Dictionary<string, FuyuBehaviour>();
-            OnError = new ErrorBehaviour();
+            Behaviours = new List<FuyuBehaviour>();
 
             _httpv = new HttpServer(uri.Port);
             _httpv.OnGet += OnRequest;
@@ -36,13 +37,35 @@ namespace Fuyu.Platform.Common.Http
 
             Terminal.WriteLine($"[{Name}] {path}");
 
-            if (Behaviours.ContainsKey(path))
+            // NOTE: multi-threaded lookup
+            var matches = new ConcurrentBag<FuyuBehaviour>();
+
+            Parallel.ForEach(Behaviours, (behaviour) =>
             {
-                Behaviours[path].Run(context);
+                if (behaviour.IsMatch(context))
+                {
+                    matches.Add(behaviour);
+                }
+            });
+
+            if (matches.Count == 0)
+            {
+                Terminal.WriteLine($"No match on path {path}");
+                context.Response.Close();
+                return;
             }
-            else
+
+            // NOTE: do we want to support multi-matching?
+            if (matches.Count > 1)
             {
-                OnError.Run(context);
+                Terminal.WriteLine($"Too many matches on path {path}");
+                context.Response.Close();
+                return;
+            }
+
+            foreach (var match in matches)
+            {
+                match.Run(context);
             }
         }
 
@@ -52,9 +75,9 @@ namespace Fuyu.Platform.Common.Http
             Terminal.WriteLine($"[{Name}] Started on {Address}");
         }
 
-        public void AddHttpService<T>(string path) where T : FuyuBehaviour, new()
+        public void AddHttpService<T>() where T : FuyuBehaviour, new()
         {
-            Behaviours.Add(path, new T());
+            Behaviours.Add(new T());
         }
     }
 }

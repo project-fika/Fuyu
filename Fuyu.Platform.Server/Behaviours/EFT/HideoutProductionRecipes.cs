@@ -7,7 +7,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly string _response;
 
-        public HideoutProductionRecipes()
+        public HideoutProductionRecipes() : base("/client/hideout/production/recipes")
         {
             _response = Resx.GetText("eft", "database.eft.client.hideout.production.recipes.json");
         }

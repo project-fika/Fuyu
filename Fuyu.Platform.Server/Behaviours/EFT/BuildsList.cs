@@ -9,7 +9,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly ResponseBody<BuildsListResponse> _response;
 
-        public BuildsList()
+        public BuildsList() : base("/client/builds/list")
         {
             var json = Resx.GetText("eft", "database.eft.client.builds.list.json");
             _response = Json.Parse<ResponseBody<BuildsListResponse>>(json);

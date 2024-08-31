@@ -7,7 +7,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly string _response;
 
-        public Settings()
+        public Settings() : base("/client/settings")
         {
             _response = Resx.GetText("eft", "database.eft.client.settings.json");
         }

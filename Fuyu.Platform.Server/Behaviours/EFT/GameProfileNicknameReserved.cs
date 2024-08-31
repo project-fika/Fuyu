@@ -7,6 +7,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class GameProfileNicknameReserved : FuyuBehaviour
     {
+        public GameProfileNicknameReserved() : base("/client/game/profile/nickname/reserved")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var sessionId = context.GetSessionId();

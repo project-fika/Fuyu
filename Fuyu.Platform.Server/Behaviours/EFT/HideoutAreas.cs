@@ -7,7 +7,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly string _response;
 
-        public HideoutAreas()
+        public HideoutAreas() : base("/client/hideout/areas")
         {
             _response = Resx.GetText("eft", "database.eft.client.hideout.areas.json");
         }

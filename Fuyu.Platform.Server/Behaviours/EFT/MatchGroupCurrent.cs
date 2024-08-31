@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class MatchGroupCurrent : FuyuBehaviour
     {
+        public MatchGroupCurrent() : base("/client/match/group/current")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<MatchGroupCurrentResponse>()

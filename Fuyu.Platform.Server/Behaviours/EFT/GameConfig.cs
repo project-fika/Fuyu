@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class GameConfig : FuyuBehaviour
     {
+        public GameConfig() : base("/client/game/config")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<GameConfigResponse>

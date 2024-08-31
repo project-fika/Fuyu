@@ -6,11 +6,18 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class LocaleCz : FuyuBehaviour
+    public class Locale : FuyuBehaviour
     {
+        public Locale() : base("/client/locale/{languageId}")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
-            var locale = EftDatabase.Locales.GetGlobalLocale("cz");
+            var arguments = context.GetArguments(this);
+
+            var languageId = arguments["languageId"];
+            var locale = EftDatabase.Locales.GetGlobalLocale(languageId);
             var response = new ResponseBody<Dictionary<string, string>>
             {
                 data = locale

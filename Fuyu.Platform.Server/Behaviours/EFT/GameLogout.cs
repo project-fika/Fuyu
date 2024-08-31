@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class GameLogout : FuyuBehaviour
     {
+        public GameLogout() : base("/client/game/logout")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<GameLogoutResponse>()

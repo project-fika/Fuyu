@@ -5,11 +5,18 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class MenuLocaleEs : FuyuBehaviour
+    public class MenuLocale : FuyuBehaviour
     {
+        public MenuLocale() : base("/client/menu/locale/{languageId}")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
-            var locale = EftDatabase.Locales.GetMenuLocale("es");
+            var arguments = context.GetArguments(this);
+
+            var languageId = arguments["languageId"];
+            var locale = EftDatabase.Locales.GetMenuLocale(languageId);
             var response = new ResponseBody<MenuLocaleResponse>
             {
                 data = locale

@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class RepeatableQuestActivityPeriods : FuyuBehaviour
     {
+        public RepeatableQuestActivityPeriods() : base("/client/repeatalbeQuests/activityPeriods")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<object[]>

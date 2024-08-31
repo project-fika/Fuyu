@@ -9,7 +9,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly ResponseBody<HideoutSettingsResponse> _response;
 
-        public HideoutSettings()
+        public HideoutSettings() : base("/client/hideout/settings")
         {
             var json = Resx.GetText("eft", "database.eft.client.hideout.settings.json");
             _response = Json.Parse<ResponseBody<HideoutSettingsResponse>>(json);

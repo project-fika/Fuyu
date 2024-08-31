@@ -7,7 +7,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly string _response;
 
-        public AchievementList()
+        public AchievementList() : base("/client/achievement/list")
         {
             _response = Resx.GetText("eft", "database.eft.client.achievement.list.json");
         }

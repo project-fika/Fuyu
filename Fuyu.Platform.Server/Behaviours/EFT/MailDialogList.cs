@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class MailDialogList : FuyuBehaviour
     {
+        public MailDialogList() : base("/client/mail/dialog/list")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<object[]>

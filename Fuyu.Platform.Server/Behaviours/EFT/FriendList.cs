@@ -6,6 +6,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class FriendList : FuyuBehaviour
     {
+        public FriendList() : base("/client/friend/list")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<FriendListResponse>()

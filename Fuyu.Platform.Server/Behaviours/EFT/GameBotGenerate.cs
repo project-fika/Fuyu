@@ -9,6 +9,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class GameBotGenerate : FuyuBehaviour
     {
+        public GameBotGenerate() : base("/client/game/bot/generate")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var request = context.GetJson<GameBotGenerateRequest>();

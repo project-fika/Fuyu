@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Fuyu.Platform.Common.Compression;
@@ -27,6 +28,25 @@ namespace Fuyu.Platform.Common.Http
             }
 
             return path;
+        }
+
+        public Dictionary<string, string> GetArguments(FuyuBehaviour behaviour)
+        {
+            var result = new Dictionary<string, string>();
+            var segments = GetPath().Split('/');
+            var i = 0;
+
+            foreach (var kvp in behaviour.Arguments)
+            {
+                if (kvp.Value == EFuyuArgument.Dynamic)
+                {
+                    result.Add(kvp.Key, segments[i]);
+                }
+
+                ++i;
+            }
+
+            return result;
         }
 
         public bool HasBody()

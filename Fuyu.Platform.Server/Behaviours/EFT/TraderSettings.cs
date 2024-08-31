@@ -7,7 +7,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
     {
         private readonly string _response;
 
-        public TraderSettings()
+        public TraderSettings() : base("/client/trading/api/traderSettings")
         {
             _response = Resx.GetText("eft", "database.eft.client.trading.api.traderSettings.json");
         }

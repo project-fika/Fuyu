@@ -7,6 +7,10 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     public class ServerList : FuyuBehaviour
     {
+        public ServerList() : base("/client/server/list")
+        {
+        }
+
         public override void Run(FuyuContext context)
         {
             var response = new ResponseBody<ServerInfo[]>()
