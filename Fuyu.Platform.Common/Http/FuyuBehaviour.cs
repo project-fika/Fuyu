@@ -36,7 +36,7 @@ namespace Fuyu.Platform.Common.Http
 
         public bool IsMatch(FuyuContext context)
         {
-            var segments = context.GetPath().Split('/');
+            var segments = context.Path.Split('/');
             var i = 0;
 
             if (segments.Length != Arguments.Count)

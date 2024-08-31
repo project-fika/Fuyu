@@ -33,9 +33,8 @@ namespace Fuyu.Platform.Common.Http
         private void OnRequest(object sender, HttpRequestEventArgs e)
         {
             var context = new FuyuContext(e.Request, e.Response);
-            var path = context.GetPath();
 
-            Terminal.WriteLine($"[{Name}] {path}");
+            Terminal.WriteLine($"[{Name}] {context.Path}");
 
             // NOTE: multi-threaded lookup
             var matches = new ConcurrentBag<FuyuBehaviour>();
@@ -50,7 +49,7 @@ namespace Fuyu.Platform.Common.Http
 
             if (matches.Count == 0)
             {
-                Terminal.WriteLine($"No match on path {path}");
+                Terminal.WriteLine($"No match on path {context.Path}");
                 context.Response.Close();
                 return;
             }
@@ -58,7 +57,7 @@ namespace Fuyu.Platform.Common.Http
             // NOTE: do we want to support multi-matching?
             if (matches.Count > 1)
             {
-                Terminal.WriteLine($"Too many matches on path {path}");
+                Terminal.WriteLine($"Too many matches on path {context.Path}");
                 context.Response.Close();
                 return;
             }
