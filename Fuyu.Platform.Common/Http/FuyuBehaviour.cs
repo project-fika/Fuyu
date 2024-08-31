@@ -13,7 +13,7 @@ namespace Fuyu.Platform.Common.Http
             Arguments = InitializeArguments(path);
         }
 
-        private Dictionary<string, EFuyuArgument> InitializeArguments(string path)
+        private static Dictionary<string, EFuyuArgument> InitializeArguments(string path)
         {
             var result = new Dictionary<string, EFuyuArgument>();
             var segments = path.Split('/');
