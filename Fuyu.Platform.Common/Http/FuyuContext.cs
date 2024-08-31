@@ -32,15 +32,15 @@ namespace Fuyu.Platform.Common.Http
             return path;
         }
 
-        public Dictionary<string, string> GetArguments(FuyuBehaviour behaviour)
+        public Dictionary<string, string> GetParameters(FuyuBehaviour behaviour)
         {
             var result = new Dictionary<string, string>();
             var segments = Path.Split('/');
             var i = 0;
 
-            foreach (var kvp in behaviour.Arguments)
+            foreach (var kvp in behaviour.Path)
             {
-                if (kvp.Value == EFuyuArgument.Dynamic)
+                if (kvp.Value == EFuyuSegment.Dynamic)
                 {
                     result.Add(kvp.Key, segments[i]);
                 }

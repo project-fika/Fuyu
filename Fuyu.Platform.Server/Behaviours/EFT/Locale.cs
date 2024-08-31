@@ -14,7 +14,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 
         public override void Run(FuyuContext context)
         {
-            var arguments = context.GetArguments(this);
+            var arguments = context.GetParameters(this);
 
             var languageId = arguments["languageId"];
             var locale = EftDatabase.Locales.GetGlobalLocale(languageId);

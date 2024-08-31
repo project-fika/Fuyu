@@ -6,16 +6,16 @@ namespace Fuyu.Platform.Common.Http
 {
     public abstract class FuyuBehaviour
     {
-        public readonly Dictionary<string, EFuyuArgument> Arguments;
+        public readonly Dictionary<string, EFuyuSegment> Path;
 
         public FuyuBehaviour(string path)
         {
-            Arguments = InitializeArguments(path);
+            Path = InitializePath(path);
         }
 
-        private static Dictionary<string, EFuyuArgument> InitializeArguments(string path)
+        private static Dictionary<string, EFuyuSegment> InitializePath(string path)
         {
-            var result = new Dictionary<string, EFuyuArgument>();
+            var result = new Dictionary<string, EFuyuSegment>();
             var segments = path.Split('/');
 
             foreach (var segment in segments)
@@ -23,11 +23,11 @@ namespace Fuyu.Platform.Common.Http
                 if (segment.StartsWith("{") && segment.EndsWith("}"))
                 {
                     var name = segment.Trim('{', '}');
-                    result.Add(name, EFuyuArgument.Dynamic);
+                    result.Add(name, EFuyuSegment.Dynamic);
                 }
                 else
                 {
-                    result.Add(segment, EFuyuArgument.Static);
+                    result.Add(segment, EFuyuSegment.Static);
                 }
             }
 
@@ -39,16 +39,16 @@ namespace Fuyu.Platform.Common.Http
             var segments = context.Path.Split('/');
             var i = 0;
 
-            if (segments.Length != Arguments.Count)
+            if (segments.Length != Path.Count)
             {
                 // segment length does not match
                 return false;
             }
 
-            foreach (var kvp in Arguments)
+            foreach (var kvp in Path)
             {
                 // validate static segment
-                if (kvp.Value == EFuyuArgument.Static && segments[i] != kvp.Key)
+                if (kvp.Value == EFuyuSegment.Static && segments[i] != kvp.Key)
                 {
                     return false;
                 }

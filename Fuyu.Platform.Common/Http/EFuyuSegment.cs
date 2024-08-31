@@ -1,6 +1,6 @@
 namespace Fuyu.Platform.Common.Http
 {
-    public enum EFuyuArgument
+    public enum EFuyuSegment
     {
         Static,
         Dynamic
