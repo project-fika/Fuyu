@@ -1,7 +1,4 @@
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using WebSocketSharp.Server;
 using Fuyu.Platform.Common.IO;
 
@@ -10,20 +7,17 @@ namespace Fuyu.Platform.Common.Http
     public class FuyuServer
     {
         private readonly HttpServer _httpv;
-        public readonly List<FuyuBehaviour> Behaviours;
-        public readonly FuyuBehaviour OnError; 
+        public readonly FuyuHttpRouter HttpRouter;
         public readonly string Address;
         public readonly string Name;
 
         public FuyuServer(string name, string address)
         {
-            var uri = new Uri(address);
-
+            HttpRouter = new FuyuHttpRouter();
             Address = address;
             Name = name;
 
-            Behaviours = new List<FuyuBehaviour>();
-
+            var uri = new Uri(address);
             _httpv = new HttpServer(uri.Port);
             _httpv.OnGet += OnRequest;
             _httpv.OnPost += OnRequest;
@@ -36,35 +30,14 @@ namespace Fuyu.Platform.Common.Http
 
             Terminal.WriteLine($"[{Name}] {context.Path}");
 
-            // NOTE: multi-threaded lookup
-            var matches = new ConcurrentBag<FuyuBehaviour>();
-
-            Parallel.ForEach(Behaviours, (behaviour) =>
+            try
             {
-                if (behaviour.IsMatch(context))
-                {
-                    matches.Add(behaviour);
-                }
-            });
-
-            if (matches.Count == 0)
-            {
-                Terminal.WriteLine($"No match on path {context.Path}");
-                context.Response.Close();
-                return;
+                HttpRouter.Route(context);
             }
-
-            // NOTE: do we want to support multi-matching?
-            if (matches.Count > 1)
+            catch (Exception ex)
             {
-                Terminal.WriteLine($"Too many matches on path {context.Path}");
+                Terminal.WriteLine(ex.Message);
                 context.Response.Close();
-                return;
-            }
-
-            foreach (var match in matches)
-            {
-                match.Run(context);
             }
         }
 
@@ -76,7 +49,7 @@ namespace Fuyu.Platform.Common.Http
 
         public void AddHttpService<T>() where T : FuyuBehaviour, new()
         {
-            Behaviours.Add(new T());
+            HttpRouter.Behaviours.Add(new T());
         }
     }
 }
