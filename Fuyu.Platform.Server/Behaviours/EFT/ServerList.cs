@@ -1,17 +1,17 @@
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Models.EFT.Servers;
 using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class ServerList : FuyuBehaviour
+    public class ServerList : FuyuHttpBehaviour
     {
         public ServerList() : base("/client/server/list")
         {
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             var response = new ResponseBody<ServerInfo[]>()
             {

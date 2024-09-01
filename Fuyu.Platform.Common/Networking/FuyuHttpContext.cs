@@ -5,15 +5,15 @@ using Fuyu.Platform.Common.Compression;
 using Fuyu.Platform.Common.Serialization;
 using WebSocketSharp.Net;
 
-namespace Fuyu.Platform.Common.Http
+namespace Fuyu.Platform.Common.Networking
 {
-    public class FuyuContext
+    public class FuyuHttpContext
     {
         public readonly HttpListenerRequest Request;
         public readonly HttpListenerResponse Response;
         public readonly string Path;
 
-        public FuyuContext(HttpListenerRequest request, HttpListenerResponse response)
+        public FuyuHttpContext(HttpListenerRequest request, HttpListenerResponse response)
         {
             Request = request;
             Response = response;
@@ -32,7 +32,7 @@ namespace Fuyu.Platform.Common.Http
             return path;
         }
 
-        public Dictionary<string, string> GetParameters(FuyuBehaviour behaviour)
+        public Dictionary<string, string> GetPathParameters(FuyuHttpBehaviour behaviour)
         {
             var result = new Dictionary<string, string>();
             var segments = Path.Split('/');

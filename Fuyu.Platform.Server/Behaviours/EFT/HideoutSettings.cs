@@ -1,11 +1,11 @@
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class HideoutSettings : FuyuBehaviour
+    public class HideoutSettings : FuyuHttpBehaviour
     {
         private readonly ResponseBody<HideoutSettingsResponse> _response;
 
@@ -15,7 +15,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             _response = Json.Parse<ResponseBody<HideoutSettingsResponse>>(json);
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             SendJson(context, Json.Stringify(_response));
         }

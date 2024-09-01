@@ -1,6 +1,6 @@
-using Fuyu.Platform.Common.Hashing;
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.IO;
+using Fuyu.Platform.Common.Models.EFT.Common;
 using Fuyu.Platform.Common.Models.EFT.Profiles;
 using Fuyu.Platform.Common.Models.EFT.Requests;
 using Fuyu.Platform.Common.Models.EFT.Responses;
@@ -9,7 +9,7 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameProfileCreate : FuyuBehaviour
+    public class GameProfileCreate : FuyuHttpBehaviour
     {
         private readonly string _bearJson;
         private readonly string _usecJson;
@@ -22,7 +22,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             _savageJson = Resx.GetText("eft", "database.eft.profiles.player.savage.json");
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             var request = context.GetJson<GameProfileCreateRequest>();
             var sessionId = context.GetSessionId();
@@ -31,15 +31,17 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 
             // TODO: PVP-PVE STATE DETECTION
 
+            // generate ids
+            var pmcId = new MongoId(accountId).ToString();
+            var savageId = new MongoId(pmcId, 1, false).ToString();
+
             // create savage
-            var savageId = EftHash.Generate();
             account.EftSave.PvE.Savage = Json.Parse<Profile>(_savageJson);
 
             account.EftSave.PvE.Savage._id = savageId;
             account.EftSave.PvE.Savage.aid = accountId;
 
             // create pmc
-            var pmcId = EftHash.Generate();
             var voiceTemplate = EftDatabase.Templates.GetCustomization(request.voiceId);
 
             account.EftSave.PvE.Pmc = request.side == "bear"

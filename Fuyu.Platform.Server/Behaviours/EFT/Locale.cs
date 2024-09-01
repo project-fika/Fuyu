@@ -1,20 +1,20 @@
 using System.Collections.Generic;
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
 using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class Locale : FuyuBehaviour
+    public class Locale : FuyuHttpBehaviour
     {
         public Locale() : base("/client/locale/{languageId}")
         {
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
-            var arguments = context.GetParameters(this);
+            var arguments = context.GetPathParameters(this);
 
             var languageId = arguments["languageId"];
             var locale = EftDatabase.Locales.GetGlobalLocale(languageId);

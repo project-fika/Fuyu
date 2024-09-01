@@ -1,4 +1,4 @@
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Server.Behaviours.EFT;
 
 namespace Fuyu.Platform.Server.Servers

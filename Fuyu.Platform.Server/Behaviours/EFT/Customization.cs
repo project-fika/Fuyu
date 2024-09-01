@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Models.EFT.Customization;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
@@ -7,13 +7,13 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class Customization : FuyuBehaviour
+    public class Customization : FuyuHttpBehaviour
     {
         public Customization() : base("/client/customization")
         {
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             var customizations = EftDatabase.Templates.GetCustomizations();
             var response = new ResponseBody<Dictionary<string, CustomizationTemplate>>()

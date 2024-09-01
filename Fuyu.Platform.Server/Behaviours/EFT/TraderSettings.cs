@@ -1,9 +1,9 @@
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.IO;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class TraderSettings : FuyuBehaviour
+    public class TraderSettings : FuyuHttpBehaviour
     {
         private readonly string _response;
 
@@ -12,7 +12,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             _response = Resx.GetText("eft", "database.eft.client.trading.api.traderSettings.json");
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             SendJson(context, _response);
         }

@@ -1,4 +1,4 @@
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Models.EFT.Profiles;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
@@ -6,13 +6,13 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameProfileList : FuyuBehaviour
+    public class GameProfileList : FuyuHttpBehaviour
     {
         public GameProfileList() : base("/client/game/profile/list")
         {
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             var sessionId = context.GetSessionId();
             var account = FuyuDatabase.Accounts.GetAccount(sessionId);

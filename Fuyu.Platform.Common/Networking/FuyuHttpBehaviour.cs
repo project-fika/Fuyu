@@ -2,13 +2,13 @@ using System.Collections.Generic;
 using System.Text;
 using Fuyu.Platform.Common.Compression;
 
-namespace Fuyu.Platform.Common.Http
+namespace Fuyu.Platform.Common.Networking
 {
-    public abstract class FuyuBehaviour
+    public abstract class FuyuHttpBehaviour
     {
         public readonly Dictionary<string, EFuyuSegment> Path;
 
-        public FuyuBehaviour(string path)
+        public FuyuHttpBehaviour(string path)
         {
             Path = InitializePath(path);
         }
@@ -34,7 +34,7 @@ namespace Fuyu.Platform.Common.Http
             return result;
         }
 
-        public bool IsMatch(FuyuContext context)
+        public bool IsMatch(FuyuHttpContext context)
         {
             var segments = context.Path.Split('/');
             var i = 0;
@@ -59,9 +59,9 @@ namespace Fuyu.Platform.Common.Http
             return true;
         }
 
-        public abstract void Run(FuyuContext context);
+        public abstract void Run(FuyuHttpContext context);
 
-        public static void Send(FuyuContext context, byte[] data, string mime, bool zipped = true)
+        public static void Send(FuyuHttpContext context, byte[] data, string mime, bool zipped = true)
         {
             var response = context.Response;
 
@@ -85,13 +85,13 @@ namespace Fuyu.Platform.Common.Http
             }
         }
 
-        public static void SendJson(FuyuContext context, string text, bool zipped = true)
+        public static void SendJson(FuyuHttpContext context, string text, bool zipped = true)
         {
             var data = Encoding.UTF8.GetBytes(text);
             Send(context, data, "application/json; charset=utf-8", zipped);
         }
 
-        public static void Close(FuyuContext context)
+        public static void Close(FuyuHttpContext context)
         {
             context.Response.Close();
         }

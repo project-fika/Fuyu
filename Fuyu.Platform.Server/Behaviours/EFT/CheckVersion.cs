@@ -1,16 +1,16 @@
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class CheckVersion : FuyuBehaviour
+    public class CheckVersion : FuyuHttpBehaviour
     {
         public CheckVersion() : base("/client/checkVersion")
         {
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             var response = new ResponseBody<CheckVersionResponse>()
             {

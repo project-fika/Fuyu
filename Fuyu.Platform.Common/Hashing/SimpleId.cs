@@ -3,12 +3,12 @@ using System.Text;
 
 namespace Fuyu.Platform.Common.Hashing
 {
-    public static class EftHash
+    public static class SimpleId
     {
         private static readonly Random _random;
         private static readonly char[] _chars;
 
-        static EftHash()
+        static SimpleId()
         {
             _random = new Random();
 
