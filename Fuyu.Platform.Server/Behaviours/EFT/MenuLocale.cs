@@ -5,7 +5,7 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class MenuLocale : FuyuBehaviour
+    public class MenuLocale : FuyuHttpBehaviour
     {
         public MenuLocale() : base("/client/menu/locale/{languageId}")
         {

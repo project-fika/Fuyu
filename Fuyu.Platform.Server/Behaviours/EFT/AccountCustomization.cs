@@ -3,7 +3,7 @@ using Fuyu.Platform.Common.IO;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class AccountCustomization : FuyuBehaviour
+    public class AccountCustomization : FuyuHttpBehaviour
     {
         private readonly string _response;
 

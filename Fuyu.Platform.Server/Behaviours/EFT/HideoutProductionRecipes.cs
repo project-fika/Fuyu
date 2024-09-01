@@ -3,7 +3,7 @@ using Fuyu.Platform.Common.IO;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class HideoutProductionRecipes : FuyuBehaviour
+    public class HideoutProductionRecipes : FuyuHttpBehaviour
     {
         private readonly string _response;
 

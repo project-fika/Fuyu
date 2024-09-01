@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GetMetricsConfig : FuyuBehaviour
+    public class GetMetricsConfig : FuyuHttpBehaviour
     {
         public GetMetricsConfig() : base("/client/getMetricsConfig")
         {

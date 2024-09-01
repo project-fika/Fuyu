@@ -9,7 +9,7 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameProfileCreate : FuyuBehaviour
+    public class GameProfileCreate : FuyuHttpBehaviour
     {
         private readonly string _bearJson;
         private readonly string _usecJson;

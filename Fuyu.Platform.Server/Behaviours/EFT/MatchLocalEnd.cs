@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class MatchLocalEnd : FuyuBehaviour
+    public class MatchLocalEnd : FuyuHttpBehaviour
     {
         public MatchLocalEnd() : base("/client/match/local/end")
         {

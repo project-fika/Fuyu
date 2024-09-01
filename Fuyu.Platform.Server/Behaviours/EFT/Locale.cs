@@ -6,7 +6,7 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class Locale : FuyuBehaviour
+    public class Locale : FuyuHttpBehaviour
     {
         public Locale() : base("/client/locale/{languageId}")
         {

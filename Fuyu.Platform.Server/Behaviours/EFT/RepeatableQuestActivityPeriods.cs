@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class RepeatableQuestActivityPeriods : FuyuBehaviour
+    public class RepeatableQuestActivityPeriods : FuyuHttpBehaviour
     {
         public RepeatableQuestActivityPeriods() : base("/client/repeatalbeQuests/activityPeriods")
         {

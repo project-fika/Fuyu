@@ -3,7 +3,7 @@ using Fuyu.Platform.Common.IO;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class Items : FuyuBehaviour
+    public class Items : FuyuHttpBehaviour
     {
         private readonly string _response;
 

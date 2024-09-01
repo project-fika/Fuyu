@@ -47,7 +47,7 @@ namespace Fuyu.Platform.Common.Http
             Terminal.WriteLine($"[{Name}] Started on {Address}");
         }
 
-        public void AddHttpService<T>() where T : FuyuBehaviour, new()
+        public void AddHttpService<T>() where T : FuyuHttpBehaviour, new()
         {
             HttpRouter.Behaviours.Add(new T());
         }

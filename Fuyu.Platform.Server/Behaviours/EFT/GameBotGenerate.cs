@@ -7,7 +7,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameBotGenerate : FuyuBehaviour
+    public class GameBotGenerate : FuyuHttpBehaviour
     {
         public GameBotGenerate() : base("/client/game/bot/generate")
         {

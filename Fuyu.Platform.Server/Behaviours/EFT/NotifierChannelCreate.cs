@@ -5,7 +5,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class NotifierChannelCreate : FuyuBehaviour
+    public class NotifierChannelCreate : FuyuHttpBehaviour
     {
         public NotifierChannelCreate() : base("/client/notifier/channel/create")
         {

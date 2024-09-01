@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameVersionValidate : FuyuBehaviour
+    public class GameVersionValidate : FuyuHttpBehaviour
     {
         public GameVersionValidate() : base("/client/game/version/validate")
         {

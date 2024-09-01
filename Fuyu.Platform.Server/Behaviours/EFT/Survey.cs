@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class Survey : FuyuBehaviour
+    public class Survey : FuyuHttpBehaviour
     {
         public Survey() : base("/client/survey")
         {

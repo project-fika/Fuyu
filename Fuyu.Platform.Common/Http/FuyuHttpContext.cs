@@ -32,7 +32,7 @@ namespace Fuyu.Platform.Common.Http
             return path;
         }
 
-        public Dictionary<string, string> GetPathParameters(FuyuBehaviour behaviour)
+        public Dictionary<string, string> GetPathParameters(FuyuHttpBehaviour behaviour)
         {
             var result = new Dictionary<string, string>();
             var segments = Path.Split('/');

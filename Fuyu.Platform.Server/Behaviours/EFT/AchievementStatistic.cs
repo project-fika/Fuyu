@@ -5,7 +5,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class AchievementStatistic : FuyuBehaviour
+    public class AchievementStatistic : FuyuHttpBehaviour
     {
         private readonly ResponseBody<AchievementStatisticResponse> _response;
 

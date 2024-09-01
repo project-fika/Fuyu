@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class MatchGroupInviteCancelAll : FuyuBehaviour
+    public class MatchGroupInviteCancelAll : FuyuHttpBehaviour
     {
         public MatchGroupInviteCancelAll() : base("/client/match/group/invite/cancel-all")
         {

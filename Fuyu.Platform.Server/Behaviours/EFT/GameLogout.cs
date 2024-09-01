@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameLogout : FuyuBehaviour
+    public class GameLogout : FuyuHttpBehaviour
     {
         public GameLogout() : base("/client/game/logout")
         {

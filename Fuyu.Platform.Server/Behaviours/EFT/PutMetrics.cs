@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class PutMetrics : FuyuBehaviour
+    public class PutMetrics : FuyuHttpBehaviour
     {
         public PutMetrics() : base("/client/putMetrics")
         {

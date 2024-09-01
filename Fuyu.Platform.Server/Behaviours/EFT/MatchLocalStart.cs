@@ -5,7 +5,7 @@ using Fuyu.Platform.Common.Models.EFT.Requests;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class MatchLocalStart : FuyuBehaviour
+    public class MatchLocalStart : FuyuHttpBehaviour
     {
         private readonly Dictionary<string, string> _locations;
 

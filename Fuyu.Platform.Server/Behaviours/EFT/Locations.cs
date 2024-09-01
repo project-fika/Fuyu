@@ -6,7 +6,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class Locations : FuyuBehaviour
+    public class Locations : FuyuHttpBehaviour
     {
         private readonly ResponseBody<WorldMap> _locations;
 

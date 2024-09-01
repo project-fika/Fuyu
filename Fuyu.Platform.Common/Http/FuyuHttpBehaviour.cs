@@ -4,11 +4,11 @@ using Fuyu.Platform.Common.Compression;
 
 namespace Fuyu.Platform.Common.Http
 {
-    public abstract class FuyuBehaviour
+    public abstract class FuyuHttpBehaviour
     {
         public readonly Dictionary<string, EFuyuSegment> Path;
 
-        public FuyuBehaviour(string path)
+        public FuyuHttpBehaviour(string path)
         {
             Path = InitializePath(path);
         }

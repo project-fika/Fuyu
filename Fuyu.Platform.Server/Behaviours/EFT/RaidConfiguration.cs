@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class RaidConfiguration : FuyuBehaviour
+    public class RaidConfiguration : FuyuHttpBehaviour
     {
         public RaidConfiguration() : base("/client/raid/configuration")
         {

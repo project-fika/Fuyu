@@ -6,7 +6,7 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class ProfileStatus : FuyuBehaviour
+    public class ProfileStatus : FuyuHttpBehaviour
     {
         public ProfileStatus() : base("/client/profile/status")
         {

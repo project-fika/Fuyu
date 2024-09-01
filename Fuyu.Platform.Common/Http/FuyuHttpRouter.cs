@@ -7,17 +7,17 @@ namespace Fuyu.Platform.Common.Http
 {
     public class FuyuHttpRouter
     {
-        public readonly List<FuyuBehaviour> Behaviours;
+        public readonly List<FuyuHttpBehaviour> Behaviours;
 
         public FuyuHttpRouter()
         {
-            Behaviours = new List<FuyuBehaviour>();
+            Behaviours = new List<FuyuHttpBehaviour>();
         }
 
         public void Route(FuyuHttpContext context)
         {
             // NOTE: multi-threaded lookup
-            var matches = new ConcurrentBag<FuyuBehaviour>();
+            var matches = new ConcurrentBag<FuyuHttpBehaviour>();
 
             Parallel.ForEach(Behaviours, (behaviour) =>
             {
@@ -44,7 +44,7 @@ namespace Fuyu.Platform.Common.Http
             }
         }
 
-        public void AddService<T>() where T : FuyuBehaviour, new()
+        public void AddService<T>() where T : FuyuHttpBehaviour, new()
         {
             Behaviours.Add(new T());
         }

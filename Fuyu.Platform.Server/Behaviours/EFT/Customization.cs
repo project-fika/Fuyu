@@ -7,7 +7,7 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class Customization : FuyuBehaviour
+    public class Customization : FuyuHttpBehaviour
     {
         public Customization() : base("/client/customization")
         {

@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class MatchGroupCurrent : FuyuBehaviour
+    public class MatchGroupCurrent : FuyuHttpBehaviour
     {
         public MatchGroupCurrent() : base("/client/match/group/current")
         {

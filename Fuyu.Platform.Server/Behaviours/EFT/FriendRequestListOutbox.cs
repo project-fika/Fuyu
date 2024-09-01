@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class FriendRequestListOutbox : FuyuBehaviour
+    public class FriendRequestListOutbox : FuyuHttpBehaviour
     {
         public FriendRequestListOutbox() : base("/client/friend/request/list/outbox")
         {

@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class ProfileSettings : FuyuBehaviour
+    public class ProfileSettings : FuyuHttpBehaviour
     {
         public ProfileSettings() : base("/client/profile/settings")
         {

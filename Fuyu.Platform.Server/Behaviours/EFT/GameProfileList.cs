@@ -6,7 +6,7 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameProfileList : FuyuBehaviour
+    public class GameProfileList : FuyuHttpBehaviour
     {
         public GameProfileList() : base("/client/game/profile/list")
         {

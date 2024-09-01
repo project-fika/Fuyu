@@ -5,7 +5,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class HideoutSettings : FuyuBehaviour
+    public class HideoutSettings : FuyuHttpBehaviour
     {
         private readonly ResponseBody<HideoutSettingsResponse> _response;
 

@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameConfig : FuyuBehaviour
+    public class GameConfig : FuyuHttpBehaviour
     {
         public GameConfig() : base("/client/game/config")
         {

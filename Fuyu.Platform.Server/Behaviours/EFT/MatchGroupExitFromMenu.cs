@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class MatchGroupExitFromMenu : FuyuBehaviour
+    public class MatchGroupExitFromMenu : FuyuHttpBehaviour
     {
         public MatchGroupExitFromMenu() : base("/client/match/group/exit_from_menu")
         {

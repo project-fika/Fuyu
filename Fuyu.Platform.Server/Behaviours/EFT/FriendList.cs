@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class FriendList : FuyuBehaviour
+    public class FriendList : FuyuHttpBehaviour
     {
         public FriendList() : base("/client/friend/list")
         {

@@ -5,7 +5,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameProfileNicknameValidate : FuyuBehaviour
+    public class GameProfileNicknameValidate : FuyuHttpBehaviour
     {
         public GameProfileNicknameValidate() : base("/client/game/profile/nickname/validate")
         {

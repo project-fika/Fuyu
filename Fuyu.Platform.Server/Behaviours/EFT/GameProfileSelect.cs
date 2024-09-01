@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameProfileSelect : FuyuBehaviour
+    public class GameProfileSelect : FuyuHttpBehaviour
     {
         public GameProfileSelect() : base("/client/game/profile/select")
         {

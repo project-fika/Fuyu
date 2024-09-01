@@ -5,7 +5,7 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class CustomizationStorage : FuyuBehaviour
+    public class CustomizationStorage : FuyuHttpBehaviour
     {
         public CustomizationStorage() : base("/client/trading/customization/storage")
         {

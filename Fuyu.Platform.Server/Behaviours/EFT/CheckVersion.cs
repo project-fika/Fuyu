@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class CheckVersion : FuyuBehaviour
+    public class CheckVersion : FuyuHttpBehaviour
     {
         public CheckVersion() : base("/client/checkVersion")
         {

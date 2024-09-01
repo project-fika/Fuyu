@@ -4,7 +4,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameKeepalive : FuyuBehaviour
+    public class GameKeepalive : FuyuHttpBehaviour
     {
         public GameKeepalive() : base("/client/game/keepalive")
         {

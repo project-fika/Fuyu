@@ -5,7 +5,7 @@ using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class BuildsList : FuyuBehaviour
+    public class BuildsList : FuyuHttpBehaviour
     {
         private readonly ResponseBody<BuildsListResponse> _response;
 

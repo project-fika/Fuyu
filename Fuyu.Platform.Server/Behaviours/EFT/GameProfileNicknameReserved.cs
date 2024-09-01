@@ -5,7 +5,7 @@ using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameProfileNicknameReserved : FuyuBehaviour
+    public class GameProfileNicknameReserved : FuyuHttpBehaviour
     {
         public GameProfileNicknameReserved() : base("/client/game/profile/nickname/reserved")
         {

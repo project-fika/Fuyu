@@ -10,8 +10,8 @@ It's a simple wrapper around `HttpServer` that's good enough for most cases.
 It only supports HTTP without secure connection.
 
 - `FuyuServer` receives incoming HTTP requests and has an internal router
-that maps `FuyuBehaviour` to a path.
-- `FuyuBehaviour` is what handles the path and sends back a response.
+that maps `FuyuHttpBehaviour` to a path.
+- `FuyuHttpBehaviour` is what handles the path and sends back a response.
 - `FuyuHttpContext` is metadata from a request
 
 ```cs
@@ -20,7 +20,7 @@ using Fuyu.Platform.Common.Http;
 using Fuyu.Platform.Common.IO;
 
 // handles a request
-public class HelloWorld : FuyuBehaviour
+public class HelloWorld : FuyuHttpBehaviour
 {
     // run this code when the path it's bound to is requested
     public override void Run(FuyuHttpContext context)
