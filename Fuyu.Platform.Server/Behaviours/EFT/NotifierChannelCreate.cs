@@ -13,7 +13,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 
         public override void Run(FuyuContext context)
         {
-            var channelId = EftHash.Generate(64);
+            var channelId = SimpleId.Generate(64);
             var response = new ResponseBody<NotifierChannelCreateResponse>
             {
                 data = new NotifierChannelCreateResponse()

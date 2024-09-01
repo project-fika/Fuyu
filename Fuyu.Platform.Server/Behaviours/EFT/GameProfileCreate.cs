@@ -32,14 +32,14 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             // TODO: PVP-PVE STATE DETECTION
 
             // create savage
-            var savageId = EftHash.Generate();
+            var savageId = SimpleId.Generate();
             account.EftSave.PvE.Savage = Json.Parse<Profile>(_savageJson);
 
             account.EftSave.PvE.Savage._id = savageId;
             account.EftSave.PvE.Savage.aid = accountId;
 
             // create pmc
-            var pmcId = EftHash.Generate();
+            var pmcId = SimpleId.Generate();
             var voiceTemplate = EftDatabase.Templates.GetCustomization(request.voiceId);
 
             account.EftSave.PvE.Pmc = request.side == "bear"
