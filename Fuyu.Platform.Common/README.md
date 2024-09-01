@@ -49,7 +49,7 @@ public class Program
 }
 ```
 
-### FuyuClient
+### FuyuHttpClient
 
 It's simple wrapper around `HttpClient` that's good enough for most cases. You
 can make HTTP requests with it to a HTTP server. It only supports HTTP without
@@ -68,7 +68,7 @@ public class Program
     static async Task Main()
     {
         // make a client instance
-        var client = new FuyuClient("http://localhost:8000");
+        var client = new FuyuHttpClient("http://localhost:8000");
 
         // make request
         var data = await client.GetAsync("/helloworld");

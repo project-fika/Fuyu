@@ -14,12 +14,12 @@ namespace Fuyu.Tests.EndToEnd
     [TestClass]
     public class BackendTest
     {
-        private static FuyuClient _client;
+        private static FuyuHttpClient _client;
 
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            _client = new FuyuClient("http://localhost:8000", "test");
+            _client = new FuyuHttpClient("http://localhost:8000", "test");
 
             FuyuDatabase.Load();
             EftDatabase.Load();

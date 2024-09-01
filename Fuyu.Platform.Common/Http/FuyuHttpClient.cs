@@ -9,14 +9,14 @@ namespace Fuyu.Platform.Common.Http
 {
     // NOTE: Don't dispose this, keep a reference for the lifetime of the
     //       application.
-    public class FuyuClient : IDisposable
+    public class FuyuHttpClient : IDisposable
     {
         protected HttpClient Httpv;
         protected string Address;
         protected string Cookie;
         protected int Retries;
 
-        public FuyuClient(string address, string sessionId = "", int retries = 3)
+        public FuyuHttpClient(string address, string sessionId = "", int retries = 3)
         {
             Address = address;
             Cookie = $"PHPSESSID={sessionId}";
