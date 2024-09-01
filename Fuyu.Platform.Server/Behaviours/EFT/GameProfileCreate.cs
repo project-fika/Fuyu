@@ -71,7 +71,6 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
                 }
             };
 
-            Fuyu.Platform.Common.IO.VFS.WriteTextFile("fuyu/test.json", Json.Stringify(response));
             SendJson(context, Json.Stringify(response));
         }
     }
