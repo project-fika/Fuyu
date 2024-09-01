@@ -9,14 +9,14 @@ namespace Fuyu.Platform.Common.Networking
 {
     // NOTE: Don't dispose this, keep a reference for the lifetime of the
     //       application.
-    public class FuyuHttpClient : IDisposable
+    public class HttpClient : IDisposable
     {
-        protected HttpClient Httpv;
+        protected System.Net.Http.HttpClient Httpv;
         protected string Address;
         protected string Cookie;
         protected int Retries;
 
-        public FuyuHttpClient(string address, string sessionId = "", int retries = 3)
+        public HttpClient(string address, string sessionId = "", int retries = 3)
         {
             Address = address;
             Cookie = $"PHPSESSID={sessionId}";
@@ -28,7 +28,7 @@ namespace Fuyu.Platform.Common.Networking
                 UseCookies = false
             };
 
-            Httpv = new HttpClient(handler);
+            Httpv = new System.Net.Http.HttpClient(handler);
         }
 
         protected HttpRequestMessage GetNewRequest(HttpMethod method, string path)

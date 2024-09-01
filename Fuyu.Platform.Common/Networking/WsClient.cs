@@ -3,12 +3,12 @@ using WebSocketSharp;
 
 namespace Fuyu.Platform.Common.Networking
 {
-    public class FuyuWsClient : IDisposable
+    public class WsClient : IDisposable
     {
         private readonly string _url;
         private WebSocket _ws;
 
-        public FuyuWsClient(string address, string path)
+        public WsClient(string address, string path)
         {
             _url = address + path;
         }

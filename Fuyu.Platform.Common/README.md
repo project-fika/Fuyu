@@ -2,17 +2,17 @@
 
 Code shared between projects.
 
-## Http
+## Networking
 
-### FuyuServer
+### Server
 
 It's a simple wrapper around `HttpServer` that's good enough for most cases.
 It only supports HTTP without secure connection.
 
-- `FuyuServer` receives incoming HTTP requests and has an internal router
-that maps `FuyuHttpBehaviour` to a path.
-- `FuyuHttpBehaviour` is what handles the path and sends back a response.
-- `FuyuHttpContext` is metadata from a request
+- `ServerCore` receives incoming HTTP requests and has an internal router
+that maps `HttpBehaviour` to a path.
+- `HttpBehaviour` is what handles the path and sends back a response.
+- `HttpContext` is metadata from a request
 
 ```cs
 using System;
@@ -20,10 +20,10 @@ using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.IO;
 
 // handles a request
-public class HelloWorld : FuyuHttpBehaviour
+public class HelloWorld : HttpBehaviour
 {
     // run this code when the path it's bound to is requested
-    public override void Run(FuyuHttpContext context)
+    public override void Run(HttpContext context)
     {
         // respond to the request
         SendText(context, "Hello, world!");
@@ -35,10 +35,10 @@ public class Program
     static void Main()
     {
         // creates a server instance
-        var server = new FuyuServer("main", "http://localhost:8000");
+        var server = new ServerCore("main", "http://localhost:8000");
 
         // register HelloWorld behaviour to the path /helloworld
-        server.AddHttpService<HelloWorld>("/helloworld");
+        server.AddHttpBehaviour<HelloWorld>("/helloworld");
 
         // start the server
         server.Start();
@@ -49,7 +49,7 @@ public class Program
 }
 ```
 
-### FuyuHttpClient
+### HttpClient
 
 It's simple wrapper around `HttpClient` that's good enough for most cases. You
 can make HTTP requests with it to a HTTP server. It only supports HTTP without
@@ -68,7 +68,7 @@ public class Program
     static async Task Main()
     {
         // make a client instance
-        var client = new FuyuHttpClient("http://localhost:8000");
+        var client = new HttpClient("http://localhost:8000");
 
         // make request
         var data = await client.GetAsync("/helloworld");

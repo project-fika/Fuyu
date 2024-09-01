@@ -1,17 +1,17 @@
-using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Models.EFT.Responses;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Serialization;
 using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class MenuLocale : FuyuHttpBehaviour
+    public class MenuLocale : HttpBehaviour
     {
         public MenuLocale() : base("/client/menu/locale/{languageId}")
         {
         }
 
-        public override void Run(FuyuHttpContext context)
+        public override void Run(HttpContext context)
         {
             var arguments = context.GetPathParameters(this);
 
