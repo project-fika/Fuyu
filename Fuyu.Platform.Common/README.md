@@ -6,11 +6,11 @@ Code shared between projects.
 
 ### Server
 
-It's a simple wrapper around `HttpServer` that's good enough for most cases.
-It only supports HTTP without secure connection.
+It's a simple wrapper around `WebSocketSharp.ServerHttpServer` that's good
+enough for most cases. It only supports HTTP without secure connection.
 
-- `ServerCore` receives incoming HTTP requests and has an internal router
-that maps `HttpBehaviour` to a path.
+- `HttpServer` receives incoming HTTP requests and has an internal router that
+maps `HttpBehaviour` to a path.
 - `HttpBehaviour` is what handles the path and sends back a response.
 - `HttpContext` is metadata from a request
 
@@ -35,7 +35,7 @@ public class Program
     static void Main()
     {
         // creates a server instance
-        var server = new ServerCore("main", "http://localhost:8000");
+        var server = new HttpServer("main", "http://localhost:8000");
 
         // register HelloWorld behaviour to the path /helloworld
         server.AddHttpBehaviour<HelloWorld>("/helloworld");

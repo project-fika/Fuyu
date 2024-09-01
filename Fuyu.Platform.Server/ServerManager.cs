@@ -6,7 +6,7 @@ namespace Fuyu.Platform.Server
 {
     public static class ServerManager
     {
-        private static readonly List<ServerCore> _servers;
+        private static readonly List<HttpServer> _servers;
 
         static ServerManager()
         {

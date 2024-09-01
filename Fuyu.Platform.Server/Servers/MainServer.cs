@@ -3,7 +3,7 @@ using Fuyu.Platform.Server.Behaviours.EFT;
 
 namespace Fuyu.Platform.Server.Servers
 {
-    public class EftServer : ServerCore
+    public class EftServer : HttpServer
     {
         public EftServer() : base("eft-main", "http://localhost:8000")
         {

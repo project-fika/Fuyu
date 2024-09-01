@@ -4,21 +4,21 @@ using Fuyu.Platform.Common.IO;
 
 namespace Fuyu.Platform.Common.Networking
 {
-    public class ServerCore
+    public class HttpServer
     {
-        private readonly HttpServer _httpv;
+        private readonly WebSocketSharp.Server.HttpServer _httpv;
         public readonly HttpRouter HttpRouter;
         public readonly string Address;
         public readonly string Name;
 
-        public ServerCore(string name, string address)
+        public HttpServer(string name, string address)
         {
             HttpRouter = new HttpRouter();
             Address = address;
             Name = name;
 
             var uri = new Uri(address);
-            _httpv = new HttpServer(uri.Port);
+            _httpv = new WebSocketSharp.Server.HttpServer(uri.Port);
             _httpv.OnGet += OnRequest;
             _httpv.OnPost += OnRequest;
             _httpv.OnPut += OnRequest;

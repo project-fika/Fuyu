@@ -43,10 +43,5 @@ namespace Fuyu.Platform.Common.Networking
                 match.Run(context);
             }
         }
-
-        public void AddService<T>() where T : HttpBehaviour, new()
-        {
-            Behaviours.Add(new T());
-        }
     }
 }
