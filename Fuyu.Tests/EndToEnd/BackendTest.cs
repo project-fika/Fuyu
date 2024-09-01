@@ -1,31 +1,31 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Fuyu.Platform.Server.Servers;
-using Fuyu.Platform.Server.Databases;
-using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Models.EFT.Bots;
 using Fuyu.Platform.Common.Models.EFT.Requests;
-using Fuyu.Platform.Common.Serialization;
 using Fuyu.Platform.Common.Models.EFT.Profiles.Info;
+using Fuyu.Platform.Common.Networking;
+using Fuyu.Platform.Common.Serialization;
+using Fuyu.Platform.Server;
+using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Tests.EndToEnd
 {
     [TestClass]
     public class BackendTest
     {
-        private static FuyuHttpClient _client;
+        private static HttpClient _client;
 
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
         {
-            _client = new FuyuHttpClient("http://localhost:8000", "test");
+            _client = new HttpClient("http://localhost:8000", "test");
 
             FuyuDatabase.Load();
             EftDatabase.Load();
 
-            EftServer.Load();
-            EftServer.Start();
+            ServerManager.LoadAll();
+            ServerManager.StartAll();
         }
 
         [TestMethod]

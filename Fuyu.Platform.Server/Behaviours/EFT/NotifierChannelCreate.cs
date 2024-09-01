@@ -1,17 +1,17 @@
 using Fuyu.Platform.Common.Hashing;
-using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Models.EFT.Responses;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class NotifierChannelCreate : FuyuHttpBehaviour
+    public class NotifierChannelCreate : HttpBehaviour
     {
         public NotifierChannelCreate() : base("/client/notifier/channel/create")
         {
         }
 
-        public override void Run(FuyuHttpContext context)
+        public override void Run(HttpContext context)
         {
             var channelId = SimpleId.Generate(64);
             var response = new ResponseBody<NotifierChannelCreateResponse>

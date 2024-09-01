@@ -1,16 +1,16 @@
-using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Models.EFT.Responses;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class MatchGroupCurrent : FuyuHttpBehaviour
+    public class MatchGroupCurrent : HttpBehaviour
     {
         public MatchGroupCurrent() : base("/client/match/group/current")
         {
         }
 
-        public override void Run(FuyuHttpContext context)
+        public override void Run(HttpContext context)
         {
             var response = new ResponseBody<MatchGroupCurrentResponse>()
             {

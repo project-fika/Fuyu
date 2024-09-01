@@ -1,9 +1,9 @@
-using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.IO;
+using Fuyu.Platform.Common.Networking;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class QuestList : FuyuHttpBehaviour
+    public class QuestList : HttpBehaviour
     {
         private readonly string _response;
 
@@ -12,7 +12,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             _response = Resx.GetText("eft", "database.eft.client.quest.list.json");
         }
 
-        public override void Run(FuyuHttpContext context)
+        public override void Run(HttpContext context)
         {
             SendJson(context, _response);
         }

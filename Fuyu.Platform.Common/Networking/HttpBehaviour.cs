@@ -4,18 +4,18 @@ using Fuyu.Platform.Common.Compression;
 
 namespace Fuyu.Platform.Common.Networking
 {
-    public abstract class FuyuHttpBehaviour
+    public abstract class HttpBehaviour
     {
-        public readonly Dictionary<string, EFuyuSegment> Path;
+        public readonly Dictionary<string, EPathSegment> Path;
 
-        public FuyuHttpBehaviour(string path)
+        public HttpBehaviour(string path)
         {
             Path = InitializePath(path);
         }
 
-        private static Dictionary<string, EFuyuSegment> InitializePath(string path)
+        private static Dictionary<string, EPathSegment> InitializePath(string path)
         {
-            var result = new Dictionary<string, EFuyuSegment>();
+            var result = new Dictionary<string, EPathSegment>();
             var segments = path.Split('/');
 
             foreach (var segment in segments)
@@ -23,18 +23,18 @@ namespace Fuyu.Platform.Common.Networking
                 if (segment.StartsWith("{") && segment.EndsWith("}"))
                 {
                     var name = segment.Trim('{', '}');
-                    result.Add(name, EFuyuSegment.Dynamic);
+                    result.Add(name, EPathSegment.Dynamic);
                 }
                 else
                 {
-                    result.Add(segment, EFuyuSegment.Static);
+                    result.Add(segment, EPathSegment.Static);
                 }
             }
 
             return result;
         }
 
-        public bool IsMatch(FuyuHttpContext context)
+        public bool IsMatch(HttpContext context)
         {
             var segments = context.Path.Split('/');
             var i = 0;
@@ -48,7 +48,7 @@ namespace Fuyu.Platform.Common.Networking
             foreach (var kvp in Path)
             {
                 // validate static segment
-                if (kvp.Value == EFuyuSegment.Static && segments[i] != kvp.Key)
+                if (kvp.Value == EPathSegment.Static && segments[i] != kvp.Key)
                 {
                     return false;
                 }
@@ -59,9 +59,9 @@ namespace Fuyu.Platform.Common.Networking
             return true;
         }
 
-        public abstract void Run(FuyuHttpContext context);
+        public abstract void Run(HttpContext context);
 
-        public static void Send(FuyuHttpContext context, byte[] data, string mime, bool zipped = true)
+        public static void Send(HttpContext context, byte[] data, string mime, bool zipped = true)
         {
             var response = context.Response;
 
@@ -85,13 +85,13 @@ namespace Fuyu.Platform.Common.Networking
             }
         }
 
-        public static void SendJson(FuyuHttpContext context, string text, bool zipped = true)
+        public static void SendJson(HttpContext context, string text, bool zipped = true)
         {
             var data = Encoding.UTF8.GetBytes(text);
             Send(context, data, "application/json; charset=utf-8", zipped);
         }
 
-        public static void Close(FuyuHttpContext context)
+        public static void Close(HttpContext context)
         {
             context.Response.Close();
         }

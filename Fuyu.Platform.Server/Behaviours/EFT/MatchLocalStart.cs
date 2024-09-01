@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Common.Models.EFT.Requests;
+using Fuyu.Platform.Common.Networking;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class MatchLocalStart : FuyuHttpBehaviour
+    public class MatchLocalStart : HttpBehaviour
     {
         private readonly Dictionary<string, string> _locations;
 
@@ -27,7 +27,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             };
         }
 
-        public override void Run(FuyuHttpContext context)
+        public override void Run(HttpContext context)
         {
             var request = context.GetJson<MatchLocalStartRequest>();
             var location = request.location;

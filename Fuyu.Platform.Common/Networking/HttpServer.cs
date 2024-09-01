@@ -4,21 +4,21 @@ using Fuyu.Platform.Common.IO;
 
 namespace Fuyu.Platform.Common.Networking
 {
-    public class FuyuServer
+    public class HttpServer
     {
-        private readonly HttpServer _httpv;
-        public readonly FuyuHttpRouter HttpRouter;
+        private readonly WebSocketSharp.Server.HttpServer _httpv;
+        public readonly HttpRouter HttpRouter;
         public readonly string Address;
         public readonly string Name;
 
-        public FuyuServer(string name, string address)
+        public HttpServer(string name, string address)
         {
-            HttpRouter = new FuyuHttpRouter();
+            HttpRouter = new HttpRouter();
             Address = address;
             Name = name;
 
             var uri = new Uri(address);
-            _httpv = new HttpServer(uri.Port);
+            _httpv = new WebSocketSharp.Server.HttpServer(uri.Port);
             _httpv.OnGet += OnRequest;
             _httpv.OnPost += OnRequest;
             _httpv.OnPut += OnRequest;
@@ -26,7 +26,7 @@ namespace Fuyu.Platform.Common.Networking
 
         private void OnRequest(object sender, HttpRequestEventArgs e)
         {
-            var context = new FuyuHttpContext(e.Request, e.Response);
+            var context = new HttpContext(e.Request, e.Response);
 
             Terminal.WriteLine($"[{Name}] {context.Path}");
 
@@ -41,13 +41,18 @@ namespace Fuyu.Platform.Common.Networking
             }
         }
 
+        public virtual void RegisterServices()
+        {
+            // intentionally left empty
+        }
+
         public void Start()
         {
             _httpv.Start();
             Terminal.WriteLine($"[{Name}] Started on {Address}");
         }
 
-        public void AddHttpService<T>() where T : FuyuHttpBehaviour, new()
+        public void AddHttpBehaviour<T>() where T : HttpBehaviour, new()
         {
             HttpRouter.Behaviours.Add(new T());
         }

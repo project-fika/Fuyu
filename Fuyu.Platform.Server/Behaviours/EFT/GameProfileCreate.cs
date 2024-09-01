@@ -1,15 +1,15 @@
-using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Common.Models.EFT.Common;
 using Fuyu.Platform.Common.Models.EFT.Profiles;
 using Fuyu.Platform.Common.Models.EFT.Requests;
 using Fuyu.Platform.Common.Models.EFT.Responses;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Serialization;
 using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class GameProfileCreate : FuyuHttpBehaviour
+    public class GameProfileCreate : HttpBehaviour
     {
         private readonly string _bearJson;
         private readonly string _usecJson;
@@ -22,7 +22,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             _savageJson = Resx.GetText("eft", "database.eft.profiles.player.savage.json");
         }
 
-        public override void Run(FuyuHttpContext context)
+        public override void Run(HttpContext context)
         {
             var request = context.GetJson<GameProfileCreateRequest>();
             var sessionId = context.GetSessionId();

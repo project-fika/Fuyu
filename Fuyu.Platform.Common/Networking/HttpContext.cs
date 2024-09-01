@@ -7,13 +7,13 @@ using WebSocketSharp.Net;
 
 namespace Fuyu.Platform.Common.Networking
 {
-    public class FuyuHttpContext
+    public class HttpContext
     {
         public readonly HttpListenerRequest Request;
         public readonly HttpListenerResponse Response;
         public readonly string Path;
 
-        public FuyuHttpContext(HttpListenerRequest request, HttpListenerResponse response)
+        public HttpContext(HttpListenerRequest request, HttpListenerResponse response)
         {
             Request = request;
             Response = response;
@@ -32,7 +32,7 @@ namespace Fuyu.Platform.Common.Networking
             return path;
         }
 
-        public Dictionary<string, string> GetPathParameters(FuyuHttpBehaviour behaviour)
+        public Dictionary<string, string> GetPathParameters(HttpBehaviour behaviour)
         {
             var result = new Dictionary<string, string>();
             var segments = Path.Split('/');
@@ -40,7 +40,7 @@ namespace Fuyu.Platform.Common.Networking
 
             foreach (var kvp in behaviour.Path)
             {
-                if (kvp.Value == EFuyuSegment.Dynamic)
+                if (kvp.Value == EPathSegment.Dynamic)
                 {
                     result.Add(kvp.Key, segments[i]);
                 }

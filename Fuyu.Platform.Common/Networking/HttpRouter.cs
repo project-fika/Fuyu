@@ -5,19 +5,19 @@ using System.Threading.Tasks;
 
 namespace Fuyu.Platform.Common.Networking
 {
-    public class FuyuHttpRouter
+    public class HttpRouter
     {
-        public readonly List<FuyuHttpBehaviour> Behaviours;
+        public readonly List<HttpBehaviour> Behaviours;
 
-        public FuyuHttpRouter()
+        public HttpRouter()
         {
-            Behaviours = new List<FuyuHttpBehaviour>();
+            Behaviours = new List<HttpBehaviour>();
         }
 
-        public void Route(FuyuHttpContext context)
+        public void Route(HttpContext context)
         {
             // NOTE: multi-threaded lookup
-            var matches = new ConcurrentBag<FuyuHttpBehaviour>();
+            var matches = new ConcurrentBag<HttpBehaviour>();
 
             Parallel.ForEach(Behaviours, (behaviour) =>
             {
@@ -42,11 +42,6 @@ namespace Fuyu.Platform.Common.Networking
             {
                 match.Run(context);
             }
-        }
-
-        public void AddService<T>() where T : FuyuHttpBehaviour, new()
-        {
-            Behaviours.Add(new T());
         }
     }
 }

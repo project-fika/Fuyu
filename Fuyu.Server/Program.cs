@@ -1,5 +1,5 @@
 ﻿using Fuyu.Platform.Common.IO;
-using Fuyu.Platform.Server.Servers;
+using Fuyu.Platform.Server;
 using Fuyu.Platform.Server.Databases;
 
 namespace Fuyu.Server
@@ -11,8 +11,8 @@ namespace Fuyu.Server
             FuyuDatabase.Load();
             EftDatabase.Load();
 
-            EftServer.Load();
-            EftServer.Start();
+            ServerManager.LoadAll();
+            ServerManager.StartAll();
 
             Terminal.WaitForInput();
         }
