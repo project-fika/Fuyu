@@ -14,7 +14,7 @@ namespace Fuyu.Platform.Common.Http
             Behaviours = new List<FuyuBehaviour>();
         }
 
-        public void Route(FuyuContext context)
+        public void Route(FuyuHttpContext context)
         {
             // NOTE: multi-threaded lookup
             var matches = new ConcurrentBag<FuyuBehaviour>();

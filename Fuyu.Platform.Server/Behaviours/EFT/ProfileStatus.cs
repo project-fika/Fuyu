@@ -12,7 +12,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
         {
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             var sessionId = context.GetSessionId();
             var account = FuyuDatabase.Accounts.GetAccount(sessionId);

@@ -13,7 +13,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
         {
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             var customizations = EftDatabase.Templates.GetCustomizations();
             var response = new ResponseBody<Dictionary<string, CustomizationTemplate>>()

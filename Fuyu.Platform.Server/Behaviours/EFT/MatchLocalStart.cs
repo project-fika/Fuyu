@@ -27,7 +27,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             };
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             var request = context.GetJson<MatchLocalStartRequest>();
             var location = request.location;

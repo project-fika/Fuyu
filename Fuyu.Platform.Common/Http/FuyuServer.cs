@@ -26,7 +26,7 @@ namespace Fuyu.Platform.Common.Http
 
         private void OnRequest(object sender, HttpRequestEventArgs e)
         {
-            var context = new FuyuContext(e.Request, e.Response);
+            var context = new FuyuHttpContext(e.Request, e.Response);
 
             Terminal.WriteLine($"[{Name}] {context.Path}");
 

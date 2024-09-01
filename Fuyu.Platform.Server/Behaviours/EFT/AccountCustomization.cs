@@ -12,7 +12,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             _response = Resx.GetText("eft", "database.eft.client.account.customization.json");
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             SendJson(context, _response);
         }

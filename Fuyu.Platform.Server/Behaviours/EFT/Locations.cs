@@ -16,7 +16,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             _locations = Json.Parse<ResponseBody<WorldMap>>(text);
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             var response = Json.Stringify(_locations);
             SendJson(context, response);

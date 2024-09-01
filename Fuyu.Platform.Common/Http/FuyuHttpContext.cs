@@ -7,13 +7,13 @@ using WebSocketSharp.Net;
 
 namespace Fuyu.Platform.Common.Http
 {
-    public class FuyuContext
+    public class FuyuHttpContext
     {
         public readonly HttpListenerRequest Request;
         public readonly HttpListenerResponse Response;
         public readonly string Path;
 
-        public FuyuContext(HttpListenerRequest request, HttpListenerResponse response)
+        public FuyuHttpContext(HttpListenerRequest request, HttpListenerResponse response)
         {
             Request = request;
             Response = response;

@@ -22,7 +22,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             _savageJson = Resx.GetText("eft", "database.eft.profiles.player.savage.json");
         }
 
-        public override void Run(FuyuContext context)
+        public override void Run(FuyuHttpContext context)
         {
             var request = context.GetJson<GameProfileCreateRequest>();
             var sessionId = context.GetSessionId();

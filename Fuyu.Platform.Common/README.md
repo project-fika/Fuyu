@@ -12,7 +12,7 @@ It only supports HTTP without secure connection.
 - `FuyuServer` receives incoming HTTP requests and has an internal router
 that maps `FuyuBehaviour` to a path.
 - `FuyuBehaviour` is what handles the path and sends back a response.
-- `FuyuContext` is metadata from a request
+- `FuyuHttpContext` is metadata from a request
 
 ```cs
 using System;
@@ -23,7 +23,7 @@ using Fuyu.Platform.Common.IO;
 public class HelloWorld : FuyuBehaviour
 {
     // run this code when the path it's bound to is requested
-    public override void Run(FuyuContext context)
+    public override void Run(FuyuHttpContext context)
     {
         // respond to the request
         SendText(context, "Hello, world!");
