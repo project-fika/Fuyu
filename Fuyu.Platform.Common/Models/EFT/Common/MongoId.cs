@@ -74,7 +74,7 @@ namespace Fuyu.Platform.Common.Models.EFT.Common
 			_counter |= (ulong)num2;
 		}
 
-		public MongoId(MongoId source, int increment, bool newTimestamp)
+		public MongoId(MongoId source, int increment, bool newTimestamp = true)
 		{
 			_timeStamp = newTimestamp
                 ? UnixTimestamp
@@ -109,16 +109,6 @@ namespace Fuyu.Platform.Common.Models.EFT.Common
 
 			var num2 = Convert.ToUInt32(_counter << 40 >> 40);
 			_newIdCounter = Math.Max(_newIdCounter, num2);
-		}
-
-		public MongoId Next()
-		{
-			return new MongoId(this, 1, true);
-		}
-
-		public MongoId Add(int increment)
-		{
-			return new MongoId(this, increment, false);
 		}
 
 		public bool Equals(MongoId other)
