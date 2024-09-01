@@ -31,15 +31,17 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 
             // TODO: PVP-PVE STATE DETECTION
 
+            // generate ids
+            var pmcId = new MongoId(accountId).ToString();
+            var savageId = new MongoId(pmcId, 1, false).ToString();
+
             // create savage
-            var savageId = new MongoId().ToString();
             account.EftSave.PvE.Savage = Json.Parse<Profile>(_savageJson);
 
             account.EftSave.PvE.Savage._id = savageId;
             account.EftSave.PvE.Savage.aid = accountId;
 
             // create pmc
-            var pmcId = new MongoId().ToString();
             var voiceTemplate = EftDatabase.Templates.GetCustomization(request.voiceId);
 
             account.EftSave.PvE.Pmc = request.side == "bear"
@@ -69,6 +71,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
                 }
             };
 
+            Fuyu.Platform.Common.IO.VFS.WriteTextFile("fuyu/test.json", Json.Stringify(response));
             SendJson(context, Json.Stringify(response));
         }
     }

@@ -16,7 +16,10 @@ namespace Fuyu.Platform.Common.Models.EFT.Common
 		{
 			get
 			{
-				return Convert.ToUInt32(DateTime.Now.ToUniversalTime());
+				var startTime = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+				var currTime = DateTime.Now.ToUniversalTime() - startTime;
+				var result = Convert.ToUInt32(Math.Abs(currTime.TotalSeconds));
+				return result;
 			}
 		}
 
