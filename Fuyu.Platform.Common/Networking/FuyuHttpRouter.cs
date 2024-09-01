@@ -3,7 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Fuyu.Platform.Common.Http
+namespace Fuyu.Platform.Common.Networking
 {
     public class FuyuHttpRouter
     {

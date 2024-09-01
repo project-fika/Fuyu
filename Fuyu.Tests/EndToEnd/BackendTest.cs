@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Fuyu.Platform.Server.Servers;
 using Fuyu.Platform.Server.Databases;
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Models.EFT.Bots;
 using Fuyu.Platform.Common.Models.EFT.Requests;
 using Fuyu.Platform.Common.Serialization;

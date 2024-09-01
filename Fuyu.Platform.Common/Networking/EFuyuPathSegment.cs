@@ -1,4 +1,4 @@
-namespace Fuyu.Platform.Common.Http
+namespace Fuyu.Platform.Common.Networking
 {
     public enum EFuyuSegment
     {

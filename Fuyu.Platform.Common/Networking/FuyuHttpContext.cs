@@ -5,7 +5,7 @@ using Fuyu.Platform.Common.Compression;
 using Fuyu.Platform.Common.Serialization;
 using WebSocketSharp.Net;
 
-namespace Fuyu.Platform.Common.Http
+namespace Fuyu.Platform.Common.Networking
 {
     public class FuyuHttpContext
     {

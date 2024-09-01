@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using Fuyu.Platform.Common.Compression;
 
-namespace Fuyu.Platform.Common.Http
+namespace Fuyu.Platform.Common.Networking
 {
     public abstract class FuyuHttpBehaviour
     {

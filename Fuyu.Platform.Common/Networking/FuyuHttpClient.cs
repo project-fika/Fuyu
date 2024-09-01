@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Fuyu.Platform.Common.Compression;
 
-namespace Fuyu.Platform.Common.Http
+namespace Fuyu.Platform.Common.Networking
 {
     // NOTE: Don't dispose this, keep a reference for the lifetime of the
     //       application.

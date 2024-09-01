@@ -16,7 +16,7 @@ that maps `FuyuHttpBehaviour` to a path.
 
 ```cs
 using System;
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.IO;
 
 // handles a request
@@ -61,7 +61,7 @@ It supports both sync and async operations.
 using System;
 using System.Text;
 using System.Threading.Tasks;
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 
 public class Program
 {

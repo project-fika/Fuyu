@@ -1,5 +1,5 @@
 using Fuyu.Platform.Server.Services;
-using Fuyu.Platform.Common.Http;
+using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Models.EFT.Profiles;
 using Fuyu.Platform.Common.Models.EFT.Requests;
 using Fuyu.Platform.Common.Models.EFT.Responses;

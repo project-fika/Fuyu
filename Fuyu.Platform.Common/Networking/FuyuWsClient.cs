@@ -1,7 +1,7 @@
 using System;
 using WebSocketSharp;
 
-namespace Fuyu.Platform.Common.Http
+namespace Fuyu.Platform.Common.Networking
 {
     public class FuyuWsClient : IDisposable
     {

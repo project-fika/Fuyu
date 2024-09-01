@@ -2,7 +2,7 @@ using System;
 using WebSocketSharp.Server;
 using Fuyu.Platform.Common.IO;
 
-namespace Fuyu.Platform.Common.Http
+namespace Fuyu.Platform.Common.Networking
 {
     public class FuyuServer
     {
