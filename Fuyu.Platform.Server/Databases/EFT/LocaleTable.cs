@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Fuyu.Platform.Common.Collections;
 using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Serialization;
@@ -7,18 +8,11 @@ namespace Fuyu.Platform.Server.Databases.EFT
 {
     public class LocaleTable
     {
-        static LocaleTable()
-        {
-            _languagesLock = new object();
-            _globalLocalesLock = new object();
-            _menuLocalesLock = new object();
-        }
-
         public LocaleTable()
         {
-            _languages = new Dictionary<string, string>();
-            _globalLocales = new Dictionary<string, Dictionary<string, string>>();
-            _menuLocales = new Dictionary<string, MenuLocaleResponse>();
+            _languages = new ThreadDictionary<string, string>();
+            _globalLocales = new ThreadDictionary<string, Dictionary<string, string>>();
+            _menuLocales = new ThreadDictionary<string, MenuLocaleResponse>();
         }
 
         public void Load()
@@ -29,9 +23,8 @@ namespace Fuyu.Platform.Server.Databases.EFT
         }
 
 #region Languages
-//                         langid  name
-        private readonly Dictionary<string, string> _languages;
-        private static readonly object _languagesLock;
+//                                       langid  name
+        private readonly ThreadDictionary<string, string> _languages;
 
         private void LoadLanguages()
         {
@@ -46,43 +39,33 @@ namespace Fuyu.Platform.Server.Databases.EFT
 
         public Dictionary<string, string> GetLanguages()
         {
-            return _languages;
+            return _languages.ToDictionary();
         }
 
         public string GetLanguage(string languageId)
         {
-            return _languages[languageId];
+            return _languages.Get(languageId);
         }
 
         public void SetLanguage(string languageId, string name)
         {
-            lock (_languagesLock)
-            {
-                _languages[languageId] = name;
-            }
+            _languages.Set(languageId, name);
         }
 
         public void AddLanguage(string languageId, string name)
         {
-            lock (_languagesLock)
-            {
-                _languages.Add(languageId, name);
-            }
+            _languages.Add(languageId, name);
         }
 
         public void RemoveLanguage(string languageId)
         {
-            lock (_languagesLock)
-            {
-                _languages.Remove(languageId);
-            }
+            _languages.Remove(languageId);
         }
 #endregion
 
 #region GlobalLocales
-//                                 langid             key     value
-        private readonly Dictionary<string, Dictionary<string, string>> _globalLocales;
-        private static readonly object _globalLocalesLock;
+//                                        langid             key     value
+        private readonly ThreadDictionary<string, Dictionary<string, string>> _globalLocales;
 
         private void LoadGlobalLocales()
         {
@@ -99,43 +82,33 @@ namespace Fuyu.Platform.Server.Databases.EFT
 
         public Dictionary<string, Dictionary<string, string>> GetGlobalLocales()
         {
-            return _globalLocales;
+            return _globalLocales.ToDictionary();
         }
 
         public Dictionary<string, string> GetGlobalLocale(string languageId)
         {
-            return _globalLocales[languageId];
+            return _globalLocales.Get(languageId);
         }
 
         public void SetGlobalLocale(string languageId, Dictionary<string, string> globalLocale)
         {
-            lock (_globalLocalesLock)
-            {
-                _globalLocales[languageId] = globalLocale;
-            }
+            _globalLocales.Set(languageId, globalLocale);
         }
 
         public void AddGlobalLocale(string languageId, Dictionary<string, string> globalLocale)
         {
-            lock (_globalLocalesLock)
-            {
-                _globalLocales.Add(languageId, globalLocale);
-            }
+            _globalLocales.Add(languageId, globalLocale);
         }
 
         public void RemoveGlobalLocale(string languageId)
         {
-            lock (_globalLocalesLock)
-            {
-                _globalLocales.Remove(languageId);
-            }
+            _globalLocales.Remove(languageId);
         }
 #endregion
 
 #region MenuLocales
-//                                 langid  locale
-        private readonly Dictionary<string, MenuLocaleResponse> _menuLocales;
-        private static readonly object _menuLocalesLock;
+//                                        langid  locale
+        private readonly ThreadDictionary<string, MenuLocaleResponse> _menuLocales;
 
         private void LoadMenuLocales()
         {
@@ -152,36 +125,27 @@ namespace Fuyu.Platform.Server.Databases.EFT
 
         public Dictionary<string, MenuLocaleResponse> GetMenuLocales()
         {
-            return _menuLocales;
+            return _menuLocales.ToDictionary();
         }
 
         public MenuLocaleResponse GetMenuLocale(string languageId)
         {
-            return _menuLocales[languageId];
+            return _menuLocales.Get(languageId);
         }
 
         public void SetMenuLocale(string languageId, MenuLocaleResponse menuLocale)
         {
-            lock (_menuLocalesLock)
-            {
-                _menuLocales[languageId] = menuLocale;
-            }
+            _menuLocales.Set(languageId, menuLocale);
         }
 
         public void AddMenuLocale(string languageId, MenuLocaleResponse menuLocale)
         {
-            lock (_menuLocalesLock)
-            {
-                _menuLocales.Add(languageId, menuLocale);
-            }
+            _menuLocales.Add(languageId, menuLocale);
         }
 
         public void RemoveMenuLocale(string languageId)
         {
-            lock (_menuLocalesLock)
-            {
-                _menuLocales.Remove(languageId);
-            }
+            _menuLocales.Remove(languageId);
         }
 #endregion
     }

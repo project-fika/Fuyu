@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Fuyu.Platform.Common.Collections;
 using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Common.Models.Fuyu.Accounts;
 using Fuyu.Platform.Common.Serialization;
@@ -8,22 +9,16 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
 {
     public class AccountTable
     {
-        static AccountTable()
-        {
-            _accountsLock = new object();
-            _sessionsLock = new object();
-            _pathLock = new object();
-        }
-
         public AccountTable()
         {
-            _path = "./fuyu/accounts/";
-            _accounts = [];
-            _sessions = [];
+            _path = new ThreadObject<string>(string.Empty);
+            _accounts = new ThreadList<Account>();
+            _sessions = new ThreadDictionary<string, int>();
         }
 
         public void Load()
         {
+            LoadPath();
             LoadAccounts();
             LoadSessions();
         }
@@ -32,20 +27,21 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
         // TODO:
         // * move to a config system
         // -- seionmoya, 2024/09/02
-        private string _path;
-        private static readonly object _pathLock;
+        private readonly ThreadObject<string> _path;
+
+        public void LoadPath()
+        {
+            SetPath("./fuyu/accounts/");
+        }
 
         public string GetPath()
         {
-            return _path;
+            return _path.Get();
         }
 
         public void SetPath(string path)
         {
-            lock (_pathLock)
-            {
-                _path = path;
-            }
+            _path.Set(path);
         }
 #endregion
 
@@ -57,20 +53,21 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
         //       TryGetValue() but that uses 'out' which I want to avoid).
         // -- seionmoya, 2024/09/02
 
-        private readonly List<Account> _accounts;
-        private static readonly object _accountsLock;
+        private readonly ThreadList<Account> _accounts;
 
         // TODO:
         // * separate database from loading functionality
         // -- seionmoya, 2024/09/02
         private void LoadAccounts()
         {
-            if (!VFS.DirectoryExists(_path))
+            var path = _path.Get();
+
+            if (!VFS.DirectoryExists(path))
             {
-                VFS.CreateDirectory(_path);
+                VFS.CreateDirectory(path);
             }
 
-            var files = VFS.GetFiles(_path);
+            var files = VFS.GetFiles(path);
 
             foreach (var filepath in files)
             {
@@ -84,18 +81,18 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
 
         public List<Account> GetAccounts()
         {
-            return _accounts;
+            return _accounts.ToList();
         }
 
         public Account GetAccount(string sessionId)
         {
             var accountId = GetSession(sessionId);
-            return _accounts[accountId];
+            return _accounts.Get(accountId);
         }
 
         public Account GetAccount(int accountId)
         {
-            foreach (var entry in _accounts)
+            foreach (var entry in _accounts.ToList())
             {
                 if (entry.Id == accountId)
                 {
@@ -108,49 +105,41 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
 
         public void SetAccount(int accountId, Account account)
         {
-            for (var i = 0; i < _accounts.Count; ++i)
-            {
-                if (_accounts[i].Id == accountId)
-                {
-                    lock (_accountsLock)
-                    {
-                        _accounts[i] = account;
-                    }
+            var accounts = _accounts.ToList();
 
+            for (var i = 0; i < accounts.Count; ++i)
+            {
+                if (accounts[i].Id == accountId)
+                {
+                    _accounts.Set(i, account);
                     return;
                 }
             }
-
-            throw new Exception($"Account with {accountId} does not exist.");
         }
 
         public void AddAccount(Account account)
         {
-            foreach (var entry in _accounts)
+            var accounts = _accounts.ToList();
+
+            for (var i = 0; i < accounts.Count; ++i)
             {
-                if (entry.Id == account.Id)
+                if (accounts[i].Id == account.Id)
                 {
-                    _accounts.Remove(entry);
+                    _accounts.RemoveAt(i);
+                    break;
                 }
             }
 
-            lock (_accountsLock)
-            {
-                _accounts.Add(account);
-            }
+            _accounts.Add(account);
         }
 
         public void RemoveAccount(int accountId)
         {
-            foreach (var entry in _accounts)
+            foreach (var entry in _accounts.ToList())
             {
                 if (entry.Id == accountId)
                 {
-                    lock (_accountsLock)
-                    {
-                        _accounts.Remove(entry);
-                    }
-
+                    _accounts.Remove(entry);
                     return;
                 }
             }
@@ -160,9 +149,8 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
 #endregion
 
 #region Sessions
-//                                  sessid  aid
-        private readonly Dictionary<string, int> _sessions;
-        private static readonly object _sessionsLock;
+//                                        sessid  aid
+        private readonly ThreadDictionary<string, int> _sessions;
 
         public void LoadSessions()
         {
@@ -171,58 +159,29 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
             // -- seionmoya, 2024/09/02
         }
 
+        public Dictionary<string, int> GetSessions()
+        {
+            return _sessions.ToDictionary();
+        }
+
         public int GetSession(string sessionId)
         {
-            if (!_sessions.ContainsKey(sessionId))
-            {
-                throw new Exception($"Session {sessionId} does not exist.");
-            }
-
-            return _sessions[sessionId];
+            return _sessions.Get(sessionId);
         }
 
         public void SetSession(string sessionId, int accountId)
         {
-            if (!_sessions.ContainsKey(sessionId))
-            {
-                throw new Exception($"Session {sessionId} does not exist.");
-            }
-
-            lock (_sessionsLock)
-            {
-                _sessions[sessionId] = accountId;
-            }
+            _sessions.Set(sessionId, accountId);
         }
 
         public void AddSession(string sessionId, int accountId)
         {
-            if (_sessions.ContainsKey(sessionId))
-            {
-                lock (_sessionsLock)
-                {
-                    _sessions[sessionId] = accountId;
-                }
-            }
-            else
-            {
-                lock (_sessionsLock)
-                {
-                    _sessions.Add(sessionId, accountId);
-                }
-            }
+            _sessions.Add(sessionId, accountId);
         }
 
         public void RemoveSession(string sessionId)
         {
-            if (!_sessions.ContainsKey(sessionId))
-            {
-                throw new Exception($"Session {sessionId} does not exist.");
-            }
-
-            lock (_sessionsLock)
-            {
-                _sessions.Remove(sessionId);
-            }
+            _sessions.Remove(sessionId);
         }
 #endregion
     }
