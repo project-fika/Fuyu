@@ -1,46 +1,31 @@
 ﻿@using Fuyu.Platform.Common.Models.Fuyu.Accounts
 @using Fuyu.Platform.Launcher.Services
 
-@page "/"
 @page "/account"
 
 <FluentStack Orientation="Orientation.Vertical">
 
-    <FluentButton Appearance="Appearance.Accent" IconStart="@(new Icons.Regular.Size24.Play())" OnClick="StartEft">Start Game</FluentButton>
+    <FluentButton Appearance="Appearance.Accent" IconStart="@(new Icons.Regular.Size24.Play())" OnClick="StartEft_Clicked">Start EFT</FluentButton>
+    <FluentButton Appearance="Appearance.Accent" IconStart="@(new Icons.Regular.Size24.Play())" OnClick="StartArena_Clicked">Start Arena</FluentButton>
 
 </FluentStack>
 
 @code
 {
-    // placeholder
-    string username = "Senko-san";
-    string password = "test";
-    string edition = "unheard";
+    [SupplyParameterFromQuery(Name = "sessionid")]
+    private string sessionId { get; set; }
 
-    // TODO:
-    // * Move the login and registering into other pages
-    // -- seionmoya, 2024/09/02
-    private void StartEft()
+    private void StartEft_Clicked()
     {
-        var hashedPassword = HashService.GetSHA256(password);
-
-        // register account
-        var registerStatus = RequestService.RegisterAccount(username, hashedPassword, edition);
-
-        switch (registerStatus)
+        using (var process = ProcessService.StartEft(SettingsService.EftDirectory, sessionId, SettingsService.EftAddress))
         {
-            case ERegisterStatus.Success:
-                break;
-
-            case ERegisterStatus.AlreadyExists:
-                break;
+            process.Start();
         }
+    }
 
-        // login account
-        var sessionId = RequestService.LoginAccount(username, hashedPassword);
-
-        // run game
-        using (var process = ProcessService.StartEft(SettingsService.ClientDirectory, sessionId, SettingsService.EftAddress))
+    private void StartArena_Clicked()
+    {
+        using (var process = ProcessService.StartArena(SettingsService.ArenaDirectory, sessionId, SettingsService.ArenaAddress))
         {
             process.Start();
         }

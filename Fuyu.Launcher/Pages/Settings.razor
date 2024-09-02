@@ -4,32 +4,37 @@
 
 <FluentStack Orientation="Orientation.Vertical">
 
-    <!-- server settings -->
-    <FluentAccordionItem Heading="Server" Style="width: 100%;">
-	    <FluentLabel>Fuyu server address:</FluentLabel>
+    <!-- fuyu -->
+    <FluentAccordionItem Heading="Fuyu" Style="width: 100%;">
+	    <FluentLabel>Server address:</FluentLabel>
         <FluentTextField TextFieldType="TextFieldType.Url" @oninput="FuyuAddress_TextChanged" @bind-Value="fuyuAddress" Style="width: 100%;"></FluentTextField>
-        <FluentLabel>EFT server address:</FluentLabel>
-        <FluentTextField TextFieldType="TextFieldType.Url" @oninput="EftAddress_TextChanged" @bind-Value="eftAddress" Style="width: 100%;"></FluentTextField>
     </FluentAccordionItem>
 
-    <!-- client settings -->
-    <FluentAccordionItem Heading="Client" Style="width: 100%;">
-        <FluentLabel>Path to installation:</FluentLabel>
-        <FluentTextField TextFieldType="TextFieldType.Text" @oninput="ClientDirectory_TextChanged" @bind-Value="clientDirectory" Style="width: 100%;"></FluentTextField>
+    <!-- eft -->
+    <FluentAccordionItem Heading="Escape From Tarkov" Style="width: 100%;">
+        <FluentLabel>Server address:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Url" @oninput="EftAddress_TextChanged" @bind-Value="eftAddress" Style="width: 100%;"></FluentTextField>
+        <FluentLabel>Client location:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Text" @oninput="EftDirectory_TextChanged" @bind-Value="eftDirectory" Style="width: 100%;"></FluentTextField>
+    </FluentAccordionItem>
+
+    <!-- arena -->
+    <FluentAccordionItem Heading="Escape From Tarkov: Arena" Style="width: 100%;">
+        <FluentLabel>Server address:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Url" @oninput="ArenaAddress_TextChanged" @bind-Value="arenaAddress" Style="width: 100%;"></FluentTextField>
+        <FluentLabel>Client location:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Text" @oninput="ArenaDirectory_TextChanged" @bind-Value="arenaDirectory" Style="width: 100%;"></FluentTextField>
     </FluentAccordionItem>
 
 </FluentStack>
 
 @code
 {
-    string clientDirectory = SettingsService.ClientDirectory;
     string fuyuAddress = SettingsService.FuyuAddress;
     string eftAddress = SettingsService.EftAddress;
-
-    private void ClientDirectory_TextChanged(ChangeEventArgs e)
-    {
-        SettingsService.ClientDirectory = (string)e.Value;
-    }
+    string arenaAddress = SettingsService.ArenaAddress;
+    string eftDirectory = SettingsService.EftDirectory;
+    string arenaDirectory = SettingsService.EftDirectory;
 
     private void FuyuAddress_TextChanged(ChangeEventArgs e)
     {
@@ -39,5 +44,20 @@
     private void EftAddress_TextChanged(ChangeEventArgs e)
     {
         SettingsService.EftAddress = (string)e.Value;
+    }
+
+    private void ArenaAddress_TextChanged(ChangeEventArgs e)
+    {
+        SettingsService.ArenaAddress = (string)e.Value;
+    }
+
+    private void EftDirectory_TextChanged(ChangeEventArgs e)
+    {
+        SettingsService.EftDirectory = (string)e.Value;
+    }
+
+    private void ArenaDirectory_TextChanged(ChangeEventArgs e)
+    {
+        SettingsService.ArenaDirectory = (string)e.Value;
     }
 }
