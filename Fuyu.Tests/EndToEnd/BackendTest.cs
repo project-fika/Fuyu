@@ -15,7 +15,6 @@ namespace Fuyu.Tests.EndToEnd
     [TestClass]
     public class BackendTest
     {
-        private static HttpClient _fuyuClient;
         private static HttpClient _eftMainClient;
 
         [AssemblyInitialize]
@@ -34,7 +33,6 @@ namespace Fuyu.Tests.EndToEnd
             var sessionId = AccountService.LoginAccount("test-username", "test-password");
 
             // create request clients
-            _fuyuClient = new HttpClient("http://localhost:8000");
             _eftMainClient = new HttpClient("http://localhost:8001", sessionId);
         }
 
