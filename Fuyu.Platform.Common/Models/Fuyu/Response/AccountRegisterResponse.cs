@@ -1,5 +1,5 @@
 using System.Runtime.Serialization;
-using Fuyu.Platform.Common.Networking;
+using Fuyu.Platform.Common.Models.Fuyu.Accounts;
 
 namespace Fuyu.Platform.Common.Models.Fuyu.Responses
 {

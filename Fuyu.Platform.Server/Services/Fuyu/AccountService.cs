@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Common.Models.EFT.Common;
 using Fuyu.Platform.Common.Models.Fuyu.Accounts;
-using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Serialization;
 using Fuyu.Platform.Server.Databases;
 

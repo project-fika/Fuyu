@@ -1,4 +1,4 @@
-namespace Fuyu.Platform.Common.Networking
+namespace Fuyu.Platform.Common.Models.Fuyu.Accounts
 {
     public enum ERegisterStatus
     {
