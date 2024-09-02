@@ -46,99 +46,103 @@ using System.Text;
 
 namespace WebSocketSharp.Net
 {
-  internal sealed class QueryStringCollection : NameValueCollection
-  {
-    #region Public Constructors
-
-    public QueryStringCollection ()
+    internal sealed class QueryStringCollection : NameValueCollection
     {
-    }
+        #region Public Constructors
 
-    public QueryStringCollection (int capacity)
-      : base (capacity)
-    {
-    }
-
-    #endregion
-
-    #region Public Methods
-
-    public static QueryStringCollection Parse (string query)
-    {
-      return Parse (query, Encoding.UTF8);
-    }
-
-    public static QueryStringCollection Parse (string query, Encoding encoding)
-    {
-      if (query == null)
-        return new QueryStringCollection (1);
-
-      if (query.Length == 0)
-        return new QueryStringCollection (1);
-
-      if (query == "?")
-        return new QueryStringCollection (1);
-
-      if (query[0] == '?')
-        query = query.Substring (1);
-
-      if (encoding == null)
-        encoding = Encoding.UTF8;
-
-      var ret = new QueryStringCollection ();
-
-      foreach (var component in query.Split ('&')) {
-        var len = component.Length;
-
-        if (len == 0)
-          continue;
-
-        if (component == "=")
-          continue;
-
-        string name = null;
-        string val = null;
-
-        var idx = component.IndexOf ('=');
-
-        if (idx < 0) {
-          val = component.UrlDecode (encoding);
-        }
-        else if (idx == 0) {
-          val = component.Substring (1).UrlDecode (encoding);
-        }
-        else {
-          name = component.Substring (0, idx).UrlDecode (encoding);
-
-          var start = idx + 1;
-          val = start < len
-                ? component.Substring (start).UrlDecode (encoding)
-                : String.Empty;
+        public QueryStringCollection()
+        {
         }
 
-        ret.Add (name, val);
-      }
+        public QueryStringCollection(int capacity)
+          : base(capacity)
+        {
+        }
 
-      return ret;
+        #endregion
+
+        #region Public Methods
+
+        public static QueryStringCollection Parse(string query)
+        {
+            return Parse(query, Encoding.UTF8);
+        }
+
+        public static QueryStringCollection Parse(string query, Encoding encoding)
+        {
+            if (query == null)
+                return new QueryStringCollection(1);
+
+            if (query.Length == 0)
+                return new QueryStringCollection(1);
+
+            if (query == "?")
+                return new QueryStringCollection(1);
+
+            if (query[0] == '?')
+                query = query.Substring(1);
+
+            if (encoding == null)
+                encoding = Encoding.UTF8;
+
+            var ret = new QueryStringCollection();
+
+            foreach (var component in query.Split('&'))
+            {
+                var len = component.Length;
+
+                if (len == 0)
+                    continue;
+
+                if (component == "=")
+                    continue;
+
+                string name = null;
+                string val = null;
+
+                var idx = component.IndexOf('=');
+
+                if (idx < 0)
+                {
+                    val = component.UrlDecode(encoding);
+                }
+                else if (idx == 0)
+                {
+                    val = component.Substring(1).UrlDecode(encoding);
+                }
+                else
+                {
+                    name = component.Substring(0, idx).UrlDecode(encoding);
+
+                    var start = idx + 1;
+                    val = start < len
+                          ? component.Substring(start).UrlDecode(encoding)
+                          : String.Empty;
+                }
+
+                ret.Add(name, val);
+            }
+
+            return ret;
+        }
+
+        public override string ToString()
+        {
+            if (Count == 0)
+                return String.Empty;
+
+            var buff = new StringBuilder();
+
+            var fmt = "{0}={1}&";
+
+            foreach (var key in AllKeys)
+                buff.AppendFormat(fmt, key, this[key]);
+
+            buff.Length--;
+
+            return buff.ToString();
+        }
+
+        #endregion
     }
-
-    public override string ToString ()
-    {
-      if (Count == 0)
-        return String.Empty;
-
-      var buff = new StringBuilder ();
-
-      var fmt = "{0}={1}&";
-
-      foreach (var key in AllKeys)
-        buff.AppendFormat (fmt, key, this[key]);
-
-      buff.Length--;
-
-      return buff.ToString ();
-    }
-
-    #endregion
-  }
 }
