@@ -1,0 +1,50 @@
+@using Fuyu.Platform.Common.Models.Fuyu.Accounts
+@using Fuyu.Platform.Launcher.Services;
+
+@inject NavigationManager Navigation
+
+@page "/register"
+
+<FluentStack Orientation="Orientation.Vertical">
+
+    <!-- server settings -->
+    <FluentAccordionItem Heading="Register" Expanded=true Style="width: 100%;">
+	    <FluentLabel>Username:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Text" @bind-Value="username" Style="width: 100%;"></FluentTextField>
+        <FluentLabel>Password:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Text" @bind-Value="password" Style="width: 100%;"></FluentTextField>
+        <FluentLabel>Edition:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Text" @bind-Value="edition" Style="width: 100%;"></FluentTextField>
+        <br />
+        <br />
+        <FluentButton Appearance="Appearance.Accent" OnClick="Register_Clicked">Register</FluentButton>
+        <a href="/login"><FluentLabel>Login</FluentLabel></a>
+    </FluentAccordionItem>
+
+</FluentStack>
+
+@code
+{
+    string username = string.Empty;
+    string password = string.Empty;
+    string edition = "unheard";
+
+    private void Register_Clicked(EventArgs e)
+    {
+        var hashedPassword = HashService.GetSHA256(password);
+        var registerStatus = RequestService.RegisterAccount(username, hashedPassword, edition);
+
+        switch (registerStatus)
+        {
+            case ERegisterStatus.Success:
+                Navigation.NavigateTo("/login");
+                break;
+
+            case ERegisterStatus.AlreadyExists:
+                // TODO:
+                // * show error
+                // -- seionmoya, 2024/09/02
+                break;
+        }
+    }
+}

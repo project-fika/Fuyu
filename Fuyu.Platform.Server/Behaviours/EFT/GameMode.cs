@@ -17,7 +17,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
                 data = new GameModeResponse()
                 {
                     gameMode = "pve",
-                    backendUrl = "http://localhost:8000"
+                    backendUrl = "http://localhost:8001"
                 }
             };
 

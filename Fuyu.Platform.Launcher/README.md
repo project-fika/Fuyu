@@ -12,7 +12,7 @@ are a couple of things you need to provide:
 
 - `cwd`: Current working directory. This is also where `EscapeFromTarkov.exe`
   must be located.
-- `accountId`: The user to login.
+- `sessionId`: The user's login session.
 - `address`: Main server address.
 
 ```cs
@@ -24,10 +24,10 @@ public class Program
     static void Main()
     {
         var cwd = Environment.CurrentDirectory;
-        var accountId = 659885;
-        var address = "http://localhost:8000";
+        var sessionId = "1234567890abcdef";
+        var address = "http://localhost:8001";
 
-        using (var process = ProcessService.StartEft(cwd, accountId, address))
+        using (var process = ProcessService.StartEft(cwd, sessionId, address))
         {
             process.Start();
         }

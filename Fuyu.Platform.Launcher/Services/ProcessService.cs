@@ -26,14 +26,14 @@ namespace Fuyu.Platform.Launcher.Services
             };
         }
 
-        public static Process StartServer(string cwd)
+        public static Process StartArena(string cwd, string sessionId, string address)
         {
             return new Process()
             {
                 StartInfo = new ProcessStartInfo()
                 {
-                    Arguments = string.Empty,
-                    FileName = Path.Combine(cwd, "Fuyu.Server.exe"),
+                    Arguments = GetLaunchArguments(sessionId, address),
+                    FileName = Path.Combine(cwd, "EscapeFromTarkovArena.exe"),
                     WorkingDirectory = cwd
                 }
             };

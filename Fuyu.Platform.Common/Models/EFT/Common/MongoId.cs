@@ -36,7 +36,7 @@ namespace Fuyu.Platform.Common.Models.EFT.Common
 		{
 			if (id == null || id.Length != 24)
 			{
-				throw new ArgumentOutOfRangeException("Critical MongoId error: incorrect length. Id: " + id);
+				throw new ArgumentOutOfRangeException($"Critical MongoId error: incorrect length. Id: {id}");
 			}
 			
             _timeStamp = GetTimestamp(id);

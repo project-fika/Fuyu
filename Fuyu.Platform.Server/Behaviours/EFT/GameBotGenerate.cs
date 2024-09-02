@@ -1,4 +1,4 @@
-using Fuyu.Platform.Server.Services;
+using Fuyu.Platform.Server.Services.EFT;
 using Fuyu.Platform.Common.Models.EFT.Profiles;
 using Fuyu.Platform.Common.Models.EFT.Requests;
 using Fuyu.Platform.Common.Models.EFT.Responses;
