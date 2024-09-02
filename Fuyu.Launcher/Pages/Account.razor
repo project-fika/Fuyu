@@ -16,12 +16,29 @@
     string password = "test";
     string edition = "unheard";
 
+    // TODO:
+    // * Move the login and registering into other pages
+    // -- seionmoya, 2024/09/02
     private void StartEft()
     {
         var hashedPassword = HashService.GetSHA256(password);
-        RequestService.RegisterAccount(username, hashedPassword, edition);
+
+        // register account
+        var registerStatus = RequestService.RegisterAccount(username, hashedPassword, edition);
+
+        switch (registerStatus)
+        {
+            case ERegisterStatus.Success:
+                break;
+
+            case ERegisterStatus.AlreadyExists:
+                break;
+        }
+
+        // login account
         var sessionId = RequestService.LoginAccount(username, hashedPassword);
 
+        // run game
         using (var process = ProcessService.StartEft(SettingsService.ClientDirectory, sessionId, SettingsService.EftAddress))
         {
             process.Start();

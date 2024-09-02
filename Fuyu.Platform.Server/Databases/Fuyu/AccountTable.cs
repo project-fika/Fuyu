@@ -31,7 +31,7 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
 #region path
         // TODO:
         // * move to a config system
-        // -- seionmoya, 2024/09/03
+        // -- seionmoya, 2024/09/02
         private string _path;
         private static readonly object _pathLock;
 
@@ -55,14 +55,14 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
         //       sync both the Account.Id and dictionary is a bit annoying, and 
         //       a dictionary loops over all keys anyways (unless using
         //       TryGetValue() but that uses 'out' which I want to avoid).
-        // -- seionmoya, 2024/09/03
+        // -- seionmoya, 2024/09/02
 
         private readonly List<Account> _accounts;
         private static readonly object _accountsLock;
 
         // TODO:
         // * separate database from loading functionality
-        // -- seionmoya, 2024/09/03
+        // -- seionmoya, 2024/09/02
         private void LoadAccounts()
         {
             if (!VFS.DirectoryExists(_path))

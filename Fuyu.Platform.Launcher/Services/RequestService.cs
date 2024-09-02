@@ -26,7 +26,7 @@ namespace Fuyu.Platform.Launcher.Services
             return response;
         }
 
-        public static void RegisterAccount(string username, string password, string edition)
+        public static ERegisterStatus RegisterAccount(string username, string password, string edition)
         {
             var request = new AccountRegisterRequest()
             {
@@ -36,10 +36,7 @@ namespace Fuyu.Platform.Launcher.Services
             };
             var response = HttpPost<AccountRegisterRequest, AccountRegisterResponse>("/account/register", request);
 
-            if (response.Status != ERegisterStatus.Success)
-            {
-                throw new Exception($"Could not register account {username}.");
-            }
+            return response.Status;
         }
 
         public static string LoginAccount(string username, string password)

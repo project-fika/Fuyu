@@ -12,7 +12,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 {
     // TODO:
     // * move code into TemplateTable and ProfileService
-    // -- seionmoya, 2024/09/03
+    // -- seionmoya, 2024/09/02
     public class GameProfileCreate : HttpBehaviour
     {
         private readonly string _bearJson;

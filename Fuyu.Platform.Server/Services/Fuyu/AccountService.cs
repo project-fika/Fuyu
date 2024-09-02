@@ -129,7 +129,9 @@ namespace Fuyu.Platform.Server.Services.Fuyu
                 }
             };
 
+            FuyuDatabase.Accounts.AddAccount(account);
             WriteAccountToDisk(account);
+
             return ERegisterStatus.Success;
         }
 
