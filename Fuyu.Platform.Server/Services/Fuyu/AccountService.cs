@@ -47,20 +47,30 @@ namespace Fuyu.Platform.Server.Services.Fuyu
         {
             var accountId = AccountExists(username, password);
 
-            if (accountId != -1)
+            if (accountId == -1)
             {
-                // NOTE: MongoId's are used internally, but EFT's launcher uses
-                // a different ID system (hwid+timestamp hash). Instead of
-                // fully mimicking this, I decided to generate a new MongoId
-                // for each login.
-                // -- seionmoya, 2024/09/02
-                var sessionId = new MongoId().ToString();
-
-                FuyuDatabase.Accounts.AddSession(sessionId, accountId);
-                return sessionId.ToString();
+                return string.Empty;
             }
 
-            return string.Empty;
+            var sessions = FuyuDatabase.Accounts.GetSessions();
+
+            foreach (var kvp in sessions)
+            {
+                if (kvp.Value == accountId)
+                {
+                    // session already exists
+                    return kvp.Key;
+                }
+            }
+
+            // NOTE: MongoId's are used internally, but EFT's launcher uses
+            // a different ID system (hwid+timestamp hash). Instead of
+            // fully mimicking this, I decided to generate a new MongoId
+            // for each login.
+            // -- seionmoya, 2024/09/02
+            var sessionId = new MongoId().ToString();
+            FuyuDatabase.Accounts.AddSession(sessionId, accountId);
+            return sessionId.ToString();
         }
 
         private static int GetNewAccountId()

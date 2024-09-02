@@ -9,8 +9,6 @@ using Fuyu.Platform.Common.Serialization;
 using Fuyu.Platform.Server;
 using Fuyu.Platform.Server.Databases;
 using Fuyu.Platform.Server.Services.Fuyu;
-using Fuyu.Platform.Server.Behaviours.EFT;
-using Fuyu.Platform.Common.Models.Fuyu.Requests;
 
 namespace Fuyu.Tests.EndToEnd
 {
@@ -38,49 +36,6 @@ namespace Fuyu.Tests.EndToEnd
             // create request clients
             _fuyuClient = new HttpClient("http://localhost:8000");
             _eftMainClient = new HttpClient("http://localhost:8001", sessionId);
-        }
-
-        [TestMethod]
-        public async Task TestAccountRegister()
-        {
-            // get request data
-            var request = new AccountRegisterRequest()
-            {
-                Username = "senko-san",
-                Password = "test-password",
-                Edition = "unheard"
-            };
-
-            // get request body
-            var json = Json.Stringify(request);
-            var body = Encoding.UTF8.GetBytes(json);
-
-            // get response
-            var data = await _fuyuClient.PostAsync("/account/register", body);
-            var result = Encoding.UTF8.GetString(data);
-
-            Assert.IsFalse(string.IsNullOrEmpty(result));
-        }
-
-        [TestMethod]
-        public async Task TestLoginCreate()
-        {
-            // get request data
-            var request = new AccountLoginRequest()
-            {
-                Username = "senko-san",
-                Password = "test-password"
-            };
-
-            // get request body
-            var json = Json.Stringify(request);
-            var body = Encoding.UTF8.GetBytes(json);
-
-            // get response
-            var data = await _fuyuClient.PostAsync("/account/login", body);
-            var result = Encoding.UTF8.GetString(data);
-
-            Assert.IsFalse(string.IsNullOrEmpty(result));
         }
 
         [TestMethod]

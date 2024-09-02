@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Fuyu.Platform.Common.Collections;
 using Fuyu.Platform.Common.IO;
 using Fuyu.Platform.Common.Models.EFT.Customization;
 using Fuyu.Platform.Common.Models.EFT.Responses;
@@ -8,14 +9,9 @@ namespace Fuyu.Platform.Server.Databases.EFT
 {
     public class TemplateTable
     {
-        static TemplateTable()
-        {
-            _customizationsLock = new object();
-        }
-
         public TemplateTable()
         {
-            _customizations = new Dictionary<string, CustomizationTemplate>();
+            _customizations = new ThreadDictionary<string, CustomizationTemplate>();
         }
 
         public void Load()
@@ -24,9 +20,8 @@ namespace Fuyu.Platform.Server.Databases.EFT
         }
 
 #region Customization
-//                                  custid  template 
-        private readonly Dictionary<string, CustomizationTemplate> _customizations;
-        private static readonly object _customizationsLock;
+//                                        custid  template 
+        private readonly ThreadDictionary<string, CustomizationTemplate> _customizations;
 
         private void LoadCustomizations()
         {
@@ -41,36 +36,27 @@ namespace Fuyu.Platform.Server.Databases.EFT
 
         public Dictionary<string, CustomizationTemplate> GetCustomizations()
         {
-            return _customizations;
+            return _customizations.ToDictionary();
         }
 
         public CustomizationTemplate GetCustomization(string customizationId)
         {
-            return _customizations[customizationId];
+            return _customizations.Get(customizationId);
         }
 
         public void SetCustomization(string customizationId, CustomizationTemplate template)
         {
-            lock (_customizationsLock)
-            {
-                _customizations[customizationId] = template;
-            }
+            _customizations.Set(customizationId, template);
         }
 
         public void AddCustomization(string customizationId, CustomizationTemplate template)
         {
-            lock (_customizationsLock)
-            {
-                _customizations.Add(customizationId, template);
-            }
+            _customizations.Add(customizationId, template);
         }
 
         public void RemoveCustomization(string customizationId)
         {
-            lock (_customizationsLock)
-            {
-                _customizations.Remove(customizationId);
-            }
+            _customizations.Remove(customizationId);
         }
 #endregion
     }
