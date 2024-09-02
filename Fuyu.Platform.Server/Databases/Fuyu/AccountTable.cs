@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
-using Fuyu.Platform.Common.Models.Fuyu;
-using Fuyu.Platform.Common.Models.Fuyu.Savegame;
+using Fuyu.Platform.Common.IO;
+using Fuyu.Platform.Common.Models.Fuyu.Accounts;
+using Fuyu.Platform.Common.Serialization;
 
 namespace Fuyu.Platform.Server.Databases.Fuyu
 {
@@ -10,12 +12,14 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
         {
             _accountsLock = new object();
             _sessionsLock = new object();
+            _pathLock = new object();
         }
 
         public AccountTable()
         {
-            _accounts = new Dictionary<int, Account>();
-            _sessions = new Dictionary<string, int>();
+            _path = "./fuyu/accounts/";
+            _accounts = [];
+            _sessions = [];
         }
 
         public void Load()
@@ -24,41 +28,61 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
             LoadSessions();
         }
 
-#region Accounts
-//                                  aid  account
-        private readonly Dictionary<int, Account> _accounts;
-        private static readonly object _accountsLock;
+#region path
+        // TODO:
+        // * move to a config system
+        // -- seionmoya, 2024/09/03
+        private string _path;
+        private static readonly object _pathLock;
 
-        private void LoadAccounts()
+        public string GetPath()
         {
-            var account = new Account()
-            {
-                Username = "Senko-san",
-                Password = string.Empty,
-                EftSave = new EftSave()
-                {
-                    Edition = "Unheard",
-                    PvE = new EftProfile()
-                    {
-                        Savage = default,
-                        Pmc = default,
-                        Suites = [],
-                        ShouldWipe = true
-                    },
-                    PvP = new EftProfile()
-                    {
-                        Savage = default,
-                        Pmc = default,
-                        Suites = [],
-                        ShouldWipe = true
-                    }
-                }
-            };
-
-            AddAccount(1, account);
+            return _path;
         }
 
-        public Dictionary<int, Account> GetAccounts()
+        public void SetPath(string path)
+        {
+            lock (_pathLock)
+            {
+                _path = path;
+            }
+        }
+#endregion
+
+#region Accounts
+        // NOTE: rationale for using List<Account> over Dictionary<int, Account>
+        //       is the accountId is already stored in the Account so having to
+        //       sync both the Account.Id and dictionary is a bit annoying, and 
+        //       a dictionary loops over all keys anyways (unless using
+        //       TryGetValue() but that uses 'out' which I want to avoid).
+        // -- seionmoya, 2024/09/03
+
+        private readonly List<Account> _accounts;
+        private static readonly object _accountsLock;
+
+        // TODO:
+        // * separate database from loading functionality
+        // -- seionmoya, 2024/09/03
+        private void LoadAccounts()
+        {
+            if (!VFS.DirectoryExists(_path))
+            {
+                VFS.CreateDirectory(_path);
+            }
+
+            var files = VFS.GetFiles(_path);
+
+            foreach (var filepath in files)
+            {
+                var json = VFS.ReadTextFile(filepath);
+                var account = Json.Parse<Account>(json);
+                AddAccount(account);
+
+                Terminal.WriteLine($"Loaded account {account.Id}");
+            }
+        }
+
+        public List<Account> GetAccounts()
         {
             return _accounts;
         }
@@ -71,31 +95,67 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
 
         public Account GetAccount(int accountId)
         {
-            return _accounts[accountId];
+            foreach (var entry in _accounts)
+            {
+                if (entry.Id == accountId)
+                {
+                    return entry;
+                }
+            }
+
+            throw new Exception($"Account with {accountId} does not exist.");
         }
 
         public void SetAccount(int accountId, Account account)
         {
-            lock (_accountsLock)
+            for (var i = 0; i < _accounts.Count; ++i)
             {
-                _accounts[accountId] = account;
+                if (_accounts[i].Id == accountId)
+                {
+                    lock (_accountsLock)
+                    {
+                        _accounts[i] = account;
+                    }
+
+                    return;
+                }
             }
+
+            throw new Exception($"Account with {accountId} does not exist.");
         }
 
-        public void AddAccount(int accountId, Account account)
+        public void AddAccount(Account account)
         {
+            foreach (var entry in _accounts)
+            {
+                if (entry.Id == account.Id)
+                {
+                    _accounts.Remove(entry);
+                }
+            }
+
             lock (_accountsLock)
             {
-                _accounts.Add(accountId, account);
+                _accounts.Add(account);
             }
         }
 
         public void RemoveAccount(int accountId)
         {
-            lock (_accountsLock)
+            foreach (var entry in _accounts)
             {
-                _accounts.Remove(accountId);
+                if (entry.Id == accountId)
+                {
+                    lock (_accountsLock)
+                    {
+                        _accounts.Remove(entry);
+                    }
+
+                    return;
+                }
             }
+
+            throw new Exception($"Account with {accountId} does not exist.");
         }
 #endregion
 
@@ -106,16 +166,28 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
 
         public void LoadSessions()
         {
-            AddSession("test", 1);
+            // intentionally empty
+            // sessions are created when users are logged in successfully
+            // -- seionmoya, 2024/09/02
         }
 
         public int GetSession(string sessionId)
         {
+            if (!_sessions.ContainsKey(sessionId))
+            {
+                throw new Exception($"Session {sessionId} does not exist.");
+            }
+
             return _sessions[sessionId];
         }
 
         public void SetSession(string sessionId, int accountId)
         {
+            if (!_sessions.ContainsKey(sessionId))
+            {
+                throw new Exception($"Session {sessionId} does not exist.");
+            }
+
             lock (_sessionsLock)
             {
                 _sessions[sessionId] = accountId;
@@ -124,14 +196,29 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
 
         public void AddSession(string sessionId, int accountId)
         {
-            lock (_sessionsLock)
+            if (_sessions.ContainsKey(sessionId))
             {
-                _sessions.Add(sessionId, accountId);
+                lock (_sessionsLock)
+                {
+                    _sessions[sessionId] = accountId;
+                }
+            }
+            else
+            {
+                lock (_sessionsLock)
+                {
+                    _sessions.Add(sessionId, accountId);
+                }
             }
         }
 
         public void RemoveSession(string sessionId)
         {
+            if (!_sessions.ContainsKey(sessionId))
+            {
+                throw new Exception($"Session {sessionId} does not exist.");
+            }
+
             lock (_sessionsLock)
             {
                 _sessions.Remove(sessionId);

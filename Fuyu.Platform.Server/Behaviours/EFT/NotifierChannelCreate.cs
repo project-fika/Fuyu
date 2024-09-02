@@ -21,7 +21,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
                     server = "localhost:8000",
                     channel_id = channelId,
                     url = string.Empty,
-                    notifierServer = $"http://localhost:8000/push/notifier/get/{channelId}",
+                    notifierServer = $"http://localhost:8001/push/notifier/get/{channelId}",
                     ws = $"ws://localhost:8000/push/notifier/getwebsocket/{channelId}"
                 }
             };

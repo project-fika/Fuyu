@@ -15,7 +15,9 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
         {
             var request = context.GetJson<GameProfileNicknameValidateRequest>();
 
-            // TODO: validate nickname usage
+            // TODO:
+            // * validate nickname usage
+            // -- seionmoya, 2024/08/28
 
             var response = new ResponseBody<GameProfileNicknameValidateResponse>()
             {

@@ -11,7 +11,8 @@ namespace Fuyu.Platform.Server
         static ServerManager()
         {
             _servers = [
-                new EftServer()
+                new FuyuServer(),
+                new EftMainServer()
             ];
         }
 

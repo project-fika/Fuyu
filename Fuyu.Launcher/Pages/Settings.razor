@@ -1,4 +1,4 @@
-@using Fuyu.Launcher.Services;
+@using Fuyu.Platform.Launcher.Services;
 
 @page "/settings"
 
@@ -6,38 +6,38 @@
 
     <!-- server settings -->
     <FluentAccordionItem Heading="Server" Style="width: 100%;">
-	    <FluentLabel>Path to installation:</FluentLabel>
-        <FluentTextField TextFieldType="TextFieldType.Text" @oninput="ServerDirectory_TextChanged" @bind-Value="serverDirectory" Style="width: 100%;"></FluentTextField>
+	    <FluentLabel>Fuyu server address:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Url" @oninput="FuyuAddress_TextChanged" @bind-Value="fuyuAddress" Style="width: 100%;"></FluentTextField>
+        <FluentLabel>EFT server address:</FluentLabel>
+        <FluentTextField TextFieldType="TextFieldType.Url" @oninput="EftAddress_TextChanged" @bind-Value="eftAddress" Style="width: 100%;"></FluentTextField>
     </FluentAccordionItem>
 
     <!-- client settings -->
     <FluentAccordionItem Heading="Client" Style="width: 100%;">
         <FluentLabel>Path to installation:</FluentLabel>
         <FluentTextField TextFieldType="TextFieldType.Text" @oninput="ClientDirectory_TextChanged" @bind-Value="clientDirectory" Style="width: 100%;"></FluentTextField>
-        <FluentLabel>Server address:</FluentLabel>
-        <FluentTextField TextFieldType="TextFieldType.Url" @oninput="Address_TextChanged" @bind-Value="address" Style="width: 100%;"></FluentTextField>
     </FluentAccordionItem>
 
 </FluentStack>
 
 @code
 {
-    string serverDirectory = SettingsService.ServerDirectory;
     string clientDirectory = SettingsService.ClientDirectory;
-    string address = SettingsService.Address;
-
-    private void ServerDirectory_TextChanged(ChangeEventArgs e)
-    {
-        SettingsService.ServerDirectory = (string)e.Value;
-    }
+    string fuyuAddress = SettingsService.FuyuAddress;
+    string eftAddress = SettingsService.EftAddress;
 
     private void ClientDirectory_TextChanged(ChangeEventArgs e)
     {
         SettingsService.ClientDirectory = (string)e.Value;
     }
 
-    private void Address_TextChanged(ChangeEventArgs e)
+    private void FuyuAddress_TextChanged(ChangeEventArgs e)
     {
-        SettingsService.Address = (string)e.Value;
+        SettingsService.FuyuAddress = (string)e.Value;
+    }
+
+    private void EftAddress_TextChanged(ChangeEventArgs e)
+    {
+        SettingsService.EftAddress = (string)e.Value;
     }
 }

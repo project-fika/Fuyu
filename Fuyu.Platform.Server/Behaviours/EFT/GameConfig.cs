@@ -18,11 +18,11 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
                 {
                     backend = new Backends()
                     {
-                        Lobby       = "http://localhost:8000",
-                        Trading     = "http://localhost:8000",
-                        Messaging   = "http://localhost:8000",
-                        Main        = "http://localhost:8000",
-                        RagFair     = "http://localhost:8000"
+                        Lobby       = "http://localhost:8001",
+                        Trading     = "http://localhost:8001",
+                        Messaging   = "http://localhost:8001",
+                        Main        = "http://localhost:8001",
+                        RagFair     = "http://localhost:8001"
                     },
                     utc_time = 1724450891.010541,
                     reportAvailable = true,

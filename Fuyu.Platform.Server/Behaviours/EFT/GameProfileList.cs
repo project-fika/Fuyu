@@ -17,7 +17,9 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             var sessionId = context.GetSessionId();
             var account = FuyuDatabase.Accounts.GetAccount(sessionId);
 
-            // TODO: PVP-PVE STATE DETECTION
+            // TODO:
+            // * PVP-PVE state detection
+            // -- seionmoya, 2024/08/28
             var pve = account.EftSave.PvE;
             Profile[] profiles = pve.ShouldWipe
                 ? []

@@ -1,18 +1,18 @@
 using System;
 
-namespace Fuyu.Launcher.Services
+namespace Fuyu.Platform.Launcher.Services
 {
     public static class SettingsService
     {
-        public static string ServerDirectory;
         public static string ClientDirectory;
-        public static string Address;
+        public static string FuyuAddress;
+        public static string EftAddress;
 
         static SettingsService()
         {
-            ServerDirectory = Environment.CurrentDirectory;
             ClientDirectory = Environment.CurrentDirectory;
-            Address = "http://localhost:8000";
+            FuyuAddress = "http://localhost:8000";
+            EftAddress = "http://localhost:8001";
         }
     }
 }

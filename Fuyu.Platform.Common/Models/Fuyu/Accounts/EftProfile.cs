@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
 using Fuyu.Platform.Common.Models.EFT.Profiles;
 
-namespace Fuyu.Platform.Common.Models.Fuyu.Savegame
+namespace Fuyu.Platform.Common.Models.Fuyu.Accounts
 {
     [DataContract]
     public struct EftProfile

@@ -1,30 +1,28 @@
-﻿@using Fuyu.Launcher.Services;
+﻿@using Fuyu.Platform.Launcher.Services
 
 @page "/"
 @page "/account"
 
 <FluentStack Orientation="Orientation.Vertical">
 
-    <FluentButton Appearance="Appearance.Accent" IconStart="@(new Icons.Regular.Size24.Play())" OnClick="StartServer">Start Server</FluentButton>
     <FluentButton Appearance="Appearance.Accent" IconStart="@(new Icons.Regular.Size24.Play())" OnClick="StartEft">Start Game</FluentButton>
 
 </FluentStack>
 
 @code
 {
-    private void StartServer()
-    {
-        using (var process = ProcessService.StartServer(SettingsService.ServerDirectory))
-        {
-            process.Start();
-        }
-    }
+    // placeholder
+    string username = "Senko-san";
+    string password = "test";
+    string edition = "unheard";
 
     private void StartEft()
     {
-        var sessionId = "test";
+        var hashedPassword = HashService.GetSHA256(password);
+        RequestService.RegisterAccount(username, hashedPassword, edition);
+        var sessionId = RequestService.LoginAccount(username, hashedPassword);
 
-        using (var process = ProcessService.StartEft(SettingsService.ClientDirectory, sessionId, SettingsService.Address))
+        using (var process = ProcessService.StartEft(SettingsService.ClientDirectory, sessionId, SettingsService.EftAddress))
         {
             process.Start();
         }

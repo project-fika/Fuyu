@@ -6,9 +6,13 @@ using Fuyu.Platform.Common.Models.EFT.Responses;
 using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Serialization;
 using Fuyu.Platform.Server.Databases;
+using Fuyu.Platform.Server.Services.Fuyu;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
+    // TODO:
+    // * move code into TemplateTable and ProfileService
+    // -- seionmoya, 2024/09/03
     public class GameProfileCreate : HttpBehaviour
     {
         private readonly string _bearJson;
@@ -29,7 +33,9 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             var accountId = FuyuDatabase.Accounts.GetSession(sessionId);
             var account = FuyuDatabase.Accounts.GetAccount(accountId);
 
-            // TODO: PVP-PVE STATE DETECTION
+            // TODO:
+            // * PVP-PVE state detection
+            // -- seionmoya, 2024/08/28
 
             // generate ids
             var pmcId = new MongoId(accountId).ToString();
@@ -61,6 +67,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
 
             // store account
             FuyuDatabase.Accounts.SetAccount(accountId, account);
+            AccountService.WriteAccountToDisk(account);
 
             // respond
             var response = new ResponseBody<GameProfileCreateResponse>()
