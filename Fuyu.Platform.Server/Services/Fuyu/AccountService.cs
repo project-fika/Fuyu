@@ -64,9 +64,9 @@ namespace Fuyu.Platform.Server.Services.Fuyu
             }
 
             // NOTE: MongoId's are used internally, but EFT's launcher uses
-            // a different ID system (hwid+timestamp hash). Instead of
-            // fully mimicking this, I decided to generate a new MongoId
-            // for each login.
+            //       a different ID system (hwid+timestamp hash). Instead of
+            //       fully mimicking this, I decided to generate a new MongoId
+            //       for each login.
             // -- seionmoya, 2024/09/02
             var sessionId = new MongoId().ToString();
             FuyuDatabase.Accounts.AddSession(sessionId, accountId);
@@ -105,7 +105,7 @@ namespace Fuyu.Platform.Server.Services.Fuyu
             }
         }
 
-        public static ERegisterStatus RegisterAccount(string username, string password, string edition)
+        public static ERegisterStatus RegisterAccount(string username, string password)
         {
             if (AccountExists(username, password) != -1)
             {
@@ -120,7 +120,7 @@ namespace Fuyu.Platform.Server.Services.Fuyu
                 Password = password,
                 EftSave = new EftSave()
                 {
-                    Edition = edition,
+                    Edition = string.Empty,
                     PvE = new EftProfile()
                     {
                         Savage = default,
@@ -135,10 +135,51 @@ namespace Fuyu.Platform.Server.Services.Fuyu
                         Suites = [],
                         ShouldWipe = true
                     }
+                },
+                ArenaSave = new ArenaSave()
+                {
+                    Edition = string.Empty,
+                    PvP = new ArenaProfile()
+                    {
+                        Pmc = default,
+                        Suites = [],
+                        ShouldWipe = true
+                    }
                 }
             };
 
             FuyuDatabase.Accounts.AddAccount(account);
+            WriteAccountToDisk(account);
+
+            return ERegisterStatus.Success;
+        }
+
+        public static ERegisterStatus RegisterGame(string sessionId, EGame game, string edition)
+        {
+            var account = FuyuDatabase.Accounts.GetAccount(sessionId);
+
+            switch (game)
+            {
+                case EGame.EFT:
+                    if (account.EftSave.Edition == edition)
+                    {
+                        return ERegisterStatus.AlreadyExists;
+                    }
+
+                    account.EftSave.Edition = edition;
+                    break;
+                
+                case EGame.Arena:
+                    if (account.ArenaSave.Edition == edition)
+                    {
+                        return ERegisterStatus.AlreadyExists;
+                    }
+
+                    account.ArenaSave.Edition = edition;
+                    break;
+            }
+
+            FuyuDatabase.Accounts.SetAccount(account);
             WriteAccountToDisk(account);
 
             return ERegisterStatus.Success;

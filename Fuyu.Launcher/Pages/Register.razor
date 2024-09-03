@@ -13,8 +13,6 @@
         <FluentTextField TextFieldType="TextFieldType.Text" @bind-Value="username" Style="width: 100%;"></FluentTextField>
         <FluentLabel>Password:</FluentLabel>
         <FluentTextField TextFieldType="TextFieldType.Text" @bind-Value="password" Style="width: 100%;"></FluentTextField>
-        <FluentLabel>Edition:</FluentLabel>
-        <FluentTextField TextFieldType="TextFieldType.Text" @bind-Value="edition" Style="width: 100%;"></FluentTextField>
         <br />
         <br />
         <FluentButton Appearance="Appearance.Accent" OnClick="Register_Clicked">Register</FluentButton>
@@ -27,17 +25,18 @@
 {
     string username = string.Empty;
     string password = string.Empty;
-    string edition = "unheard";
 
     private void Register_Clicked(EventArgs e)
     {
         var hashedPassword = HashService.GetSHA256(password);
-        var registerStatus = RequestService.RegisterAccount(username, hashedPassword, edition);
+        var registerStatus = RequestService.RegisterAccount(username, hashedPassword);
 
         switch (registerStatus)
         {
             case ERegisterStatus.Success:
-                Navigation.NavigateTo("/login");
+                // TODO:
+                // * notify user of successful registration
+                // -- seionmoya, 2024/09/03
                 break;
 
             case ERegisterStatus.AlreadyExists:
@@ -46,5 +45,7 @@
                 // -- seionmoya, 2024/09/02
                 break;
         }
+
+        Navigation.NavigateTo("/login");
     }
 }

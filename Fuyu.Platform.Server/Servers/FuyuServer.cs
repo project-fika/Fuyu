@@ -13,6 +13,7 @@ namespace Fuyu.Platform.Server.Servers
         {
             AddHttpBehaviour<AccountLogin>();
             AddHttpBehaviour<AccountRegister>();
+            AddHttpBehaviour<AccountRegisterGame>();
         }
     }
 }

@@ -16,5 +16,8 @@ namespace Fuyu.Platform.Common.Models.Fuyu.Accounts
 
         [DataMember]
         public EftSave EftSave;
+
+        [DataMember]
+        public ArenaSave ArenaSave;
     }
 }

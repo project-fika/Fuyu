@@ -17,6 +17,10 @@
 
     private void StartEft_Clicked()
     {
+        // NOTE: hack until wipe screen is created
+        // -- seionmoya, 2024/09/03
+        RequestService.RegisterGame(EGame.EFT, "unheard");
+
         using (var process = ProcessService.StartEft(SettingsService.EftDirectory, sessionId, SettingsService.EftAddress))
         {
             process.Start();
@@ -25,6 +29,10 @@
 
     private void StartArena_Clicked()
     {
+        // NOTE: hack until wipe screen is created
+        // -- seionmoya, 2024/09/03
+        RequestService.RegisterGame(EGame.Arena, "ryzhy");
+
         using (var process = ProcessService.StartArena(SettingsService.ArenaDirectory, sessionId, SettingsService.ArenaAddress))
         {
             process.Start();

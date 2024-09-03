@@ -1,14 +1,15 @@
 using System.Runtime.Serialization;
+using Fuyu.Platform.Common.Models.Fuyu.Accounts;
 
 namespace Fuyu.Platform.Common.Models.Fuyu.Requests
 {
     [DataContract]
-    public struct AccountRegisterRequest
+    public struct AccountRegisterGameRequest
     {
         [DataMember]
-        public string Username;
+        public EGame Game;
 
         [DataMember]
-        public string Password;
+        public string Edition;
     }
 }
