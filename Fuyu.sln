@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Platform.Server", "Fuy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin.EFT", "Fuyu.Plugin.EFT\Fuyu.Plugin.EFT.csproj", "{CEA52B91-0CE1-49E6-AA1C-3C3B43CB777C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin.Arena", "Fuyu.Plugin.Arena\Fuyu.Plugin.Arena.csproj", "{09CBBDDA-9181-4D15-B427-FCC4C0877FE1}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests", "Fuyu.Tests\Fuyu.Tests.csproj", "{6CE56157-145F-4771-A0DA-7F874A738808}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Server", "Fuyu.Server\Fuyu.Server.csproj", "{E53E4BF2-240E-45A8-8A20-EC905F78295D}"
@@ -56,6 +58,10 @@ Global
 		{CEA52B91-0CE1-49E6-AA1C-3C3B43CB777C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CEA52B91-0CE1-49E6-AA1C-3C3B43CB777C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CEA52B91-0CE1-49E6-AA1C-3C3B43CB777C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09CBBDDA-9181-4D15-B427-FCC4C0877FE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09CBBDDA-9181-4D15-B427-FCC4C0877FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09CBBDDA-9181-4D15-B427-FCC4C0877FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09CBBDDA-9181-4D15-B427-FCC4C0877FE1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6CE56157-145F-4771-A0DA-7F874A738808}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6CE56157-145F-4771-A0DA-7F874A738808}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CE56157-145F-4771-A0DA-7F874A738808}.Release|Any CPU.ActiveCfg = Release|Any CPU
