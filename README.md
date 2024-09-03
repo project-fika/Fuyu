@@ -1,20 +1,30 @@
 # 冬 Fuyu
 
-A simple EFT backend written in C#.
+A BSG games backend written in C#.
 
 ## Contribution
 
 The project is still in it's infancy and there still much work to be done.
-PRs are not accepted at this point in time unless discussed in advanced since the ground work is not there yet.
-Sorry for the inconvenience!
+PRs are not accepted at this point in time unless discussed in advanced since
+the ground work is not there yet. Sorry for the inconvenience!
 
 See `Documentation/CONTRIBUTING.md` for more information on standards.
 
-## Requirements:
+## Requirements
 
-- EFT 0.15.0.32197
-- Visual Studio Code
 - .NET 8.0 SDK
+
+### Supported IDEs
+
+- Visual Studio Code
+- Visual Studio 2022
+
+### Supported games
+
+**Game** | **Version**
+-------- | ------------
+EFT      | 0.15.0.32197
+Arena    | 0.2.0
 
 ## Build
 
@@ -38,5 +48,7 @@ SPTarkov.
 
 ## Credits
 
-- seionmoya: main author
-- nexus: debugging seionmoya's issues
+**Author** | **Reason**
+---------- | ----------------------------------
+seionmoya  | Project creator, main author
+nexus      | Debugging issues inside EFT client
