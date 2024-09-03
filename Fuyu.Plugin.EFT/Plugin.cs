@@ -21,7 +21,7 @@ namespace Fuyu.Plugin.EFT
 
         protected void Awake()
         {
-            Logger.LogInfo("[Fuyu.Plugin] Patching...");
+            Logger.LogInfo("[Fuyu.Plugin,EFT] Patching...");
 
             // NOTE: disable this for packet dumping
             ProtocolUtil.RemoveTransportPrefixes();
@@ -34,7 +34,7 @@ namespace Fuyu.Plugin.EFT
 
         protected void OnApplicationQuit()
         {
-            Logger.LogInfo("[Fuyu.Plugin] Unpatching...");
+            Logger.LogInfo("[Fuyu.Plugin.EFT] Unpatching...");
 
             foreach (var patch in _patches)
             {

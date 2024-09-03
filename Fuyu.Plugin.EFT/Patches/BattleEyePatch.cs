@@ -22,7 +22,7 @@ namespace Fuyu.Plugin.EFT.Patches
             _mi = type.GetMethod(name);
         }
 
-        public BattlEyePatch() : base("com.fuyu.plugin.battleye", EPatchType.Prefix)
+        public BattlEyePatch() : base("com.fuyu.plugin.eft.battleye", EPatchType.Prefix)
         {
         }
 

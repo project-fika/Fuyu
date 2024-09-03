@@ -11,7 +11,7 @@ namespace Fuyu.Plugin.EFT.Patches
 {
     public class ConsistencyGeneralPatch : APatch
     {
-        public ConsistencyGeneralPatch() : base("com.fuyu.plugin.consistencygeneral", EPatchType.Prefix)
+        public ConsistencyGeneralPatch() : base("com.fuyu.plugin.eft.consistencygeneral", EPatchType.Prefix)
         {
         }
 
