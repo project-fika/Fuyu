@@ -37,9 +37,8 @@
             // * show error
             // -- seionmoya, 2024/09/02
         }
-        else
-        {
-            Navigation.NavigateTo($"/account?sessionid={sessionId}");
-        }
+
+        RequestService.CreateSession(sesionId);
+        Navigation.NavigateTo($"/account?sessionid={sessionId}");
     }
 }

@@ -103,13 +103,13 @@ namespace Fuyu.Platform.Server.Databases.Fuyu
             throw new Exception($"Account with {accountId} does not exist.");
         }
 
-        public void SetAccount(int accountId, Account account)
+        public void SetAccount(Account account)
         {
             var accounts = _accounts.ToList();
 
             for (var i = 0; i < accounts.Count; ++i)
             {
-                if (accounts[i].Id == accountId)
+                if (accounts[i].Id == account.Id)
                 {
                     _accounts.Set(i, account);
                     return;

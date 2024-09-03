@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Fuyu.Platform.Common.Models.EFT.Bots;
 using Fuyu.Platform.Common.Models.EFT.Requests;
 using Fuyu.Platform.Common.Models.EFT.Profiles.Info;
+using Fuyu.Platform.Common.Models.Fuyu.Accounts;
 using Fuyu.Platform.Common.Networking;
 using Fuyu.Platform.Common.Serialization;
 using Fuyu.Platform.Server;
@@ -29,8 +30,9 @@ namespace Fuyu.Tests.EndToEnd
             ServerManager.StartAll();
 
             // register fake account
-            AccountService.RegisterAccount("test-username", "test-password", "unheard");
+            AccountService.RegisterAccount("test-username", "test-password");
             var sessionId = AccountService.LoginAccount("test-username", "test-password");
+            AccountService.RegisterGame(sessionId, EGame.EFT, "unheard");
 
             // create request clients
             _eftMainClient = new HttpClient("http://localhost:8001", sessionId);

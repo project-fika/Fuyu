@@ -66,7 +66,7 @@ namespace Fuyu.Platform.Server.Behaviours.EFT
             account.EftSave.PvE.ShouldWipe = false;
 
             // store account
-            FuyuDatabase.Accounts.SetAccount(accountId, account);
+            FuyuDatabase.Accounts.SetAccount(account);
             AccountService.WriteAccountToDisk(account);
 
             // respond

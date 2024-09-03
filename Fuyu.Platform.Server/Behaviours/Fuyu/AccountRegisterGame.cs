@@ -6,17 +6,18 @@ using Fuyu.Platform.Server.Services.Fuyu;
 
 namespace Fuyu.Platform.Server.Behaviours.EFT
 {
-    public class AccountRegister : HttpBehaviour
+    public class AccountRegisterGame : HttpBehaviour
     {
-        public AccountRegister() : base("/account/register")
+        public AccountRegisterGame() : base("/account/register/game")
         {
         }
 
         public override void Run(HttpContext context)
         {
-            var request = context.GetJson<AccountRegisterRequest>();
-            var result = AccountService.RegisterAccount(request.Username, request.Password);
-            var response = new AccountRegisterResponse()
+            var request = context.GetJson<AccountRegisterGameRequest>();
+            var sessionId = context.GetSessionId();
+            var result = AccountService.RegisterGame(sessionId, request.Game, request.Edition);
+            var response = new AccountRegisterGameResponse()
             {
                 Status = result
             };
