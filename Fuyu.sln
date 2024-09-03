@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Platform.Plugin", "Fuy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Platform.Server", "Fuyu.Platform.Server\Fuyu.Platform.Server.csproj", "{54A3FCEA-8749-4C8B-A4E9-D201FA742E46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin", "Fuyu.Plugin\Fuyu.Plugin.csproj", "{CEA52B91-0CE1-49E6-AA1C-3C3B43CB777C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin.EFT", "Fuyu.Plugin.EFT\Fuyu.Plugin.EFT.csproj", "{CEA52B91-0CE1-49E6-AA1C-3C3B43CB777C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests", "Fuyu.Tests\Fuyu.Tests.csproj", "{6CE56157-145F-4771-A0DA-7F874A738808}"
 EndProject

@@ -4,7 +4,7 @@ using System.Reflection;
 using EFT;
 using HarmonyLib;
 
-namespace Fuyu.Platform.Plugin.Reflection
+namespace Fuyu.Plugin.EFT.Reflection
 {
     public static class PatchHelper
     {

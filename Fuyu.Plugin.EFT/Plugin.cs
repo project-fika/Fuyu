@@ -1,10 +1,11 @@
 using BepInEx;
 using Fuyu.Platform.Plugin.Reflection;
-using Fuyu.Plugin.Patches;
+using Fuyu.Plugin.EFT.Patches;
+using Fuyu.Plugin.EFT.Utils;
 
-namespace Fuyu.Plugin
+namespace Fuyu.Plugin.EFT
 {
-    [BepInPlugin("com.fuyu.plugin", "Fuyu.Plugin", "1.0.0")]
+    [BepInPlugin("com.fuyu.plugin.eft", "Fuyu.Plugin.EFT", "1.0.0")]
     public class Plugin : BaseUnityPlugin
     {
         private readonly APatch[] _patches;
@@ -14,11 +15,7 @@ namespace Fuyu.Plugin
             _patches = new APatch[]
             {
                 new BattlEyePatch(),
-                new ConsistencyGeneralPatch(),
-/* #if DEBUG
-                new HttpDumperPatch(),
-                new WsDumperPatch()
-#endif */
+                new ConsistencyGeneralPatch()
             };
         }
 

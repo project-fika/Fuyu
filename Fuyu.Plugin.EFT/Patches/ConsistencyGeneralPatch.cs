@@ -5,8 +5,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using EFT;
 using Fuyu.Platform.Plugin.Reflection;
+using Fuyu.Plugin.EFT.Reflection;
 
-namespace Fuyu.Plugin.Patches
+namespace Fuyu.Plugin.EFT.Patches
 {
     public class ConsistencyGeneralPatch : APatch
     {

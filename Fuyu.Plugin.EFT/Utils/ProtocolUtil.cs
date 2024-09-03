@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using HarmonyLib;
-using Fuyu.Platform.Plugin.Reflection;
+using Fuyu.Plugin.EFT.Reflection;
 
-namespace Fuyu.Plugin.Patches
+namespace Fuyu.Plugin.EFT.Utils
 {
     public static class ProtocolUtil
     {
