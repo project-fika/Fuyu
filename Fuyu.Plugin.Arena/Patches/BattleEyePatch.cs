@@ -1,9 +1,5 @@
 // Prevent BE from detecting injected assemblies.
 
-// TODO:
-// * use arena types
-// -- seionmoya, 2024/09/03
-
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;

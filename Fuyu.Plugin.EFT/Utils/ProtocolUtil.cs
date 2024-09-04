@@ -8,7 +8,9 @@ namespace Fuyu.Plugin.EFT.Utils
     public static class ProtocolUtil
     {
         // NOTE: A dirty hack, probably needs to be implemented cleanly later.
-        // Since BackendName already contains the protocol, just never use the entries. 
+        //       Since BackendName already contains the protocol, just never
+        //       use the entries.
+        // -- seionmoya, 2024/08/xx
         public static void RemoveTransportPrefixes()
         {
             var target = "TransportPrefixes";

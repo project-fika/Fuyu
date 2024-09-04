@@ -1,13 +1,8 @@
-// Disable EFT's general file validation
-// NOTE: does NOT disable client bundles validation
+// Disable general file validation, does NOT disable client bundles validation
 
-// TODO:
-// * use arena types
-// -- seionmoya, 2024/09/03
-
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using EFT;
 using Fuyu.Platform.Plugin.Reflection;
 using Fuyu.Plugin.Arena.Reflection;
 
@@ -15,14 +10,24 @@ namespace Fuyu.Plugin.Arena.Patches
 {
     public class ConsistencyGeneralPatch : APatch
     {
+        private static readonly MethodInfo _mi;
+
+        static ConsistencyGeneralPatch()
+        {
+            var name = "RunFilesChecking";
+            var flags = PatchHelper.AnyInstanceFlags;
+            var type = PatchHelper.Types.Single(t => t.GetMethod(name, flags) != null);
+
+            _mi = type.GetMethod(name);
+        }
+
         public ConsistencyGeneralPatch() : base("com.fuyu.plugin.arena.consistencygeneral", EPatchType.Prefix)
         {
         }
 
         protected override MethodBase GetOriginalMethod()
         {
-            var flags = PatchHelper.PrivateFlags;
-            return typeof(TarkovApplication).BaseType.GetMethod("RunFilesChecking", flags);
+            return _mi;
         }
 
         protected static bool Patch(ref Task __result)
