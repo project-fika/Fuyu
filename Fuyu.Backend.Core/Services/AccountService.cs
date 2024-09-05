@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Concurrent;
 using System.Linq;
-using System.Threading.Tasks;
 using Fuyu.Common.IO;
 using Fuyu.Common.Hashing;
 using Fuyu.Backend.Core.DTO.Accounts;
@@ -20,27 +18,27 @@ namespace Fuyu.Backend.Core.Services
         {
             var lowerUsername = username.ToLowerInvariant();
             var accounts = CoreOrm.GetAccounts();
-            var found = new ConcurrentBag<Account>();
+            var found = new List<Account>();
 
-            Parallel.ForEach(accounts, account =>
+            foreach (var account in accounts)
             {
                 if (account.Username == lowerUsername && account.Password == password)
                 {
                     found.Add(account);
                 }
-            });
+            };
 
             if (found.Count > 1)
             {
                 throw new Exception($"Multiple accounts found with username {username}.");
             }
 
-            if (found.IsEmpty)
+            if (found.Count == 0)
             {
                 return -1;
             }
 
-            return found.First().Id;
+            return found[0].Id;
         }
 
         public static string LoginAccount(string username, string password)
@@ -83,20 +81,20 @@ namespace Fuyu.Backend.Core.Services
             // NOTE: I know multi-threading is overkill for most systems, but I
             //       want to keep in mind large server workloads
             // -- seionmoya, 2024/09/02
-            var found = new ConcurrentBag<int>();
+            var found = new List<int>();
 
-            Parallel.For(0, sorted.Length, i =>
+            for (var i = 0; i < sorted.Length; ++i)
             {
                 if (sorted[i].Id != i)
                 {
                     found.Add(sorted[i].Id);
                 }
-            });
+            }
 
-            if (!found.IsEmpty)
+            if (found.Count != 0)
             {
                 // use gap entry
-                return found.First();
+                return found[0];
             }
             else
             {

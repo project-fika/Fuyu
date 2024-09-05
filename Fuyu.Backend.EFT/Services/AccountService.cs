@@ -1,10 +1,9 @@
-using System.Collections.Concurrent;
 using System.Linq;
-using System.Threading.Tasks;
 using Fuyu.Common.Hashing;
 using Fuyu.Common.IO;
 using Fuyu.Common.Serialization;
 using Fuyu.Backend.EFT.DTO.Accounts;
+using System.Collections.Generic;
 
 namespace Fuyu.Backend.EFT.Services
 {
@@ -43,24 +42,24 @@ namespace Fuyu.Backend.EFT.Services
 
             // using linq because sorting otherwise takes up too much code
             var sorted = accounts.OrderBy(account => account.Id).ToArray();
-
+            
             // NOTE: I know multi-threading is overkill for most systems, but I
             //       want to keep in mind large server workloads
             // -- seionmoya, 2024/09/02
-            var found = new ConcurrentBag<int>();
+            var found = new List<int>();
 
-            Parallel.For(0, sorted.Length, i =>
+            for (var i = 0; i < sorted.Length; ++i)
             {
                 if (sorted[i].Id != i)
                 {
                     found.Add(sorted[i].Id);
                 }
-            });
+            }
 
-            if (!found.IsEmpty)
+            if (found.Count != 0)
             {
                 // use gap entry
-                return found.First();
+                return found[0];
             }
             else
             {
