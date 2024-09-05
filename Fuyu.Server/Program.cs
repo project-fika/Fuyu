@@ -1,6 +1,8 @@
-﻿using Fuyu.Platform.Common.IO;
-using Fuyu.Platform.Server;
-using Fuyu.Platform.Server.Databases;
+﻿using Fuyu.Common.IO;
+using Fuyu.Server.Core;
+using Fuyu.Server.Core.Servers;
+using Fuyu.Server.EFT;
+using Fuyu.Server.EFT.Servers;
 
 namespace Fuyu.Server
 {
@@ -8,11 +10,16 @@ namespace Fuyu.Server
     {
         static void Main()
         {
-            FuyuDatabase.Load();
+            CoreDatabase.Load();
             EftDatabase.Load();
 
-            ServerManager.LoadAll();
-            ServerManager.StartAll();
+            var coreServer = new CoreServer();
+            coreServer.RegisterServices();
+            coreServer.Start();
+
+            var eftMainServer = new EftMainServer();
+            eftMainServer.RegisterServices();
+            eftMainServer.Start();
 
             Terminal.WaitForInput();
         }

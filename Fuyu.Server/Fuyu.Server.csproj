@@ -18,7 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Fuyu.Platform.Server/Fuyu.Platform.Server.csproj" />
+    <ProjectReference Include="../Fuyu.Server.Arena/Fuyu.Server.Arena.csproj" />
+    <ProjectReference Include="../Fuyu.Server.Core/Fuyu.Server.Core.csproj" />
+    <ProjectReference Include="../Fuyu.Server.EFT/Fuyu.Server.EFT.csproj" />
   </ItemGroup>
 
 </Project>

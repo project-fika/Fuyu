@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Private="False" Include="Assembly-CSharp" HintPath="../References/EFT/Assembly-CSharp.dll" />
+    <Reference Private="False" Include="Assembly-CSharp" HintPath="References/Assembly-CSharp.dll" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Fuyu.Platform.Plugin/Fuyu.Platform.Plugin.csproj" />
+    <ProjectReference Include="../Fuyu.Plugin.Core/Fuyu.Plugin.Core.csproj" />
   </ItemGroup>
 
 </Project>

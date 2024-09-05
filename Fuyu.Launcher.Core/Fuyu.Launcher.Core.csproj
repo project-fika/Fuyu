@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Fuyu.Common/Fuyu.Common.csproj" />
+    <ProjectReference Include="../Fuyu.Server.Core/Fuyu.Server.Core.csproj" />
+  </ItemGroup>
+
+</Project>
