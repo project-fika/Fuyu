@@ -16,6 +16,6 @@ namespace Fuyu.Backend.Core.DTO.Accounts
         public string Password;
 
         [DataMember]
-        public Dictionary<EGame, List<int>> Games;
+        public Dictionary<string, List<int>> Games;
     }
 }

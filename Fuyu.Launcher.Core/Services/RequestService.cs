@@ -61,7 +61,7 @@ namespace Fuyu.Launcher.Core.Services
             return response.SessionId;
         }
 
-        public static ERegisterStatus RegisterGame(EGame game, string edition)
+        public static ERegisterStatus RegisterGame(string game, string edition)
         {
             var request = new AccountRegisterGameRequest()
             {

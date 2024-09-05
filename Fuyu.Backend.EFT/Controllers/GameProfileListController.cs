@@ -20,10 +20,18 @@ namespace Fuyu.Backend.EFT.Controllers
             // * PVP-PVE state detection
             // -- seionmoya, 2024/08/28
             var profile = EftOrm.GetProfile(account.PveId);
+            Profile[] profiles;
 
-            Profile[] profiles = profile.ShouldWipe
-                ? []
-                : [profile.Pmc, profile.Savage];
+            if (profile != null && !profile.ShouldWipe)
+            {
+                // profiles exist
+                profiles = [profile.Pmc, profile.Savage];
+            }
+            else
+            {
+                // profile doesn't exist or must be wiped
+                profiles = [];
+            }
 
             var response = new ResponseBody<Profile[]>()
             {

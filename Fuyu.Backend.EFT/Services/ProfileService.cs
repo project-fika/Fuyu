@@ -1,6 +1,7 @@
 using Fuyu.Common.Hashing;
 using Fuyu.Common.IO;
 using Fuyu.Common.Serialization;
+using Fuyu.Backend.BSG.DTO.Profiles;
 using Fuyu.Backend.BSG.DTO.Profiles.Info;
 using Fuyu.Backend.EFT.DTO.Accounts;
 
@@ -8,27 +9,57 @@ namespace Fuyu.Backend.EFT.Services
 {
     public static class ProfileService
     {
-        public static string CreateProfile(EftAccount account, string side, string headId, string voiceId)
+        public static string CreateProfile(int accountId)
         {
-            var profile = new EftProfile();
-            var profiles = EftOrm.GetWipeProfile(account.Edition);
+            var profile = new EftProfile()
+            {
+                Pmc = new Profile(),
+                Savage = new Profile(),
+                Suites = [],
+                ShouldWipe = true
+            };
 
-            // generate ids
-            var pmcId = new MongoId(account.Id).ToString();
+            // generate new ids
+            var pmcId = new MongoId(accountId).ToString();
             var savageId = new MongoId(pmcId, 1, false).ToString();
 
-            // create savage
-            profile.Savage = profiles[EPlayerSide.Savage];
+            // set profile info
+            profile.Pmc._id    = pmcId;
+            profile.Pmc.aid    = accountId;
+            profile.Savage._id = savageId;
+            profile.Savage.aid = accountId;
 
+            // store profile
+            EftOrm.AddProfile(profile);
+            WriteToDisk(profile);
+
+            return pmcId;
+        }
+
+        public static string WipeProfile(EftAccount account, string side, string headId, string voiceId)
+        {
+            // get existing profile info
+            // TODO:
+            // * PVP-PVE state detection
+            // -- seionmoya, 2024/09/06
+            var profile = EftOrm.GetProfile(account.PveId);
+            var pmcId = profile.Pmc._id;
+            var savageId = profile.Savage._id;
+
+            // create profiles
+            var edition = EftOrm.GetWipeProfile(account.Edition);
+
+            profile.Savage = edition[EPlayerSide.Savage];
+            profile.Pmc = side == "bear"
+                ? edition[EPlayerSide.Bear]
+                : edition[EPlayerSide.Usec];
+
+            // setup savage
             profile.Savage._id = savageId;
             profile.Savage.aid = account.Id;
 
-            // create pmc
+            // setup pmc
             var voiceTemplate = EftOrm.GetCustomization(voiceId);
-
-            profile.Pmc = side == "bear"
-                ? profiles[EPlayerSide.Bear]
-                : profiles[EPlayerSide.Usec];
 
             profile.Pmc._id                 = pmcId;
             profile.Pmc.savage              = savageId;
@@ -44,16 +75,6 @@ namespace Fuyu.Backend.EFT.Services
             // store profile
             EftOrm.SetProfile(profile);
             WriteToDisk(profile);
-
-            // update account
-            // TODO:
-            // * PVP-PVE state detection
-            // -- seionmoya, 2024/08/28
-            account.PveId = profile.Pmc._id;
-
-            // store account
-            EftOrm.SetAccount(account);
-            AccountService.WriteToDisk(account);
 
             return profile.Pmc._id;
         }

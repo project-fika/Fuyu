@@ -11,10 +11,17 @@ namespace Fuyu.Backend.EFT.Services
     {
         // TODO:
         // * account login state tracking
-        // -- seionmoya, 2024/09/02
+        // -- seionmoya, 2024/09/06
 
         public static string LoginAccount(int accountId)
         {
+            if (accountId == -1)
+            {
+                // account doesn't exist
+                return string.Empty;
+            }
+
+            // find active account session
             var sessions = EftOrm.GetSessions();
 
             foreach (var kvp in sessions)
@@ -26,12 +33,13 @@ namespace Fuyu.Backend.EFT.Services
                 }
             }
 
+            // create new account session
             // NOTE: MongoId's are used internally, but EFT's launcher uses
             //       a different ID system (hwid+timestamp hash). Instead of
             //       fully mimicking this, I decided to generate a new MongoId
             //       for each login.
             // -- seionmoya, 2024/09/02
-            var sessionId = new MongoId(true).ToString();
+            var sessionId = new MongoId(accountId).ToString();
             EftOrm.AddSession(sessionId, accountId);
             return sessionId.ToString();
         }
@@ -42,10 +50,8 @@ namespace Fuyu.Backend.EFT.Services
 
             // using linq because sorting otherwise takes up too much code
             var sorted = accounts.OrderBy(account => account.Id).ToArray();
-            
-            // NOTE: I know multi-threading is overkill for most systems, but I
-            //       want to keep in mind large server workloads
-            // -- seionmoya, 2024/09/02
+
+            // find all gap entries
             var found = new List<int>();
 
             for (var i = 0; i < sorted.Length; ++i)
@@ -56,9 +62,9 @@ namespace Fuyu.Backend.EFT.Services
                 }
             }
 
-            if (found.Count != 0)
+            if (found.Count > 0)
             {
-                // use gap entry
+                // use first gap entry
                 return found[0];
             }
             else
@@ -68,27 +74,33 @@ namespace Fuyu.Backend.EFT.Services
             }
         }
 
-        public static int RegisterAccount()
+        public static int RegisterAccount(string edition)
         {
-            var id = GetNewAccountId();
+            var accountId = GetNewAccountId();
+
+            // create profiles
+            var pvpId = ProfileService.CreateProfile(accountId);
+            var pveId = ProfileService.CreateProfile(accountId);
+
+            // create account   
             var account = new EftAccount()
             {
-                Id = id,
-                Edition = string.Empty,
-                PvpId = string.Empty,
-                PveId = string.Empty
+                Id = accountId,
+                Edition = edition,
+                PvpId = pvpId,
+                PveId = pveId
             };
 
             EftOrm.AddAccount(account);
             WriteToDisk(account);
 
-            return id;
+            return accountId;
         }
 
         public static void WriteToDisk(EftAccount account)
         {
             VFS.WriteTextFile(
-                $"./Fuyu/Accounts/EFT{account.Id}.json",
+                $"./Fuyu/Accounts/EFT/{account.Id}.json",
                 Json.Stringify(account));
         }
     }

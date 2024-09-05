@@ -11,6 +11,9 @@ namespace Fuyu.Backend.EFT.Servers
 
         public override void RegisterServices()
         {
+            // Custom
+            AddHttpController<FuyuGameRegisterController>();
+            // EFT
             AddHttpController<AccountCustomizationController>();
             AddHttpController<AchievementListController>();
             AddHttpController<AchievementStatisticController>();

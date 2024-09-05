@@ -1,5 +1,4 @@
 using System.Runtime.Serialization;
-using Fuyu.Backend.Core.DTO.Accounts;
 
 namespace Fuyu.Backend.Core.DTO.Requests
 {
@@ -7,7 +6,7 @@ namespace Fuyu.Backend.Core.DTO.Requests
     public class AccountRegisterGameRequest
     {
         [DataMember]
-        public EGame Game;
+        public string Game;
 
         [DataMember]
         public string Edition;

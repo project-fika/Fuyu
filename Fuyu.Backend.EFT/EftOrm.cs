@@ -10,15 +10,57 @@ namespace Fuyu.Backend.EFT
     public static class EftOrm
     {
 #region Profile
+        public static List<EftProfile> GetProfiles()
+        {
+            return EftDatabase.Profiles.ToList();
+        }
+
         public static EftProfile GetProfile(string profileId)
         {
-            // TODO
-            return default;
+            var profiles = GetProfiles();
+
+            for (var i = 0; i < profiles.Count; ++i)
+            {
+                if (profiles[i].Pmc._id == profileId)
+                {
+                    return profiles[i];
+                }
+            }
+
+            return null;
         }
 
         public static void SetProfile(EftProfile profile)
         {
-            // TODO
+            var profiles = GetProfiles();
+
+            for (var i = 0; i < profiles.Count; ++i)
+            {
+                if (profiles[i].Pmc._id == profile.Pmc._id)
+                {
+                    EftDatabase.Profiles.Set(i, profile);
+                    return;
+                }
+            }
+        }
+
+        public static void AddProfile(EftProfile profile)
+        {
+            EftDatabase.Profiles.Add(profile);
+        }
+
+        public static void RemoveProfile(EftProfile profile)
+        {
+            var profiles = GetProfiles();
+
+            for (var i = 0; i < profiles.Count; ++i)
+            {
+                if (profiles[i].Pmc._id == profile.Pmc._id)
+                {
+                    EftDatabase.Profiles.RemoveAt(i);
+                    return;
+                }
+            }
         }
 #endregion
 
@@ -30,13 +72,23 @@ namespace Fuyu.Backend.EFT
 
         public static EftAccount GetAccount(int accountId)
         {
-            return EftDatabase.Accounts.Get(accountId);
+            var accounts = GetAccounts();
+
+            for (var i = 0; i < accounts.Count; ++i)
+            {
+                if (accounts[i].Id == accountId)
+                {
+                    return accounts[i];
+                }
+            }
+
+            return null;
         }
 
         public static EftAccount GetAccount(string sessionId)
         {
             var accountId = GetSession(sessionId);
-            return EftDatabase.Accounts.Get(accountId);
+            return GetAccount(accountId);
         }
 
         public static void SetAccount(EftAccount account)

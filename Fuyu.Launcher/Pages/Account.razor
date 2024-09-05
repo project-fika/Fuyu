@@ -19,7 +19,7 @@
     {
         // NOTE: hack until wipe screen is created
         // -- seionmoya, 2024/09/03
-        RequestService.RegisterGame(EGame.EFT, "unheard");
+        RequestService.RegisterGame("eft", "unheard");
 
         using (var process = ProcessService.StartEft(SettingsService.EftDirectory, sessionId, SettingsService.EftAddress))
         {
@@ -31,7 +31,7 @@
     {
         // NOTE: hack until wipe screen is created
         // -- seionmoya, 2024/09/03
-        RequestService.RegisterGame(EGame.Arena, "ryzhy");
+        RequestService.RegisterGame("arena", "ryzhy");
 
         using (var process = ProcessService.StartArena(SettingsService.ArenaDirectory, sessionId, SettingsService.ArenaAddress))
         {

@@ -26,7 +26,7 @@ namespace Fuyu.Backend.EFT.Controllers
             var accountId = EftOrm.GetSession(sessionId);
             var account = EftOrm.GetAccount(accountId);
 
-            var pmcId = ProfileService.CreateProfile(account, request.side, request.headId, request.voiceId);
+            var pmcId = ProfileService.WipeProfile(account, request.side, request.headId, request.voiceId);
 
             var response = new ResponseBody<GameProfileCreateResponse>()
             {

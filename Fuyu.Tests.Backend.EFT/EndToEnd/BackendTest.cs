@@ -38,7 +38,7 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
             // register fake account
             Fuyu.Backend.Core.Services.AccountService.RegisterAccount("test-username", "test-password");
             var sessionId = Fuyu.Backend.Core.Services.AccountService.LoginAccount("test-username", "test-password");
-            Fuyu.Backend.Core.Services.AccountService.RegisterGame(sessionId, EGame.EFT, "unheard");
+            Fuyu.Backend.Core.Services.AccountService.RegisterGame(sessionId, "eft", "unheard");
 
             // create request clients
             _eftMainClient = new HttpClient("http://localhost:8010", sessionId);

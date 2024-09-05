@@ -1,10 +1,13 @@
-using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Fuyu.Common.IO;
 using Fuyu.Common.Hashing;
-using Fuyu.Backend.Core.DTO.Accounts;
+using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
-using System.Collections.Generic;
+using Fuyu.Backend.Common.DTO.Requests;
+using Fuyu.Backend.Common.DTO.Responses;
+using Fuyu.Backend.Core.DTO.Accounts;
 
 namespace Fuyu.Backend.Core.Services
 {
@@ -18,6 +21,8 @@ namespace Fuyu.Backend.Core.Services
         {
             var lowerUsername = username.ToLowerInvariant();
             var accounts = CoreOrm.GetAccounts();
+
+            // find account
             var found = new List<Account>();
 
             foreach (var account in accounts)
@@ -28,28 +33,30 @@ namespace Fuyu.Backend.Core.Services
                 }
             };
 
-            if (found.Count > 1)
-            {
-                throw new Exception($"Multiple accounts found with username {username}.");
-            }
-
             if (found.Count == 0)
             {
+                // no account
                 return -1;
             }
-
-            return found[0].Id;
+            else
+            {
+                // account exists
+                return found[0].Id;
+            }
         }
 
         public static string LoginAccount(string username, string password)
         {
+            // find account
             var accountId = AccountExists(username, password);
 
             if (accountId == -1)
             {
+                // account doesn't exist
                 return string.Empty;
             }
 
+            // find active account session
             var sessions = CoreOrm.GetSessions();
 
             foreach (var kvp in sessions)
@@ -61,12 +68,13 @@ namespace Fuyu.Backend.Core.Services
                 }
             }
 
+            // create new account session
             // NOTE: MongoId's are used internally, but EFT's launcher uses
             //       a different ID system (hwid+timestamp hash). Instead of
             //       fully mimicking this, I decided to generate a new MongoId
             //       for each login.
             // -- seionmoya, 2024/09/02
-            var sessionId = new MongoId(true).ToString();
+            var sessionId = new MongoId(accountId).ToString();
             CoreOrm.AddSession(sessionId, accountId);
             return sessionId.ToString();
         }
@@ -77,10 +85,8 @@ namespace Fuyu.Backend.Core.Services
 
             // using linq because sorting otherwise takes up too much code
             var sorted = accounts.OrderBy(account => account.Id).ToArray();
-            
-            // NOTE: I know multi-threading is overkill for most systems, but I
-            //       want to keep in mind large server workloads
-            // -- seionmoya, 2024/09/02
+
+            // find all gap entries
             var found = new List<int>();
 
             for (var i = 0; i < sorted.Length; ++i)
@@ -91,9 +97,9 @@ namespace Fuyu.Backend.Core.Services
                 }
             }
 
-            if (found.Count != 0)
+            if (found.Count > 0)
             {
-                // use gap entry
+                // use first gap entry
                 return found[0];
             }
             else
@@ -110,16 +116,15 @@ namespace Fuyu.Backend.Core.Services
                 return ERegisterStatus.AlreadyExists;
             }
 
-            var id = GetNewAccountId();
             var account = new Account()
             {
-                Id = id,
+                Id = GetNewAccountId(),
                 Username = username.ToLowerInvariant(),
                 Password = password,
-                Games = new Dictionary<EGame, List<int>>()
+                Games = new Dictionary<string, List<int>>()
                 {
-                    { EGame.EFT,   new List<int>() },
-                    { EGame.Arena, new List<int>() },
+                    { "eft",   new List<int>() },
+                    { "arena", new List<int>() },
                 }
             };
 
@@ -129,22 +134,42 @@ namespace Fuyu.Backend.Core.Services
             return ERegisterStatus.Success;
         }
 
-        public static ERegisterStatus RegisterGame(string sessionId, EGame game, string edition)
+        public static ERegisterStatus RegisterGame(string sessionId, string game, string edition)
         {
             var account = CoreOrm.GetAccount(sessionId);
-            var id = 0;
+
+            string address;
 
             switch (game)
             {
-                case EGame.EFT:
-                    // TODO: request
-                    account.Games[EGame.EFT].Add(id);
+                case "eft":
+                    address = "http://localhost:8010";
                     break;
-                
-                case EGame.Arena:
-                    // TODO: request
-                    account.Games[EGame.Arena].Add(id);
+
+                case "arena":
+                    address = "http://localhost:8020";
                     break;
+
+                default:
+                    address = string.Empty;
+                    break;
+            }
+
+            using (var httpClient = new HttpClient(address, sessionId))
+            {
+                // request game registration on game server
+                var request = new FuyuGameRegisterRequest()
+                {
+                    Edition = edition
+                };
+                var requestJson = Json.Stringify(request);
+                var requestBytes = Encoding.UTF8.GetBytes(requestJson);
+                var responseBytes = httpClient.Post("/fuyu/game/register", requestBytes);
+                var responseJson = Encoding.UTF8.GetString(responseBytes);
+                var response = Json.Parse<FuyuGameRegisterResponse>(responseJson);
+
+                // set game account id
+                account.Games[game].Add(response.AccountId);
             }
 
             CoreOrm.SetAccount(account);
