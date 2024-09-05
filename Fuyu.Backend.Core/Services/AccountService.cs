@@ -118,11 +118,15 @@ namespace Fuyu.Backend.Core.Services
                 Id = id,
                 Username = username.ToLowerInvariant(),
                 Password = password,
-                Games = new Dictionary<EGame, int>()
+                Games = new Dictionary<EGame, List<int>>()
+                {
+                    { EGame.EFT,   new List<int>() },
+                    { EGame.Arena, new List<int>() },
+                }
             };
 
             CoreOrm.AddAccount(account);
-            WriteAccountToDisk(account);
+            WriteToDisk(account);
 
             return ERegisterStatus.Success;
         }
@@ -136,22 +140,22 @@ namespace Fuyu.Backend.Core.Services
             {
                 case EGame.EFT:
                     // TODO: request
-                    account.Games.Add(EGame.EFT, id);
+                    account.Games[EGame.EFT].Add(id);
                     break;
                 
                 case EGame.Arena:
                     // TODO: request
-                    account.Games.Add(EGame.Arena, id);
+                    account.Games[EGame.Arena].Add(id);
                     break;
             }
 
             CoreOrm.SetAccount(account);
-            WriteAccountToDisk(account);
+            WriteToDisk(account);
 
             return ERegisterStatus.Success;
         }
 
-        public static void WriteAccountToDisk(Account account)
+        public static void WriteToDisk(Account account)
         {
             VFS.WriteTextFile(
                 $"./Fuyu/Accounts/Core/{account.Id}.json",
