@@ -1,12 +1,14 @@
 using System;
 using System.Net;
+using System.Threading;
 using Fuyu.Common.IO;
 
 namespace Fuyu.Common.Networking
 {
     public class HttpServer
     {
-        private readonly HttpListener _httpv;
+        private readonly HttpListener _listener;
+        private readonly Thread _onRequest;
         public readonly HttpRouter HttpRouter;
         public readonly string Address;
         public readonly string Name;
@@ -17,25 +19,32 @@ namespace Fuyu.Common.Networking
             Address = address;
             Name = name;
 
-            _httpv = new HttpListener();
-            _httpv.Prefixes.Add(address);
+            _listener = new HttpListener();
+            _listener.Prefixes.Add(address);
+
+            _onRequest = new Thread(OnRequest);
         }
 
         private void OnRequest()
         {
-            var httpvContext = _httpv.GetContext();
-            var context = new HttpContext(httpvContext.Request, httpvContext.Response);
+            Thread.CurrentThread.IsBackground = true;
 
-            Terminal.WriteLine($"[{Name}] {context.Path}");
+            while (_listener.IsListening)
+            {
+                var httpvContext = _listener.GetContext();
+                var context = new HttpContext(httpvContext.Request, httpvContext.Response);
 
-            try
-            {
-                HttpRouter.Route(context);
-            }
-            catch (Exception ex)
-            {
-                Terminal.WriteLine(ex.Message);
-                context.Response.Close();
+                Terminal.WriteLine($"[{Name}] {context.Path}");
+
+                try
+                {
+                    HttpRouter.Route(context);
+                }
+                catch (Exception ex)
+                {
+                    Terminal.WriteLine(ex.Message);
+                    context.Response.Close();
+                }
             }
         }
 
@@ -46,9 +55,10 @@ namespace Fuyu.Common.Networking
 
         public void Start()
         {
-            _httpv.Start();
+            _listener.Start();
+            _onRequest.Start();
+
             Terminal.WriteLine($"[{Name}] Started on {Address}");
-            OnRequest();
         }
 
         public void AddHttpController<T>() where T : HttpController, new()

@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Servers
 {
     public class EftMainServer : HttpServer
     {
-        public EftMainServer() : base("eft-main", "http://localhost:8010")
+        public EftMainServer() : base("eft-main", "http://localhost:8010/")
         {
         }
 
