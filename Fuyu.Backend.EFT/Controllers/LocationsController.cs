@@ -1,4 +1,3 @@
-using Fuyu.Common.IO;
 using Fuyu.Backend.BSG.DTO.Responses;
 using Fuyu.Backend.EFT.DTO.Locations;
 using Fuyu.Backend.EFT.DTO.Responses;
@@ -9,17 +8,15 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class LocationsController : HttpController
     {
-        private readonly ResponseBody<WorldMap> _locations;
-
         public LocationsController() : base("/client/locations")
         {
-            var text = Resx.GetText("eft", "database.client.locations.json");
-            _locations = Json.Parse<ResponseBody<WorldMap>>(text);
         }
 
         public override void Run(HttpContext context)
         {
-            var response = Json.Stringify(_locations);
+            var json = EftOrm.GetLocations();
+            var locations = Json.Parse<ResponseBody<WorldMap>>(json);
+            var response = Json.Stringify(locations);
             SendJson(context, response);
         }
     }

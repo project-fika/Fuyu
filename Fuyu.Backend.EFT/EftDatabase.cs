@@ -41,6 +41,21 @@ namespace Fuyu.Backend.EFT
 
         // TODO
         internal static readonly ThreadObject<string> AccountCustomization;
+        internal static readonly ThreadObject<string> AchievementList;
+        internal static readonly ThreadObject<string> AchievementStatistic;
+        internal static readonly ThreadObject<string> Globals;
+        internal static readonly ThreadObject<string> Handbook;
+        internal static readonly ThreadObject<string> HideoutAreas;
+        internal static readonly ThreadObject<string> HideoutProductionRecipes;
+        internal static readonly ThreadObject<string> HideoutQteList;
+        internal static readonly ThreadObject<string> HideoutSettings;
+        internal static readonly ThreadObject<string> Items;
+        internal static readonly ThreadObject<string> LocalWeather;
+        internal static readonly ThreadObject<string> Locations;
+        internal static readonly ThreadObject<string> Quests;
+        internal static readonly ThreadObject<string> Settings;
+        internal static readonly ThreadObject<string> Traders;
+        internal static readonly ThreadObject<string> Weather;
 
         static EftDatabase()
         {
@@ -56,6 +71,22 @@ namespace Fuyu.Backend.EFT
 
             // TODO
             AccountCustomization = new ThreadObject<string>(string.Empty);
+            AchievementList = new ThreadObject<string>(string.Empty);
+            AchievementStatistic = new ThreadObject<string>(string.Empty);
+            Globals = new ThreadObject<string>(string.Empty);
+
+            Handbook = new ThreadObject<string>(string.Empty);
+            HideoutAreas = new ThreadObject<string>(string.Empty);
+            HideoutProductionRecipes = new ThreadObject<string>(string.Empty);
+            HideoutQteList = new ThreadObject<string>(string.Empty);
+            HideoutSettings = new ThreadObject<string>(string.Empty);
+            Items = new ThreadObject<string>(string.Empty);
+            LocalWeather = new ThreadObject<string>(string.Empty);
+            Locations = new ThreadObject<string>(string.Empty);
+            Quests = new ThreadObject<string>(string.Empty);
+            Settings = new ThreadObject<string>(string.Empty);
+            Traders = new ThreadObject<string>(string.Empty);
+            Weather = new ThreadObject<string>(string.Empty);
         }
 
         // NOTE: load order is VERY important!
@@ -152,15 +183,11 @@ namespace Fuyu.Backend.EFT
             var usecJson = Resx.GetText("eft", "database.profiles.player.unheard-usec.json");
             var savageJson = Resx.GetText("eft", "database.profiles.player.savage.json");
 
-            var bearProfile = Json.Parse<Profile>(bearJson);
-            var usecProfile = Json.Parse<Profile>(usecJson);
-            var savageProfile = Json.Parse<Profile>(savageJson);
-
             WipeProfiles.Add("unheard", new Dictionary<EPlayerSide, Profile>()
             {
-                { EPlayerSide.Bear, bearProfile },
-                { EPlayerSide.Usec, usecProfile },
-                { EPlayerSide.Savage, savageProfile }
+                { EPlayerSide.Bear,     Json.Parse<Profile>(bearJson)   },
+                { EPlayerSide.Usec,     Json.Parse<Profile>(usecJson)   },
+                { EPlayerSide.Savage,   Json.Parse<Profile>(savageJson) }
             });
         }
 
@@ -168,6 +195,21 @@ namespace Fuyu.Backend.EFT
         private static void LoadUnparsed()
         {
             AccountCustomization.Set(Resx.GetText("eft", "database.client.account.customization.json"));
+            AchievementList.Set(Resx.GetText("eft", "database.client.achievement.list.json"));
+            AchievementStatistic.Set(Resx.GetText("eft", "database.client.achievement.statistic.json"));
+            Globals.Set(Resx.GetText("eft", "database.client.globals.json"));
+            Handbook.Set(Resx.GetText("eft", "database.client.handbook.templates.json"));
+            HideoutAreas.Set(Resx.GetText("eft", "database.client.hideout.areas.json"));
+            HideoutProductionRecipes.Set(Resx.GetText("eft", "database.client.hideout.production.recipes.json"));
+            HideoutQteList.Set(Resx.GetText("eft", "database.client.hideout.qte.list.json"));
+            HideoutSettings.Set(Resx.GetText("eft", "database.client.hideout.settings.json"));
+            Items.Set(Resx.GetText("eft", "database.client.items.json"));
+            LocalWeather.Set(Resx.GetText("eft", "database.client.localGame.weather.json"));
+            Locations.Set(Resx.GetText("eft", "database.client.locations.json"));
+            Quests.Set(Resx.GetText("eft", "database.client.quest.list.json"));
+            Settings.Set(Resx.GetText("eft", "database.client.settings.json"));
+            Traders.Set(Resx.GetText("eft", "database.client.trading.api.traderSettings.json"));
+            Weather.Set(Resx.GetText("eft", "database.client.weather.json"));
         }
     }
 }

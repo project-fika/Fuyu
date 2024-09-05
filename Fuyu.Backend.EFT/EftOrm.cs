@@ -240,6 +240,81 @@ namespace Fuyu.Backend.EFT
         {
             return EftDatabase.AccountCustomization.Get();
         }
+
+        public static string GetAchievementList()
+        {
+            return EftDatabase.AchievementList.Get();
+        }
+
+        public static string GetAchievementStatistic()
+        {
+            return EftDatabase.AchievementStatistic.Get();
+        }
+
+        public static string GetGlobals()
+        {
+            return EftDatabase.Globals.Get();
+        }
+
+        public static string GetHandbook()
+        {
+            return EftDatabase.Handbook.Get();
+        }
+
+        public static string GetHideoutAreas()
+        {
+            return EftDatabase.HideoutAreas.Get();
+        }
+
+        public static string GetHideoutProductionRecipes()
+        {
+            return EftDatabase.HideoutProductionRecipes.Get();
+        }
+
+        public static string GetHideoutQteList()
+        {
+            return EftDatabase.HideoutQteList.Get();
+        }
+
+        public static string GetHideoutSettings()
+        {
+            return EftDatabase.HideoutSettings.Get();
+        }
+
+        public static string GetItems()
+        {
+            return EftDatabase.Items.Get();
+        }
+
+        public static string GetLocalWeather()
+        {
+            return EftDatabase.LocalWeather.Get();
+        }
+
+        public static string GetLocations()
+        {
+            return EftDatabase.Locations.Get();
+        }
+
+        public static string GetQuest()
+        {
+            return EftDatabase.Quests.Get();
+        }
+
+        public static string GetSettings()
+        {
+            return EftDatabase.Settings.Get();
+        }
+
+        public static string GetTraders()
+        {
+            return EftDatabase.Traders.Get();
+        }
+
+        public static string GetWeather()
+        {
+            return EftDatabase.Weather.Get();
+        }
 #endregion
     }
 }
