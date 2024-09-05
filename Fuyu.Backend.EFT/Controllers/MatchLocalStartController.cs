@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Fuyu.Common.IO;
-using Fuyu.Backend.EFT.DTO.Requests;
 using Fuyu.Common.Networking;
+using Fuyu.Backend.EFT.DTO.Requests;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
