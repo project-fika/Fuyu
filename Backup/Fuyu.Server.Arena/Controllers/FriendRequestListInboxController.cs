@@ -1,8 +1,8 @@
-using Fuyu.Server.Arena.DTO.Responses;
+using Fuyu.Backend.Arena.DTO.Responses;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
 
-namespace Fuyu.Server.Arena.Controllers
+namespace Fuyu.Backend.Arena.Controllers
 {
     public class FriendRequestListInboxController : HttpController
     {

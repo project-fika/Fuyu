@@ -1,8 +1,8 @@
 using System.Collections.Generic;
-using Fuyu.Server.BSG.DTO.Customization;
-using Fuyu.Server.Arena.DTO.Responses;
+using Fuyu.Backend.BSG.DTO.Customization;
+using Fuyu.Backend.Arena.DTO.Responses;
 
-namespace Fuyu.Server.Arena
+namespace Fuyu.Backend.Arena
 {
     public static class ArenaOrm
     {

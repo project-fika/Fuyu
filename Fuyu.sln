@@ -15,23 +15,23 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin.Common", "Fuyu.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin.EFT", "Fuyu.Plugin.Eft\Fuyu.Plugin.EFT.csproj", "{6C285025-50E9-4970-AFBF-4D216BCD4D7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Server", "Fuyu.Server\Fuyu.Server.csproj", "{8495DE3B-ABFF-4AF0-9B10-6DDE4A9840BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Backend", "Fuyu.Backend\Fuyu.Backend.csproj", "{8495DE3B-ABFF-4AF0-9B10-6DDE4A9840BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Server.Arena", "Fuyu.Server.Arena\Fuyu.Server.Arena.csproj", "{53CA39B2-AD23-4543-B370-80F9268EE0AB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Backend.Arena", "Fuyu.Backend.Arena\Fuyu.Backend.Arena.csproj", "{53CA39B2-AD23-4543-B370-80F9268EE0AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Server.BSG", "Fuyu.Server.BSG\Fuyu.Server.BSG.csproj", "{E17DFDEA-8EF9-4859-8671-F16A0C0F9AB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Backend.BSG", "Fuyu.Backend.BSG\Fuyu.Backend.BSG.csproj", "{E17DFDEA-8EF9-4859-8671-F16A0C0F9AB6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Server.Core", "Fuyu.Server.Core\Fuyu.Server.Core.csproj", "{26EAF8DC-D482-409F-B2D5-FEB314413F61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Backend.Core", "Fuyu.Backend.Core\Fuyu.Backend.Core.csproj", "{26EAF8DC-D482-409F-B2D5-FEB314413F61}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Server.EFT", "Fuyu.Server.EFT\Fuyu.Server.EFT.csproj", "{46A6EFAA-E466-4EF7-8012-83A070A5E005}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Backend.EFT", "Fuyu.Backend.EFT\Fuyu.Backend.EFT.csproj", "{46A6EFAA-E466-4EF7-8012-83A070A5E005}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Server.Arena", "Fuyu.Tests.Server.Arena\Fuyu.Tests.Server.Arena.csproj", "{57699BC1-D80E-4CB2-BDEE-DF0136AF2526}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.Arena", "Fuyu.Tests.Backend.Arena\Fuyu.Tests.Backend.Arena.csproj", "{57699BC1-D80E-4CB2-BDEE-DF0136AF2526}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Common", "Fuyu.Tests.Common\Fuyu.Tests.Common.csproj", "{3F62947F-CA09-4B07-9922-C328EAA26EF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Server.Core", "Fuyu.Tests.Server.Core\Fuyu.Tests.Server.Core.csproj", "{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.Core", "Fuyu.Tests.Backend.Core\Fuyu.Tests.Backend.Core.csproj", "{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Server.EFT", "Fuyu.Tests.Server.EFT\Fuyu.Tests.Server.EFT.csproj", "{BEC4515F-F90C-4055-9D26-0000408E516E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.EFT", "Fuyu.Tests.Backend.EFT\Fuyu.Tests.Backend.EFT.csproj", "{BEC4515F-F90C-4055-9D26-0000408E516E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketSharp", "WebSocketSharp\WebSocketSharp.csproj", "{1276CF96-BC0F-464D-AFB3-4B4553FD2F1B}"
 EndProject

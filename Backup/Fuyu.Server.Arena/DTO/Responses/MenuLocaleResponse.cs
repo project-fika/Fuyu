@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Fuyu.Server.Arena.DTO.Responses
+namespace Fuyu.Backend.Arena.DTO.Responses
 {
     [DataContract]
     public class MenuLocaleResponse

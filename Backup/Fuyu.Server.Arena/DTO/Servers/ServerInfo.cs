@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace Fuyu.Server.Arena.DTO.Servers
+namespace Fuyu.Backend.Arena.DTO.Servers
 {
     [DataContract]
     public class ServerInfo

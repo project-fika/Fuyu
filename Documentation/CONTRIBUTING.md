@@ -42,7 +42,7 @@ Architecture-wise:
 - Prevent internal state wherever possible (simplifies multi-threading)
 - Write tests for code wherever possible (see `Fuyu.Tests`, includes (de-)serializing data models)
 
-## Fuyu.Server.EFT.DTO
+## Fuyu.Backend.EFT.DTO
 
 Data should be translated to:
 

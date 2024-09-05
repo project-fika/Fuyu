@@ -1,7 +1,7 @@
 using Fuyu.Common.IO;
 using Fuyu.Common.Networking;
 
-namespace Fuyu.Server.Arena.Controllers
+namespace Fuyu.Backend.Arena.Controllers
 {
     public class GameTokenIssueController : HttpController
     {

@@ -1,11 +1,11 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Fuyu.Server.Arena;
-using Fuyu.Server.Arena.Servers;
-using Fuyu.Server.Arena.Services;
+using Fuyu.Backend.Arena;
+using Fuyu.Backend.Arena.Servers;
+using Fuyu.Backend.Arena.Services;
 
-namespace Fuyu.Tests.Server.Arena.EndToEnd
+namespace Fuyu.Tests.Backend.Arena.EndToEnd
 {
     [TestClass]
     public class BackendTest

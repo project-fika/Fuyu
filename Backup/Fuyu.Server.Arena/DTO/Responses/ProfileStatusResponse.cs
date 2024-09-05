@@ -1,7 +1,7 @@
 using System.Runtime.Serialization;
-using Fuyu.Server.EFT.DTO.Multiplayer;
+using Fuyu.Backend.EFT.DTO.Multiplayer;
 
-namespace Fuyu.Server.Arena.DTO.Responses
+namespace Fuyu.Backend.Arena.DTO.Responses
 {
     [DataContract]
     public class ProfileStatusResponse

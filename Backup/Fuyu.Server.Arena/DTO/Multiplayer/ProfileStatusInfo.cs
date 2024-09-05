@@ -1,6 +1,6 @@
 using System.Runtime.Serialization;
 
-namespace Fuyu.Server.Arena.DTO.Multiplayer
+namespace Fuyu.Backend.Arena.DTO.Multiplayer
 {
     [DataContract]
     public class ProfileStatusInfo

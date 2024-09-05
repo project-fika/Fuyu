@@ -1,7 +1,7 @@
 # Fuyu.Plugin.EFT
 
 A simple bepinex plugin that only disables and modifies EFT code preventing
-Fuyu.Server from functioning. Can run on obfuscated `Assembly-CSharp.dll`.
+Fuyu.Backend from functioning. Can run on obfuscated `Assembly-CSharp.dll`.
 
 ## Usage
 

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using Fuyu.Common.Collections;
 using Fuyu.Common.IO;
-using Fuyu.Server.BSG.DTO.Customization;
-using Fuyu.Server.BSG.DTO.Responses;
+using Fuyu.Backend.BSG.DTO.Customization;
+using Fuyu.Backend.BSG.DTO.Responses;
 using Fuyu.Common.Serialization;
 
-namespace Fuyu.Server.EFT
+namespace Fuyu.Backend.EFT
 {
     // NOTE: The properties of this class should _NEVER_ be accessed from the
     //       outside. Use ArenaOrm instead.

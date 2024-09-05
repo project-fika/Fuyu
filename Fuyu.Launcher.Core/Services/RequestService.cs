@@ -1,8 +1,8 @@
 using System.Text;
 using Fuyu.Common.Collections;
-using Fuyu.Server.Core.DTO.Accounts;
-using Fuyu.Server.Core.DTO.Requests;
-using Fuyu.Server.Core.DTO.Responses;
+using Fuyu.Backend.Core.DTO.Accounts;
+using Fuyu.Backend.Core.DTO.Requests;
+using Fuyu.Backend.Core.DTO.Responses;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
 
