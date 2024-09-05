@@ -9,7 +9,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../WebSocketSharp/WebSocketSharp.csproj" />
     <ProjectReference Include="../Zlib.Managed/Zlib.Managed.csproj" />
   </ItemGroup>
 

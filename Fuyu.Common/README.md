@@ -6,7 +6,7 @@ Code shared between projects.
 
 ### Server
 
-It's a simple wrapper around `WebSocketSharp.ServerHttpServer` that's good
+It's a simple wrapper around `System.Net` that's good
 enough for most cases. It only supports HTTP without secure connection.
 
 - `HttpServer` receives incoming HTTP requests and has an internal router that

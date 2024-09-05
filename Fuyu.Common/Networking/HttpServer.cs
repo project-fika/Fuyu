@@ -1,12 +1,12 @@
 using System;
-using WebSocketSharp.Server;
+using System.Net;
 using Fuyu.Common.IO;
 
 namespace Fuyu.Common.Networking
 {
     public class HttpServer
     {
-        private readonly WebSocketSharp.Server.HttpServer _httpv;
+        private readonly HttpListener _httpv;
         public readonly HttpRouter HttpRouter;
         public readonly string Address;
         public readonly string Name;
@@ -17,16 +17,14 @@ namespace Fuyu.Common.Networking
             Address = address;
             Name = name;
 
-            var uri = new Uri(address);
-            _httpv = new WebSocketSharp.Server.HttpServer(uri.Port);
-            _httpv.OnGet += OnRequest;
-            _httpv.OnPost += OnRequest;
-            _httpv.OnPut += OnRequest;
+            _httpv = new HttpListener();
+            _httpv.Prefixes.Add(address);
         }
 
-        private void OnRequest(object sender, HttpRequestEventArgs e)
+        private void OnRequest()
         {
-            var context = new HttpContext(e.Request, e.Response);
+            var httpvContext = _httpv.GetContext();
+            var context = new HttpContext(httpvContext.Request, httpvContext.Response);
 
             Terminal.WriteLine($"[{Name}] {context.Path}");
 
@@ -50,6 +48,7 @@ namespace Fuyu.Common.Networking
         {
             _httpv.Start();
             Terminal.WriteLine($"[{Name}] Started on {Address}");
+            OnRequest();
         }
 
         public void AddHttpController<T>() where T : HttpController, new()

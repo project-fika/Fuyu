@@ -33,8 +33,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.EFT", "Fuyu.Tests.Backend.EFT\Fuyu.Tests.Backend.EFT.csproj", "{BEC4515F-F90C-4055-9D26-0000408E516E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebSocketSharp", "WebSocketSharp\WebSocketSharp.csproj", "{1276CF96-BC0F-464D-AFB3-4B4553FD2F1B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zlib.Managed", "Zlib.Managed\Zlib.Managed.csproj", "{AFCA8CD1-4DFC-4D64-8DC7-872000BEE1EA}"
 EndProject
 Global
@@ -106,10 +104,6 @@ Global
 		{BEC4515F-F90C-4055-9D26-0000408E516E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEC4515F-F90C-4055-9D26-0000408E516E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEC4515F-F90C-4055-9D26-0000408E516E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1276CF96-BC0F-464D-AFB3-4B4553FD2F1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1276CF96-BC0F-464D-AFB3-4B4553FD2F1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1276CF96-BC0F-464D-AFB3-4B4553FD2F1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1276CF96-BC0F-464D-AFB3-4B4553FD2F1B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AFCA8CD1-4DFC-4D64-8DC7-872000BEE1EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFCA8CD1-4DFC-4D64-8DC7-872000BEE1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFCA8CD1-4DFC-4D64-8DC7-872000BEE1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
