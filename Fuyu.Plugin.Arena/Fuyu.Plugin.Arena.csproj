@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Fuyu.Plugin.Core/Fuyu.Plugin.Core.csproj" />
+    <ProjectReference Include="../Fuyu.Plugin.Common/Fuyu.Plugin.Common.csproj" />
   </ItemGroup>
 
 </Project>
