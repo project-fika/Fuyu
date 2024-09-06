@@ -6,19 +6,19 @@ using Fuyu.Backend.Common.DTO.Responses;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class FuyuGameRegisterController : HttpController
+    public class FuyuGameLoginController : HttpController
     {
-        public FuyuGameRegisterController() : base("/fuyu/game/register")
+        public FuyuGameLoginController() : base("/fuyu/game/login")
         {
         }
 
         public override void Run(HttpContext context)
         {
-            var request = context.GetJson<FuyuGameRegisterRequest>();
-            var accountId = AccountService.RegisterAccount(request.Username, request.Edition);
-            var response = new FuyuGameRegisterResponse()
+            var request = context.GetJson<FuyuGameLoginRequest>();
+            var sessionId = AccountService.LoginAccount(request.AccountId);
+            var response = new FuyuGameLoginResponse()
             {
-                AccountId = accountId
+                SessionId = sessionId
             };
 
             SendJson(context, Json.Stringify(response));

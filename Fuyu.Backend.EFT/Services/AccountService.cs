@@ -74,7 +74,7 @@ namespace Fuyu.Backend.EFT.Services
             }
         }
 
-        public static int RegisterAccount(string edition)
+        public static int RegisterAccount(string username, string edition)
         {
             var accountId = GetNewAccountId();
 
@@ -87,6 +87,7 @@ namespace Fuyu.Backend.EFT.Services
             {
                 Id = accountId,
                 Edition = edition,
+                Username = username,
                 PvpId = pvpId,
                 PveId = pveId
             };

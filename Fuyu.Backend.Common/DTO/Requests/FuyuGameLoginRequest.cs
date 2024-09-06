@@ -3,12 +3,9 @@ using System.Runtime.Serialization;
 namespace Fuyu.Backend.Common.DTO.Requests
 {
     [DataContract]
-    public class FuyuGameRegisterRequest
+    public class FuyuGameLoginRequest
     {
         [DataMember]
-        public string Username;
-
-        [DataMember]
-        public string Edition;
+        public int AccountId;
     }
 }

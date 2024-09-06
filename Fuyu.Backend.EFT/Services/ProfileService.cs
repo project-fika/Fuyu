@@ -50,9 +50,15 @@ namespace Fuyu.Backend.EFT.Services
             var edition = EftOrm.GetWipeProfile(account.Edition);
 
             profile.Savage = edition[EPlayerSide.Savage];
-            profile.Pmc = side == "bear"
-                ? edition[EPlayerSide.Bear]
-                : edition[EPlayerSide.Usec];
+
+            if (side == "bear")
+            {
+                profile.Pmc = edition[EPlayerSide.Bear];
+            }
+            else
+            {
+                profile.Pmc = edition[EPlayerSide.Usec];
+            }            
 
             // setup savage
             profile.Savage._id = savageId;

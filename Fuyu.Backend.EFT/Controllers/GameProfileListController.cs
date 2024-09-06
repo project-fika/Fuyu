@@ -22,15 +22,13 @@ namespace Fuyu.Backend.EFT.Controllers
             var profile = EftOrm.GetProfile(account.PveId);
             Profile[] profiles;
 
-            if (profile != null && !profile.ShouldWipe)
+            if (profile.ShouldWipe)
             {
-                // profiles exist
-                profiles = [profile.Pmc, profile.Savage];
+                profiles = [];
             }
             else
             {
-                // profile doesn't exist or must be wiped
-                profiles = [];
+                profiles = [profile.Pmc, profile.Savage];
             }
 
             var response = new ResponseBody<Profile[]>()

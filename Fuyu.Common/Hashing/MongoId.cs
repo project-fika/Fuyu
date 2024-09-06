@@ -76,13 +76,23 @@ namespace Fuyu.Common.Hashing
 
 		public MongoId(MongoId source, int increment, bool newTimestamp = true)
 		{
-			_timeStamp = newTimestamp
-                ? UnixTimestamp
-                : source._timeStamp;
+			if (newTimestamp)
+			{
+				_timeStamp = UnixTimestamp;
+			}
+			else
+			{
+				_timeStamp = source._timeStamp;
+			}
 
-			_counter = (increment > 0)
-                ? (source._counter + (ulong)Convert.ToUInt32(increment))
-                : (source._counter - (ulong)Convert.ToUInt32(Math.Abs(increment)));
+			if (increment > 0)
+			{
+				_counter = source._counter + (ulong)Convert.ToUInt32(increment);
+			}
+			else
+			{
+				_counter = source._counter - (ulong)Convert.ToUInt32(Math.Abs(increment));
+			}
 		}
 
         // smethod_1

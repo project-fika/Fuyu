@@ -1,13 +1,13 @@
 using System.Collections.Generic;
 using Fuyu.Common.Collections;
 using Fuyu.Common.IO;
+using Fuyu.Common.Serialization;
 using Fuyu.Backend.BSG.DTO.Customization;
 using Fuyu.Backend.BSG.DTO.Profiles;
+using Fuyu.Backend.BSG.DTO.Profiles.Info;
 using Fuyu.Backend.BSG.DTO.Responses;
 using Fuyu.Backend.EFT.DTO.Responses;
-using Fuyu.Common.Serialization;
 using Fuyu.Backend.EFT.DTO.Accounts;
-using Fuyu.Backend.BSG.DTO.Profiles.Info;
 
 namespace Fuyu.Backend.EFT
 {
@@ -116,17 +116,51 @@ namespace Fuyu.Backend.EFT
 
         private static void LoadAccounts()
         {
-            // TODO
+            var path = "./Fuyu/Accounts/EFT/";
+
+            if (!VFS.DirectoryExists(path))
+            {
+                VFS.CreateDirectory(path);
+            }
+
+            var files = VFS.GetFiles(path);
+
+            foreach (var filepath in files)
+            {
+                var json = VFS.ReadTextFile(filepath);
+                var account = Json.Parse<EftAccount>(json);
+                EftOrm.AddAccount(account);
+
+                Terminal.WriteLine($"Loaded EFT account {account.Id}");
+            }
         }
 
         private static void LoadProfiles()
         {
-            // TODO
+            var path = "./Fuyu/Profiles/EFT/";
+
+            if (!VFS.DirectoryExists(path))
+            {
+                VFS.CreateDirectory(path);
+            }
+
+            var files = VFS.GetFiles(path);
+
+            foreach (var filepath in files)
+            {
+                var json = VFS.ReadTextFile(filepath);
+                var profile = Json.Parse<EftProfile>(json);
+                EftOrm.AddProfile(profile);
+
+                Terminal.WriteLine($"Loaded EFT profile {profile.Pmc._id}");
+            }
         }
 
         private static void LoadSessions()
         {
-            // TODO
+            // intentionally empty
+            // sessions are created when users are logged in successfully
+            // -- seionmoya, 2024/09/06
         }
 
         private static void LoadCustomizations()

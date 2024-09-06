@@ -38,7 +38,7 @@
             // -- seionmoya, 2024/09/02
         }
 
-        RequestService.CreateSession(sessionId);
+        RequestService.CreateSession("fuyu", SettingsService.FuyuAddress, sessionId);
         Navigation.NavigateTo($"/account?sessionid={sessionId}");
     }
 }

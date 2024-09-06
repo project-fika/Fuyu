@@ -20,6 +20,9 @@
         // NOTE: hack until wipe screen is created
         // -- seionmoya, 2024/09/03
         RequestService.RegisterGame("eft", "unheard");
+        var accountId = 0;
+
+        RequestService.LoginGame("eft", accountId);
 
         using (var process = ProcessService.StartEft(SettingsService.EftDirectory, sessionId, SettingsService.EftAddress))
         {

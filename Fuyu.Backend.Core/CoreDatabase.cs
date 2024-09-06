@@ -47,7 +47,7 @@ namespace Fuyu.Backend.Core
                 var account = Json.Parse<Account>(json);
                 CoreOrm.AddAccount(account);
 
-                Terminal.WriteLine($"Loaded account {account.Id}");
+                Terminal.WriteLine($"Loaded fuyu account {account.Id}");
             }
         }
 

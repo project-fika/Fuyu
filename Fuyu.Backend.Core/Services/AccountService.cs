@@ -160,6 +160,7 @@ namespace Fuyu.Backend.Core.Services
                 // request game registration on game server
                 var request = new FuyuGameRegisterRequest()
                 {
+                    Username = account.Username,
                     Edition = edition
                 };
                 var requestJson = Json.Stringify(request);
