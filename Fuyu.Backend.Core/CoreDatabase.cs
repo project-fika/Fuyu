@@ -5,14 +5,12 @@ using Fuyu.Backend.Core.DTO.Accounts;
 
 namespace Fuyu.Backend.Core
 {
+    // NOTE: The properties of this class should _NEVER_ be accessed from the
+    //       outside. Use CoreOrm instead.
+    // -- seionmoya, 2024/09/06
+
     public static class CoreDatabase
     {
-        // NOTE: rationale for using List<Account> over Dictionary<int, Account>
-        //       is the accountId is already stored in the Account so having to
-        //       sync both the Account.Id and dictionary is a bit annoying, and 
-        //       a dictionary loops over all keys anyways (unless using
-        //       TryGetValue() but that uses 'out' which I want to avoid).
-        // -- seionmoya, 2024/09/02
         internal static readonly ThreadList<Account> Accounts;
 
         //                                sessid  aid

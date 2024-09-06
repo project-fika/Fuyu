@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace Fuyu.Common.Networking
 {
@@ -16,16 +14,15 @@ namespace Fuyu.Common.Networking
 
         public void Route(HttpContext context)
         {
-            // NOTE: multi-threaded lookup
-            var matches = new ConcurrentBag<HttpController>();
+            var matches = new List<HttpController>();
 
-            Parallel.ForEach(Controllers, (controller) =>
+            foreach (var controller in Controllers)
             {
                 if (controller.IsMatch(context))
                 {
                     matches.Add(controller);
                 }
-            });
+            }
 
             if (matches.Count == 0)
             {
