@@ -121,8 +121,11 @@ namespace Fuyu.Backend.Core.Services
                 Id = GetNewAccountId(),
                 Username = username.ToLowerInvariant(),
                 Password = password,
-                EftAid = null,
-                ArenaAid = null
+                Games = new Dictionary<string, int?>
+                {
+                    { "eft", null },
+                    { "arena", null }
+                }
             };
 
             CoreOrm.SetOrAddAccount(account);
@@ -134,26 +137,20 @@ namespace Fuyu.Backend.Core.Services
         public static ERegisterStatus RegisterGame(string sessionId, string game, string edition)
         {
             var account = CoreOrm.GetAccount(sessionId);
+            if (account.Games.TryGetValue(game, out var aid) && aid.HasValue)
+            {
+                return ERegisterStatus.AlreadyExists;
+            }
 
             string address;
 
             switch (game)
             {
                 case "eft":
-                    if (account.EftAid.HasValue)
-                    {
-                        return ERegisterStatus.AlreadyExists;
-                    }
-
                     address = "http://localhost:8010";
                     break;
 
                 case "arena":
-                    if (account.ArenaAid.HasValue)
-                    {
-                        return ERegisterStatus.AlreadyExists;
-                    }
-
                     address = "http://localhost:8020";
                     break;
 
@@ -177,19 +174,7 @@ namespace Fuyu.Backend.Core.Services
                 var response = Json.Parse<FuyuGameRegisterResponse>(responseJson);
 
                 // set game account id
-                switch (game)
-                {
-                    case "eft":
-                        {
-                            account.EftAid = response.AccountId;
-                            break;
-                        }
-                    case "arena":
-                        {
-                            account.ArenaAid = response.AccountId;
-                            break;
-                        }
-                }
+                account.Games[game] = response.AccountId;
             }
 
             CoreOrm.SetOrAddAccount(account);
