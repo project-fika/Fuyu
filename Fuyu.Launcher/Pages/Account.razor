@@ -1,5 +1,5 @@
-﻿@using Fuyu.Platform.Common.Models.Fuyu.Accounts
-@using Fuyu.Platform.Launcher.Services
+﻿@using Fuyu.Backend.Core.DTO.Accounts
+@using Fuyu.Launcher.Core.Services
 
 @page "/account"
 
@@ -19,7 +19,10 @@
     {
         // NOTE: hack until wipe screen is created
         // -- seionmoya, 2024/09/03
-        RequestService.RegisterGame(EGame.EFT, "unheard");
+        RequestService.RegisterGame("eft", "unheard");
+        var accountId = 0;
+
+        RequestService.LoginGame("eft", accountId);
 
         using (var process = ProcessService.StartEft(SettingsService.EftDirectory, sessionId, SettingsService.EftAddress))
         {
@@ -31,7 +34,7 @@
     {
         // NOTE: hack until wipe screen is created
         // -- seionmoya, 2024/09/03
-        RequestService.RegisterGame(EGame.Arena, "ryzhy");
+        RequestService.RegisterGame("arena", "ryzhy");
 
         using (var process = ProcessService.StartArena(SettingsService.ArenaDirectory, sessionId, SettingsService.ArenaAddress))
         {

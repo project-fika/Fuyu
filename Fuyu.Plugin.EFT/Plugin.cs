@@ -1,5 +1,5 @@
 using BepInEx;
-using Fuyu.Platform.Plugin.Reflection;
+using Fuyu.Plugin.Core.Reflection;
 using Fuyu.Plugin.EFT.Patches;
 using Fuyu.Plugin.EFT.Utils;
 

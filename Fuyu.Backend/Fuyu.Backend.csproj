@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <OutputType>Exe</OutputType>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>true</SelfContained>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources/icon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Fuyu.Backend.Arena/Fuyu.Backend.Arena.csproj" />
+    <ProjectReference Include="../Fuyu.Backend.Core/Fuyu.Backend.Core.csproj" />
+    <ProjectReference Include="../Fuyu.Backend.EFT/Fuyu.Backend.EFT.csproj" />
+  </ItemGroup>
+
+</Project>

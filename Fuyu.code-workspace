@@ -23,16 +23,16 @@
 				},
 				"program": "OVERWRITTEN_BY_OS_SPECIFIC",
 				"windows": {
-					"program": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/win-x64/Fuyu.Server.dll",
-					"cwd": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/win-x64/",
+					"program": "${workspaceFolder}/Fuyu.Backend/bin/Debug/net8.0/win-x64/Fuyu.Backend.dll",
+					"cwd": "${workspaceFolder}/Fuyu.Backend/bin/Debug/net8.0/win-x64/",
 				},
 				"linux": {
-					"program": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/linux-x64/Fuyu.Server.dll",
-					"cwd": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/linux-x64/",
+					"program": "${workspaceFolder}/Fuyu.Backend/bin/Debug/net8.0/linux-x64/Fuyu.Backend.dll",
+					"cwd": "${workspaceFolder}/Fuyu.Backend/bin/Debug/net8.0/linux-x64/",
 				},
 				"osx": {
-					"program": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/osx-x64/Fuyu.Server.dll",
-					"cwd": "${workspaceFolder}/Fuyu.Server/bin/Debug/net8.0/osx-x64/",
+					"program": "${workspaceFolder}/Fuyu.Backend/bin/Debug/net8.0/osx-x64/Fuyu.Backend.dll",
+					"cwd": "${workspaceFolder}/Fuyu.Backend/bin/Debug/net8.0/osx-x64/",
 				}
 			},
 			{

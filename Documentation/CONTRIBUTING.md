@@ -5,7 +5,7 @@
 For code formatting:
 
 - .NET Coding Convention
-- I don't permit, labdas, `System.LINQ` unless it's for `Fuyu.Plugin` / `Fuyu.Platform.Plugin` lookup patterns
+- I don't permit, labdas, `System.LINQ` unless it's for `Fuyu.Plugin` / `Fuyu.Plugin.Core` lookup patterns
 - I don't permit primary constructors
 - Only use structures that exist in a widespread of other languages (`if`, `else`, `for`, `while`, `break`, `continue`, `var`, `foreach`, `switch`, `case`, `return`, `struct`, `class`, `interface`)
 - Use `using` as dispose pattern.
@@ -35,14 +35,14 @@ Try to stick with to following from C#'s build-in namespaces:
 For external libraries:
 
 - Only after discussing inclusion (might not permit it!)
-- Make sure there is an abstraction for it inside `Fuyu.Platform.Common` and that it works for all three platforms
+- Make sure there is an abstraction for it inside `Fuyu.Common` and that it works for all three platforms
 
 Architecture-wise:
 
 - Prevent internal state wherever possible (simplifies multi-threading)
 - Write tests for code wherever possible (see `Fuyu.Tests`, includes (de-)serializing data models)
 
-## Fuyu.Platform.Common.Models.EFT
+## Fuyu.Backend.EFT.DTO
 
 Data should be translated to:
 
@@ -75,7 +75,7 @@ Why: makes it visually distinct how the `enum` should be parsed.
 
 1. Update the hollowed dlls inside `References/` using Seion.BatchHollower ([link](https://github.com/seionmoya/BatchHollower))
 2. Update EFT dumps inside `Fuyu.Platform.Server`
-3. Update data models inside `Fuyu.Platform.Common`
+3. Update data models inside `Fuyu.Common`
 4. Add missing required route(s) in `Fuyu.Platform.Server`
 
 ## FAQ

@@ -1,0 +1,81 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Fuyu.Backend.BSG/Fuyu.Backend.BSG.csproj" />
+    <ProjectReference Include="../Fuyu.Backend.Common/Fuyu.Backend.Common.csproj" />
+    <ProjectReference Include="../Fuyu.Common/Fuyu.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="embedded/database/locales/client.languages.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-ch.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-cz.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-en.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-es.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-es-mx.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-fr.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-ge.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-hu.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-it.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-jp.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-kr.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-pl.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-po.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-ro.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-ru.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-sk.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.locale-tu.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-ch.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-cz.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-en.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-es.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-es-mx.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-fr.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-ge.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-hu.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-it.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-jp.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-kr.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-pl.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-po.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-ro.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-ru.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-sk.json" />
+    <EmbeddedResource Include="embedded/database/locales/client.menu.locale-tu.json" />
+    <EmbeddedResource Include="embedded/database/locations/bigmap.json" />
+    <EmbeddedResource Include="embedded/database/locations/factory4_day.json" />
+    <EmbeddedResource Include="embedded/database/locations/interchange.json" />
+    <EmbeddedResource Include="embedded/database/locations/lighthouse.json" />
+    <EmbeddedResource Include="embedded/database/locations/rezervbase.json" />
+    <EmbeddedResource Include="embedded/database/locations/sandbox.json" />
+    <EmbeddedResource Include="embedded/database/locations/shorline.json" />
+    <EmbeddedResource Include="embedded/database/locations/tarkovstreets.json" />
+    <EmbeddedResource Include="embedded/database/locations/woods.json" />
+    <EmbeddedResource Include="embedded/database/profiles/player.savage.json" />
+    <EmbeddedResource Include="embedded/database/profiles/player.unheard-bear.json" />
+    <EmbeddedResource Include="embedded/database/profiles/player.unheard-usec.json" />
+    <EmbeddedResource Include="embedded/database/client.account.customization.json" />
+    <EmbeddedResource Include="embedded/database/client.achievement.list.json" />
+    <EmbeddedResource Include="embedded/database/client.achievement.statistic.json" />
+    <EmbeddedResource Include="embedded/database/client.builds.list.json" />
+    <EmbeddedResource Include="embedded/database/client.customization.json" />
+    <EmbeddedResource Include="embedded/database/client.globals.json" />
+    <EmbeddedResource Include="embedded/database/client.handbook.templates.json" />
+    <EmbeddedResource Include="embedded/database/client.hideout.areas.json" />
+    <EmbeddedResource Include="embedded/database/client.hideout.production.recipes.json" />
+    <EmbeddedResource Include="embedded/database/client.hideout.qte.list.json" />
+    <EmbeddedResource Include="embedded/database/client.hideout.settings.json" />
+    <EmbeddedResource Include="embedded/database/client.items.json" />
+    <EmbeddedResource Include="embedded/database/client.locations.json" />
+    <EmbeddedResource Include="embedded/database/client.localGame.weather.json" />
+    <EmbeddedResource Include="embedded/database/client.quest.list.json" />
+    <EmbeddedResource Include="embedded/database/client.settings.json" />
+    <EmbeddedResource Include="embedded/database/client.trading.api.traderSettings.json" />
+    <EmbeddedResource Include="embedded/database/client.weather.json" />
+  </ItemGroup>
+
+</Project>

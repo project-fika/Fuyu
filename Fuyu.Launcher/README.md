@@ -1,6 +1,6 @@
 # Fuyu.Launcher
 
-An app wrapped around `Fuyu.Platform.Launcher`.
+An app wrapped around `Fuyu.Launcher.Core`.
 
 ## Usage
 
