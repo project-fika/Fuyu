@@ -43,7 +43,7 @@ namespace Fuyu.Backend.Core
             {
                 var json = VFS.ReadTextFile(filepath);
                 var account = Json.Parse<Account>(json);
-                CoreOrm.AddAccount(account);
+                CoreOrm.SetOrAddAccount(account);
 
                 Terminal.WriteLine($"Loaded fuyu account {account.Id}");
             }

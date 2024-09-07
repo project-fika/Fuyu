@@ -40,7 +40,7 @@ namespace Fuyu.Backend.EFT.Services
             //       for each login.
             // -- seionmoya, 2024/09/02
             var sessionId = new MongoId(accountId).ToString();
-            EftOrm.AddSession(sessionId, accountId);
+            EftOrm.SetOrAddSession(sessionId, accountId);
             return sessionId.ToString();
         }
 
@@ -92,7 +92,7 @@ namespace Fuyu.Backend.EFT.Services
                 PveId = pveId
             };
 
-            EftOrm.AddAccount(account);
+            EftOrm.SetOrAddAccount(account);
             WriteToDisk(account);
 
             return accountId;

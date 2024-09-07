@@ -30,7 +30,7 @@ namespace Fuyu.Backend.EFT
             return null;
         }
 
-        public static void SetProfile(EftProfile profile)
+        public static void SetOrAddProfile(EftProfile profile)
         {
             var profiles = GetProfiles();
 
@@ -42,10 +42,7 @@ namespace Fuyu.Backend.EFT
                     return;
                 }
             }
-        }
 
-        public static void AddProfile(EftProfile profile)
-        {
             EftDatabase.Profiles.Add(profile);
         }
 
@@ -91,7 +88,7 @@ namespace Fuyu.Backend.EFT
             return GetAccount(accountId);
         }
 
-        public static void SetAccount(EftAccount account)
+        public static void SetOrAddAccount(EftAccount account)
         {
             var accounts = GetAccounts();
 
@@ -103,10 +100,7 @@ namespace Fuyu.Backend.EFT
                     return;
                 }
             }
-        }
 
-        public static void AddAccount(EftAccount account)
-        {
             EftDatabase.Accounts.Add(account);
         }
 
@@ -136,14 +130,16 @@ namespace Fuyu.Backend.EFT
             return EftDatabase.Sessions.Get(sessionId);
         }
 
-        public static void SetSession(string sessionId, int accountId)
+        public static void SetOrAddSession(string sessionId, int accountId)
         {
-            EftDatabase.Sessions.Set(sessionId, accountId);
-        }
-
-        public static void AddSession(string sessionId, int accountId)
-        {
-            EftDatabase.Sessions.Add(sessionId, accountId);
+            if (EftDatabase.Sessions.ContainsKey(sessionId))
+            {
+                EftDatabase.Sessions.Set(sessionId, accountId);
+            }
+            else
+            {
+                EftDatabase.Sessions.Add(sessionId, accountId);
+            }
         }
 
         public static void RemoveSession(string sessionId)
@@ -163,14 +159,16 @@ namespace Fuyu.Backend.EFT
             return EftDatabase.Customizations.Get(customizationId);
         }
 
-        public static void SetCustomization(string customizationId, CustomizationTemplate template)
+        public static void SetOrAddCustomization(string customizationId, CustomizationTemplate template)
         {
-            EftDatabase.Customizations.Set(customizationId, template);
-        }
-
-        public static void AddCustomization(string customizationId, CustomizationTemplate template)
-        {
-            EftDatabase.Customizations.Add(customizationId, template);
+            if (EftDatabase.Customizations.ContainsKey(customizationId))
+            {
+                EftDatabase.Customizations.Set(customizationId, template);
+            }
+            else
+            {
+                EftDatabase.Customizations.Add(customizationId, template);
+            }
         }
 
         public static void RemoveCustomization(string customizationId)
@@ -190,14 +188,16 @@ namespace Fuyu.Backend.EFT
             return EftDatabase.Languages.Get(languageId);
         }
 
-        public static void SetLanguage(string languageId, string name)
+        public static void SetOrAddLanguage(string languageId, string name)
         {
-            EftDatabase.Languages.Set(languageId, name);
-        }
-
-        public static void AddLanguage(string languageId, string name)
-        {
-            EftDatabase.Languages.Add(languageId, name);
+            if (EftDatabase.Languages.ContainsKey(languageId))
+            {
+                EftDatabase.Languages.Set(languageId, name);
+            }
+            else
+            {
+                EftDatabase.Languages.Add(languageId, name);
+            }
         }
 
         public static void RemoveLanguage(string languageId)
@@ -217,14 +217,16 @@ namespace Fuyu.Backend.EFT
             return EftDatabase.GlobalLocales.Get(languageId);
         }
 
-        public static void SetGlobalLocale(string languageId, Dictionary<string, string> globalLocale)
+        public static void SetOrAddGlobalLocale(string languageId, Dictionary<string, string> globalLocale)
         {
-            EftDatabase.GlobalLocales.Set(languageId, globalLocale);
-        }
-
-        public static void AddGlobalLocale(string languageId, Dictionary<string, string> globalLocale)
-        {
-            EftDatabase.GlobalLocales.Add(languageId, globalLocale);
+            if (EftDatabase.GlobalLocales.ContainsKey(languageId))
+            {
+                EftDatabase.GlobalLocales.Set(languageId, globalLocale);
+            }
+            else
+            {
+                EftDatabase.GlobalLocales.Add(languageId, globalLocale);
+            }
         }
 
         public static void RemoveGlobalLocale(string languageId)
@@ -244,14 +246,16 @@ namespace Fuyu.Backend.EFT
             return EftDatabase.MenuLocales.Get(languageId);
         }
 
-        public static void SetMenuLocale(string languageId, MenuLocaleResponse menuLocale)
+        public static void SetOrAddMenuLocale(string languageId, MenuLocaleResponse menuLocale)
         {
-            EftDatabase.MenuLocales.Set(languageId, menuLocale);
-        }
-
-        public static void AddMenuLocale(string languageId, MenuLocaleResponse menuLocale)
-        {
-            EftDatabase.MenuLocales.Add(languageId, menuLocale);
+            if (EftDatabase.MenuLocales.ContainsKey(languageId))
+            {
+                EftDatabase.MenuLocales.Set(languageId, menuLocale);
+            }
+            else
+            {
+                EftDatabase.MenuLocales.Add(languageId, menuLocale);
+            }
         }
 
         public static void RemoveMenuLocale(string languageId)
@@ -271,14 +275,16 @@ namespace Fuyu.Backend.EFT
             return EftDatabase.WipeProfiles.Get(edition);
         }
 
-        public static void SetWipeProfile(string edition, Dictionary<EPlayerSide, Profile> profiles)
+        public static void SetOrAddWipeProfile(string edition, Dictionary<EPlayerSide, Profile> profiles)
         {
-            EftDatabase.WipeProfiles.Set(edition, profiles);
-        }
-
-        public static void AddWipeProfile(string edition, Dictionary<EPlayerSide, Profile> profiles)
-        {
-            EftDatabase.WipeProfiles.Add(edition, profiles);
+            if (EftDatabase.WipeProfiles.ContainsKey(edition))
+            {
+                EftDatabase.WipeProfiles.Set(edition, profiles);
+            }
+            else
+            {
+                EftDatabase.WipeProfiles.Add(edition, profiles);
+            }
         }
 
         public static void RemoveWipeProfile(string edition)

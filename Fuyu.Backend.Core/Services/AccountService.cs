@@ -75,7 +75,7 @@ namespace Fuyu.Backend.Core.Services
             //       for each login.
             // -- seionmoya, 2024/09/02
             var sessionId = new MongoId(accountId).ToString();
-            CoreOrm.AddSession(sessionId, accountId);
+            CoreOrm.SetOrAddSession(sessionId, accountId);
             return sessionId.ToString();
         }
 
@@ -128,7 +128,7 @@ namespace Fuyu.Backend.Core.Services
                 }
             };
 
-            CoreOrm.AddAccount(account);
+            CoreOrm.SetOrAddAccount(account);
             WriteToDisk(account);
 
             return ERegisterStatus.Success;
@@ -173,7 +173,7 @@ namespace Fuyu.Backend.Core.Services
                 account.Games[game].Add(response.AccountId);
             }
 
-            CoreOrm.SetAccount(account);
+            CoreOrm.SetOrAddAccount(account);
             WriteToDisk(account);
 
             return ERegisterStatus.Success;

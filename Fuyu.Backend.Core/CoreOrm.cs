@@ -31,7 +31,7 @@ namespace Fuyu.Backend.Core
             throw new Exception($"Account with {accountId} does not exist.");
         }
 
-        public static void SetAccount(Account account)
+        public static void SetOrAddAccount(Account account)
         {
             var accounts = CoreDatabase.Accounts.ToList();
 
@@ -43,10 +43,7 @@ namespace Fuyu.Backend.Core
                     return;
                 }
             }
-        }
 
-        public static void AddAccount(Account account)
-        {
             CoreDatabase.Accounts.Add(account);
         }
 
@@ -76,14 +73,16 @@ namespace Fuyu.Backend.Core
             return CoreDatabase.Sessions.Get(sessionId);
         }
 
-        public static void SetSession(string sessionId, int accountId)
+        public static void SetOrAddSession(string sessionId, int accountId)
         {
-            CoreDatabase.Sessions.Set(sessionId, accountId);
-        }
-
-        public static void AddSession(string sessionId, int accountId)
-        {
-            CoreDatabase.Sessions.Add(sessionId, accountId);
+            if (CoreDatabase.Sessions.ContainsKey(sessionId))
+            {
+                CoreDatabase.Sessions.Set(sessionId, accountId);
+            }
+            else
+            {
+                CoreDatabase.Sessions.Add(sessionId, accountId);
+            }
         }
 
         public static void RemoveSession(string sessionId)

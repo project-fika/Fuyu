@@ -129,7 +129,7 @@ namespace Fuyu.Backend.EFT
             {
                 var json = VFS.ReadTextFile(filepath);
                 var account = Json.Parse<EftAccount>(json);
-                EftOrm.AddAccount(account);
+                EftOrm.SetOrAddAccount(account);
 
                 Terminal.WriteLine($"Loaded EFT account {account.Id}");
             }
@@ -150,7 +150,7 @@ namespace Fuyu.Backend.EFT
             {
                 var json = VFS.ReadTextFile(filepath);
                 var profile = Json.Parse<EftProfile>(json);
-                EftOrm.AddProfile(profile);
+                EftOrm.SetOrAddProfile(profile);
 
                 Terminal.WriteLine($"Loaded EFT profile {profile.Pmc._id}");
             }
@@ -170,7 +170,7 @@ namespace Fuyu.Backend.EFT
 
             foreach (var kvp in response.data)
             {
-                Customizations.Add(kvp.Key, kvp.Value);
+                EftOrm.SetOrAddCustomization(kvp.Key, kvp.Value);
             }
         }
 
@@ -181,7 +181,7 @@ namespace Fuyu.Backend.EFT
 
             foreach (var kvp in response.data)
             {
-                Languages.Add(kvp.Key, kvp.Value);
+                EftOrm.SetOrAddLanguage(kvp.Key, kvp.Value);
             }
         }
 
@@ -194,7 +194,7 @@ namespace Fuyu.Backend.EFT
                 var json = Resx.GetText("eft", $"database.locales.client.locale-{languageId}.json");
                 var response = Json.Parse<ResponseBody<Dictionary<string, string>>>(json);
 
-                GlobalLocales.Add(languageId, response.data);
+                EftOrm.SetOrAddGlobalLocale(languageId, response.data);
             }
         }
 
@@ -207,7 +207,7 @@ namespace Fuyu.Backend.EFT
                 var json = Resx.GetText("eft", $"database.locales.client.menu.locale-{languageId}.json");
                 var response = Json.Parse<ResponseBody<MenuLocaleResponse>>(json);
 
-                MenuLocales.Add(languageId, response.data);
+                EftOrm.SetOrAddMenuLocale(languageId, response.data);
             }
         }
 
@@ -217,7 +217,7 @@ namespace Fuyu.Backend.EFT
             var usecJson = Resx.GetText("eft", "database.profiles.player.unheard-usec.json");
             var savageJson = Resx.GetText("eft", "database.profiles.player.savage.json");
 
-            WipeProfiles.Add("unheard", new Dictionary<EPlayerSide, Profile>()
+            EftOrm.SetOrAddWipeProfile("unheard", new Dictionary<EPlayerSide, Profile>()
             {
                 { EPlayerSide.Bear,     Json.Parse<Profile>(bearJson)   },
                 { EPlayerSide.Usec,     Json.Parse<Profile>(usecJson)   },

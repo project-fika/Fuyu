@@ -30,7 +30,7 @@ namespace Fuyu.Backend.EFT.Services
             profile.Savage.aid = accountId;
 
             // store profile
-            EftOrm.AddProfile(profile);
+            EftOrm.SetOrAddProfile(profile);
             WriteToDisk(profile);
 
             return pmcId;
@@ -79,7 +79,7 @@ namespace Fuyu.Backend.EFT.Services
             profile.ShouldWipe = false;
 
             // store profile
-            EftOrm.SetProfile(profile);
+            EftOrm.SetOrAddProfile(profile);
             WriteToDisk(profile);
 
             return profile.Pmc._id;

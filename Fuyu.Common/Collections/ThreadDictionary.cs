@@ -57,5 +57,13 @@ namespace Fuyu.Common.Collections
                 _dictionary.Remove(key);
             }
         }
+
+        public bool ContainsKey(T1 key)
+        {
+            lock(_lock)
+            {
+                return _dictionary.ContainsKey(key);
+            }
+        }
     }
 }
