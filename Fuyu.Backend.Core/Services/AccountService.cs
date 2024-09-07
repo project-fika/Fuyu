@@ -138,6 +138,12 @@ namespace Fuyu.Backend.Core.Services
         {
             var account = CoreOrm.GetAccount(sessionId);
 
+            // TODO: refactor the account to only have one aid per game
+            if (account.Games.TryGetValue(game, out var aids) && aids.Count > 0)
+            {
+                return ERegisterStatus.AlreadyExists;
+            }
+
             string address;
 
             switch (game)
