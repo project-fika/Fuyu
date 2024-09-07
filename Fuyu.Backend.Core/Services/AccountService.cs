@@ -121,10 +121,10 @@ namespace Fuyu.Backend.Core.Services
                 Id = GetNewAccountId(),
                 Username = username.ToLowerInvariant(),
                 Password = password,
-                Games = new Dictionary<string, List<int>>()
+                Games = new Dictionary<string, int?>
                 {
-                    { "eft",   new List<int>() },
-                    { "arena", new List<int>() },
+                    { "eft", null },
+                    { "arena", null }
                 }
             };
 
@@ -137,6 +137,10 @@ namespace Fuyu.Backend.Core.Services
         public static ERegisterStatus RegisterGame(string sessionId, string game, string edition)
         {
             var account = CoreOrm.GetAccount(sessionId);
+            if (account.Games.TryGetValue(game, out var aid) && aid.HasValue)
+            {
+                return ERegisterStatus.AlreadyExists;
+            }
 
             string address;
 
@@ -170,7 +174,7 @@ namespace Fuyu.Backend.Core.Services
                 var response = Json.Parse<FuyuGameRegisterResponse>(responseJson);
 
                 // set game account id
-                account.Games[game].Add(response.AccountId);
+                account.Games[game] = response.AccountId;
             }
 
             CoreOrm.SetOrAddAccount(account);
