@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Fuyu.Backend.Core.DTO.Accounts
@@ -16,6 +15,9 @@ namespace Fuyu.Backend.Core.DTO.Accounts
         public string Password;
 
         [DataMember]
-        public Dictionary<string, List<int>> Games;
+        public int? EftAid;
+
+        [DataMember]
+        public int? ArenaAid;
     }
 }

@@ -121,11 +121,8 @@ namespace Fuyu.Backend.Core.Services
                 Id = GetNewAccountId(),
                 Username = username.ToLowerInvariant(),
                 Password = password,
-                Games = new Dictionary<string, List<int>>()
-                {
-                    { "eft",   new List<int>() },
-                    { "arena", new List<int>() },
-                }
+                EftAid = null,
+                ArenaAid = null
             };
 
             CoreOrm.SetOrAddAccount(account);
@@ -138,21 +135,25 @@ namespace Fuyu.Backend.Core.Services
         {
             var account = CoreOrm.GetAccount(sessionId);
 
-            // TODO: refactor the account to only have one aid per game
-            if (account.Games.TryGetValue(game, out var aids) && aids.Count > 0)
-            {
-                return ERegisterStatus.AlreadyExists;
-            }
-
             string address;
 
             switch (game)
             {
                 case "eft":
+                    if (account.EftAid.HasValue)
+                    {
+                        return ERegisterStatus.AlreadyExists;
+                    }
+
                     address = "http://localhost:8010";
                     break;
 
                 case "arena":
+                    if (account.ArenaAid.HasValue)
+                    {
+                        return ERegisterStatus.AlreadyExists;
+                    }
+
                     address = "http://localhost:8020";
                     break;
 
@@ -176,7 +177,19 @@ namespace Fuyu.Backend.Core.Services
                 var response = Json.Parse<FuyuGameRegisterResponse>(responseJson);
 
                 // set game account id
-                account.Games[game].Add(response.AccountId);
+                switch (game)
+                {
+                    case "eft":
+                        {
+                            account.EftAid = response.AccountId;
+                            break;
+                        }
+                    case "arena":
+                        {
+                            account.ArenaAid = response.AccountId;
+                            break;
+                        }
+                }
             }
 
             CoreOrm.SetOrAddAccount(account);
