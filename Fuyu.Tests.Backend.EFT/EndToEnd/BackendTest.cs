@@ -39,7 +39,7 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
             Fuyu.Backend.Core.Services.AccountService.RegisterAccount("test-username", "test-password");
             var coreSessionId = Fuyu.Backend.Core.Services.AccountService.LoginAccount("test-username", "test-password");
             Fuyu.Backend.Core.Services.AccountService.RegisterGame(coreSessionId, "eft", "unheard");
-            var eftAccountId = CoreOrm.GetAccount(coreSessionId).Games["eft"][0];
+            var eftAccountId = CoreOrm.GetAccount(coreSessionId).Games["eft"].Value;
             var eftSessionId = Fuyu.Backend.EFT.Services.AccountService.LoginAccount(eftAccountId);
 
             // create request clients
