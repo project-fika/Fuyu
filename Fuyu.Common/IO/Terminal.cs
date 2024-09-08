@@ -2,11 +2,14 @@ using System;
 
 namespace Fuyu.Common.IO
 {
-    public class Terminal
+    public static class Terminal
     {
         public static void WriteLine(string text)
         {
-            Console.WriteLine(text);
+            var line = $"{text}\n";
+
+            Console.Write(line);
+            WriteToFile(line);
         }
 
         public static void WriteLine(object o)
@@ -23,6 +26,11 @@ namespace Fuyu.Common.IO
         {
             // Console.ReadKey doesn't work in vscode buildin terminal
             Console.In.ReadLine();
+        }
+
+        private static void WriteToFile(string text)
+        {
+            VFS.WriteTextFile("./Fuyu/Logs/trace.log", text, true);
         }
     }
 }
