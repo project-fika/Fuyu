@@ -1,10 +1,17 @@
-using System;
+using System.Collections.Concurrent;
 using System.IO;
 
 namespace Fuyu.Common.IO
 {
-    public class VFS
+    public static class VFS
     {
+        private static readonly ConcurrentDictionary<string, object> _writeLock;
+
+        static VFS()
+        {
+            _writeLock = new ConcurrentDictionary<string, object>();
+        }
+
         public static bool DirectoryExists(string filepath)
         {
             return Directory.Exists(filepath);
@@ -54,8 +61,12 @@ namespace Fuyu.Common.IO
             }
         }
 
-        public static void WriteTextFile(string filepath, string text)
+        // NOTE: we must prevent threads from accessing the same file at the
+        //       same time. This way we can prevent data corruption when
+        //       writing to the same file.
+        public static void WriteTextFile(string filepath, string text, bool append = false)
         {
+            // create directory
             var path = Path.GetDirectoryName(filepath);
 
             if (!DirectoryExists(path))
@@ -63,13 +74,35 @@ namespace Fuyu.Common.IO
                 CreateDirectory(path);
             }
 
-            using (var fs = new FileStream(filepath, FileMode.Create, FileAccess.Write, FileShare.None)) 
+            // get write mode
+            FileMode mode;
+
+            if (append)
             {
-                using (var sw = new StreamWriter(fs))
+                mode = FileMode.Append;
+            }
+            else
+            {
+                mode = FileMode.Create;
+            }
+
+            // get thread lock
+            _writeLock.TryAdd(filepath, new object());
+
+            // write text
+            lock (_writeLock[filepath])
+            {
+                using (var fs = new FileStream(filepath, mode, FileAccess.Write, FileShare.None)) 
                 {
-                    sw.Write(text);
+                    using (var sw = new StreamWriter(fs))
+                    {
+                        sw.Write(text);
+                    }
                 }
             }
+
+            // release thread lock
+            _writeLock.TryRemove(filepath, out _);
         }
     }
 }
