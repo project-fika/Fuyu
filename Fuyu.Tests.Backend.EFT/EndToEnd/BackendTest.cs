@@ -11,6 +11,8 @@ using Fuyu.Backend.Core;
 using Fuyu.Backend.Core.Servers;
 using Fuyu.Backend.Core.DTO.Accounts;
 using Fuyu.Backend.EFT.DTO.Bots;
+using Fuyu.Common.IO;
+using Fuyu.Common.Hashing;
 
 namespace Fuyu.Tests.Backend.EFT.EndToEnd
 {
@@ -37,7 +39,8 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
 
             // register fake account
             Fuyu.Backend.Core.Services.AccountService.RegisterAccount("test-username", "test-password");
-            var coreSessionId = Fuyu.Backend.Core.Services.AccountService.LoginAccount("test-username", "test-password");
+            var hashedPassword = Sha256.Generate("test-password");
+            var coreSessionId = Fuyu.Backend.Core.Services.AccountService.LoginAccount("test-username", hashedPassword);
             Fuyu.Backend.Core.Services.AccountService.RegisterGame(coreSessionId, "eft", "unheard");
             var eftAccountId = CoreOrm.GetAccount(coreSessionId).Games["eft"].Value;
             var eftSessionId = Fuyu.Backend.EFT.Services.AccountService.LoginAccount(eftAccountId);
