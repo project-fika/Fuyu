@@ -1,3 +1,4 @@
+@using Fuyu.Common.Hashing;
 @using Fuyu.Launcher.Core.Services;
 
 @inject NavigationManager Navigation
@@ -28,14 +29,14 @@
 
     private void Login_Clicked(EventArgs e)
     {
-        var hashedPassword = HashService.GetSHA256(password);
-        var sessionId = RequestService.LoginAccount(username, hashedPassword);
+        var sessionId = RequestService.LoginAccount(username, password);
 
         if (sessionId == string.Empty)
         {
             // TODO:
-            // * show error
+            // * show error: "username or password is wrong"
             // -- seionmoya, 2024/09/02
+            return;
         }
 
         RequestService.CreateSession("fuyu", SettingsService.FuyuAddress, sessionId);

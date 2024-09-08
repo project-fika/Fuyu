@@ -1,13 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Fuyu.Common.IO;
 using Fuyu.Common.Hashing;
-using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
-using Fuyu.Backend.Common.DTO.Requests;
-using Fuyu.Backend.Common.DTO.Responses;
 using Fuyu.Backend.Core.DTO.Accounts;
+using Fuyu.Backend.Core.DTO.Responses;
 
 namespace Fuyu.Backend.Core.Services
 {
@@ -17,7 +14,7 @@ namespace Fuyu.Backend.Core.Services
         // * account login state tracking
         // -- seionmoya, 2024/09/02
 
-        public static int AccountExists(string username, string password)
+        public static int AccountExists(string username)
         {
             var lowerUsername = username.ToLowerInvariant();
             var accounts = CoreOrm.GetAccounts();
@@ -27,7 +24,7 @@ namespace Fuyu.Backend.Core.Services
 
             foreach (var account in accounts)
             {
-                if (account.Username == lowerUsername && account.Password == password)
+                if (account.Username == lowerUsername)
                 {
                     found.Add(account);
                 }
@@ -45,15 +42,43 @@ namespace Fuyu.Backend.Core.Services
             }
         }
 
-        public static string LoginAccount(string username, string password)
+        public static AccountLoginResponse LoginAccount(string username, string password)
         {
             // find account
-            var accountId = AccountExists(username, password);
+            var accountId = AccountExists(username);
 
             if (accountId == -1)
             {
                 // account doesn't exist
-                return string.Empty;
+                return new AccountLoginResponse()
+                {
+                    Status = ELoginStatus.AccountNotFound,
+                    SessionId = string.Empty
+                };
+            }
+
+            // validate password
+            var account = CoreOrm.GetAccount(accountId);
+
+            if (account.Password != password)
+            {
+                // password is wrong
+                return new AccountLoginResponse()
+                {
+                    Status = ELoginStatus.AccountNotFound,
+                    SessionId = string.Empty
+                };
+            }
+
+            // validate status
+            if (account.IsBanned)
+            {
+                // account is banned
+                return new AccountLoginResponse()
+                {
+                    Status = ELoginStatus.AccountBanned,
+                    SessionId = string.Empty
+                };
             }
 
             // find active account session
@@ -63,20 +88,27 @@ namespace Fuyu.Backend.Core.Services
             {
                 if (kvp.Value == accountId)
                 {
-                    // session already exists
-                    return kvp.Key;
+                    return new AccountLoginResponse()
+                    {
+                        Status = ELoginStatus.SessionAlreadyExists,
+                        SessionId = kvp.Key
+                    };
                 }
             }
 
             // create new account session
-            // NOTE: MongoId's are used internally, but EFT's launcher uses
-            //       a different ID system (hwid+timestamp hash). Instead of
-            //       fully mimicking this, I decided to generate a new MongoId
-            //       for each login.
+            // NOTE: Instead fully mimicking EFT's id (hwid+timestamp hash), I
+            //       decided to generate a new MongoId for each login.
             // -- seionmoya, 2024/09/02
             var sessionId = new MongoId(accountId).ToString();
+
             CoreOrm.SetOrAddSession(sessionId, accountId);
-            return sessionId.ToString();
+
+            return new AccountLoginResponse()
+            {
+                Status = ELoginStatus.Success,
+                SessionId = sessionId.ToString()
+            };
         }
 
         private static int GetNewAccountId()
@@ -109,23 +141,46 @@ namespace Fuyu.Backend.Core.Services
             }
         }
 
+        // TODO:
+        // * store max username length, min/max password length, security requirements in config
+        // * validate username characters (only alphabetical, numbers)
+        // * validate password characters (only alphabetical, numbers, some special characters)
+        // -- seionmoya, 2024/09/08
         public static ERegisterStatus RegisterAccount(string username, string password)
         {
-            if (AccountExists(username, password) != -1)
+            // validate username
+            if (AccountExists(username) != -1)
             {
                 return ERegisterStatus.AlreadyExists;
             }
 
+            var usernameStatus = AccountValidationService.ValidateUsername(username);
+
+            if (usernameStatus != ERegisterStatus.Success)
+            {
+                return usernameStatus;
+            }
+
+            // validate password
+            var passwordStatus = AccountValidationService.ValidatePassword(password);
+
+            if (passwordStatus != ERegisterStatus.Success)
+            {
+                return passwordStatus;
+            }
+
+            var hashedPassword = Sha256.Generate(password);
             var account = new Account()
             {
                 Id = GetNewAccountId(),
                 Username = username.ToLowerInvariant(),
-                Password = password,
+                Password = hashedPassword,
                 Games = new Dictionary<string, int?>
                 {
-                    { "eft", null },
-                    { "arena", null }
-                }
+                    { "eft",    null },
+                    { "arena",  null }
+                },
+                IsBanned = false
             };
 
             CoreOrm.SetOrAddAccount(account);
@@ -137,46 +192,18 @@ namespace Fuyu.Backend.Core.Services
         public static ERegisterStatus RegisterGame(string sessionId, string game, string edition)
         {
             var account = CoreOrm.GetAccount(sessionId);
-            if (account.Games.TryGetValue(game, out var aid) && aid.HasValue)
+
+            // find existing game
+            if (account.Games.ContainsKey(game) && account.Games[game].HasValue)
             {
                 return ERegisterStatus.AlreadyExists;
             }
 
-            string address;
+            // register game
+            var accountId = RequestService.RegisterGame(game, account.Username, edition);
+            account.Games[game] = accountId;
 
-            switch (game)
-            {
-                case "eft":
-                    address = "http://localhost:8010";
-                    break;
-
-                case "arena":
-                    address = "http://localhost:8020";
-                    break;
-
-                default:
-                    address = string.Empty;
-                    break;
-            }
-
-            using (var httpClient = new HttpClient(address, sessionId))
-            {
-                // request game registration on game server
-                var request = new FuyuGameRegisterRequest()
-                {
-                    Username = account.Username,
-                    Edition = edition
-                };
-                var requestJson = Json.Stringify(request);
-                var requestBytes = Encoding.UTF8.GetBytes(requestJson);
-                var responseBytes = httpClient.Post("/fuyu/game/register", requestBytes);
-                var responseJson = Encoding.UTF8.GetString(responseBytes);
-                var response = Json.Parse<FuyuGameRegisterResponse>(responseJson);
-
-                // set game account id
-                account.Games[game] = response.AccountId;
-            }
-
+            // store result
             CoreOrm.SetOrAddAccount(account);
             WriteToDisk(account);
 
