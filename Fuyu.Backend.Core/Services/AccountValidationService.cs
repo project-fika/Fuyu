@@ -75,7 +75,7 @@ namespace Fuyu.Backend.Core.Services
 
             if (!PasswordRegex().IsMatch(password))
             {
-                return ERegisterStatus.UsernameInvalid;
+                return ERegisterStatus.PasswordInvalid;
             }
 
             return ERegisterStatus.Success;
