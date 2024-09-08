@@ -34,8 +34,9 @@
         if (sessionId == string.Empty)
         {
             // TODO:
-            // * show error
+            // * show error: "username or password is wrong"
             // -- seionmoya, 2024/09/02
+            return;
         }
 
         RequestService.CreateSession("fuyu", SettingsService.FuyuAddress, sessionId);

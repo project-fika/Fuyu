@@ -52,6 +52,15 @@ namespace Fuyu.Backend.Core.Services
                 return string.Empty;
             }
 
+            // validate password
+            var account = CoreOrm.GetAccount(accountId);
+
+            if (account.Password != password)
+            {
+                // password is wrong
+                return string.Empty;
+            }
+
             // find active account session
             var sessions = CoreOrm.GetSessions();
 
