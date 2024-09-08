@@ -1,13 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Fuyu.Common.IO;
 using Fuyu.Common.Hashing;
-using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
-using Fuyu.Backend.Common.DTO.Requests;
-using Fuyu.Backend.Common.DTO.Responses;
 using Fuyu.Backend.Core.DTO.Accounts;
+using Fuyu.Launcher.Core.Services;
 
 namespace Fuyu.Backend.Core.Services
 {
@@ -17,7 +14,7 @@ namespace Fuyu.Backend.Core.Services
         // * account login state tracking
         // -- seionmoya, 2024/09/02
 
-        public static int AccountExists(string username, string password)
+        public static int AccountExists(string username)
         {
             var lowerUsername = username.ToLowerInvariant();
             var accounts = CoreOrm.GetAccounts();
@@ -27,7 +24,7 @@ namespace Fuyu.Backend.Core.Services
 
             foreach (var account in accounts)
             {
-                if (account.Username == lowerUsername && account.Password == password)
+                if (account.Username == lowerUsername)
                 {
                     found.Add(account);
                 }
@@ -48,7 +45,7 @@ namespace Fuyu.Backend.Core.Services
         public static string LoginAccount(string username, string password)
         {
             // find account
-            var accountId = AccountExists(username, password);
+            var accountId = AccountExists(username);
 
             if (accountId == -1)
             {
@@ -69,10 +66,8 @@ namespace Fuyu.Backend.Core.Services
             }
 
             // create new account session
-            // NOTE: MongoId's are used internally, but EFT's launcher uses
-            //       a different ID system (hwid+timestamp hash). Instead of
-            //       fully mimicking this, I decided to generate a new MongoId
-            //       for each login.
+            // NOTE: Instead fully mimicking EFT's id (hwid+timestamp hash), I
+            //       decided to generate a new MongoId for each login.
             // -- seionmoya, 2024/09/02
             var sessionId = new MongoId(accountId).ToString();
             CoreOrm.SetOrAddSession(sessionId, accountId);
@@ -111,9 +106,19 @@ namespace Fuyu.Backend.Core.Services
 
         public static ERegisterStatus RegisterAccount(string username, string password)
         {
-            if (AccountExists(username, password) != -1)
+            if (AccountExists(username) != -1)
             {
                 return ERegisterStatus.AlreadyExists;
+            }
+
+            if (username == string.Empty)
+            {
+                return ERegisterStatus.UsernameEmpty;
+            }
+
+            if (password == string.Empty)
+            {
+                return ERegisterStatus.PasswordEmpty;
             }
 
             var account = new Account()
@@ -123,8 +128,8 @@ namespace Fuyu.Backend.Core.Services
                 Password = password,
                 Games = new Dictionary<string, int?>
                 {
-                    { "eft", null },
-                    { "arena", null }
+                    { "eft",    null },
+                    { "arena",  null }
                 }
             };
 
@@ -137,46 +142,18 @@ namespace Fuyu.Backend.Core.Services
         public static ERegisterStatus RegisterGame(string sessionId, string game, string edition)
         {
             var account = CoreOrm.GetAccount(sessionId);
-            if (account.Games.TryGetValue(game, out var aid) && aid.HasValue)
+
+            // find existing game
+            if (account.Games.ContainsKey(game) && account.Games[game].HasValue)
             {
                 return ERegisterStatus.AlreadyExists;
             }
 
-            string address;
+            // register game
+            var accountId = RequestService.RegisterGame(game, account.Username, edition);
+            account.Games[game] = accountId;
 
-            switch (game)
-            {
-                case "eft":
-                    address = "http://localhost:8010";
-                    break;
-
-                case "arena":
-                    address = "http://localhost:8020";
-                    break;
-
-                default:
-                    address = string.Empty;
-                    break;
-            }
-
-            using (var httpClient = new HttpClient(address, sessionId))
-            {
-                // request game registration on game server
-                var request = new FuyuGameRegisterRequest()
-                {
-                    Username = account.Username,
-                    Edition = edition
-                };
-                var requestJson = Json.Stringify(request);
-                var requestBytes = Encoding.UTF8.GetBytes(requestJson);
-                var responseBytes = httpClient.Post("/fuyu/game/register", requestBytes);
-                var responseJson = Encoding.UTF8.GetString(responseBytes);
-                var response = Json.Parse<FuyuGameRegisterResponse>(responseJson);
-
-                // set game account id
-                account.Games[game] = response.AccountId;
-            }
-
+            // store result
             CoreOrm.SetOrAddAccount(account);
             WriteToDisk(account);
 
