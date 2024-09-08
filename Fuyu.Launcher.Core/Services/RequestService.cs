@@ -1,12 +1,13 @@
 using System.Text;
 using Fuyu.Common.Collections;
+using Fuyu.Common.Hashing;
+using Fuyu.Common.Networking;
+using Fuyu.Common.Serialization;
 using Fuyu.Backend.Common.DTO.Requests;
 using Fuyu.Backend.Common.DTO.Responses;
 using Fuyu.Backend.Core.DTO.Accounts;
 using Fuyu.Backend.Core.DTO.Requests;
 using Fuyu.Backend.Core.DTO.Responses;
-using Fuyu.Common.Networking;
-using Fuyu.Common.Serialization;
 
 namespace Fuyu.Launcher.Core.Services
 {
@@ -59,10 +60,11 @@ namespace Fuyu.Launcher.Core.Services
 
         public static string LoginAccount(string username, string password)
         {
+            var hashedPassword = Sha256.Generate(password);
             var request = new AccountLoginRequest()
             {
                 Username = username,
-                Password = password
+                Password = hashedPassword
             };
             var response = HttpPost<AccountLoginRequest, AccountLoginResponse>(
                 "fuyu",

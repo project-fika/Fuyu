@@ -129,11 +129,12 @@ namespace Fuyu.Backend.Core.Services
                 return ERegisterStatus.PasswordEmpty;
             }
 
+            var hashedPassword = Sha256.Generate(password);
             var account = new Account()
             {
                 Id = GetNewAccountId(),
                 Username = username.ToLowerInvariant(),
-                Password = password,
+                Password = hashedPassword,
                 Games = new Dictionary<string, int?>
                 {
                     { "eft",    null },

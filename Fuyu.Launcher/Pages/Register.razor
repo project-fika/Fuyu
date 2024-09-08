@@ -28,8 +28,7 @@
 
     private void Register_Clicked(EventArgs e)
     {
-        var hashedPassword = HashService.GetSHA256(password);
-        var registerStatus = RequestService.RegisterAccount(username, hashedPassword);
+        var registerStatus = RequestService.RegisterAccount(username, password);
 
         switch (registerStatus)
         {
