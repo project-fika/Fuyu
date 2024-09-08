@@ -4,7 +4,6 @@ using Fuyu.Common.IO;
 using Fuyu.Common.Hashing;
 using Fuyu.Common.Serialization;
 using Fuyu.Backend.Core.DTO.Accounts;
-using Fuyu.Launcher.Core.Services;
 
 namespace Fuyu.Backend.Core.Services
 {

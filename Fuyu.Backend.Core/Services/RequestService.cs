@@ -5,7 +5,7 @@ using Fuyu.Backend.Common.DTO.Responses;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
 
-namespace Fuyu.Launcher.Core.Services
+namespace Fuyu.Backend.Core.Services
 {
     public static class RequestService
     {

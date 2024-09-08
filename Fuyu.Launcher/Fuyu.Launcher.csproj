@@ -22,7 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="../Fuyu.Launcher.Core/Fuyu.Launcher.Core.csproj" />
-    <ProjectReference Include="../Fuyu.Backend.Core/Fuyu.Backend.Core.csproj" />
   </ItemGroup>
 
   <ItemGroup>
