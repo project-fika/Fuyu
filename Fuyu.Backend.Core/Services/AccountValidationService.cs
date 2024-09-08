@@ -12,39 +12,6 @@ namespace Fuyu.Backend.Core.Services
         private const int _maxUsernameLength = 15;
         private const int _maxPasswordLength = 32;
         private const int _minPasswordLength = 8;
-        private static readonly char[] _lowerAlpha;
-        private static readonly char[] _upperAlpha;
-        private static readonly char[] _digit;
-        private static readonly char[] _special;
-
-        // NOTE: hardcoding the allowed characters for both more fine-grained
-        //       control and easier to port to different languages (if there is
-        //       need for this in the future).
-        static AccountValidationService()
-        {
-            _lowerAlpha =
-            [
-                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l',
-                'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x',
-                'y', 'z'
-            ];
-            _upperAlpha =
-            [
-                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L',
-                'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X',
-                'Y', 'Z'
-            ];
-            _digit =
-            [
-                '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'
-            ];
-            _special =
-            [
-                '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '+',
-                '_', '=', '`', '~', '[', ']', '{', '}', ';', ':', '|', '<',
-                ',', '>', '.', '/', '?'
-            ];
-        }
 
         public static ERegisterStatus ValidateUsername(string username)
         {
@@ -56,6 +23,18 @@ namespace Fuyu.Backend.Core.Services
             if (username.Length > _maxUsernameLength)
             {
                 return ERegisterStatus.UsernameTooLong;
+            }
+
+            for (var i = 0; i < username.Length; ++i)
+            {
+                var c = username[i];
+
+                if (!TextService.IsLowerAlpha(c)
+                    && !TextService.IsUpperAlpha(c)
+                    && !TextService.IsDigit(c))
+                {
+                    return ERegisterStatus.UsernameInvalidCharacter;
+                }
             }
 
             return ERegisterStatus.Success;
@@ -76,6 +55,29 @@ namespace Fuyu.Backend.Core.Services
             if (password.Length > _maxPasswordLength)
             {
                 return ERegisterStatus.PasswordTooLong;
+            }
+
+            // check character presence
+            if (!TextService.ContainsLowerAlpha(password)
+                || !TextService.ContainsUpperAlpha(password)
+                || !TextService.ContainsDigit(password)
+                || !TextService.ContainsSpecial(password))
+            {
+                return ERegisterStatus.PasswordInvalidCharacter;
+            }
+
+            // check invalid characters
+            for (var i = 0; i < password.Length; ++i)
+            {
+                var c = password[i];
+
+                if (!TextService.IsLowerAlpha(c)
+                    && !TextService.IsUpperAlpha(c)
+                    && !TextService.IsDigit(c)
+                    && !TextService.IsSpecial(c))
+                {
+                    return ERegisterStatus.PasswordInvalidCharacter;
+                }
             }
 
             return ERegisterStatus.Success;

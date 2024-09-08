@@ -4,9 +4,11 @@ namespace Fuyu.Backend.Core.DTO.Accounts
     {
         UsernameEmpty,
         UsernameTooLong,
+        UsernameInvalidCharacter,
         PasswordEmpty,
         PasswordTooShort,
         PasswordTooLong,
+        PasswordInvalidCharacter,
         AlreadyExists,
         Success
     }

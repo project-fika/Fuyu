@@ -48,6 +48,9 @@
             case ERegisterStatus.UsernameTooLong:
                 return;
 
+            case ERegisterStatus.UsernameInvalidCharacter:
+                return;
+
             case ERegisterStatus.PasswordEmpty:
                 return;
 
@@ -55,6 +58,9 @@
                 return;
 
             case ERegisterStatus.PasswordTooLong:
+                return;
+
+            case ERegisterStatus.PasswordInvalidCharacter:
                 return;
         }
 
