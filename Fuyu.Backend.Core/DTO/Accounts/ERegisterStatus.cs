@@ -3,12 +3,13 @@ namespace Fuyu.Backend.Core.DTO.Accounts
     public enum ERegisterStatus
     {
         UsernameEmpty,
+        UsernameTooShort,
         UsernameTooLong,
-        UsernameInvalidCharacter,
+        UsernameInvalid,
         PasswordEmpty,
         PasswordTooShort,
         PasswordTooLong,
-        PasswordInvalidCharacter,
+        PasswordInvalid,
         AlreadyExists,
         Success
     }

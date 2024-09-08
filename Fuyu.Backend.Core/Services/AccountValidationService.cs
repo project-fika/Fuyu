@@ -1,23 +1,46 @@
+using System.Text.RegularExpressions;
 using Fuyu.Backend.Core.DTO.Accounts;
 
 namespace Fuyu.Backend.Core.Services
 {
     // TODO:
-        // * store max username length, min/max password length, security requirements in config
-        // * validate username characters (only alphabetical, numbers)
-        // * validate password characters (only alphabetical, numbers, some special characters)
-        // -- seionmoya, 2024/09/08
-    public static class AccountValidationService
+    // * store max username length, min/max password length, security requirements in config
+    // -- seionmoya, 2024/09/08
+    public static partial class AccountValidationService
     {
+        private const int _minUsernameLength = 2;
         private const int _maxUsernameLength = 15;
-        private const int _maxPasswordLength = 32;
         private const int _minPasswordLength = 8;
+        private const int _maxPasswordLength = 32;
+
+        // compile-time generated regex
+        // `(?=.*?[A-Z])`:          is at least one uppercase alpha present
+        // `(?=.*?[a-z])`:          is at least one lowercase alpha present
+        // `(?=.*?[0-9])`:          is at least one digit present
+        // `{2,15}`:                length must be between 2 to 15
+        [GeneratedRegex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{2,15}$")]
+        private static partial Regex UsernameRegex();
+
+        // compile-time generated regex
+        // `(?=.*?[A-Z])`:          is at least one uppercase alpha present
+        // `(?=.*?[a-z])`:          is at least one lowercase alpha present
+        // `(?=.*?[0-9])`:          is at least one digit present
+        // `(?=.*?[#?!@$%^&*-])`:   is at least one special character present
+        // `{8,32}`:                length must be between 8 to 32
+        [GeneratedRegex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,32}$")]
+        private static partial Regex PasswordRegex();
 
         public static ERegisterStatus ValidateUsername(string username)
         {
-            if (username == string.Empty)
+            if (string.IsNullOrEmpty(username))
             {
                 return ERegisterStatus.UsernameEmpty;
+            }
+
+            // check character length
+            if (username.Length < _minUsernameLength)
+            {
+                return ERegisterStatus.UsernameTooLong;
             }
 
             if (username.Length > _maxUsernameLength)
@@ -25,16 +48,9 @@ namespace Fuyu.Backend.Core.Services
                 return ERegisterStatus.UsernameTooLong;
             }
 
-            for (var i = 0; i < username.Length; ++i)
+            if (!UsernameRegex().IsMatch(username))
             {
-                var c = username[i];
-
-                if (!TextService.IsLowerAlpha(c)
-                    && !TextService.IsUpperAlpha(c)
-                    && !TextService.IsDigit(c))
-                {
-                    return ERegisterStatus.UsernameInvalidCharacter;
-                }
+                return ERegisterStatus.UsernameInvalid;
             }
 
             return ERegisterStatus.Success;
@@ -42,7 +58,7 @@ namespace Fuyu.Backend.Core.Services
 
         public static ERegisterStatus ValidatePassword(string password)
         {
-            if (password == string.Empty)
+            if (string.IsNullOrEmpty(password))
             {
                 return ERegisterStatus.PasswordEmpty;
             }
@@ -57,30 +73,12 @@ namespace Fuyu.Backend.Core.Services
                 return ERegisterStatus.PasswordTooLong;
             }
 
-            // check character presence
-            if (!TextService.ContainsLowerAlpha(password)
-                || !TextService.ContainsUpperAlpha(password)
-                || !TextService.ContainsDigit(password)
-                || !TextService.ContainsSpecial(password))
+            if (!PasswordRegex().IsMatch(password))
             {
-                return ERegisterStatus.PasswordInvalidCharacter;
-            }
-
-            // check invalid characters
-            for (var i = 0; i < password.Length; ++i)
-            {
-                var c = password[i];
-
-                if (!TextService.IsLowerAlpha(c)
-                    && !TextService.IsUpperAlpha(c)
-                    && !TextService.IsDigit(c)
-                    && !TextService.IsSpecial(c))
-                {
-                    return ERegisterStatus.PasswordInvalidCharacter;
-                }
+                return ERegisterStatus.UsernameInvalid;
             }
 
             return ERegisterStatus.Success;
         }
     }
-}
+} 
