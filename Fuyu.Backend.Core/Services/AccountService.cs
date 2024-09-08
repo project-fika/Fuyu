@@ -112,6 +112,11 @@ namespace Fuyu.Backend.Core.Services
             }
         }
 
+        // TODO:
+        // * store max username length, min/max password length, security requirements in config
+        // * validate username characters (only alphabetical, numbers)
+        // * validate password characters (only alphabetical, numbers, some special characters)
+        // -- seionmoya, 2024/09/08
         public static ERegisterStatus RegisterAccount(string username, string password)
         {
             if (AccountExists(username) != -1)
@@ -124,9 +129,24 @@ namespace Fuyu.Backend.Core.Services
                 return ERegisterStatus.UsernameEmpty;
             }
 
+            if (username.Length > 15)
+            {
+                return ERegisterStatus.UsernameTooLong;
+            }
+
             if (password == string.Empty)
             {
                 return ERegisterStatus.PasswordEmpty;
+            }
+
+            if (password.Length < 8)
+            {
+                return ERegisterStatus.PasswordTooShort;
+            }
+
+            if (password.Length > 32)
+            {
+                return ERegisterStatus.PasswordTooLong;
             }
 
             var hashedPassword = Sha256.Generate(password);

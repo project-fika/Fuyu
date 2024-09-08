@@ -26,6 +26,10 @@
     string username = string.Empty;
     string password = string.Empty;
 
+    // TODO:
+    // * notify user of successful registration
+    // * show error on issue
+    // -- seionmoya, 2024/09/08
     private void Register_Clicked(EventArgs e)
     {
         var registerStatus = RequestService.RegisterAccount(username, password);
@@ -33,27 +37,24 @@
         switch (registerStatus)
         {
             case ERegisterStatus.Success:
-                // TODO:
-                // * notify user of successful registration
-                // -- seionmoya, 2024/09/03
                 break;
 
             case ERegisterStatus.AlreadyExists:
-                // TODO:
-                // * show error
-                // -- seionmoya, 2024/09/02
                 return;
 
             case ERegisterStatus.UsernameEmpty:
-                // TODO:
-                // * show error
-                // -- seionmoya, 2024/09/08
+                return;
+
+            case ERegisterStatus.UsernameTooLong:
                 return;
 
             case ERegisterStatus.PasswordEmpty:
-                // TODO:
-                // * show error
-                // -- seionmoya, 2024/09/08
+                return;
+
+            case ERegisterStatus.PasswordTooShort:
+                return;
+
+            case ERegisterStatus.PasswordTooLong:
                 return;
         }
 
