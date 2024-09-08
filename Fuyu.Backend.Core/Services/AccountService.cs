@@ -4,6 +4,7 @@ using Fuyu.Common.IO;
 using Fuyu.Common.Hashing;
 using Fuyu.Common.Serialization;
 using Fuyu.Backend.Core.DTO.Accounts;
+using Fuyu.Backend.Core.DTO.Responses;
 
 namespace Fuyu.Backend.Core.Services
 {
@@ -41,7 +42,7 @@ namespace Fuyu.Backend.Core.Services
             }
         }
 
-        public static string LoginAccount(string username, string password)
+        public static AccountLoginResponse LoginAccount(string username, string password)
         {
             // find account
             var accountId = AccountExists(username);
@@ -49,7 +50,11 @@ namespace Fuyu.Backend.Core.Services
             if (accountId == -1)
             {
                 // account doesn't exist
-                return string.Empty;
+                return new AccountLoginResponse()
+                {
+                    Status = ELoginStatus.AccountNotFound,
+                    SessionId = string.Empty
+                };
             }
 
             // validate password
@@ -58,7 +63,22 @@ namespace Fuyu.Backend.Core.Services
             if (account.Password != password)
             {
                 // password is wrong
-                return string.Empty;
+                return new AccountLoginResponse()
+                {
+                    Status = ELoginStatus.AccountNotFound,
+                    SessionId = string.Empty
+                };
+            }
+
+            // validate status
+            if (account.IsBanned)
+            {
+                // account is banned
+                return new AccountLoginResponse()
+                {
+                    Status = ELoginStatus.AccountBanned,
+                    SessionId = string.Empty
+                };
             }
 
             // find active account session
@@ -68,8 +88,11 @@ namespace Fuyu.Backend.Core.Services
             {
                 if (kvp.Value == accountId)
                 {
-                    // session already exists
-                    return kvp.Key;
+                    return new AccountLoginResponse()
+                    {
+                        Status = ELoginStatus.SessionAlreadyExists,
+                        SessionId = kvp.Key
+                    };
                 }
             }
 
@@ -78,8 +101,14 @@ namespace Fuyu.Backend.Core.Services
             //       decided to generate a new MongoId for each login.
             // -- seionmoya, 2024/09/02
             var sessionId = new MongoId(accountId).ToString();
+
             CoreOrm.SetOrAddSession(sessionId, accountId);
-            return sessionId.ToString();
+
+            return new AccountLoginResponse()
+            {
+                Status = ELoginStatus.Success,
+                SessionId = sessionId.ToString()
+            };
         }
 
         private static int GetNewAccountId()
@@ -150,7 +179,8 @@ namespace Fuyu.Backend.Core.Services
                 {
                     { "eft",    null },
                     { "arena",  null }
-                }
+                },
+                IsBanned = false
             };
 
             CoreOrm.SetOrAddAccount(account);

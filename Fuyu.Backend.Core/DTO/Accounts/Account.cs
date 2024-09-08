@@ -17,5 +17,8 @@ namespace Fuyu.Backend.Core.DTO.Accounts
 
         [DataMember]
         public Dictionary<string, int?> Games;
+
+        [DataMember]
+        public bool IsBanned;
     }
 }
