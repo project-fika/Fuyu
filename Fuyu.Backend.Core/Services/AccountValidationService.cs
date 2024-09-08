@@ -17,7 +17,10 @@ namespace Fuyu.Backend.Core.Services
         // `(?=.*?[A-Z])`:          is at least one uppercase alpha present
         // `(?=.*?[a-z])`:          is at least one lowercase alpha present
         // `(?=.*?[0-9])`:          is at least one digit present
-        [GeneratedRegex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{1,}$")]
+        // NOTE: regex has no length constraint as the validation method
+        //       contains it instead.
+        // -- seionmoya, 2024/09/08
+        [GeneratedRegex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]
         private static partial Regex UsernameRegex();
 
         // compile-time generated regex
@@ -25,7 +28,10 @@ namespace Fuyu.Backend.Core.Services
         // `(?=.*?[a-z])`:          is at least one lowercase alpha present
         // `(?=.*?[0-9])`:          is at least one digit present
         // `(?=.*?[#?!@$%^&*-])`:   is at least one special character present
-        [GeneratedRegex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{1,}$")]
+        // NOTE: regex has no length constraint as the validation method
+        //       contains it instead.
+        // -- seionmoya, 2024/09/08
+        [GeneratedRegex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{0,}$")]
         private static partial Regex PasswordRegex();
 
         public static ERegisterStatus ValidateUsername(string username)
