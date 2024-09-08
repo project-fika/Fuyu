@@ -119,34 +119,25 @@ namespace Fuyu.Backend.Core.Services
         // -- seionmoya, 2024/09/08
         public static ERegisterStatus RegisterAccount(string username, string password)
         {
+            // validate username
             if (AccountExists(username) != -1)
             {
                 return ERegisterStatus.AlreadyExists;
             }
 
-            if (username == string.Empty)
+            var usernameStatus = AccountValidationService.ValidateUsername(username);
+
+            if (usernameStatus != ERegisterStatus.Success)
             {
-                return ERegisterStatus.UsernameEmpty;
+                return usernameStatus;
             }
 
-            if (username.Length > 15)
-            {
-                return ERegisterStatus.UsernameTooLong;
-            }
+            // validate password
+            var passwordStatus = AccountValidationService.ValidatePassword(password);
 
-            if (password == string.Empty)
+            if (passwordStatus != ERegisterStatus.Success)
             {
-                return ERegisterStatus.PasswordEmpty;
-            }
-
-            if (password.Length < 8)
-            {
-                return ERegisterStatus.PasswordTooShort;
-            }
-
-            if (password.Length > 32)
-            {
-                return ERegisterStatus.PasswordTooLong;
+                return passwordStatus;
             }
 
             var hashedPassword = Sha256.Generate(password);
