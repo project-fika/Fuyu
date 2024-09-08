@@ -63,7 +63,7 @@ namespace Fuyu.Common.IO
                 CreateDirectory(path);
             }
 
-            using (var fs = new FileStream(filepath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None)) 
+            using (var fs = new FileStream(filepath, FileMode.Create, FileAccess.Write, FileShare.None)) 
             {
                 using (var sw = new StreamWriter(fs))
                 {
