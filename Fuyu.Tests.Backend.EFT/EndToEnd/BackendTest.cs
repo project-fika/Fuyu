@@ -1,18 +1,16 @@
 ﻿using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Fuyu.Common.Hashing;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
-using Fuyu.Backend.EFT;
-using Fuyu.Backend.BSG.DTO.Bots;
-using Fuyu.Backend.EFT.DTO.Requests;
-using Fuyu.Backend.EFT.Servers;
 using Fuyu.Backend.Core;
 using Fuyu.Backend.Core.Servers;
-using Fuyu.Backend.Core.DTO.Accounts;
+using Fuyu.Backend.BSG.DTO.Bots;
+using Fuyu.Backend.EFT;
 using Fuyu.Backend.EFT.DTO.Bots;
-using Fuyu.Common.IO;
-using Fuyu.Common.Hashing;
+using Fuyu.Backend.EFT.DTO.Requests;
+using Fuyu.Backend.EFT.Servers;
 
 namespace Fuyu.Tests.Backend.EFT.EndToEnd
 {
@@ -20,6 +18,23 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
     public class BackendTest
     {
         private static HttpClient _eftMainClient;
+
+        private static string CreateFuyuAccount(string username, string password)
+        {
+            Fuyu.Backend.Core.Services.AccountService.RegisterAccount(username, password);
+            var hashedPassword = Sha256.Generate(password);
+            var sessionId = Fuyu.Backend.Core.Services.AccountService.LoginAccount(username, hashedPassword);
+
+            return sessionId;
+        }
+
+        private static int CreateGameAccount(string sessionId, string game, string edition)
+        {
+            Fuyu.Backend.Core.Services.AccountService.RegisterGame(sessionId, game, edition);
+            var gameAccountId = CoreOrm.GetAccount(sessionId).Games[game].Value;
+
+            return gameAccountId;
+        }
 
         [AssemblyInitialize]
         public static void AssemblyInitialize(TestContext testContext)
@@ -37,12 +52,9 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
             eftMainServer.RegisterServices();
             eftMainServer.Start();
 
-            // register fake account
-            Fuyu.Backend.Core.Services.AccountService.RegisterAccount("test-username", "test-password");
-            var hashedPassword = Sha256.Generate("test-password");
-            var coreSessionId = Fuyu.Backend.Core.Services.AccountService.LoginAccount("test-username", hashedPassword);
-            Fuyu.Backend.Core.Services.AccountService.RegisterGame(coreSessionId, "eft", "unheard");
-            var eftAccountId = CoreOrm.GetAccount(coreSessionId).Games["eft"].Value;
+            // register test account
+            var coreSessionId = CreateFuyuAccount("test-username", "test-password");
+            var eftAccountId = CreateGameAccount(coreSessionId, "eft", "unheard");
             var eftSessionId = Fuyu.Backend.EFT.Services.AccountService.LoginAccount(eftAccountId);
 
             // create request clients
