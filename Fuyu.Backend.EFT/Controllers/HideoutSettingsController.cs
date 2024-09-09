@@ -15,7 +15,7 @@ namespace Fuyu.Backend.EFT.Controllers
         {
             var json = EftOrm.GetHideoutSettings();
             var response = Json.Parse<ResponseBody<HideoutSettingsResponse>>(json);
-            SendJson(context, Json.Stringify(response));
+            context.SendJson(Json.Stringify(response));
         }
     }
 }

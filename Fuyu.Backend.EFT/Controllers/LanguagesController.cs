@@ -19,7 +19,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 data = languages
             };
 
-            SendJson(context, Json.Stringify(response));
+            context.SendJson(Json.Stringify(response));
         }
     }
 }

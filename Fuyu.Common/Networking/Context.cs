@@ -9,8 +9,8 @@ namespace Fuyu.Common.Networking
 {
     public class Context
     {
-        public readonly HttpListenerRequest Request;
-        public readonly HttpListenerResponse Response;
+        protected readonly HttpListenerRequest Request;
+        protected readonly HttpListenerResponse Response;
         public readonly string Path;
 
         public Context(HttpListenerRequest request, HttpListenerResponse response)

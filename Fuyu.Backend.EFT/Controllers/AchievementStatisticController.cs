@@ -16,7 +16,7 @@ namespace Fuyu.Backend.EFT.Controllers
         {
             var json = EftOrm.GetAchievementStatistic();
             var response = Json.Parse<ResponseBody<AchievementStatisticResponse>>(json);
-            SendJson(context, Json.Stringify(response));
+            context.SendJson(Json.Stringify(response));
         }
     }
 }

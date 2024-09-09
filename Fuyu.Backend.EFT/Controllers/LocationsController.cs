@@ -17,7 +17,7 @@ namespace Fuyu.Backend.EFT.Controllers
             var json = EftOrm.GetLocations();
             var locations = Json.Parse<ResponseBody<WorldMap>>(json);
             var response = Json.Stringify(locations);
-            SendJson(context, response);
+            context.SendJson(response);
         }
     }
 }

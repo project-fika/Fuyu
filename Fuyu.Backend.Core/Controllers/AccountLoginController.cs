@@ -16,7 +16,7 @@ namespace Fuyu.Backend.Core.Controllers
             var request = context.GetJson<AccountLoginRequest>();
             var response = AccountService.LoginAccount(request.Username, request.Password);
 
-            SendJson(context, Json.Stringify(response));
+            context.SendJson(Json.Stringify(response));
         }
     }
 }

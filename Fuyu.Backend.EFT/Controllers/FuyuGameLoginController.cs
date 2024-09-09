@@ -21,7 +21,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 SessionId = sessionId
             };
 
-            SendJson(context, Json.Stringify(response));
+            context.SendJson(Json.Stringify(response));
         }
     }
 }

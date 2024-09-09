@@ -22,7 +22,7 @@ namespace Fuyu.Backend.Core.Controllers
                 Status = result
             };
 
-            SendJson(context, Json.Stringify(response));
+            context.SendJson(Json.Stringify(response));
         }
     }
 }

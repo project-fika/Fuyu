@@ -11,7 +11,7 @@ namespace Fuyu.Backend.EFT.Controllers
 
         public override void Run(HttpContext context)
         {
-            SendJson(context, EftOrm.GetLocalWeather());
+            context.SendJson(EftOrm.GetLocalWeather());
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 }
             };
 
-            SendJson(context, Json.Stringify(response));
+            context.SendJson(Json.Stringify(response));
         }
     }
 }

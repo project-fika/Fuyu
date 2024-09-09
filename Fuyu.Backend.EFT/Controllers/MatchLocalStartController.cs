@@ -32,7 +32,7 @@ namespace Fuyu.Backend.EFT.Controllers
             var request = context.GetJson<MatchLocalStartRequest>();
             var location = request.location;
 
-            SendJson(context, _locations[location]);
+            context.SendJson(_locations[location]);
         }
     }
 }

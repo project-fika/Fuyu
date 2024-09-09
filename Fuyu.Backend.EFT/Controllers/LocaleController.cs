@@ -22,7 +22,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 data = locale
             };
 
-            SendJson(context, Json.Stringify(response));
+            context.SendJson(Json.Stringify(response));
         }
     }
 }

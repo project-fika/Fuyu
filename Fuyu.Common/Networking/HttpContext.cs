@@ -51,6 +51,34 @@ namespace Fuyu.Common.Networking
             return Request.Cookies["PHPSESSID"].Value;
         }
 
+        public void Send(byte[] data, string mime, bool zipped = true)
+        {
+            // used for plaintext debugging
+            if (Request.Headers["fuyu-debug"] != null)
+            {
+                zipped = false;
+            }
+
+            if (zipped)
+            {
+                data = Zlib.Compress(data, ZlibCompression.Level9);
+            }
+
+            Response.ContentType = mime;
+            Response.ContentLength64 = data.Length;
+
+            using (var payload = Response.OutputStream)
+            {
+                payload.Write(data, 0, data.Length);
+            }
+        }
+
+        public void SendJson(string text, bool zipped = true)
+        {
+            var encoded = Encoding.UTF8.GetBytes(text);
+            Send(encoded, "application/json; charset=utf-8", zipped);
+        }
+
         public void Close()
         {
             Response.Close();

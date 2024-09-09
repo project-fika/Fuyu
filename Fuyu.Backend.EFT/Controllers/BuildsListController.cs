@@ -18,7 +18,7 @@ namespace Fuyu.Backend.EFT.Controllers
 
         public override void Run(HttpContext context)
         {
-            SendJson(context, Json.Stringify(_response));
+            context.SendJson(Json.Stringify(_response));
         }
     }
 }

@@ -36,7 +36,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 data = profiles
             };
 
-            SendJson(context, Json.Stringify(response));
+            context.SendJson(Json.Stringify(response));
         }
     }
 }
