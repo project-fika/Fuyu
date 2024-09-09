@@ -16,7 +16,7 @@ namespace Fuyu.Common.Networking
 
             foreach (var match in matches)
             {
-                await match.RunAsync(context);
+                await Task.Run(() => match.RunAsync(context));
             }
         }
     }
