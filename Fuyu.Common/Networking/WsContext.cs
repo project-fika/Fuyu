@@ -11,17 +11,14 @@ using Fuyu.Common.Serialization;
 
 namespace Fuyu.Common.Networking
 {
-    public delegate void OnCloseCallback(WsContext context);
-    public delegate void OnTextCallback(WsContext context, string text);
-    public delegate void OnBinaryCallback(WsContext context, byte[] data);
-
     public class WsContext : Context
     {
         private const int _bufferSize = 32000;
         private readonly WebSocket _ws;
-        public OnCloseCallback OnClose;
-        public OnTextCallback OnText;
-        public OnBinaryCallback OnData;
+
+        public Func<WsContext, Task> OnCloseAsync;
+        public Func<WsContext, string, Task> OnTextAsync;
+        public Func<WsContext, byte[], Task> OnBinaryAsync;
 
         public WsContext(HttpListenerRequest request, HttpListenerResponse response, WebSocket ws) : base(request, response)
         {
@@ -44,19 +41,19 @@ namespace Fuyu.Common.Networking
             switch (receiveResult.MessageType)
             {
                 case WebSocketMessageType.Close:
-                    OnClose(this);
+                    await OnCloseAsync(this);
                     await CloseAsync();
                     break;
 
                 case WebSocketMessageType.Text:
                     var text = Encoding.UTF8.GetString(receiveBuffer);
-                    OnText(this, text);
+                    await OnTextAsync(this, text);
                     break;
 
                 case WebSocketMessageType.Binary:
                     var data = new byte[receiveResult.Count];
                     Array.Copy(receiveBuffer, 0, data, 0, data.Length);
-                    OnData(this, data);
+                    await OnBinaryAsync(this, data);
                     break;
             }
         }
