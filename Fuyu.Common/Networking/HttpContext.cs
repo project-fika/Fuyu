@@ -51,7 +51,7 @@ namespace Fuyu.Common.Networking
             return Request.Cookies["PHPSESSID"].Value;
         }
 
-        public void Send(byte[] data, string mime, bool zipped = true)
+        protected void Send(byte[] data, string mime, bool zipped = true)
         {
             // used for plaintext debugging
             if (Request.Headers["fuyu-debug"] != null)

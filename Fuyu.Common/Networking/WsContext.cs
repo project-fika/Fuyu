@@ -61,14 +61,14 @@ namespace Fuyu.Common.Networking
             }
         }
 
-        public async Task SendAsync(string text)
+        public async Task SendTextAsync(string text)
         {
             var encoded = Encoding.UTF8.GetBytes(text);
             var buffer = new ArraySegment<byte>(encoded, 0, encoded.Length);
             await _ws.SendAsync(buffer, WebSocketMessageType.Text, true, CancellationToken.None);
         }
 
-        public async Task SendAsync(byte[] data)
+        public async Task SendBinaryAsync(byte[] data)
         {
             var buffer = new ArraySegment<byte>(data, 0, data.Length);
             await _ws.SendAsync(buffer, WebSocketMessageType.Binary, true, CancellationToken.None);
