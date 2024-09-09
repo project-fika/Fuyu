@@ -14,13 +14,13 @@ namespace Fuyu.Backend.Core.Services
         private const int _maxPasswordLength = 32;
 
         // compile-time generated regex
-        // `(?=.*?[A-Z])`:          is at least one uppercase alpha present
-        // `(?=.*?[a-z])`:          is at least one lowercase alpha present
-        // `(?=.*?[0-9])`:          is at least one digit present
+        // `A-Z`:          may contain uppercase alpha
+        // `a-z`:          may contain lowercase alpha
+        // `0-9`:          may contain digits
         // NOTE: regex has no length constraint as the validation method
         //       contains it instead.
         // -- seionmoya, 2024/09/08
-        [GeneratedRegex("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{0,}$")]
+        [GeneratedRegex("^[a-zA-Z0-9]{0,}$")]
         private static partial Regex UsernameRegex();
 
         // compile-time generated regex
