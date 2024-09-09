@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
@@ -11,7 +12,7 @@ namespace Fuyu.Backend.EFT.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
             var parameters = context.GetPathParameters(this);
 
@@ -22,7 +23,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 data = locale
             };
 
-            context.SendJson(Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

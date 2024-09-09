@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
@@ -12,7 +13,7 @@ namespace Fuyu.Backend.EFT.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
             var customizations = EftOrm.GetCustomizations();
             var response = new ResponseBody<Dictionary<string, CustomizationTemplate>>()
@@ -20,7 +21,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 data = customizations
             };
 
-            context.SendJson(Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

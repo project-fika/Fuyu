@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Fuyu.Common.IO;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
@@ -12,11 +13,11 @@ namespace Fuyu.Backend.EFT.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
             var json = EftOrm.GetAchievementStatistic();
             var response = Json.Parse<ResponseBody<AchievementStatisticResponse>>(json);
-            context.SendJson(Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using Fuyu.Common.Compression;
 using Fuyu.Common.Serialization;
 
@@ -18,11 +19,11 @@ namespace Fuyu.Common.Networking
             return Request.HasEntityBody;
         }
 
-        public byte[] GetBody()
+        public async Task<byte[]> GetBinaryAsync()
         {
             using (var ms = new MemoryStream())
             {
-                Request.InputStream.CopyTo(ms);
+                await Request.InputStream.CopyToAsync(ms);
                 var body = ms.ToArray();
 
                 if (Zlib.IsCompressed(body))
@@ -34,15 +35,15 @@ namespace Fuyu.Common.Networking
             }
         }
 
-        public string GetText()
+        public async Task<string> GetTextAsync()
         {
-            var body = GetBody();
+            var body = await GetBinaryAsync();
             return Encoding.UTF8.GetString(body);
         }
 
-        public T GetJson<T>()
+        public async Task<T> GetJsonAsync<T>()
         {
-            var json = GetText();
+            var json = await GetTextAsync();
             return Json.Parse<T>(json);
         }
 
@@ -51,7 +52,7 @@ namespace Fuyu.Common.Networking
             return Request.Cookies["PHPSESSID"].Value;
         }
 
-        protected void Send(byte[] data, string mime, bool zipped = true)
+        protected async Task SendAsync(byte[] data, string mime, bool zipped = true)
         {
             // used for plaintext debugging
             if (Request.Headers["fuyu-debug"] != null)
@@ -69,14 +70,14 @@ namespace Fuyu.Common.Networking
 
             using (var payload = Response.OutputStream)
             {
-                payload.Write(data, 0, data.Length);
+                await payload.WriteAsync(data, 0, data.Length);
             }
         }
 
-        public void SendJson(string text, bool zipped = true)
+        public async Task SendJsonAsync(string text, bool zipped = true)
         {
             var encoded = Encoding.UTF8.GetBytes(text);
-            Send(encoded, "application/json; charset=utf-8", zipped);
+            await SendAsync(encoded, "application/json; charset=utf-8", zipped);
         }
 
         public void Close()

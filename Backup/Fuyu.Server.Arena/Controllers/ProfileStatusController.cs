@@ -11,7 +11,7 @@ namespace Fuyu.Backend.Arena.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
             var sessionId = context.GetSessionId();
             var account = ArenaOrm.GetAccount(sessionId);

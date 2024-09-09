@@ -42,12 +42,12 @@ namespace Fuyu.Common.Networking
                 }
                 else
                 {
-                    OnHttpRequest(listenerContext);
+                    await OnHttpRequestAsync(listenerContext);
                 }
             }
         }
 
-        private void OnHttpRequest(HttpListenerContext listenerContext)
+        private async Task OnHttpRequestAsync(HttpListenerContext listenerContext)
         {
             var context = new HttpContext(
                 listenerContext.Request,
@@ -58,7 +58,7 @@ namespace Fuyu.Common.Networking
 
             try
             {
-                HttpRouter.Route(context);
+                await HttpRouter.RouteAsync(context);
             }
             catch (Exception ex)
             {
@@ -78,7 +78,7 @@ namespace Fuyu.Common.Networking
 
                 var time = DateTime.UtcNow.ToString();
                 Terminal.WriteLine($"[{time}][{Name}][WS  ] {context.Path}");
-                await WsRouter.Route(context);
+                await WsRouter.RouteAsync(context);
             }
             catch (Exception ex)
             {

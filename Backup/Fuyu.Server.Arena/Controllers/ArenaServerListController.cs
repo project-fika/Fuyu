@@ -11,7 +11,7 @@ namespace Fuyu.Backend.Arena.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
             var response = new ResponseBody<ServerInfo[]>()
             {

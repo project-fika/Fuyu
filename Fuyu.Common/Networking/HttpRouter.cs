@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Fuyu.Common.Networking
 {
@@ -9,13 +10,13 @@ namespace Fuyu.Common.Networking
         {
         }
 
-        public void Route(HttpContext context)
+        public async Task RouteAsync(HttpContext context)
         {
             var matches = GetAllMatching(context);
 
             foreach (var match in matches)
             {
-                match.Run(context);
+                await match.RunAsync(context);
             }
         }
     }

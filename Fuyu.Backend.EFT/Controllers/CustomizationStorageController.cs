@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
 using Fuyu.Backend.BSG.DTO.Responses;
@@ -11,7 +12,7 @@ namespace Fuyu.Backend.EFT.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
             var sessionId = context.GetSessionId();
             var account = EftOrm.GetAccount(sessionId);
@@ -30,7 +31,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 }
             };
 
-            context.SendJson(Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

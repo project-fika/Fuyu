@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
 using Fuyu.Backend.BSG.DTO.Responses;
@@ -12,12 +13,12 @@ namespace Fuyu.Backend.EFT.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
             var json = EftOrm.GetLocations();
             var locations = Json.Parse<ResponseBody<WorldMap>>(json);
             var response = Json.Stringify(locations);
-            context.SendJson(response);
+            await context.SendJsonAsync(response);
         }
     }
 }

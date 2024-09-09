@@ -1,3 +1,5 @@
+using System.Threading.Tasks;
+
 namespace Fuyu.Common.Networking
 {
     public abstract class HttpController : Controller
@@ -6,6 +8,6 @@ namespace Fuyu.Common.Networking
         {
         }
 
-        public abstract void Run(HttpContext context);
+        public abstract Task RunAsync(HttpContext context);
     }
 }

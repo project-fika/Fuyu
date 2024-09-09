@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Fuyu.Common.IO;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
@@ -16,9 +17,9 @@ namespace Fuyu.Backend.EFT.Controllers
             _response = Json.Parse<ResponseBody<BuildsListResponse>>(json);
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
-            context.SendJson(Json.Stringify(_response));
+            await context.SendJsonAsync(Json.Stringify(_response));
         }
     }
 }

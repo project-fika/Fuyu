@@ -23,7 +23,7 @@ using Fuyu.Common.IO;
 public class HelloWorld : HttpController
 {
     // run this code when the path it's bound to is requested
-    public override void Run(HttpContext context)
+    public override async Task RunAsync(HttpContext context)
     {
         // respond to the request
         SendText(context, "Hello, world!");

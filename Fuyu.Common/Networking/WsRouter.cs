@@ -10,7 +10,7 @@ namespace Fuyu.Common.Networking
         {
         }
 
-        public async Task Route(WsContext context)
+        public async Task RouteAsync(WsContext context)
         {
             var matches = GetAllMatching(context);
 
