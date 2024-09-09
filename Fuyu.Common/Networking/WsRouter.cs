@@ -1,21 +1,22 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Fuyu.Common.Networking
 {
-    public class HttpRouter : Router<HttpController>
+    public class WsRouter : Router<WsController>
     {
-        public HttpRouter() : base()
+        public WsRouter() : base()
         {
         }
 
-        public void Route(HttpContext context)
+        public async Task Route(WsContext context)
         {
             var matches = GetAllMatching(context);
 
             foreach (var match in matches)
             {
-                match.Run(context);
+                await match.RunAsync(context);
             }
         }
     }

@@ -7,48 +7,10 @@ using Fuyu.Common.Serialization;
 
 namespace Fuyu.Common.Networking
 {
-    public class HttpContext
+    public class HttpContext : Context
     {
-        public readonly HttpListenerRequest Request;
-        public readonly HttpListenerResponse Response;
-        public readonly string Path;
-
-        public HttpContext(HttpListenerRequest request, HttpListenerResponse response)
+        public HttpContext(HttpListenerRequest request, HttpListenerResponse response) : base(request, response)
         {
-            Request = request;
-            Response = response;
-            Path = GetPath();
-        }
-
-        private string GetPath()
-        {
-            var path = Request.Url.PathAndQuery;
-
-            if (path.Contains("?"))
-            {
-                path = path.Split('?')[0];
-            }
-
-            return path;
-        }
-
-        public Dictionary<string, string> GetPathParameters(HttpController behaviour)
-        {
-            var result = new Dictionary<string, string>();
-            var segments = Path.Split('/');
-            var i = 0;
-
-            foreach (var kvp in behaviour.Path)
-            {
-                if (kvp.Value == EPathSegment.Dynamic)
-                {
-                    result.Add(kvp.Key, segments[i]);
-                }
-
-                ++i;
-            }
-
-            return result;
         }
 
         public bool HasBody()
@@ -87,6 +49,11 @@ namespace Fuyu.Common.Networking
         public string GetSessionId()
         {
             return Request.Cookies["PHPSESSID"].Value;
+        }
+
+        public void Close()
+        {
+            Response.Close();
         }
     }
 }

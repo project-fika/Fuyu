@@ -1,16 +1,17 @@
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using Fuyu.Common.Compression;
 
 namespace Fuyu.Common.Networking
 {
-    public abstract class HttpController : Controller
+    public abstract class WsController : Controller
     {
-        public HttpController(string path) : base(path)
+        public WsController(string path) : base(path)
         {
         }
 
-        public abstract void Run(HttpContext context);
+        public abstract Task RunAsync(WsContext context);
 
         public static void Send(HttpContext context, byte[] data, string mime, bool zipped = true)
         {
