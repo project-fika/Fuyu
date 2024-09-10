@@ -14,13 +14,15 @@ namespace Fuyu.Common.Networking
         public readonly WsRouter WsRouter;
         public readonly string Address;
         public readonly string Name;
+        public readonly string SubProtocol;
 
-        public HttpServer(string name, string address)
+        public HttpServer(string name, string address, string subprotocol = null)
         {
             HttpRouter = new HttpRouter();
             WsRouter = new WsRouter();
             Address = address;
             Name = name;
+            SubProtocol = subprotocol;
 
             _listener = new HttpListener();
             _listener.Prefixes.Add(address);
@@ -49,9 +51,7 @@ namespace Fuyu.Common.Networking
 
         private async Task OnHttpRequestAsync(HttpListenerContext listenerContext)
         {
-            var context = new HttpContext(
-                listenerContext.Request,
-                listenerContext.Response);
+            var context = new HttpContext(listenerContext.Request, listenerContext.Response);
 
             var time = DateTime.UtcNow.ToString();
             Terminal.WriteLine($"[{time}][{Name}][HTTP] {context.Path}");
@@ -69,7 +69,7 @@ namespace Fuyu.Common.Networking
 
         private async Task OnWsRequestAsync(HttpListenerContext listenerContext)
         {
-            var wsContext = await listenerContext.AcceptWebSocketAsync(null);
+            var wsContext = await listenerContext.AcceptWebSocketAsync(SubProtocol);
             var ws = wsContext.WebSocket;
 
             try
@@ -78,6 +78,7 @@ namespace Fuyu.Common.Networking
 
                 var time = DateTime.UtcNow.ToString();
                 Terminal.WriteLine($"[{time}][{Name}][WS  ] {context.Path}");
+
                 await WsRouter.RouteAsync(context);
             }
             catch (Exception ex)
@@ -88,16 +89,8 @@ namespace Fuyu.Common.Networking
             }
             finally
             {
-                if (ws != null)
-                {
-                    ws.Dispose();
-                }
+                ws?.Dispose();
             }
-        }
-
-        public virtual void RegisterServices()
-        {
-            // intentionally left empty
         }
 
         public void Start()
