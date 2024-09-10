@@ -35,10 +35,12 @@ namespace Fuyu.Common.Networking
         // -- seionmoya, 2024/09/09
         public async Task ReceiveAsync()
         {
-            var receiveBuffer = new byte[_bufferSize];
-            var receiveResult = await _ws.ReceiveAsync(new ArraySegment<byte>(receiveBuffer), CancellationToken.None);
+            var buffer = new byte[_bufferSize];
+            var received = await _ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+            var data = new byte[received.Count];
+            Array.Copy(buffer, 0, data, 0, data.Length);
 
-            switch (receiveResult.MessageType)
+            switch (received.MessageType)
             {
                 case WebSocketMessageType.Close:
                     await OnCloseAsync(this);
@@ -46,13 +48,11 @@ namespace Fuyu.Common.Networking
                     break;
 
                 case WebSocketMessageType.Text:
-                    var text = Encoding.UTF8.GetString(receiveBuffer);
+                    var text = Encoding.UTF8.GetString(data);
                     await OnTextAsync(this, text);
                     break;
 
                 case WebSocketMessageType.Binary:
-                    var data = new byte[receiveResult.Count];
-                    Array.Copy(receiveBuffer, 0, data, 0, data.Length);
                     await OnBinaryAsync(this, data);
                     break;
             }
