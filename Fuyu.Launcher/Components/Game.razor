@@ -1,0 +1,58 @@
+﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@inject IState<SessionState> SessionState
+@inject IState<GamesState> GamesState
+@inject IState<ActiveGameState> ActiveGameState
+
+<div>
+    <MudStack Style="width: 400px;">
+        <MudPaper Class="pa-4" Elevation="4">
+            <MudText Typo="Typo.body1">@games[ActiveGameState.Value.GameId]</MudText>
+        </MudPaper>
+
+        <MudPaper Class="pa-4" Elevation="4">
+            <MudText>Placeholder</MudText>
+        </MudPaper>
+    </MudStack>
+    <div class="fixed mr-6 mb-6" style="bottom: 0; right: 0;">
+        <MudTooltip Text="Start Game" ShowOnHover="true" Arrow="true" Placement="Placement.Left">
+            <MudFab @onclick="StartGame_Clicked" Color="@Color.Tertiary" StartIcon="@Icons.Material.Filled.PlayArrow" />
+        </MudTooltip>
+    </div>
+</div>
+
+@code {
+    private Dictionary<string, string> games = new()
+    {
+        ["eft"] = "Escape from Tarkov",
+        ["arena"] = "Escape from Tarkov: Arena"
+    };
+
+    private void StartGame_Clicked()
+    {
+        GamesState.Value.Games.TryGetValue(ActiveGameState.Value.GameId, out int? accountId);
+
+        if (accountId == null)
+        {
+            return;
+        }
+
+        var gameSessionId = RequestService.LoginGame(ActiveGameState.Value.GameId, (int)accountId);
+
+        switch(ActiveGameState.Value.GameId)
+        {
+            case "eft":
+                using (var process = ProcessService.StartEft(SettingsService.EftDirectory, gameSessionId, SettingsService.EftAddress))
+                {
+                    process.Start();
+                }
+                break;
+            case "arena":
+                using (var process = ProcessService.StartArena(SettingsService.ArenaDirectory, gameSessionId, SettingsService.ArenaAddress))
+                {
+                    process.Start();
+                }
+                break;
+        }
+	}
+}

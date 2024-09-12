@@ -1,11 +1,8 @@
-@namespace Fuyu.Launcher
+<Fluxor.Blazor.Web.StoreInitializer />
 
-@using Microsoft.AspNetCore.Components.Routing
-@using Fuyu.Launcher.Layout
-
-<Router AppAssembly="typeof(MainLayout).Assembly">
+<Router AppAssembly="typeof(Layout.MainLayout).Assembly">
     <Found Context="routeData">
-        <RouteView RouteData="routeData" DefaultLayout="typeof(MainLayout)" />
+        <RouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)" />
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
 </Router>

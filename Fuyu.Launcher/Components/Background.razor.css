@@ -1,0 +1,26 @@
+.bg {
+    top: 0;
+    left: 0;
+    position: fixed;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+}
+
+.bg-img {
+    background-image: url("../img/bg.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    z-index: -2;
+}
+
+.bg-glass {
+    left: 50%;
+    background: rgba( 255, 255, 255, 0 );
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 3.5px );
+    -webkit-backdrop-filter: blur( 3.5px );
+    z-index: -1;
+}

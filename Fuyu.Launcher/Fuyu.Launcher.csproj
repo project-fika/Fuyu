@@ -11,16 +11,24 @@
     <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
     <SelfContained>true</SelfContained>
     <PublishSingleFile>true</PublishSingleFile>
+    <RootNamespace>Fuyu.Launcher</RootNamespace>
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.80" />
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components" Version="4.9.3" />
-    <PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.9.3" />
+    <None Remove="Layout\AppBar.razor.css" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DarkNet" Version="2.3.0" />
+    <PackageReference Include="Fluxor.Blazor.Web" Version="6.0.0" />
+    <PackageReference Include="Fluxor.Persist" Version="2.5.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="8.0.82" />
+    <PackageReference Include="MudBlazor" Version="7.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../Fuyu.Common/Fuyu.Common.csproj" />
     <ProjectReference Include="../Fuyu.Launcher.Core/Fuyu.Launcher.Core.csproj" />
   </ItemGroup>
 

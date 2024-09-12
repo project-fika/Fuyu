@@ -1,0 +1,122 @@
+﻿@using Fuyu.Backend.Core.DTO.Accounts
+
+@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@inject IState<GamesState> GamesState
+@inject IDispatcher Dispatcher
+@inject ISnackbar Snackbar
+
+@if (!GamesState.Value.Games.Values.Contains(null))
+{
+    <MudDialog>
+        <DialogContent>
+            <MudText Typo="Typo.h6">No more games left to add.</MudText>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Color="Color.Tertiary" OnClick="Cancel_Clicked">Close</MudButton>
+        </DialogActions>
+    </MudDialog>
+}
+else
+{
+    <MudDialog>
+        <DialogContent>
+            <MudStack>
+                <MudSelect @bind-Value="_game" @bind-Value:after="Game_Changed" Label="Game" HelperText="Choose one of the available games">
+                    @foreach (var (gameId, gameName) in games)
+                    {
+                        if (GamesState.Value.Games[gameId] == null)
+                        {
+                            <MudSelectItem Value="@gameId">@gameName</MudSelectItem>
+                        }
+                    }
+                </MudSelect>
+                <MudSelect @bind-Value="_edition" Label="Edition" HelperText="Choose one of the game editions" Disabled="@string.IsNullOrWhiteSpace(_game)">
+                    @if (!string.IsNullOrWhiteSpace(_game))
+                    {
+                        @foreach (var (editionId, edtionName) in gameEditions[_game])
+                        {
+                            <MudSelectItem Value="@editionId">@edtionName</MudSelectItem>
+                        }
+                    }
+                </MudSelect>
+            </MudStack>
+        </DialogContent>
+        <DialogActions>
+            <MudButton Variant="Variant.Text" OnClick="Cancel_Clicked">Cancel</MudButton>
+            <MudButton Color="Color.Tertiary" OnClick="Add_Clicked" Disabled="Add_Disabled()">Add</MudButton>
+        </DialogActions>
+    </MudDialog>
+}
+
+
+@code {
+    [CascadingParameter]
+    private MudDialogInstance MudDialog { get; set; }
+
+    private string _game = string.Empty;
+    private string _username = string.Empty;
+    private string _edition = string.Empty;
+
+    // TODO: Remove both of these Dictionaries, get this from backend or a future localization service
+    private Dictionary<string, string> games = new()
+    {
+        ["eft"] = "Escape from Tarkov",
+        ["arena"] = "Escape from Tarkov: Arena"
+    };
+
+    private Dictionary<string, Dictionary<string, string>> gameEditions = new()
+    {
+        ["eft"] = new()
+        {
+            ["standard"] = "Standard",
+            ["left behind"] = "Left Behind",
+            ["prepare to escape"] = "Prepare to Escape",
+            ["edge of darkness"] = "Edge of Darkness",
+            ["unheard"] = "Unheard"
+        },
+        ["arena"] = new()
+        {
+            ["standard"] = "Standard",
+            ["ryhzy"] = "Ryhzy"
+        }
+    };
+
+    private void Game_Changed()
+    {
+        _edition = string.Empty;
+    }
+
+    private bool Add_Disabled()
+    {
+        return string.IsNullOrWhiteSpace(_game) || string.IsNullOrWhiteSpace(_edition);
+    }
+
+    private void Cancel_Clicked()
+    {
+        MudDialog.Cancel();
+    }
+
+    private void Add_Clicked() {
+        if(Add_Disabled())
+        {
+            return;
+        }
+
+        var (status, accountId) = RequestService.RegisterGame(_game, _edition);
+
+        switch(status)
+        {
+            case ERegisterStatus.Success:
+                    Dispatcher.Dispatch(new AddGameAction(_game, accountId));
+
+                    Snackbar.Add("Successfully added game to account!", Severity.Success);
+
+                    MudDialog.Close(DialogResult.Ok(true));
+                break;
+            case ERegisterStatus.AlreadyExists:
+                Snackbar.Add("Game already exists in account!", Severity.Warning);
+                break;
+        }
+    }
+}

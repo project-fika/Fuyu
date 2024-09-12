@@ -1,0 +1,72 @@
+﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@inject IState<SessionState> SessionState
+@inject IDispatcher Dispatcher
+@inject NavigationManager Navigation
+
+<MudAppBar Elevation="1">
+    <MudSpacer />
+    <MudStack Row="true" Justify="Justify.Center" AlignItems="AlignItems.Center" StretchItems="StretchItems.None">
+        @if (SessionState.Value.IsLoggedIn)
+        {
+            <MudMenu AnchorOrigin="Origin.BottomRight" TransformOrigin="Origin.TopRight">
+                <ActivatorContent>
+                    <MudAvatar Color="Color.Tertiary">@Char.ToUpper(SessionState.Value.UserName[0])</MudAvatar>
+                </ActivatorContent>
+                <ChildContent>
+                    <MudPaper Width="250px" Class="py-3" Elevation="0">
+                        <MudNavMenu>
+                            <MudText Typo="Typo.h6" Class="px-4">@SessionState.Value.UserName</MudText>
+                            <MudDivider Class="my-2" />
+                            <MudNavLink OnClick="Logout_Clicked">Logout</MudNavLink>
+                        </MudNavMenu>
+                    </MudPaper>
+                </ChildContent>
+            </MudMenu>
+        }
+        else
+        {
+            <MudButton Variant="Variant.Text" Href="/login">Login</MudButton>
+            <MudButton Variant="Variant.Outlined" Color="Color.Tertiary" Href="/register">Register</MudButton>
+        }
+        <MudIconButton Icon="@Icons.Material.Outlined.Settings" OnClick="Settings_Clicked" />
+    </MudStack>
+</MudAppBar>
+
+@code {
+    private string _prevHref = "/";
+
+    private string[] toggleableRoutes = [ "/settings" ];
+
+    private void Settings_Clicked()
+    {
+        ToggleNavigateTo("/settings");
+    }
+
+    private void ToggleNavigateTo(string uri)
+    {
+        var currHref = "/" + Navigation.ToBaseRelativePath(Navigation.Uri);
+
+        if (currHref == uri)
+        {
+            Navigation.NavigateTo(_prevHref);
+            return;
+        }
+
+        if (!toggleableRoutes.Contains(currHref))
+        {
+            _prevHref = currHref;
+        }
+
+        Navigation.NavigateTo(uri);
+    }
+
+    private void Logout_Clicked()
+    {
+        RequestService.LogoutAccount();
+
+        Dispatcher.Dispatch(new LogoutSessionAction());
+
+        Navigation.NavigateTo("/login");
+    }
+}

@@ -8,5 +8,8 @@ namespace Fuyu.Backend.Core.DTO.Responses
     {
         [DataMember]
         public ERegisterStatus Status;
+
+        [DataMember]
+        public int AccountId;
     }
 }

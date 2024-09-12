@@ -1,0 +1,11 @@
+<div>
+	@if (Glass) {
+		<div class="bg bg-glass"></div>
+	}
+	<div class="bg bg-img"></div>
+</div>
+
+@code {
+	[Parameter]
+	public bool Glass { get; set; } = false;
+}

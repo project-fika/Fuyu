@@ -18,12 +18,8 @@ namespace Fuyu.Backend.Core.Controllers
             var request = await context.GetJsonAsync<AccountRegisterGameRequest>();
             var sessionId = context.GetSessionId();
             var result = AccountService.RegisterGame(sessionId, request.Game, request.Edition);
-            var response = new AccountRegisterGameResponse()
-            {
-                Status = result
-            };
 
-            await context.SendJsonAsync(Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(result));
         }
     }
 }
