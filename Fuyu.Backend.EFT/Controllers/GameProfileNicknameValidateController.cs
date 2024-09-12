@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
 using Fuyu.Backend.BSG.DTO.Responses;
@@ -12,9 +13,9 @@ namespace Fuyu.Backend.EFT.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
-            var request = context.GetJson<GameProfileNicknameValidateRequest>();
+            var request = await context.GetJsonAsync<GameProfileNicknameValidateRequest>();
 
             // TODO:
             // * validate nickname usage
@@ -28,7 +29,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 }
             };
 
-            SendJson(context, Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

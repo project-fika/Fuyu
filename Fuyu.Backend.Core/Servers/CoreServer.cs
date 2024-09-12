@@ -9,7 +9,7 @@ namespace Fuyu.Backend.Core.Servers
         {
         }
 
-        public override void RegisterServices()
+        public void RegisterServices()
         {
             AddHttpController<AccountLoginController>();
             AddHttpController<AccountRegisterController>();

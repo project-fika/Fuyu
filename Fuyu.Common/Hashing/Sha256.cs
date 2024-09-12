@@ -10,8 +10,8 @@ namespace Fuyu.Common.Hashing
             using (var sha256 = SHA256.Create())
             {
                 var sb = new StringBuilder();
-                var bytes = Encoding.UTF8.GetBytes(text);
-                var hash = sha256.ComputeHash(bytes);
+                var encoded = Encoding.UTF8.GetBytes(text);
+                var hash = sha256.ComputeHash(encoded);
 
                 foreach (var b in hash)
                 {

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using Fuyu.Common.IO;
 using Fuyu.Common.Networking;
@@ -27,12 +28,12 @@ namespace Fuyu.Backend.EFT.Controllers
             };
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
-            var request = context.GetJson<MatchLocalStartRequest>();
+            var request = await context.GetJsonAsync<MatchLocalStartRequest>();
             var location = request.location;
 
-            SendJson(context, _locations[location]);
+            await context.SendJsonAsync(_locations[location]);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
 using Fuyu.Backend.BSG.DTO.Responses;
@@ -11,7 +12,7 @@ namespace Fuyu.Backend.EFT.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
             var response = new ResponseBody<ProfileSelectResponse>()
             {
@@ -21,7 +22,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 }
             };
 
-            SendJson(context, Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

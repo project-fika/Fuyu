@@ -110,7 +110,7 @@
 			{
 				"label": "dotnet: test",
 				"type": "shell",
-				"command": "dotnet test --nologo --no-build",
+				"command": "dotnet test --nologo --no-build --blame-hang-timeout 1min",
 				"problemMatcher": [],
 				"dependsOn": ["dotnet: build debug"],
 				"dependsOrder": "sequence",

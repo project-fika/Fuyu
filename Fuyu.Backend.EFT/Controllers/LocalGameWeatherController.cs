@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Fuyu.Common.IO;
 using Fuyu.Common.Networking;
 
@@ -9,9 +10,9 @@ namespace Fuyu.Backend.EFT.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
-            SendJson(context, EftOrm.GetLocalWeather());
+            await context.SendJsonAsync(EftOrm.GetLocalWeather());
         }
     }
 }

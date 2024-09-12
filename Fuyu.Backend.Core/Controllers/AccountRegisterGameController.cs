@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Fuyu.Backend.Core.DTO.Requests;
 using Fuyu.Backend.Core.DTO.Responses;
 using Fuyu.Common.Networking;
@@ -12,9 +13,9 @@ namespace Fuyu.Backend.Core.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
-            var request = context.GetJson<AccountRegisterGameRequest>();
+            var request = await context.GetJsonAsync<AccountRegisterGameRequest>();
             var sessionId = context.GetSessionId();
             var result = AccountService.RegisterGame(sessionId, request.Game, request.Edition);
             var response = new AccountRegisterGameResponse()
@@ -22,7 +23,7 @@ namespace Fuyu.Backend.Core.Controllers
                 Status = result
             };
 
-            SendJson(context, Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

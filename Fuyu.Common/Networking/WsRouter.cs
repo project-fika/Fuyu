@@ -4,18 +4,19 @@ using System.Threading.Tasks;
 
 namespace Fuyu.Common.Networking
 {
-    public class HttpRouter : Router<HttpController>
+    public class WsRouter : Router<WsController>
     {
-        public HttpRouter() : base()
+        public WsRouter() : base()
         {
         }
 
-        public async Task RouteAsync(HttpContext context)
+        public async Task RouteAsync(WsContext context)
         {
             var matches = GetAllMatching(context);
 
             foreach (var match in matches)
             {
+                await match.InitializeAsync(context);
                 await Task.Run(() => match.RunAsync(context));
             }
         }

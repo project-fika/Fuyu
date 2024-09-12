@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
 using Fuyu.Backend.BSG.DTO.Responses;
@@ -11,7 +12,7 @@ namespace Fuyu.Backend.EFT.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
             var languages = EftOrm.GetLanguages();
             var response = new ResponseBody<Dictionary<string, string>>
@@ -19,7 +20,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 data = languages
             };
 
-            SendJson(context, Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

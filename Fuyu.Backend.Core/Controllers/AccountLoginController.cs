@@ -1,6 +1,7 @@
-using Fuyu.Backend.Core.DTO.Requests;
+using System.Threading.Tasks;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
+using Fuyu.Backend.Core.DTO.Requests;
 using Fuyu.Backend.Core.Services;
 
 namespace Fuyu.Backend.Core.Controllers
@@ -11,12 +12,12 @@ namespace Fuyu.Backend.Core.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
-            var request = context.GetJson<AccountLoginRequest>();
+            var request = await context.GetJsonAsync<AccountLoginRequest>();
             var response = AccountService.LoginAccount(request.Username, request.Password);
 
-            SendJson(context, Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Fuyu.Common.Hashing;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
@@ -12,7 +13,7 @@ namespace Fuyu.Backend.EFT.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
             var channelId = SimpleId.Generate(64);
             var response = new ResponseBody<NotifierChannelCreateResponse>
@@ -27,7 +28,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 }
             };
 
-            SendJson(context, Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

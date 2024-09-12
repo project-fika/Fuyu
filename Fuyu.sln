@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin.Arena", "Fuyu.P
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin.Common", "Fuyu.Plugin.Common\Fuyu.Plugin.Common.csproj", "{C9544557-EF73-485C-9578-410F373DFCF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin.EFT", "Fuyu.Plugin.Eft\Fuyu.Plugin.EFT.csproj", "{6C285025-50E9-4970-AFBF-4D216BCD4D7D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin.EFT", "Fuyu.Plugin.EFT\Fuyu.Plugin.EFT.csproj", "{6C285025-50E9-4970-AFBF-4D216BCD4D7D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Backend", "Fuyu.Backend\Fuyu.Backend.csproj", "{8495DE3B-ABFF-4AF0-9B10-6DDE4A9840BA}"
 EndProject

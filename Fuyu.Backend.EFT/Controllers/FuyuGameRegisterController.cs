@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
 using Fuyu.Backend.EFT.Services;
@@ -12,16 +13,16 @@ namespace Fuyu.Backend.EFT.Controllers
         {
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
-            var request = context.GetJson<FuyuGameRegisterRequest>();
+            var request = await context.GetJsonAsync<FuyuGameRegisterRequest>();
             var accountId = AccountService.RegisterAccount(request.Username, request.Edition);
             var response = new FuyuGameRegisterResponse()
             {
                 AccountId = accountId
             };
 
-            SendJson(context, Json.Stringify(response));
+            await context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

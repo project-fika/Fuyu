@@ -12,7 +12,7 @@ namespace Fuyu.Backend.Arena.Controllers
             _response = Resx.GetText("eft", "database.client.game.token.issue.json");
         }
 
-        public override void Run(HttpContext context)
+        public override async Task RunAsync(HttpContext context)
         {
             SendJson(context, _response);
         }
