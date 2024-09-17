@@ -103,12 +103,12 @@ else
             return;
         }
 
-        var (status, accountId) = RequestService.RegisterGame(_game, _edition);
+        var response = RequestService.RegisterGame(_game, _edition);
 
-        switch(status)
+        switch(response.Status)
         {
             case ERegisterStatus.Success:
-                    Dispatcher.Dispatch(new AddGameAction(_game, accountId));
+                    Dispatcher.Dispatch(new AddGameAction(_game, response.AccountId));
 
                     Snackbar.Add("Successfully added game to account!", Severity.Success);
 

@@ -48,12 +48,12 @@
             return;
         }
 
-        var (status, sessionId) = RequestService.LoginAccount(_username, _password);
+        var response = RequestService.LoginAccount(_username, _password);
 
-        switch (status)
+        switch (response.Status)
         {
             case ELoginStatus.Success:
-                RequestService.CreateSession("fuyu", SettingsService.FuyuAddress, sessionId);
+                RequestService.CreateSession("fuyu", SettingsService.FuyuAddress, response.SessionId);
 
                 Dispatcher.Dispatch(new LoginSessionAction(_username));
 

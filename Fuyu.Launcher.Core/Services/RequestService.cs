@@ -68,7 +68,7 @@ namespace Fuyu.Launcher.Core.Services
             return response.Status;
         }
 
-        public static (ELoginStatus, string) LoginAccount(string username, string password)
+        public static AccountLoginResponse LoginAccount(string username, string password)
         {
             var hashedPassword = Sha256.Generate(password);
             var request = new AccountLoginRequest()
@@ -81,7 +81,7 @@ namespace Fuyu.Launcher.Core.Services
                 "/account/login",
                 request);
 
-            return (response.Status, response.SessionId);
+            return response;
         }
 
         public static void LogoutAccount()
@@ -104,7 +104,7 @@ namespace Fuyu.Launcher.Core.Services
             return response.Games;
 		}
 
-        public static (ERegisterStatus, int) RegisterGame(string game, string edition)
+        public static AccountRegisterGameResponse RegisterGame(string game, string edition)
         {
             var request = new AccountRegisterGameRequest()
             {
@@ -116,7 +116,7 @@ namespace Fuyu.Launcher.Core.Services
                 "/account/register/game",
                 request);
 
-            return (response.Status, response.AccountId);
+            return response;
         }
 
 		public static string LoginGame(string game, int accountId)
