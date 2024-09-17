@@ -98,8 +98,8 @@ namespace Fuyu.Launcher.Core.Services
 		{
 			var response = HttpPost<object, AccountGamesResponse>(
 				"fuyu",
-            "/account/games",
-            null);
+                "/account/games",
+                null);
 
             return response.Games;
 		}
