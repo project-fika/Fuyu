@@ -59,26 +59,32 @@ else
     private string _edition = string.Empty;
 
     // TODO: Remove both of these Dictionaries, get this from backend or a future localization service
-    private Dictionary<string, string> games = new()
+    private readonly Dictionary<string, string> games = new()
     {
-        ["eft"] = "Escape from Tarkov",
-        ["arena"] = "Escape from Tarkov: Arena"
+        { "eft",   "Escape from Tarkov"        },
+        { "arena", "Escape from Tarkov: Arena" }
     };
 
-    private Dictionary<string, Dictionary<string, string>> gameEditions = new()
+    private readonly Dictionary<string, Dictionary<string, string>> gameEditions = new()
     {
-        ["eft"] = new()
         {
-            ["standard"] = "Standard",
-            ["left behind"] = "Left Behind",
-            ["prepare to escape"] = "Prepare to Escape",
-            ["edge of darkness"] = "Edge of Darkness",
-            ["unheard"] = "Unheard"
+            "eft",
+            new()
+            {
+                { "standard",          "Standard"          },
+                { "left behind",       "Left Behind"       },
+                { "prepare to escape", "Prepare to Escape" },
+                { "edge of darkness",  "Edge of Darkness"  },
+                { "unheard",           "Unheard"           }
+            }
         },
-        ["arena"] = new()
         {
-            ["standard"] = "Standard",
-            ["ryhzy"] = "Ryhzy"
+            "arena",
+            new()
+            {
+                { "standard",          "Standard"          },
+                { "ryhzy",             "Ryhzy"             }
+            }
         }
     };
 
@@ -97,26 +103,27 @@ else
         MudDialog.Cancel();
     }
 
-    private void Add_Clicked() {
-        if(Add_Disabled())
+    private void Add_Clicked()
+    {
+        if (Add_Disabled())
         {
             return;
         }
 
         var response = RequestService.RegisterGame(_game, _edition);
 
-        switch(response.Status)
+        switch (response.Status)
         {
             case ERegisterStatus.Success:
-                    Dispatcher.Dispatch(new AddGameAction(_game, response.AccountId));
-
-                    Snackbar.Add("Successfully added game to account!", Severity.Success);
-
-                    MudDialog.Close(DialogResult.Ok(true));
+                Dispatcher.Dispatch(new AddGameAction(_game, response.AccountId));
+                Snackbar.Add("Successfully added game to account!", Severity.Success);
+                MudDialog.Close(DialogResult.Ok(true));
                 break;
+
             case ERegisterStatus.AlreadyExists:
                 Snackbar.Add("Game already exists in account!", Severity.Warning);
                 break;
+
         }
     }
 }

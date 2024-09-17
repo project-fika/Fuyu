@@ -39,6 +39,7 @@
     private bool _success;
     private string[] _errors = [];
     private MudForm _form;
+
     private string _username = string.Empty;
     private string _password = string.Empty;
 
@@ -63,33 +64,42 @@
                 Snackbar.Add("Account registered successfully. You can now login!", Severity.Success);
                 Navigation.NavigateTo("/login");
                 break;
+
             case ERegisterStatus.AlreadyExists:
                 Snackbar.Add("Account already exists!", Severity.Warning);
                 break;
+
             case ERegisterStatus.PasswordInvalid:
                 Snackbar.Add("Password doesn't meet the requirements!", Severity.Warning);
                 break;
+
             case ERegisterStatus.PasswordTooLong:
                 Snackbar.Add("Password too long!", Severity.Warning);
                 break;
             case ERegisterStatus.PasswordTooShort:
                 Snackbar.Add("Password too short!", Severity.Warning);
                 break;
+
             case ERegisterStatus.PasswordEmpty:
                 Snackbar.Add("Didn't receive a password!", Severity.Warning);
                 break;
+
             case ERegisterStatus.UsernameInvalid:
                 Snackbar.Add("Username contains invalid characters!", Severity.Warning);
                 break;
+
             case ERegisterStatus.UsernameTooLong:
                 Snackbar.Add("Username too long!", Severity.Warning);
                 break;
+
             case ERegisterStatus.UsernameTooShort:
                 Snackbar.Add("Username too short!", Severity.Warning);
                 break;
+
             case ERegisterStatus.UsernameEmpty:
                 Snackbar.Add("Didn't receive a username!", Severity.Warning);
                 break;
+
         }
     }
 }

@@ -22,24 +22,25 @@
 </div>
 
 @code {
-    private Dictionary<string, string> games = new()
+    // TODO: This Dictionary should be changed for a localization service in the future
+    private readonly Dictionary<string, string> games = new()
     {
-        ["eft"] = "Escape from Tarkov",
-        ["arena"] = "Escape from Tarkov: Arena"
+        { "eft",   "Escape from Tarkov"        },
+        { "arena", "Escape from Tarkov: Arena" }
     };
 
     private void StartGame_Clicked()
     {
-        GamesState.Value.Games.TryGetValue(ActiveGameState.Value.GameId, out int? accountId);
-
-        if (accountId == null)
+        if (!GamesState.Value.Games.ContainsKey(ActiveGameState.Value.GameId))
         {
             return;
         }
 
-        var gameSessionId = RequestService.LoginGame(ActiveGameState.Value.GameId, (int)accountId);
+        var accountId = (int)GamesState.Value.Games[ActiveGameState.Value.GameId];
 
-        switch(ActiveGameState.Value.GameId)
+        var gameSessionId = RequestService.LoginGame(ActiveGameState.Value.GameId, accountId);
+
+        switch (ActiveGameState.Value.GameId)
         {
             case "eft":
                 using (var process = ProcessService.StartEft(SettingsService.EftDirectory, gameSessionId, SettingsService.EftAddress))
@@ -47,12 +48,14 @@
                     process.Start();
                 }
                 break;
+
             case "arena":
                 using (var process = ProcessService.StartArena(SettingsService.ArenaDirectory, gameSessionId, SettingsService.ArenaAddress))
                 {
                     process.Start();
                 }
                 break;
+
         }
 	}
 }

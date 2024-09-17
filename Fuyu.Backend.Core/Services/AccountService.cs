@@ -221,7 +221,6 @@ namespace Fuyu.Backend.Core.Services
         public static Dictionary<string, int?> GetGames(string sessionId)
         {
 			var account = CoreOrm.GetAccount(sessionId);
-
             return account.Games;
 		}
 

@@ -38,13 +38,15 @@
     private bool _success;
     private string[] _errors = [];
     private MudForm _form;
+
     private string _username = string.Empty;
     private string _password = string.Empty;
 
     public void Login_Clicked()
     {
         _form.Validate();
-        if(!_form.IsValid) {
+        if (!_form.IsValid)
+        {
             return;
         }
 
@@ -56,20 +58,23 @@
                 RequestService.CreateSession("fuyu", SettingsService.FuyuAddress, response.SessionId);
 
                 Dispatcher.Dispatch(new LoginSessionAction(_username));
-
                 Dispatcher.Dispatch(new GetGamesAction());
 
                 Navigation.NavigateTo("/");
                 break;
+
             case ELoginStatus.AccountBanned:
                 Snackbar.Add("Account is banned!", Severity.Warning);
                 break;
+
             case ELoginStatus.AccountNotFound:
                 Snackbar.Add("Account not found!", Severity.Warning);
                 break;
+
             case ELoginStatus.SessionAlreadyExists:
                 Snackbar.Add("Someone is already using this account.", Severity.Warning);
                 break;
+
         }
     }
 }

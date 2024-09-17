@@ -12,7 +12,7 @@
         <MudNavMenu>
             @foreach (var (gameId, accountId) in GamesState.Value.Games)
             {
-                if(accountId != null)
+                if (accountId != null)
                 {
                     <MudTooltip Text="@games[gameId]" ShowOnHover="true" Arrow="true" Placement="Placement.Right">
                         <MudNavLink Icon="@Icons.Material.Filled.VideogameAsset" OnClick="() => Game_Clicked(gameId)"></MudNavLink>
@@ -37,10 +37,10 @@
 
 @code {
     // TODO: This Dictionary should be changed for a localization service in the future
-    private Dictionary<string, string> games = new()
+    private readonly Dictionary<string, string> games = new()
     {
-        ["eft"] = "EFT",
-        ["arena"] = "EFT: Arena"
+        { "eft",   "EFT"        },
+        { "arena", "EFT: Arena" }
     };
 
     private void Game_Clicked(string gameId)

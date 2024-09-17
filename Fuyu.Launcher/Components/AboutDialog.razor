@@ -1,37 +1,40 @@
 ﻿@using System.Diagnostics;
 
-<div>
-	<MudDialog>
-        <DialogContent>
-			<MudStack Class="my-6" AlignItems="AlignItems.Center" Justify="Justify.Center">
-				<MudAvatar Style="height: 70px; width: 70px;" Rounded="true">
-					<MudImage Src="../img/icon.png"></MudImage>
-				</MudAvatar>
-				<MudText Typo="Typo.h6">冬 Fuyu</MudText>
-				<MudText Typo="Typo.subtitle2">1.0.0</MudText>
-				<MudStack Row="true">
-					<MudTooltip Text="Website" ShowOnHover="true" Arrow="true" Placement="Placement.Bottom">
-						<MudIconButton Icon="@Icons.Material.Filled.Link" Color="Color.Tertiary" OnClick="@(() => OpenLinkOnDefaultBrowser("https://placeholder.com"))" />
-					</MudTooltip>
-					<MudTooltip Text="Discord" ShowOnHover="true" Arrow="true" Placement="Placement.Bottom">
-						<MudIconButton Icon="@Icons.Custom.Brands.Discord" Style="color: #5865F2;" OnClick="@(() => OpenLinkOnDefaultBrowser("https://discord.com/invite/placeholder"))" />
-					</MudTooltip>
-					<MudTooltip Text="GitHub" ShowOnHover="true" Arrow="true" Placement="Placement.Bottom">
-						<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Style="color: #F0F6FC;" OnClick="@(() => OpenLinkOnDefaultBrowser("https://github.com/project-fika/Fuyu"))" />
-					</MudTooltip>
-				</MudStack>
-				<MudText Typo="Typo.body2">Copyright © 2024 seionmoya</MudText>
+<MudDialog>
+    <DialogContent>
+		<MudStack Class="my-6" AlignItems="AlignItems.Center" Justify="Justify.Center">
+			<MudAvatar Style="height: 70px; width: 70px;" Rounded="true">
+				<MudImage Src="../img/icon.png"></MudImage>
+			</MudAvatar>
+			<MudText Typo="Typo.h6">冬 Fuyu</MudText>
+			<MudText Typo="Typo.subtitle2">1.0.0</MudText>
+			<MudStack Row="true">
+				<MudTooltip Text="Website" ShowOnHover="true" Arrow="true" Placement="Placement.Bottom">
+					<MudIconButton Icon="@Icons.Material.Filled.Link" Color="Color.Tertiary" OnClick="@(() => OpenUrlOnDefaultBrowser("https://placeholder.com"))" />
+				</MudTooltip>
+				<MudTooltip Text="Discord" ShowOnHover="true" Arrow="true" Placement="Placement.Bottom">
+					<MudIconButton Icon="@Icons.Custom.Brands.Discord" Style="color: #5865F2;" OnClick="@(() => OpenUrlOnDefaultBrowser("https://discord.com/invite/placeholder"))" />
+				</MudTooltip>
+				<MudTooltip Text="GitHub" ShowOnHover="true" Arrow="true" Placement="Placement.Bottom">
+					<MudIconButton Icon="@Icons.Custom.Brands.GitHub" Style="color: #F0F6FC;" OnClick="@(() => OpenUrlOnDefaultBrowser("https://github.com/project-fika/Fuyu"))" />
+				</MudTooltip>
 			</MudStack>
-		</DialogContent>
-	</MudDialog>
-</div>
+			<MudText Typo="Typo.body2">Copyright © 2024 seionmoya</MudText>
+		</MudStack>
+	</DialogContent>
+</MudDialog>
 
 @code {
 	[CascadingParameter]
 	private MudDialogInstance MudDialog { get; set; }
 
-	private void OpenLinkOnDefaultBrowser(string link)
+	private void OpenUrlOnDefaultBrowser(string link)
 	{
-		Process.Start(new ProcessStartInfo(link) { UseShellExecute = true });
+		var info = new ProcessStartInfo(link)
+		{
+			UseShellExecute = true
+		};
+
+		Process.Start(info);
 	}
 }
