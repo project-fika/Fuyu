@@ -26,7 +26,7 @@ namespace Fuyu.Common.Networking
 
             if (matches.Count == 0)
             {
-                throw new Exception($"No match on path {context.Path}");
+                throw new RouteNotFoundException($"No match on path {context.Path}");
             }
 
             // NOTE: do we want to support multi-matching?
