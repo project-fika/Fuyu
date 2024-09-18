@@ -86,7 +86,7 @@ namespace Fuyu.Common.Networking
 
             return new HttpResponse()
             {
-                Status = (int)response.StatusCode,
+                Status = response.StatusCode,
                 Body = body
             };
         }
