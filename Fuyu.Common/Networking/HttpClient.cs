@@ -1,9 +1,7 @@
 using System;
 using System.IO;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Fuyu.Common.Compression;
 
 namespace Fuyu.Common.Networking
 {
@@ -13,13 +11,11 @@ namespace Fuyu.Common.Networking
     {
         protected System.Net.Http.HttpClient Httpv;
         protected string Address;
-        protected string Cookie;
         protected int Retries;
 
-        public HttpClient(string address, string sessionId = "", int retries = 3)
+        public HttpClient(string address, int retries = 3)
         {
             Address = address;
-            Cookie = $"PHPSESSID={sessionId}";
             Retries = retries;
 
             var handler = new HttpClientHandler
@@ -31,19 +27,26 @@ namespace Fuyu.Common.Networking
             Httpv = new System.Net.Http.HttpClient(handler);
         }
 
-        protected HttpRequestMessage GetNewRequest(HttpMethod method, string path)
+        protected virtual HttpRequestMessage GetNewRequest(HttpMethod method, string path)
         {
             return new HttpRequestMessage()
             {
                 Method = method,
-                RequestUri = new Uri(Address + path),
-                Headers = {
-                    { "Cookie", Cookie }
-                }
+                RequestUri = new Uri(Address + path)
             };
         }
 
-        protected async Task<byte[]> SendAsync(HttpMethod method, string path, byte[] data, bool zipped = true)
+        protected virtual byte[] OnSendBody(byte[] body)
+        {
+            return body;
+        }
+
+        protected virtual byte[] OnReceiveBody(byte[] body)
+        {
+            return body;
+        }
+
+        protected async Task<HttpResponse> SendAsync(HttpMethod method, string path, byte[] data)
         {
             HttpResponseMessage response = null;
 
@@ -52,11 +55,7 @@ namespace Fuyu.Common.Networking
                 if (data != null)
                 {
                     // add payload to request
-                    if (zipped)
-                    {
-                        data = Zlib.Compress(data, ZlibCompression.Level9);
-                    }
-
+                    data = OnSendBody(data);
                     request.Content = new ByteArrayContent(data);
                 }
 
@@ -70,32 +69,29 @@ namespace Fuyu.Common.Networking
                 throw new Exception($"Code {response.StatusCode}");
             }
 
+            byte[] body;
+
+            // grap response payload
             using (var ms = new MemoryStream())
             {
                 using (var stream = await response.Content.ReadAsStreamAsync())
                 {
-                    // grap response payload
                     await stream.CopyToAsync(ms);
-                    var body = ms.ToArray();
-
-                    if (Zlib.IsCompressed(body))
-                    {
-                        body = Zlib.Decompress(body);
-                    }
-
-                    if (body == null)
-                    {
-                        // payload doesn't contains data
-                        var code = response.StatusCode.ToString();
-                        body = Encoding.UTF8.GetBytes(code);
-                    }
-
-                    return body;
+                    body = ms.ToArray();
                 }
             }
+
+            // handle middleware
+            body = OnReceiveBody(body);
+
+            return new HttpResponse()
+            {
+                Status = (int)response.StatusCode,
+                Body = body
+            };
         }
 
-        protected async Task<byte[]> SendWithRetriesAsync(HttpMethod method, string path, byte[] data, bool zipped = true)
+        protected async Task<HttpResponse> SendWithRetriesAsync(HttpMethod method, string path, byte[] data)
         {
             var error = new Exception("Internal error");
 
@@ -104,7 +100,7 @@ namespace Fuyu.Common.Networking
             {
                 try
                 {
-                    return await SendAsync(method, path, data, zipped);
+                    return await SendAsync(method, path, data);
                 }
                 catch (Exception ex)
                 {
@@ -115,36 +111,43 @@ namespace Fuyu.Common.Networking
             throw error;
         }
 
-        public async Task<byte[]> GetAsync(string path)
+        public async Task<HttpResponse> GetAsync(string path)
         {
             return await SendWithRetriesAsync(HttpMethod.Get, path, null);
         }
 
-        public byte[] Get(string path)
+        public HttpResponse Get(string path)
         {
-            return Task.Run(() => GetAsync(path)).Result;
+            return GetAsync(path)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
         }
 
-        public async Task<byte[]> PostAsync(string path, byte[] data, bool zipped = true)
+        public async Task<HttpResponse> PostAsync(string path, byte[] data)
         {
-            return await SendWithRetriesAsync(HttpMethod.Post, path, data, zipped);
+            return await SendWithRetriesAsync(HttpMethod.Post, path, data);
         }
 
-        public byte[] Post(string path, byte[] data, bool zipped = true)
+        public HttpResponse Post(string path, byte[] data)
         {
-            return Task.Run(() => PostAsync(path, data, zipped)).Result;
+            return PostAsync(path, data)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
         }
 
-        // NOTE: returns status code as bytes
-        public async Task<byte[]> PutAsync(string path, byte[] data, bool zipped = true)
+        public async Task<HttpResponse> PutAsync(string path, byte[] data)
         {
-            return await SendWithRetriesAsync(HttpMethod.Post, path, data, zipped);
+            return await SendWithRetriesAsync(HttpMethod.Put, path, data);
         }
 
-        // NOTE: returns status code as bytes
-        public byte[] Put(string path, byte[] data, bool zipped = true)
+        public HttpResponse Put(string path, byte[] data)
         {
-            return Task.Run(() => PutAsync(path, data, zipped)).Result;
+            return PutAsync(path, data)
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
         }
 
         public void Dispose()
