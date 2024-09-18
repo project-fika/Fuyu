@@ -19,7 +19,7 @@ namespace Fuyu.Tests.Backend.Arena.EndToEnd
             ArenaDatabase.Load();
 
             // create request clients
-            _arenaMainClient = new EftHttpClient("http://localhost:8020");
+            _arenaMainClient = new HttpClient("http://localhost:8020");
         }
     }
 }

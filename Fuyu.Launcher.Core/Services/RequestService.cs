@@ -19,9 +19,9 @@ namespace Fuyu.Launcher.Core.Services
         {
             _httpClients = new ThreadDictionary<string, HttpClient>();
 
-            _httpClients.Add("fuyu", new HttpClient(SettingsService.FuyuAddress));
-            _httpClients.Add("eft", new HttpClient(SettingsService.EftAddress));
-            _httpClients.Add("arena", new HttpClient(SettingsService.ArenaAddress));
+            _httpClients.Add("fuyu", new EftHttpClient(SettingsService.FuyuAddress, string.Empty));
+            _httpClients.Add("eft", new EftHttpClient(SettingsService.EftAddress, string.Empty));
+            _httpClients.Add("arena", new EftHttpClient(SettingsService.ArenaAddress, string.Empty));
         }
 
         private static T2 HttpPost<T1, T2>(string id, string path, T1 request)

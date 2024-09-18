@@ -18,9 +18,9 @@ namespace Fuyu.Backend.Core.Services
             // TODO:
             // * get address from config
             // -- seionmoya, 2024/09/08
-            _httpClients.Add("fuyu", new HttpClient("http://localhost:8000"));
-            _httpClients.Add("eft", new HttpClient("http://localhost:8010"));
-            _httpClients.Add("arena", new HttpClient("http://localhost:8020"));
+            _httpClients.Add("fuyu", new EftHttpClient("http://localhost:8000", string.Empty));
+            _httpClients.Add("eft", new EftHttpClient("http://localhost:8010", string.Empty));
+            _httpClients.Add("arena", new EftHttpClient("http://localhost:8020", string.Empty));
         }
 
         private static T2 HttpPost<T1, T2>(string id, string path, T1 request)

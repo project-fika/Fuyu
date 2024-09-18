@@ -20,7 +20,7 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
     [TestClass]
     public class BackendTest
     {
-        private static HttpClient _eftMainClient;
+        private static EftHttpClient _eftMainClient;
 
         private static string CreateFuyuAccount(string username, string password)
         {

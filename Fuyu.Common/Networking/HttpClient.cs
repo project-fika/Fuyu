@@ -69,7 +69,7 @@ namespace Fuyu.Common.Networking
                 throw new Exception($"Code {response.StatusCode}");
             }
 
-            byte[] body;
+            var body = Array.Empty<byte>();
 
             // grap response payload
             using (var ms = new MemoryStream())
