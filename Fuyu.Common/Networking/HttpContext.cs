@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -52,7 +51,7 @@ namespace Fuyu.Common.Networking
             return Request.Cookies["PHPSESSID"].Value;
         }
 
-        protected async Task SendAsync(byte[] data, string mime, bool zipped = true)
+        protected async Task SendAsync(byte[] data, string mime, HttpStatusCode status, bool zipped = true)
         {
             // used for plaintext debugging
             if (Request.Headers["fuyu-debug"] != null)
@@ -65,6 +64,7 @@ namespace Fuyu.Common.Networking
                 data = Zlib.Compress(data, ZlibCompression.Level9);
             }
 
+            Response.StatusCode = (int)status;
             Response.ContentType = mime;
             Response.ContentLength64 = data.Length;
 
@@ -74,10 +74,15 @@ namespace Fuyu.Common.Networking
             }
         }
 
+        public async Task SendStatus(HttpStatusCode status)
+        {
+            await SendAsync(null, "plain/text", status, false);
+        }
+
         public async Task SendJsonAsync(string text, bool zipped = true)
         {
             var encoded = Encoding.UTF8.GetBytes(text);
-            await SendAsync(encoded, "application/json; charset=utf-8", zipped);
+            await SendAsync(encoded, "application/json; charset=utf-8", HttpStatusCode.Accepted, zipped);
         }
 
         public void Close()
