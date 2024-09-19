@@ -22,9 +22,9 @@ namespace Fuyu.Launcher.Core.Services
         {
             _httpClients = new ThreadDictionary<string, HttpClient>();
 
-            _httpClients.Add("fuyu", new HttpClient(SettingsService.FuyuAddress, string.Empty));
-            _httpClients.Add("eft", new HttpClient(SettingsService.EftAddress, string.Empty));
-            _httpClients.Add("arena", new HttpClient(SettingsService.ArenaAddress, string.Empty));
+            _httpClients.Add("fuyu", new EftHttpClient(SettingsService.FuyuAddress, string.Empty));
+            _httpClients.Add("eft", new EftHttpClient(SettingsService.EftAddress, string.Empty));
+            _httpClients.Add("arena", new EftHttpClient(SettingsService.ArenaAddress, string.Empty));
         }
 
         private static T2 HttpPost<T1, T2>(string id, string path, T1 request)
@@ -34,11 +34,11 @@ namespace Fuyu.Launcher.Core.Services
             var requestJson = Json.Stringify(request);
             var requestBytes = Encoding.UTF8.GetBytes(requestJson);
 
-            var responseBytes = httpc.Post(path, requestBytes);
-            var responseJson = Encoding.UTF8.GetString(responseBytes);
-            var response = Json.Parse<T2>(responseJson);
+            var response = httpc.Post(path, requestBytes);
+            var responseJson = Encoding.UTF8.GetString(response.Body);
+            var responseValue = Json.Parse<T2>(responseJson);
 
-            return response;
+            return responseValue;
         }
 
         public static void ResetSessions()
@@ -50,7 +50,7 @@ namespace Fuyu.Launcher.Core.Services
 
         public static void CreateSession(string id, string address, string sessionId)
         {
-            _httpClients.Set(id, new HttpClient(address, sessionId));
+            _httpClients.Set(id, new EftHttpClient(address, sessionId));
         }
 
         public static ERegisterStatus RegisterAccount(string username, string password)

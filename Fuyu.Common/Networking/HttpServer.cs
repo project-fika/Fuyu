@@ -60,6 +60,11 @@ namespace Fuyu.Common.Networking
             {
                 await HttpRouter.RouteAsync(context);
             }
+            catch (RouteNotFoundException ex)
+            {
+                Terminal.WriteLine(ex.Message);
+                await context.SendStatus(HttpStatusCode.NotFound);
+            }
             catch (Exception ex)
             {
                 Terminal.WriteLine(ex.Message);
