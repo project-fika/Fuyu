@@ -3,8 +3,6 @@
 A more recent version of `ComponentAce.Compression.Libs.Zlib` with tweaks
 
 - Based on release [1.1.4.0](https://github.com/Elskom/zlib.managed/releases/tag/1.1.4.0)
-- Made all classes inside `Elskom/` folder `internal`
-- Uses EFT assembly info
 
 ## Notes
 
@@ -16,3 +14,9 @@ info.
 
 This way you don't need to distribute this library when using `Fuyu` lib inside
 the client.
+
+## Changes
+
+- Made all classes inside `Elskom/` folder `internal`
+- Uses EFT assembly info
+- Uses `ReadOnlySpan<T>`, `Span<T>`
