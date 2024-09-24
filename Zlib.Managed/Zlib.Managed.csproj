@@ -14,4 +14,8 @@
     <Version>1.0.3.0</Version>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.5" />
+  </ItemGroup>
+
 </Project>

@@ -100,7 +100,20 @@ namespace Elskom.Generic.Libs
         private const int LCODES = LITERALS + 1 + LENGTHCODES;
         private const int HEAPSIZE = (2 * LCODES) + 1;
 
-        private static readonly Config[] ConfigTable;
+        private static ReadOnlySpan<Config> ConfigTable => new[]
+        {
+            //         good lazy nice chain
+            new Config(0,   0,   0,   0,    0 /*stored*/), // 0
+            new Config(4,   4,   8,   4,    1 /*fast*/  ), // 1
+            new Config(4,   5,   16,  8,    1 /*fast*/  ), // 2
+            new Config(4,   6,   32,  32,   1 /*fast*/  ), // 3
+            new Config(4,   4,   16,  16,   2 /*slow*/  ), // 4
+            new Config(8,   16,  32,  32,   2 /*slow*/  ), // 5
+            new Config(8,   16,  128, 128,  2 /*slow*/  ), // 6
+            new Config(8,   32,  128, 256,  2 /*slow*/  ), // 7
+            new Config(32,  128, 258, 1024, 2 /*slow*/  ), // 8
+            new Config(32,  258, 258, 4096, 2 /*slow*/  )  // 9
+        };
 
         private static readonly string[] ZErrmsg = new string[]
         {
@@ -108,26 +121,6 @@ namespace Elskom.Generic.Libs
             "data error", "insufficient memory", "buffer error", "incompatible version",
             string.Empty,
         };
-
-        static Deflate()
-        {
-            {
-                ConfigTable = new Config[10];
-
-                // good  lazy  nice  chain
-                ConfigTable[0] = new Config(0, 0, 0, 0, STORED);
-                ConfigTable[1] = new Config(4, 4, 8, 4, FAST);
-                ConfigTable[2] = new Config(4, 5, 16, 8, FAST);
-                ConfigTable[3] = new Config(4, 6, 32, 32, FAST);
-
-                ConfigTable[4] = new Config(4, 4, 16, 16, SLOW);
-                ConfigTable[5] = new Config(8, 16, 32, 32, SLOW);
-                ConfigTable[6] = new Config(8, 16, 128, 128, SLOW);
-                ConfigTable[7] = new Config(8, 32, 128, 256, SLOW);
-                ConfigTable[8] = new Config(32, 128, 258, 1024, SLOW);
-                ConfigTable[9] = new Config(32, 258, 258, 4096, SLOW);
-            }
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Deflate"/> class.
@@ -636,7 +629,7 @@ namespace Elskom.Generic.Libs
             this.Put_byte((byte)b);
         }
 
-        internal void Send_code(int c, short[] tree) => this.Send_bits(tree[c * 2] & 0xffff, tree[(c * 2) + 1] & 0xffff);
+        internal void Send_code(int c, ReadOnlySpan<short> tree) => this.Send_bits(tree[c * 2] & 0xffff, tree[(c * 2) + 1] & 0xffff);
 
         internal void Send_bits(int value_Renamed, int length)
         {
@@ -740,7 +733,7 @@ namespace Elskom.Generic.Libs
         }
 
         // Send the block data compressed using the given Huffman trees
-        internal void Compress_block(short[] ltree, short[] dtree)
+        internal void Compress_block(ReadOnlySpan<short> ltree, ReadOnlySpan<short> dtree)
         {
             int dist; // distance of matched string
             int lc; // match length or unmatched char (if dist == 0)

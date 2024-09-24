@@ -5,6 +5,8 @@
 
 namespace Elskom.Generic.Libs
 {
+    using System;
+
     internal sealed class Tree
     {
         // Bit length codes must not exceed MAX_BL_BITS bits
@@ -31,31 +33,44 @@ namespace Elskom.Generic.Libs
         internal const int DISTCODELEN = 512;
 
         // extra bits for each length code
-        internal static readonly int[] ExtraLbits = new int[]
+        internal static ReadOnlySpan<int> ExtraLbits => new[]
         {
             0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3,
             3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 0,
         };
 
         // extra bits for each distance code
-        internal static readonly int[] ExtraDbits = new int[]
+        internal static ReadOnlySpan<int> ExtraDbits => new[]
         {
             0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7,
             8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 13, 13,
         };
 
         // extra bits for each bit length code
-        internal static readonly int[] ExtraBlbits = new int[]
+        internal static ReadOnlySpan<int> ExtraBlbits => new[]
         {
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 7,
         };
 
-        internal static readonly byte[] BlOrder = new byte[]
+        internal static ReadOnlySpan<int> BaseLength => new[]
+        {
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16, 20, 24, 28, 32, 40, 48, 56,
+            64, 80, 96, 112, 128, 160, 192, 224, 0,
+        };
+
+        internal static ReadOnlySpan<int> BaseDist => new[]
+        {
+            0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384,
+            512, 768, 1024, 1536, 2048, 3072, 4096, 6144, 8192, 12288, 16384,
+            24576,
+        };
+
+        internal static ReadOnlySpan<byte> BlOrder => new byte[]
         {
             16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15,
         };
 
-        internal static readonly byte[] DistCode = new byte[]
+        internal static ReadOnlySpan<byte> DistCode => new byte[]
         {
             0, 1, 2, 3, 4, 4, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8,
             9, 9, 9, 9, 9, 9, 9, 9, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10,
@@ -70,7 +85,7 @@ namespace Elskom.Generic.Libs
             14, 14, 14, 14, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
             15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
             15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15,
-            15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 0, 0, 16, 17,
+            15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 15, 0,  0,  16, 17,
             18, 18, 19, 19, 20, 20, 20, 20, 21, 21, 21, 21, 22, 22, 22, 22, 22, 22,
             22, 22, 23, 23, 23, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 24, 24, 24,
             24, 24, 24, 24, 24, 24, 24, 24, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25,
@@ -87,36 +102,23 @@ namespace Elskom.Generic.Libs
             29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29, 29,
         };
 
-        internal static readonly byte[] LengthCode = new byte[]
+        internal static ReadOnlySpan<byte> LengthCode => new byte[]
         {
-            0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 12, 12, 13,
-            13, 13, 13, 14, 14, 14, 14, 15, 15, 15, 15, 16, 16, 16, 16, 16, 16, 16,
-            16, 17, 17, 17, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 18, 18, 18, 19,
-            19, 19, 19, 19, 19, 19, 19, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20,
-            20, 20, 20, 20, 20, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
-            21, 21, 21, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22, 22,
-            22, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23, 24,
-            24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
-            24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 25, 25, 25, 25, 25,
-            25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25,
-            25, 25, 25, 25, 25, 25, 25, 25, 25, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-            26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
-            26, 26, 26, 26, 26, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27,
-            27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27,
-            28,
-        };
-
-        internal static readonly int[] BaseLength = new int[]
-        {
-            0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, 14, 16, 20, 24, 28, 32, 40, 48, 56,
-            64, 80, 96, 112, 128, 160, 192, 224, 0,
-        };
-
-        internal static readonly int[] BaseDist = new int[]
-        {
-            0, 1, 2, 3, 4, 6, 8, 12, 16, 24, 32, 48, 64, 96, 128, 192, 256, 384,
-            512, 768, 1024, 1536, 2048, 3072, 4096, 6144, 8192, 12288, 16384,
-            24576,
+            0, 1, 2, 3, 4, 5, 6, 7, 8, 8, 9, 9, 10, 10, 11, 11, 12, 12, 12, 12,
+            13, 13, 13, 13, 14, 14, 14, 14, 15, 15, 15, 15, 16, 16, 16, 16, 16,
+            16, 16, 16, 17, 17, 17, 17, 17, 17, 17, 17, 18, 18, 18, 18, 18, 18,
+            18, 18, 19, 19, 19, 19, 19, 19, 19, 19, 20, 20, 20, 20, 20, 20, 20,
+            20, 20, 20, 20, 20, 20, 20, 20, 20, 21, 21, 21, 21, 21, 21, 21, 21,
+            21, 21, 21, 21, 21, 21, 21, 21, 22, 22, 22, 22, 22, 22, 22, 22, 22,
+            22, 22, 22, 22, 22, 22, 22, 23, 23, 23, 23, 23, 23, 23, 23, 23, 23,
+            23, 23, 23, 23, 23, 23, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+            24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 24,
+            24, 24, 24, 24, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25,
+            25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25, 25,
+            25, 25, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
+            26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26, 26,
+            27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27,
+            27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 28,
         };
 
         private const int MAXBITS = 15;
@@ -204,8 +206,38 @@ namespace Elskom.Generic.Libs
         internal void Gen_bitlen(Deflate s)
         {
             var tree = this.DynTree;
-            var stree = this.StatDesc.StaticTreeValue;
-            var extra = this.StatDesc.ExtraBits;
+            ReadOnlySpan<short> stree;
+            switch (this.StatDesc.StaticTreeOption)
+            {
+                case 0:
+                    stree = StaticTree.StaticLtree;
+                    break;
+
+                case 1:
+                    stree = StaticTree.StaticDtree;
+                    break;
+
+                case 2:
+                default:
+                    stree = null;
+                    break;
+            };
+            ReadOnlySpan<int> extra;
+            switch (this.StatDesc.ExtraBitOption)
+            {
+                case 0:
+                    extra = ExtraLbits;
+                    break;
+
+                case 1:
+                    extra = ExtraDbits;
+                    break;
+
+                case 2:
+                default:
+                    extra = ExtraBlbits;
+                    break;
+            };
             var base_Renamed = this.StatDesc.ExtraBase;
             var max_length = this.StatDesc.MaxLength;
             int h; // heap index
@@ -313,7 +345,22 @@ namespace Elskom.Generic.Libs
         internal void Build_tree(Deflate s)
         {
             var tree = this.DynTree;
-            var stree = this.StatDesc.StaticTreeValue;
+            ReadOnlySpan<short> stree;
+            switch (this.StatDesc.StaticTreeOption)
+            {
+                case 0:
+                    stree = StaticTree.StaticLtree;
+                    break;
+
+                case 1:
+                    stree = StaticTree.StaticDtree;
+                    break;
+
+                case 2:
+                default:
+                    stree = null;
+                    break;
+            };
             var elems = this.StatDesc.Elems;
             int n, m; // iterate over heap elements
             var max_code = -1; // largest code with non zero frequency
