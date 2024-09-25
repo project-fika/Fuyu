@@ -149,7 +149,7 @@ namespace Elskom.Generic.Libs
         /// <param name="dictionary">The dictionary to use.</param>
         /// <param name="dictLength">The dictionary length.</param>
         /// <returns>The zlib status state.</returns>
-        internal int InflateSetDictionary(byte[] dictionary, int dictLength) => this.Istate == null ? ZSTREAMERROR : Libs.Inflate.InflateSetDictionary(this, dictionary, dictLength);
+        internal int InflateSetDictionary(Span<byte> dictionary, int dictLength) => this.Istate == null ? ZSTREAMERROR : Libs.Inflate.InflateSetDictionary(this, dictionary, dictLength);
 
         /// <summary>
         /// Initializes compression.
@@ -207,7 +207,7 @@ namespace Elskom.Generic.Libs
         /// <param name="dictionary">The dictionary to use.</param>
         /// <param name="dictLength">The dictionary length.</param>
         /// <returns>The zlib status state.</returns>
-        internal int DeflateSetDictionary(byte[] dictionary, int dictLength) => this.Dstate == null ? ZSTREAMERROR : this.Dstate.DeflateSetDictionary(this, dictionary, dictLength);
+        internal int DeflateSetDictionary(ReadOnlySpan<byte> dictionary, int dictLength) => this.Dstate == null ? ZSTREAMERROR : this.Dstate.DeflateSetDictionary(this, dictionary.ToArray(), dictLength);
 
         /// <summary>
         /// Frees everything.

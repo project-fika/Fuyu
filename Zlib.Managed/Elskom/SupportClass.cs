@@ -7,7 +7,6 @@ namespace Elskom.Generic.Libs
 {
     using System;
     using System.IO;
-    using System.Text;
 
     /// <summary>
     /// Class to support zlib stuff.
@@ -85,7 +84,7 @@ namespace Elskom.Generic.Libs
         /// <param name="start">The starting index of the target array.</param>
         /// <param name="count">The maximum number of characters to read from the source Stream.</param>
         /// <returns>The number of characters read. The number will be less than or equal to count depending on the data available in the source Stream. Returns -1 if the end of the stream is reached.</returns>
-        internal static int ReadInput(Stream sourceStream, byte[] target, int start, int count)
+        internal static int ReadInput(Stream sourceStream, Span<byte> target, int start, int count)
         {
             if (sourceStream == null)
             {
@@ -127,7 +126,7 @@ namespace Elskom.Generic.Libs
         /// <param name="start">The starting index of the target array.</param>
         /// <param name="count">The maximum number of characters to read from the source TextReader.</param>
         /// <returns>The number of characters read. The number will be less than or equal to count depending on the data available in the source TextReader. Returns -1 if the end of the stream is reached.</returns>
-        internal static int ReadInput(TextReader sourceTextReader, byte[] target, int start, int count)
+        internal static int ReadInput(TextReader sourceTextReader, Span<byte> target, int start, int count)
         {
             if (sourceTextReader == null)
             {
@@ -161,19 +160,5 @@ namespace Elskom.Generic.Libs
 
             return bytesRead;
         }
-
-        /// <summary>
-        /// Converts a string to an array of bytes.
-        /// </summary>
-        /// <param name="sourceString">The string to be converted.</param>
-        /// <returns>The new array of bytes.</returns>
-        internal static byte[] ToByteArray(string sourceString) => Encoding.UTF8.GetBytes(sourceString);
-
-        /// <summary>
-        /// Converts an array of bytes to an array of chars.
-        /// </summary>
-        /// <param name="byteArray">The array of bytes to convert.</param>
-        /// <returns>The new array of chars.</returns>
-        internal static char[] ToCharArray(byte[] byteArray) => Encoding.UTF8.GetChars(byteArray);
     }
 }

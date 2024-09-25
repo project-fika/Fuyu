@@ -689,9 +689,14 @@ namespace Elskom.Generic.Libs
             // ZFREE(z, s);
         }
 
-        internal void Set_dictionary(byte[] d, int start, int n)
+        // TODO: Check if ReadOnlySpan<byte> d is okay
+        internal void Set_dictionary(ReadOnlySpan<byte> d, int start, int n)
         {
-            Array.Copy(d, start, this.Window, 0, n);
+            //Array.Copy(d, start, this.Window, 0, n);
+            var source = d.Slice(start);
+            var target = new Span<byte>(this.Window, 0, n);
+            source.CopyTo(target);
+            
             this.Read = this.Write = n;
         }
 

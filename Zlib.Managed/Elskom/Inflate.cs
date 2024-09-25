@@ -5,6 +5,8 @@
 
 namespace Elskom.Generic.Libs
 {
+    using System;
+
     /// <summary>
     /// Class for decompressing data through zlib.
     /// </summary>
@@ -48,7 +50,10 @@ namespace Elskom.Generic.Libs
         private const int DONE = 12; // finished check, done
         private const int BAD = 13; // got an error--stay here
 
-        private static readonly byte[] Mark = new byte[] { 0, 0, (byte)SupportClass.Identity(0xff), (byte)SupportClass.Identity(0xff) };
+        private static ReadOnlySpan<byte> Mark => new byte[]
+        {
+            0, 0, (byte)SupportClass.Identity(0xff), (byte)SupportClass.Identity(0xff)
+        };
 
         internal int Mode { get; private set; } // current inflate mode
 
@@ -335,7 +340,7 @@ namespace Elskom.Generic.Libs
             }
         }
 
-        internal static int InflateSetDictionary(ZStream z, byte[] dictionary, int dictLength)
+        internal static int InflateSetDictionary(ZStream z, Span<byte> dictionary, int dictLength)
         {
             var index = 0;
             var length = dictLength;

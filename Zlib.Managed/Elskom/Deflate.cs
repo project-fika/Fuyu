@@ -1625,7 +1625,8 @@ namespace Elskom.Generic.Libs
             return err;
         }
 
-        internal int DeflateSetDictionary(ZStream strm, byte[] dictionary, int dictLength)
+        // TODO: Check if ReadOnlySpan<byte> dictionary is okay
+        internal int DeflateSetDictionary(ZStream strm, ReadOnlySpan<byte> dictionary, int dictLength)
         {
             var length = dictLength;
             var index = 0;
@@ -1648,7 +1649,11 @@ namespace Elskom.Generic.Libs
                 index = dictLength - length; // use the tail of the dictionary
             }
 
-            Array.Copy(dictionary, index, this.Window, 0, length);
+            // Array.Copy(dictionary.ToArray(), index, this.Window, 0, length);
+            var source = dictionary.Slice(index, length);
+            var target = new Span<byte>(this.Window, 0, length);
+            source.CopyTo(target);
+
             this.Strstart = length;
             this.BlockStart = length;
 
