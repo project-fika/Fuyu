@@ -3,14 +3,13 @@
 // All rights reserved.
 // license: see LICENSE for more details.
 
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
 using Elskom.Generic.Libs;
 
 namespace ComponentAce.Compression.Libs.zlib
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.IO;
-
     /// <summary>
     /// Class that provices a zlib output stream that supports
     /// compression and decompression.
