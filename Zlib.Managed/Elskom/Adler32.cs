@@ -15,55 +15,30 @@ namespace Elskom.Generic.Libs
         // NMAX is the largest n such that 255n(n+1)/2 + (n+1)(BASE-1) <= 2^32-1
         private const int NMAX = 5552;
 
-        internal static long Calculate(long adler, ReadOnlySpan<byte> buf, int index, int len)
+        public static long Calculate(long adler, ReadOnlySpan<byte> buffer, int index, int length)
         {
-            if (buf == null)
+            if (buffer == null)
             {
                 return 1L;
             }
 
-            var s1 = adler & 0xffff;
-            var s2 = (adler >> 16) & 0xffff;
+            var s1 = adler & 0xFFFF;
+            var s2 = (adler >> 16) & 0xFFFF;
             int k;
 
-            while (len > 0)
+            while (length > 0)
             {
-                k = len < NMAX ? len : NMAX;
-                len -= k;
+                k = length < NMAX ? length : NMAX;
+                length -= k;
+
                 while (k >= 16)
                 {
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
-                    s1 += buf[index++] & 0xff;
-                    s2 += s1;
+                    for (var i = 0; i < 16; ++i)
+                    {
+                        s1 += buffer[index++] & 0xFF;
+                        s2 += s1;
+                    }
+
                     k -= 16;
                 }
 
@@ -71,7 +46,7 @@ namespace Elskom.Generic.Libs
                 {
                     do
                     {
-                        s1 += buf[index++] & 0xff;
+                        s1 += buffer[index++] & 0xFF;
                         s2 += s1;
                     }
                     while (--k != 0);
