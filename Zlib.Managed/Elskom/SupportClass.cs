@@ -3,11 +3,11 @@
 // All rights reserved.
 // license: see LICENSE for more details.
 
+using System;
+using System.IO;
+
 namespace Elskom.Generic.Libs
 {
-    using System;
-    using System.IO;
-
     /// <summary>
     /// Class to support zlib stuff.
     /// </summary>

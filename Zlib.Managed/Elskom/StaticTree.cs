@@ -3,10 +3,10 @@
 // All rights reserved.
 // license: see LICENSE for more details.
 
+using System;
+
 namespace Elskom.Generic.Libs
 {
-    using System;
-
     internal sealed class StaticTree
     {
         internal static ReadOnlySpan<short> StaticLtree => new short[]

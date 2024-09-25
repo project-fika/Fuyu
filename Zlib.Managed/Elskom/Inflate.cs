@@ -3,10 +3,10 @@
 // All rights reserved.
 // license: see LICENSE for more details.
 
+using System;
+
 namespace Elskom.Generic.Libs
 {
-    using System;
-
     /// <summary>
     /// Class for decompressing data through zlib.
     /// </summary>

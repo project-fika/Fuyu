@@ -3,12 +3,12 @@
 // All rights reserved.
 // license: see LICENSE for more details.
 
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+
 namespace Elskom.Generic.Libs
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.IO;
-
     /// <summary>
     /// Class that provices a zlib input stream that supports
     /// compression and decompression.

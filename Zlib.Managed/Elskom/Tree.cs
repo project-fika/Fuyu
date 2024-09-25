@@ -3,10 +3,10 @@
 // All rights reserved.
 // license: see LICENSE for more details.
 
+using System;
+
 namespace Elskom.Generic.Libs
 {
-    using System;
-
     internal sealed class Tree
     {
         // Bit length codes must not exceed MAX_BL_BITS bits

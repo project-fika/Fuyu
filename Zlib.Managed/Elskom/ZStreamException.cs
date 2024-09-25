@@ -3,11 +3,11 @@
 // All rights reserved.
 // license: see LICENSE for more details.
 
+using System;
+using System.IO;
+
 namespace Elskom.Generic.Libs
 {
-    using System;
-    using System.IO;
-
     /// <summary>
     /// The exception that is thrown when an zlib error occurs.
     /// </summary>
