@@ -1,6 +1,6 @@
 using System;
 using System.Net.Http;
-using Fuyu.Common.Compression;
+using Zlib.Managed;
 
 namespace Fuyu.Common.Networking
 {
@@ -15,14 +15,14 @@ namespace Fuyu.Common.Networking
 
         protected override byte[] OnSendBody(byte[] body)
         {
-            return Zlib.Compress(body, ZlibCompression.Level9);
+            return MemoryZlib.Compress(body, ZlibCompression.Level9);
         }
 
         protected override byte[] OnReceiveBody(byte[] body)
         {
-            if (Zlib.IsCompressed(body))
+            if (MemoryZlib.IsCompressed(body))
             {
-                body = Zlib.Decompress(body);
+                body = MemoryZlib.Decompress(body);
             }
 
             return body;

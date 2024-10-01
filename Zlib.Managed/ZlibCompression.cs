@@ -1,4 +1,4 @@
-﻿namespace Fuyu.Common.Compression
+﻿namespace Zlib.Managed
 {
     /// <summary>
     /// Compression levels for zlib.

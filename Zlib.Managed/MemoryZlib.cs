@@ -4,11 +4,11 @@
 
 using System;
 using System.IO;
-using ComponentAce.Compression.Libs.zlib;
+using Elskom.Generic.Libs;
 
-namespace Fuyu.Common.Compression
+namespace Zlib.Managed
 {
-    public static class Zlib
+    public static class MemoryZlib
     {
         public static bool IsCompressed(byte[] data)
         {

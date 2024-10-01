@@ -10,7 +10,7 @@ namespace Elskom.Generic.Libs
     /// <summary>
     /// The zlib stream class.
     /// </summary>
-    internal sealed class ZStream
+    public sealed class ZStream
     {
         private const int MAXWBITS = 15; // 32K LZ77 window
 

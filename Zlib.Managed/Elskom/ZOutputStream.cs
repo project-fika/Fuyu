@@ -6,9 +6,8 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Elskom.Generic.Libs;
 
-namespace ComponentAce.Compression.Libs.zlib
+namespace Elskom.Generic.Libs
 {
     /// <summary>
     /// Class that provices a zlib output stream that supports

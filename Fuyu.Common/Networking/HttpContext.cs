@@ -2,7 +2,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Fuyu.Common.Compression;
+using Zlib.Managed;
 using Fuyu.Common.Serialization;
 
 namespace Fuyu.Common.Networking
@@ -25,9 +25,9 @@ namespace Fuyu.Common.Networking
                 await Request.InputStream.CopyToAsync(ms);
                 var body = ms.ToArray();
 
-                if (Zlib.IsCompressed(body))
+                if (MemoryZlib.IsCompressed(body))
                 {
-                    body = Zlib.Decompress(body);
+                    body = MemoryZlib.Decompress(body);
                 }
 
                 return body;
@@ -61,7 +61,7 @@ namespace Fuyu.Common.Networking
 
             if (zipped)
             {
-                data = Zlib.Compress(data, ZlibCompression.Level9);
+                data = MemoryZlib.Compress(data, ZlibCompression.Level9);
             }
 
             Response.StatusCode = (int)status;
