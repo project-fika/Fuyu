@@ -15,4 +15,8 @@
     <ProjectReference Include="../Fuyu.Backend.Core/Fuyu.Backend.Core.csproj" />
   </ItemGroup>
 
+  <Target Name="PostClean" AfterTargets="Clean">
+    <RemoveDir Directories="$(BaseOutputPath)" />
+  </Target>
+
 </Project>
