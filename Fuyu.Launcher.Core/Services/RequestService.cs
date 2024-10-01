@@ -27,6 +27,16 @@ namespace Fuyu.Launcher.Core.Services
             _httpClients.Add("arena", new EftHttpClient(SettingsService.ArenaAddress, string.Empty));
         }
 
+        private static void HttpPut<T1>(string id, string path, T1 request)
+        {
+            var httpc = _httpClients.Get(id);
+
+            var requestJson = Json.Stringify(request);
+            var requestBytes = Encoding.UTF8.GetBytes(requestJson);
+
+            httpc.Put(path, requestBytes);
+        }
+
         private static T2 HttpPost<T1, T2>(string id, string path, T1 request)
         {
             var httpc = _httpClients.Get(id);
@@ -86,7 +96,7 @@ namespace Fuyu.Launcher.Core.Services
 
         public static void LogoutAccount()
         {
-            HttpPost<object, object>(
+            HttpPut<object>(
                 "fuyu",
                 "/account/logout",
                 null);
