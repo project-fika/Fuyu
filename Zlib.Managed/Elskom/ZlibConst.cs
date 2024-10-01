@@ -118,11 +118,5 @@ namespace Elskom.Generic.Libs
         /// Zlib version error.
         /// </summary>
         internal const int ZVERSIONERROR = -6;
-
-        /// <summary>
-        /// Gets the version to zlib.net.
-        /// </summary>
-        /// <returns>The version string to this version of zlib.net.</returns>
-        internal static string Version() => typeof(ZlibConst).Assembly.GetName().Version.ToString(3);
     }
 }
