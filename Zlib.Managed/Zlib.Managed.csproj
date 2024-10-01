@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-    <AssemblyOriginatorKeyFile>Elskom.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-
-  <PropertyGroup>
     <AssemblyName>bsg.componentace.compression.libs.zlib</AssemblyName>
     <Version>1.0.3.0</Version>
   </PropertyGroup>
