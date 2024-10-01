@@ -9,7 +9,10 @@ namespace Fuyu.Launcher.Store.SessionUseCase
 
         public bool IsLoggedIn { get; }
 
-        public SessionState() { }
+        public SessionState()
+        {
+        }
+
         public SessionState(string username, bool isLoggedIn)
         {
             UserName = username;

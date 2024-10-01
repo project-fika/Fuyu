@@ -7,7 +7,10 @@ namespace Fuyu.Launcher.Store.ActiveGameUseCase
     {
         public string GameId { get; } = string.Empty;
 
-        public ActiveGameState() { }
+        public ActiveGameState()
+        {
+        }
+
         public ActiveGameState(string gameId)
         {
             GameId = gameId;

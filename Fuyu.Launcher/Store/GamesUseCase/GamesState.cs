@@ -9,7 +9,10 @@ namespace Fuyu.Launcher.Store.GamesUseCase
         public bool IsLoading { get; } = true;
         public Dictionary<string, int?> Games { get; } = new();
 
-        public GamesState() { }
+        public GamesState()
+        {
+        }
+
         public GamesState(bool isLoading, Dictionary<string, int?> games)
         {
             IsLoading = isLoading;
