@@ -53,9 +53,9 @@ namespace Fuyu.Launcher.Core.Services
 
         public static void ResetSessions()
         {
-            _httpClients.Set("fuyu", new HttpClient(SettingsService.FuyuAddress, string.Empty));
-            _httpClients.Set("eft", new HttpClient(SettingsService.EftAddress, string.Empty));
-            _httpClients.Set("arena", new HttpClient(SettingsService.ArenaAddress, string.Empty));
+            _httpClients.Set("fuyu", new EftHttpClient(SettingsService.FuyuAddress, string.Empty));
+            _httpClients.Set("eft", new EftHttpClient(SettingsService.EftAddress, string.Empty));
+            _httpClients.Set("arena", new EftHttpClient(SettingsService.ArenaAddress, string.Empty));
         }
 
         public static void CreateSession(string id, string address, string sessionId)
