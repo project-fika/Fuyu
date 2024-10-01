@@ -1,4 +1,5 @@
 using System.Text;
+using System.Collections.Generic;
 using Fuyu.Common.Collections;
 using Fuyu.Common.Hashing;
 using Fuyu.Common.Networking;
@@ -8,9 +9,6 @@ using Fuyu.Backend.Common.DTO.Responses;
 using Fuyu.Backend.Core.DTO.Accounts;
 using Fuyu.Backend.Core.DTO.Requests;
 using Fuyu.Backend.Core.DTO.Responses;
-using System.Collections.Generic;
-using System.Collections;
-using System;
 
 namespace Fuyu.Launcher.Core.Services
 {

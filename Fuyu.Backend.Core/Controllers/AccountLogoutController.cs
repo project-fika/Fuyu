@@ -1,5 +1,5 @@
-﻿using Fuyu.Common.Networking;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Fuyu.Common.Networking;
 
 namespace Fuyu.Backend.Core.Controllers
 {

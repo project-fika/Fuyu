@@ -1,6 +1,6 @@
-﻿using Fluxor;
+﻿using System.Threading.Tasks;
 using Fuyu.Launcher.Core.Services;
-using System.Threading.Tasks;
+using Fluxor;
 
 namespace Fuyu.Launcher.Store.GamesUseCase
 {

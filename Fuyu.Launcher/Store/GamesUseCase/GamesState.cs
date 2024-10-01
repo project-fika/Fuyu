@@ -1,5 +1,5 @@
-﻿using Fluxor;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Fluxor;
 
 namespace Fuyu.Launcher.Store.GamesUseCase
 {
