@@ -104,15 +104,15 @@ namespace Fuyu.Launcher.Core.Services
             ResetSessions();
         }
 
-		public static Dictionary<string, int?> GetGames()
-		{
-			var response = HttpPost<object, AccountGamesResponse>(
-				"fuyu",
+        public static Dictionary<string, int?> GetGames()
+        {
+            var response = HttpPost<object, AccountGamesResponse>(
+                "fuyu",
                 "/account/games",
                 null);
 
             return response.Games;
-		}
+        }
 
         public static AccountRegisterGameResponse RegisterGame(string game, string edition)
         {
@@ -129,7 +129,7 @@ namespace Fuyu.Launcher.Core.Services
             return response;
         }
 
-		public static string LoginGame(string game, int accountId)
+        public static string LoginGame(string game, int accountId)
         {
             var request = new FuyuGameLoginRequest()
             {

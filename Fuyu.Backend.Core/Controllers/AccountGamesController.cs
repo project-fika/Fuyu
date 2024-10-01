@@ -6,22 +6,22 @@ using System.Threading.Tasks;
 
 namespace Fuyu.Backend.Core.Controllers
 {
-	public class AccountGamesController : HttpController
-	{
-		public AccountGamesController() : base("/account/games")
-		{
-		}
+    public class AccountGamesController : HttpController
+    {
+        public AccountGamesController() : base("/account/games")
+        {
+        }
 
         public override async Task RunAsync(HttpContext context)
-		{
-			var sessionId = context.GetSessionId();
-			var result = AccountService.GetGames(sessionId);
-			var response = new AccountGamesResponse()
-			{
-				Games = result
-			};
+        {
+            var sessionId = context.GetSessionId();
+            var result = AccountService.GetGames(sessionId);
+            var response = new AccountGamesResponse()
+            {
+                Games = result
+            };
 
-			await context.SendJsonAsync(Json.Stringify(response));
-		}
-	}
+            await context.SendJsonAsync(Json.Stringify(response));
+        }
+    }
 }

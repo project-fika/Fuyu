@@ -220,9 +220,9 @@ namespace Fuyu.Backend.Core.Services
 
         public static Dictionary<string, int?> GetGames(string sessionId)
         {
-			var account = CoreOrm.GetAccount(sessionId);
+            var account = CoreOrm.GetAccount(sessionId);
             return account.Games;
-		}
+        }
 
         public static void WriteToDisk(Account account)
         {

@@ -16,7 +16,7 @@ namespace Fuyu.Launcher
             DarkNet.Instance.SetWindowThemeWpf(this, Theme.Dark);
 
             var services = new ServiceCollection();
-			services.AddWpfBlazorWebView();
+            services.AddWpfBlazorWebView();
             services.AddMudServices(config =>
             {
                 config.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.BottomRight;
@@ -25,8 +25,8 @@ namespace Fuyu.Launcher
             var currentAssembly = typeof(MainWindow).Assembly;
             services.AddFluxor(options => options.ScanAssemblies(currentAssembly));
 
-			services.AddBlazorWebViewDeveloperTools();
-			Resources.Add("services", services.BuildServiceProvider());
+            services.AddBlazorWebViewDeveloperTools();
+            Resources.Add("services", services.BuildServiceProvider());
         }
     }
 }

@@ -3,10 +3,10 @@ using System.Runtime.Serialization;
 
 namespace Fuyu.Backend.Core.DTO.Responses
 {
-	[DataContract]
-	public class AccountGamesResponse
-	{
-		[DataMember]
-		public Dictionary<string, int?> Games;
-	}
+    [DataContract]
+    public class AccountGamesResponse
+    {
+        [DataMember]
+        public Dictionary<string, int?> Games;
+    }
 }

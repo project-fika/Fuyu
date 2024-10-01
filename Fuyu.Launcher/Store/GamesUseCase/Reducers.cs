@@ -2,8 +2,8 @@
 
 namespace Fuyu.Launcher.Store.GamesUseCase
 {
-	public static class Reducers
-	{
+    public static class Reducers
+    {
         [ReducerMethod]
         public static GamesState ReduceGetGamesAction(GamesState state, GetGamesAction action)
         {

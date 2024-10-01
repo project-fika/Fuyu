@@ -4,7 +4,7 @@ namespace Fuyu.Launcher.Store.SessionUseCase
 {
     [FeatureState]
     public class SessionState
-	{
+    {
         public string UserName { get; }
 
         public bool IsLoggedIn { get; }

@@ -5,23 +5,23 @@
 @page "/settings"
 
 <MudContainer Class="mt-6">
-	<MudExpansionPanels>
-		<MudExpansionPanel Text="Fuyu" Expanded="true">
-			<MudTextField @bind-Value="SettingsService.FuyuAddress" Label="Backend Address" Variant="Variant.Text"></MudTextField>
-		</MudExpansionPanel>
-		@if (SessionState.Value.IsLoggedIn)
-		{
-			// TODO: check for existing games associated to fuyu account and display only for available
-			<MudExpansionPanel Text="Escape from Tarkov">
-				<MudTextField @bind-Value="SettingsService.EftAddress" Label="Backend Address" Variant="Variant.Text"></MudTextField>
-				<MudTextField @bind-Value="SettingsService.EftDirectory" Label="Game Path" Variant="Variant.Text"></MudTextField>
-			</MudExpansionPanel>
-			<MudExpansionPanel Text="Escape from Tarkov: Arena">
-				<MudTextField @bind-Value="SettingsService.ArenaAddress" Label="Backend Address" Variant="Variant.Text"></MudTextField>
-				<MudTextField @bind-Value="SettingsService.ArenaDirectory" Label="Game Path" Variant="Variant.Text"></MudTextField>
-			</MudExpansionPanel>
-		}
-	</MudExpansionPanels>
+    <MudExpansionPanels>
+        <MudExpansionPanel Text="Fuyu" Expanded="true">
+            <MudTextField @bind-Value="SettingsService.FuyuAddress" Label="Backend Address" Variant="Variant.Text"></MudTextField>
+        </MudExpansionPanel>
+        @if (SessionState.Value.IsLoggedIn)
+        {
+            // TODO: check for existing games associated to fuyu account and display only for available
+            <MudExpansionPanel Text="Escape from Tarkov">
+                <MudTextField @bind-Value="SettingsService.EftAddress" Label="Backend Address" Variant="Variant.Text"></MudTextField>
+                <MudTextField @bind-Value="SettingsService.EftDirectory" Label="Game Path" Variant="Variant.Text"></MudTextField>
+            </MudExpansionPanel>
+            <MudExpansionPanel Text="Escape from Tarkov: Arena">
+                <MudTextField @bind-Value="SettingsService.ArenaAddress" Label="Backend Address" Variant="Variant.Text"></MudTextField>
+                <MudTextField @bind-Value="SettingsService.ArenaDirectory" Label="Game Path" Variant="Variant.Text"></MudTextField>
+            </MudExpansionPanel>
+        }
+    </MudExpansionPanels>
 </MudContainer>
 
 @code {
