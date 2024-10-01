@@ -199,7 +199,7 @@ namespace Elskom.Generic.Libs
         /// <param name="level">The compression level to use.</param>
         /// <param name="strategy">The strategy to use for compression.</param>
         /// <returns>The zlib status state.</returns>
-        internal int DeflateParams(int level, int strategy) => this.Dstate == null ? ZSTREAMERROR : this.Dstate.DeflateParams(this, level, strategy);
+        internal int DeflateParams(int level, CompressionStrategy strategy) => this.Dstate == null ? ZSTREAMERROR : this.Dstate.DeflateParams(this, level, strategy);
 
         /// <summary>
         /// Sets the deflate dictionary.

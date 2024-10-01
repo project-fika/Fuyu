@@ -54,13 +54,13 @@ namespace Elskom.Generic.Libs
                     // To simplify the code, we prevent matches with the string
                     // of window index 0 (in particular we have to avoid a match
                     // of the string with itself at the start of the input file).
-                    if (this.Strategy != ZHUFFMANONLY)
+                    if (this.Strategy != CompressionStrategy.HuffmanOnly)
                     {
                         this.MatchLength = this.Longest_match(hash_head);
                     }
 
                     // longest_match() sets match_start
-                    if (this.MatchLength <= 5 && (this.Strategy == ZFILTERED || (this.MatchLength == MINMATCH && this.Strstart - this.MatchStart > 4096)))
+                    if (this.MatchLength <= 5 && (this.Strategy == CompressionStrategy.Filtered || (this.MatchLength == MINMATCH && this.Strstart - this.MatchStart > 4096)))
                     {
                         // If prev_match is also MIN_MATCH, match_start is garbage
                         // but we will ignore the current match anyway.

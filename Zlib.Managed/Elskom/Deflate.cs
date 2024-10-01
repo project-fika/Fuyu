@@ -18,9 +18,6 @@ namespace Elskom.Generic.Libs
 
         private const int MAXWBITS = 15; // 32K LZ77 window
         private const int DEFMEMLEVEL = 8;
-        private const int STORED = 0;
-        private const int FAST = 1;
-        private const int SLOW = 2;
 
         // block not completed, need more input or more output
         private const int NeedMore = 0;
@@ -36,10 +33,6 @@ namespace Elskom.Generic.Libs
 
         // preset dictionary flag in zlib header
         private const int PRESETDICT = 0x20;
-
-        private const int ZFILTERED = 1;
-        private const int ZHUFFMANONLY = 2;
-        private const int ZDEFAULTSTRATEGY = 0;
 
         private const int ZNOFLUSH = 0;
         private const int ZPARTIALFLUSH = 1;
@@ -102,17 +95,17 @@ namespace Elskom.Generic.Libs
 
         private static ReadOnlySpan<Config> ConfigTable => new[]
         {
-            //         good lazy nice chain
-            new Config(0,   0,   0,   0,    0 /*stored*/), // 0
-            new Config(4,   4,   8,   4,    1 /*fast*/  ), // 1
-            new Config(4,   5,   16,  8,    1 /*fast*/  ), // 2
-            new Config(4,   6,   32,  32,   1 /*fast*/  ), // 3
-            new Config(4,   4,   16,  16,   2 /*slow*/  ), // 4
-            new Config(8,   16,  32,  32,   2 /*slow*/  ), // 5
-            new Config(8,   16,  128, 128,  2 /*slow*/  ), // 6
-            new Config(8,   32,  128, 256,  2 /*slow*/  ), // 7
-            new Config(32,  128, 258, 1024, 2 /*slow*/  ), // 8
-            new Config(32,  258, 258, 4096, 2 /*slow*/  )  // 9
+            //         good lazy nice chain function                         level
+            new Config(0,   0,   0,   0,    CompressionFunction.Stored ), // 0
+            new Config(4,   4,   8,   4,    CompressionFunction.Fast   ), // 1
+            new Config(4,   5,   16,  8,    CompressionFunction.Fast   ), // 2
+            new Config(4,   6,   32,  32,   CompressionFunction.Fast   ), // 3
+            new Config(4,   4,   16,  16,   CompressionFunction.Slow   ), // 4
+            new Config(8,   16,  32,  32,   CompressionFunction.Slow   ), // 5
+            new Config(8,   16,  128, 128,  CompressionFunction.Slow   ), // 6
+            new Config(8,   32,  128, 256,  CompressionFunction.Slow   ), // 7
+            new Config(32,  128, 258, 1024, CompressionFunction.Slow   ), // 8
+            new Config(32,  258, 258, 4096, CompressionFunction.Slow   )  // 9
         };
 
         private static readonly string[] ZErrmsg = new string[]
@@ -226,7 +219,7 @@ namespace Elskom.Generic.Libs
         // max_insert_length is used only for compression levels <= 3.
         internal int Level { get; private set; } // compression level (1..9)
 
-        internal int Strategy { get; private set; } // favor or force Huffman coding
+        internal CompressionStrategy Strategy { get; private set; } // favor or force Huffman coding
 
         // Use a faster search when the previous match is longer than this
         internal int GoodMatch { get; private set; }
@@ -1141,12 +1134,12 @@ namespace Elskom.Generic.Libs
         }
 
         internal int DeflateInit(ZStream strm, int level, int bits)
-            => this.DeflateInit2(strm, level, ZDEFLATED, bits, DEFMEMLEVEL, ZDEFAULTSTRATEGY);
+            => this.DeflateInit2(strm, level, ZDEFLATED, bits, DEFMEMLEVEL, CompressionStrategy.DefaultStrategy);
 
         internal int DeflateInit(ZStream strm, int level)
             => this.DeflateInit(strm, level, MAXWBITS);
 
-        internal int DeflateInit2(ZStream strm, int level, int method, int windowBits, int memLevel, int strategy)
+        internal int DeflateInit2(ZStream strm, int level, int method, int windowBits, int memLevel, CompressionStrategy strategy)
         {
             var noheader = 0;
 
@@ -1171,7 +1164,7 @@ namespace Elskom.Generic.Libs
                 windowBits = -windowBits;
             }
 
-            if (memLevel < 1 || memLevel > MAXMEMLEVEL || method != ZDEFLATED || windowBits < 9 || windowBits > 15 || level < 0 || level > 9 || strategy < 0 || strategy > ZHUFFMANONLY)
+            if (memLevel < 1 || memLevel > MAXMEMLEVEL || method != ZDEFLATED || windowBits < 9 || windowBits > 15 || level < 0 || level > 9 || strategy < 0 || strategy > CompressionStrategy.HuffmanOnly)
             {
                 return ZSTREAMERROR;
             }
@@ -1253,7 +1246,7 @@ namespace Elskom.Generic.Libs
             return this.Status == BUSYSTATE ? ZDATAERROR : ZOK;
         }
 
-        internal int DeflateParams(ZStream strm, int level, int strategy)
+        internal int DeflateParams(ZStream strm, int level, CompressionStrategy strategy)
         {
             var err = ZOK;
 
@@ -1262,7 +1255,7 @@ namespace Elskom.Generic.Libs
                 level = 6;
             }
 
-            if (level < 0 || level > 9 || strategy < 0 || strategy > ZHUFFMANONLY)
+            if (level < 0 || level > 9 || strategy < 0 || strategy > CompressionStrategy.HuffmanOnly)
             {
                 return ZSTREAMERROR;
             }
@@ -1430,15 +1423,15 @@ namespace Elskom.Generic.Libs
                 var bstate = -1;
                 switch (ConfigTable[this.Level].Func)
                 {
-                    case STORED:
+                    case CompressionFunction.Stored:
                         bstate = this.Deflate_stored(flush);
                         break;
 
-                    case FAST:
+                    case CompressionFunction.Fast:
                         bstate = this.Deflate_fast(flush);
                         break;
 
-                    case SLOW:
+                    case CompressionFunction.Slow:
                         bstate = this.Deflate_slow(flush);
                         break;
 

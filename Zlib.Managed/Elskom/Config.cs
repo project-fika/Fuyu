@@ -2,7 +2,7 @@ namespace Elskom.Generic.Libs
 {
     internal class Config
     {
-        internal Config(int good_length, int max_lazy, int nice_length, int max_chain, int func)
+        internal Config(int good_length, int max_lazy, int nice_length, int max_chain, CompressionFunction func)
         {
             this.GoodLength = good_length;
             this.MaxLazy = max_lazy;
@@ -22,6 +22,6 @@ namespace Elskom.Generic.Libs
 
         internal int MaxChain { get; set; }
 
-        internal int Func { get; set; }
+        internal CompressionFunction Func { get; set; }
     }
 }

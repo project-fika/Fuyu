@@ -60,7 +60,7 @@ namespace Elskom.Generic.Libs
                     // To simplify the code, we prevent matches with the string
                     // of window index 0 (in particular we have to avoid a match
                     // of the string with itself at the start of the input file).
-                    if (this.Strategy != ZHUFFMANONLY)
+                    if (this.Strategy != CompressionStrategy.HuffmanOnly)
                     {
                         this.MatchLength = this.Longest_match(hash_head);
                     }

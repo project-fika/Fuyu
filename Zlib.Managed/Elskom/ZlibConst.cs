@@ -32,23 +32,6 @@ namespace Elskom.Generic.Libs
         /// </summary>
         internal const int ZDEFAULTCOMPRESSION = -1;
 
-        // compression strategy
-
-        /// <summary>
-        /// Filtered compression strategy.
-        /// </summary>
-        internal const int ZFILTERED = 1;
-
-        /// <summary>
-        /// huffman compression strategy.
-        /// </summary>
-        internal const int ZHUFFMANONLY = 2;
-
-        /// <summary>
-        /// The default compression strategy.
-        /// </summary>
-        internal const int ZDEFAULTSTRATEGY = 0;
-
         /// <summary>
         /// No flush.
         /// </summary>
