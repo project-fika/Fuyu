@@ -18,4 +18,8 @@
     <EmbeddedResource Include="embedded/test.txt" />
   </ItemGroup>
 
+  <Target Name="PostClean" AfterTargets="Clean">
+    <RemoveDir Directories="$(BaseOutputPath)" />
+  </Target>
+
 </Project>

@@ -82,7 +82,11 @@ namespace Fuyu.Common.Networking
         public async Task SendJsonAsync(string text, bool zipped = true)
         {
             var encoded = Encoding.UTF8.GetBytes(text);
-            await SendAsync(encoded, "application/json; charset=utf-8", HttpStatusCode.Accepted, zipped);
+            var mime = zipped
+                ? "application/octet-stream"
+                : "application/json; charset=utf-8";
+
+            await SendAsync(encoded, mime, HttpStatusCode.Accepted, zipped);
         }
 
         public void Close()
