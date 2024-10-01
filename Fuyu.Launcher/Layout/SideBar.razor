@@ -10,12 +10,12 @@
 {
     <MudDrawer Elevation="1" ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.None" Variant="@DrawerVariant.Mini">
         <MudNavMenu>
-            @foreach (var (gameId, accountId) in GamesState.Value.Games)
+            @foreach (KeyValuePair<string, int?> game in GamesState.Value.Games)
             {
-                if (accountId != null)
+                if (game.Value != null)
                 {
-                    <MudTooltip Text="@games[gameId]" ShowOnHover="true" Arrow="true" Placement="Placement.Right">
-                        <MudNavLink Icon="@Icons.Material.Filled.VideogameAsset" OnClick="() => Game_Clicked(gameId)"></MudNavLink>
+                    <MudTooltip Text="@games[game.Key]" ShowOnHover="true" Arrow="true" Placement="Placement.Right">
+                        <MudNavLink Icon="@Icons.Material.Filled.VideogameAsset" OnClick="() => Game_Clicked(game.Key)"></MudNavLink>
                     </MudTooltip>
                 }
             }

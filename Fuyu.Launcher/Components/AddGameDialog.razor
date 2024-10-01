@@ -23,20 +23,20 @@ else
         <DialogContent>
             <MudStack>
                 <MudSelect @bind-Value="_game" @bind-Value:after="Game_Changed" Label="Game" HelperText="Choose one of the available games">
-                    @foreach (var (gameId, gameName) in games)
+                    @foreach (KeyValuePair<string, string> game in games)
                     {
-                        if (GamesState.Value.Games[gameId] == null)
+                        if (GamesState.Value.Games[game.Key] == null)
                         {
-                            <MudSelectItem Value="@gameId">@gameName</MudSelectItem>
+                            <MudSelectItem Value="@game.Key">@game.Value</MudSelectItem>
                         }
                     }
                 </MudSelect>
                 <MudSelect @bind-Value="_edition" Label="Edition" HelperText="Choose one of the game editions" Disabled="@string.IsNullOrWhiteSpace(_game)">
                     @if (!string.IsNullOrWhiteSpace(_game))
                     {
-                        @foreach (var (editionId, edtionName) in gameEditions[_game])
+                        @foreach (KeyValuePair<string, string> gameEdition in gameEditions[_game])
                         {
-                            <MudSelectItem Value="@editionId">@edtionName</MudSelectItem>
+                            <MudSelectItem Value="@gameEdition.Key">@gameEdition.Value</MudSelectItem>
                         }
                     }
                 </MudSelect>
