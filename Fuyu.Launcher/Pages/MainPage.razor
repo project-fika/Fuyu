@@ -1,0 +1,44 @@
+﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@inject IState<SessionState> SessionState
+@inject IState<GamesState> GamesState
+@inject IState<ActiveGameState> ActiveGameState
+@inject IDialogService DialogService
+@inject NavigationManager Navigation
+
+@page "/"
+
+@if (SessionState.Value.IsLoggedIn)
+{
+    <MudContainer Class="mt-6" Fixed="true">
+        @if (string.IsNullOrWhiteSpace(ActiveGameState.Value.GameId))
+        {
+            <MudText Typo="Typo.h6">Welcome, @SessionState.Value.UserName</MudText>
+            <MudText Typo="Typo.body1">If you're seeing this page its because you haven't added a game to your account, so please add one over on the left side bar.</MudText>
+        }
+        else
+        {
+            <Game />
+        }
+    </MudContainer>
+}
+
+@code {
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (!SessionState.Value.IsLoggedIn)
+        {
+            Navigation.NavigateTo("/login");
+            return;
+        }
+    }
+
+    private Task OpenAddGameDialogAsync()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true, CloseButton = true, FullWidth = true };
+
+        return DialogService.ShowAsync<AddGameDialog>("Add new Game", options);
+    }
+}

@@ -189,14 +189,18 @@ namespace Fuyu.Backend.Core.Services
             return ERegisterStatus.Success;
         }
 
-        public static ERegisterStatus RegisterGame(string sessionId, string game, string edition)
+        public static AccountRegisterGameResponse RegisterGame(string sessionId, string game, string edition)
         {
             var account = CoreOrm.GetAccount(sessionId);
 
             // find existing game
             if (account.Games.ContainsKey(game) && account.Games[game].HasValue)
             {
-                return ERegisterStatus.AlreadyExists;
+                return new AccountRegisterGameResponse()
+                {
+                    Status = ERegisterStatus.AlreadyExists,
+                    AccountId = -1
+                };
             }
 
             // register game
@@ -207,7 +211,17 @@ namespace Fuyu.Backend.Core.Services
             CoreOrm.SetOrAddAccount(account);
             WriteToDisk(account);
 
-            return ERegisterStatus.Success;
+            return new AccountRegisterGameResponse()
+            {
+                Status = ERegisterStatus.Success,
+                AccountId = accountId
+            };
+        }
+
+        public static Dictionary<string, int?> GetGames(string sessionId)
+        {
+            var account = CoreOrm.GetAccount(sessionId);
+            return account.Games;
         }
 
         public static void WriteToDisk(Account account)

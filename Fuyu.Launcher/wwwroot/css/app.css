@@ -1,7 +1,4 @@
-.height-100vh {
-    height: 100vh;
-}
-
-.nav-bg {
-    background-image: url("../img/nav-bg.png");
+* {
+    user-select: none;
+    -webkit-user-drag: none;
 }

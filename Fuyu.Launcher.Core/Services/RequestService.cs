@@ -1,4 +1,5 @@
 using System.Text;
+using System.Collections.Generic;
 using Fuyu.Common.Collections;
 using Fuyu.Common.Hashing;
 using Fuyu.Common.Networking;
@@ -24,6 +25,16 @@ namespace Fuyu.Launcher.Core.Services
             _httpClients.Add("arena", new EftHttpClient(SettingsService.ArenaAddress, string.Empty));
         }
 
+        private static void HttpPut<T1>(string id, string path, T1 request)
+        {
+            var httpc = _httpClients.Get(id);
+
+            var requestJson = Json.Stringify(request);
+            var requestBytes = Encoding.UTF8.GetBytes(requestJson);
+
+            httpc.Put(path, requestBytes);
+        }
+
         private static T2 HttpPost<T1, T2>(string id, string path, T1 request)
         {
             var httpc = _httpClients.Get(id);
@@ -36,6 +47,13 @@ namespace Fuyu.Launcher.Core.Services
             var responseValue = Json.Parse<T2>(responseJson);
 
             return responseValue;
+        }
+
+        public static void ResetSessions()
+        {
+            _httpClients.Set("fuyu", new EftHttpClient(SettingsService.FuyuAddress, string.Empty));
+            _httpClients.Set("eft", new EftHttpClient(SettingsService.EftAddress, string.Empty));
+            _httpClients.Set("arena", new EftHttpClient(SettingsService.ArenaAddress, string.Empty));
         }
 
         public static void CreateSession(string id, string address, string sessionId)
@@ -58,7 +76,7 @@ namespace Fuyu.Launcher.Core.Services
             return response.Status;
         }
 
-        public static string LoginAccount(string username, string password)
+        public static AccountLoginResponse LoginAccount(string username, string password)
         {
             var hashedPassword = Sha256.Generate(password);
             var request = new AccountLoginRequest()
@@ -71,10 +89,30 @@ namespace Fuyu.Launcher.Core.Services
                 "/account/login",
                 request);
 
-            return response.SessionId;
+            return response;
         }
 
-        public static ERegisterStatus RegisterGame(string game, string edition)
+        public static void LogoutAccount()
+        {
+            HttpPut<object>(
+                "fuyu",
+                "/account/logout",
+                null);
+
+            ResetSessions();
+        }
+
+        public static Dictionary<string, int?> GetGames()
+        {
+            var response = HttpPost<object, AccountGamesResponse>(
+                "fuyu",
+                "/account/games",
+                null);
+
+            return response.Games;
+        }
+
+        public static AccountRegisterGameResponse RegisterGame(string game, string edition)
         {
             var request = new AccountRegisterGameRequest()
             {
@@ -86,7 +124,7 @@ namespace Fuyu.Launcher.Core.Services
                 "/account/register/game",
                 request);
 
-            return response.Status;
+            return response;
         }
 
         public static string LoginGame(string game, int accountId)

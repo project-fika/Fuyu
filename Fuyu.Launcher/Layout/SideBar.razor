@@ -1,0 +1,64 @@
+﻿@inherits Fluxor.Blazor.Web.Components.FluxorComponent
+
+@inject IState<SessionState> SessionState
+@inject IState<GamesState> GamesState
+@inject IState<ActiveGameState> ActiveGameState
+@inject IDispatcher Dispatcher
+@inject IDialogService DialogService
+
+@if (SessionState.Value.IsLoggedIn)
+{
+    <MudDrawer Elevation="1" ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.None" Variant="@DrawerVariant.Mini">
+        <MudNavMenu>
+            @foreach (KeyValuePair<string, int?> game in GamesState.Value.Games)
+            {
+                if (game.Value != null)
+                {
+                    <MudTooltip Text="@games[game.Key]" ShowOnHover="true" Arrow="true" Placement="Placement.Right">
+                        <MudNavLink Icon="@Icons.Material.Filled.VideogameAsset" OnClick="() => Game_Clicked(game.Key)"></MudNavLink>
+                    </MudTooltip>
+                }
+            }
+            @if (GamesState.Value.Games.ContainsValue(null))
+            {
+                <MudTooltip Text="Add new game" ShowOnHover="true" Arrow="true" Placement="Placement.Right">
+                    <MudNavLink Icon="@Icons.Material.Filled.Add" OnClick="OpenAddGameDialogAsync"></MudNavLink>
+                </MudTooltip>
+            }
+        </MudNavMenu>
+        <MudSpacer />
+        <MudNavMenu>
+            <MudTooltip Text="About" ShowOnHover="true" Arrow="true" Placement="Placement.Right">
+                <MudNavLink Icon="@Icons.Material.Outlined.Info" OnClick="OpenAboutDialogAsync"></MudNavLink>
+            </MudTooltip>
+        </MudNavMenu>
+    </MudDrawer>
+}
+
+@code {
+    // TODO: This Dictionary should be changed for a localization service in the future
+    private readonly Dictionary<string, string> games = new()
+    {
+        { "eft",   "EFT"        },
+        { "arena", "EFT: Arena" }
+    };
+
+    private void Game_Clicked(string gameId)
+    {
+        Dispatcher.Dispatch(new SetActiveGameAction(gameId));
+    }
+
+    private Task OpenAboutDialogAsync()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true, CloseButton = true, BackdropClick = true };
+
+        return DialogService.ShowAsync<AboutDialog>("", options);
+    }
+
+    private Task OpenAddGameDialogAsync()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true, CloseButton = true, FullWidth = true };
+
+        return DialogService.ShowAsync<AddGameDialog>("Add new Game", options);
+    }
+}

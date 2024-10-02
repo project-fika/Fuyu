@@ -44,11 +44,11 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
 
         private static int CreateGameAccount(string sessionId, string game, string edition)
         {
-            var registerStatus = AccountService.RegisterGame(sessionId, game, edition);
+            var response = AccountService.RegisterGame(sessionId, game, edition);
 
-            if (registerStatus != ERegisterStatus.Success)
+            if (response.Status != ERegisterStatus.Success)
             {
-                throw new Exception(registerStatus.ToString());
+                throw new Exception(response.Status.ToString());
             }
 
             var gameAccountId = CoreOrm.GetAccount(sessionId).Games[game].Value;

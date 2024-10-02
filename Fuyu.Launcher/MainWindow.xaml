@@ -8,7 +8,9 @@
         mc:Ignorable="d"
         Icon="Resources\Icon.ico"
         WindowStartupLocation="CenterScreen"
-        Title="Fuyu.Launcher" Height="450" Width="800">
+        Title="Fuyu Launcher"
+        MinHeight="600" MinWidth="1070"
+        Height="600" Width="1070">
     <Grid>
         <blazor:BlazorWebView HostPage="wwwroot\index.html" Services="{DynamicResource services}">
             <blazor:BlazorWebView.RootComponents>

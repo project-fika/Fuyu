@@ -1,21 +1,17 @@
 ﻿@inherits LayoutComponentBase
 
-<FluentToastProvider />
-<FluentDialogProvider />
-<FluentTooltipProvider />
-<FluentMessageBarProvider />
+<MudThemeProvider />
+<MudPopoverProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
 
-<FluentDesignTheme Mode="DesignThemeModes.Dark"></FluentDesignTheme>
+<MudThemeProvider IsDarkMode="true" />
 
-<FluentStack Orientation="Orientation.Horizontal" Width="100%" Class="height-100vh">
-	<FluentNavMenu Width="200" Collapsible="false">
-		<FluentNavLink Href="/login">Login</FluentNavLink>
-		<FluentNavLink Href="/settings">Settings</FluentNavLink>
-	</FluentNavMenu>
+<MudLayout>
+    <AppBar />
+    <SideBar />
 
-	<FluentBodyContent>
-		<FluentCard>
-			@Body
-		</FluentCard>
-	</FluentBodyContent>
-</FluentStack>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>

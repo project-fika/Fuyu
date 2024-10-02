@@ -1,72 +1,105 @@
-@using Fuyu.Backend.Core.DTO.Accounts
-@using Fuyu.Launcher.Core.Services;
+﻿@using Fuyu.Backend.Core.DTO.Accounts
 
+@inject ISnackbar Snackbar
 @inject NavigationManager Navigation
 
 @page "/register"
 
-<FluentStack Orientation="Orientation.Vertical">
+<Background Glass="true" />
 
-    <!-- server settings -->
-    <FluentAccordionItem Heading="Register" Expanded=true Style="width: 100%;">
-	    <FluentLabel>Username:</FluentLabel>
-        <FluentTextField TextFieldType="TextFieldType.Text" @bind-Value="username" Style="width: 100%;"></FluentTextField>
-        <FluentLabel>Password:</FluentLabel>
-        <FluentTextField TextFieldType="TextFieldType.Text" @bind-Value="password" Style="width: 100%;"></FluentTextField>
-        <br />
-        <br />
-        <FluentButton Appearance="Appearance.Accent" OnClick="Register_Clicked">Register</FluentButton>
-        <a href="/login"><FluentLabel>Login</FluentLabel></a>
-    </FluentAccordionItem>
+<MudGrid Style="height: calc(100vh - 64px);" Spacing="0">
+    <MudItem xs="6">
+    </MudItem>
+    <MudItem xs="6">
+        <MudStack AlignItems="AlignItems.Center" Justify="Justify.Center" Style="height: 100%">
+            <MudStack Style="width: 400px;">
+                <MudPaper Class="pa-4" Elevation="4">
+                    <MudText Typo="Typo.body1">Register</MudText>
+                    <MudText Typo="Typo.body2">Choose your username, password and game edition.</MudText>
+                </MudPaper>
 
-</FluentStack>
+                <MudPaper Class="pa-4" Elevation="4">
+                    <MudForm @ref="_form" @bind-IsValid="@_success" @bind-Errors="@_errors">
+                        <MudTextField @bind-Value="_username" Label="Username" Required="true" RequiredError="User name is required!" />
+                        <MudTextField @bind-Value="_password" Label="Password" Required="true" RequiredError="Password is required!"
+                                        InputType="InputType.Password"
+                                        HelperText="Choose a strong password" />
+                        <MudTextField T="string" Label="Repeat the Password" InputType="InputType.Password" Validation="@(new Func<string, string>(PasswordMatch))" />
+                        <div class="d-flex align-center justify-center mt-6">
+                            <MudButton Variant="Variant.Filled" Color="Color.Tertiary" Disabled="@(!_success)" OnClick="Register_Clicked">Register</MudButton>
+                        </div>
+                    </MudForm>
+                </MudPaper>
+            </MudStack>
+        </MudStack>
+    </MudItem>
+</MudGrid>
 
-@code
-{
-    string username = string.Empty;
-    string password = string.Empty;
+@code {
+    private bool _success;
+    private string[] _errors = [];
+    private MudForm _form;
 
-    // TODO:
-    // * notify user of successful registration
-    // * show error on issue
-    // -- seionmoya, 2024/09/08
-    private void Register_Clicked(EventArgs e)
+    private string _username = string.Empty;
+    private string _password = string.Empty;
+
+    private string PasswordMatch(string arg)
     {
-        var registerStatus = RequestService.RegisterAccount(username, password);
+        return _password != arg ? "Passwords don't match" : null;
+    }
 
-        switch (registerStatus)
+    public void Register_Clicked()
+    {
+        _form.Validate();
+        if (!_form.IsValid)
+        {
+            return;
+        }
+
+        var status = RequestService.RegisterAccount(_username, _password);
+
+        switch (status)
         {
             case ERegisterStatus.Success:
+                Snackbar.Add("Account registered successfully. You can now login!", Severity.Success);
+                Navigation.NavigateTo("/login");
                 break;
 
             case ERegisterStatus.AlreadyExists:
-                return;
-
-            case ERegisterStatus.UsernameEmpty:
-                return;
-
-            case ERegisterStatus.UsernameTooShort:
-                return;
-
-            case ERegisterStatus.UsernameTooLong:
-                return;
-
-            case ERegisterStatus.UsernameInvalid:
-                return;
-
-            case ERegisterStatus.PasswordEmpty:
-                return;
-
-            case ERegisterStatus.PasswordTooShort:
-                return;
-
-            case ERegisterStatus.PasswordTooLong:
-                return;
+                Snackbar.Add("Account already exists!", Severity.Warning);
+                break;
 
             case ERegisterStatus.PasswordInvalid:
-                return;
-        }
+                Snackbar.Add("Password doesn't meet the requirements!", Severity.Warning);
+                break;
 
-        Navigation.NavigateTo("/login");
+            case ERegisterStatus.PasswordTooLong:
+                Snackbar.Add("Password too long!", Severity.Warning);
+                break;
+            case ERegisterStatus.PasswordTooShort:
+                Snackbar.Add("Password too short!", Severity.Warning);
+                break;
+
+            case ERegisterStatus.PasswordEmpty:
+                Snackbar.Add("Didn't receive a password!", Severity.Warning);
+                break;
+
+            case ERegisterStatus.UsernameInvalid:
+                Snackbar.Add("Username contains invalid characters!", Severity.Warning);
+                break;
+
+            case ERegisterStatus.UsernameTooLong:
+                Snackbar.Add("Username too long!", Severity.Warning);
+                break;
+
+            case ERegisterStatus.UsernameTooShort:
+                Snackbar.Add("Username too short!", Severity.Warning);
+                break;
+
+            case ERegisterStatus.UsernameEmpty:
+                Snackbar.Add("Didn't receive a username!", Severity.Warning);
+                break;
+
+        }
     }
 }
