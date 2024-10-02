@@ -77,6 +77,10 @@ namespace Fuyu.Common.Networking
                     await payload.WriteAsync(data, 0, data.Length);
                 }
             }
+            else
+            {
+                Response.Close();
+            }
         }
 
         public async Task SendStatus(HttpStatusCode status)
