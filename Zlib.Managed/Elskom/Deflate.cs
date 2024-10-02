@@ -4,6 +4,7 @@
 // license: see LICENSE for more details.
 
 using System;
+using System.Collections.Generic;
 using Zlib.Managed;
 
 namespace Elskom.Generic.Libs
@@ -94,19 +95,19 @@ namespace Elskom.Generic.Libs
         private const int LCODES = LITERALS + 1 + LENGTHCODES;
         private const int HEAPSIZE = (2 * LCODES) + 1;
 
-        private static ReadOnlySpan<Config> ConfigTable => new[]
+        private static readonly Dictionary<CompressionLevel, Config> ConfigTable = new Dictionary<CompressionLevel, Config>()
         {
-            //         good lazy nice chain function                         level
-            new Config(0,   0,   0,   0,    CompressionFunction.Stored ), // 0
-            new Config(4,   4,   8,   4,    CompressionFunction.Fast   ), // 1
-            new Config(4,   5,   16,  8,    CompressionFunction.Fast   ), // 2
-            new Config(4,   6,   32,  32,   CompressionFunction.Fast   ), // 3
-            new Config(4,   4,   16,  16,   CompressionFunction.Slow   ), // 4
-            new Config(8,   16,  32,  32,   CompressionFunction.Slow   ), // 5
-            new Config(8,   16,  128, 128,  CompressionFunction.Slow   ), // 6
-            new Config(8,   32,  128, 256,  CompressionFunction.Slow   ), // 7
-            new Config(32,  128, 258, 1024, CompressionFunction.Slow   ), // 8
-            new Config(32,  258, 258, 4096, CompressionFunction.Slow   )  // 9
+        //    level                                      good lazy nice chain function
+            { CompressionLevel.NoCompression, new Config(0,   0,   0,   0,    CompressionFunction.Stored) },
+            { CompressionLevel.Level1,        new Config(4,   4,   8,   4,    CompressionFunction.Fast  ) },
+            { CompressionLevel.Level2,        new Config(4,   5,   16,  8,    CompressionFunction.Fast  ) },
+            { CompressionLevel.Level3,        new Config(4,   6,   32,  32,   CompressionFunction.Fast  ) },
+            { CompressionLevel.Level4,        new Config(4,   4,   16,  16,   CompressionFunction.Slow  ) },
+            { CompressionLevel.Level5,        new Config(8,   16,  32,  32,   CompressionFunction.Slow  ) },
+            { CompressionLevel.Level6,        new Config(8,   16,  128, 128,  CompressionFunction.Slow  ) },
+            { CompressionLevel.Level7,        new Config(8,   32,  128, 256,  CompressionFunction.Slow  ) },
+            { CompressionLevel.Level8,        new Config(32,  128, 258, 1024, CompressionFunction.Slow  ) },
+            { CompressionLevel.Level9,        new Config(32,  258, 258, 4096, CompressionFunction.Slow  ) }
         };
 
         private static readonly string[] ZErrmsg = new string[]
@@ -218,7 +219,7 @@ namespace Elskom.Generic.Libs
         // Insert new strings in the hash table only if the match length is not
         // greater than this length. This saves time but degrades compression.
         // max_insert_length is used only for compression levels <= 3.
-        internal int Level { get; private set; } // compression level (1..9)
+        internal CompressionLevel Level { get; private set; } // compression level (1..9)
 
         internal CompressionStrategy Strategy { get; private set; } // favor or force Huffman coding
 
@@ -701,7 +702,7 @@ namespace Elskom.Generic.Libs
                 this.DynDtree[Tree.D_code(dist) * 2]++;
             }
 
-            if ((this.LastLit & 0x1fff) == 0 && this.Level > 2)
+            if ((this.LastLit & 0x1fff) == 0 && this.Level > CompressionLevel.Level2)
             {
                 // Compute an upper bound for the compressed length
                 var out_length = this.LastLit * 8;
@@ -1242,16 +1243,11 @@ namespace Elskom.Generic.Libs
             return this.Status == BUSYSTATE ? ZDATAERROR : ZOK;
         }
 
-        internal int DeflateParams(ZStream strm, int level, CompressionStrategy strategy)
+        internal int DeflateParams(ZStream strm, CompressionLevel level, CompressionStrategy strategy)
         {
             var err = ZOK;
 
-            if (level == ZDEFAULTCOMPRESSION)
-            {
-                level = 6;
-            }
-
-            if (level < 0 || level > 9 || strategy < 0 || strategy > CompressionStrategy.HuffmanOnly)
+            if (level < CompressionLevel.NoCompression || level > CompressionLevel.Level9 || strategy < 0 || strategy > CompressionStrategy.HuffmanOnly)
             {
                 return ZSTREAMERROR;
             }
@@ -1352,7 +1348,7 @@ namespace Elskom.Generic.Libs
             if (this.Status == INITSTATE)
             {
                 var header = (ZDEFLATED + ((this.WBits - 8) << 4)) << 8;
-                var level_flags = ((this.Level - 1) & 0xff) >> 1;
+                var level_flags = ((int)(this.Level - 1) & 0xff) >> 1;
 
                 if (level_flags > 3)
                 {
