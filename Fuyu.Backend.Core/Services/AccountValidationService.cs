@@ -20,7 +20,7 @@ namespace Fuyu.Backend.Core.Services
         // NOTE: regex has no length constraint as the validation method
         //       contains it instead.
         // -- seionmoya, 2024/09/08
-        [GeneratedRegex("^[a-zA-Z0-9]{0,}$")]
+        [GeneratedRegex("^[a-zA-Z0-9_-]{0,}$")]
         private static partial Regex UsernameRegex();
 
         // compile-time generated regex
