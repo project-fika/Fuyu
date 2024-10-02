@@ -53,24 +53,29 @@ namespace Fuyu.Common.Networking
 
         protected async Task SendAsync(byte[] data, string mime, HttpStatusCode status, bool zipped = true)
         {
+            bool hasData = !(data is null);
+
             // used for plaintext debugging
             if (Request.Headers["fuyu-debug"] != null)
             {
                 zipped = false;
             }
 
-            if (zipped)
+            if (hasData && zipped)
             {
                 data = MemoryZlib.Compress(data, CompressionLevel.BestCompression);
             }
 
             Response.StatusCode = (int)status;
             Response.ContentType = mime;
-            Response.ContentLength64 = data.Length;
+            Response.ContentLength64 = hasData ? data.Length : 0;
 
-            using (var payload = Response.OutputStream)
+            if (hasData)
             {
-                await payload.WriteAsync(data, 0, data.Length);
+                using (var payload = Response.OutputStream)
+                {
+                    await payload.WriteAsync(data, 0, data.Length);
+                }
             }
         }
 
