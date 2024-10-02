@@ -68,6 +68,7 @@ namespace Fuyu.Backend.EFT.Servers
             AddHttpController<SurveyController>();
             AddHttpController<TraderSettingsController>();
             AddHttpController<WeatherController>();
+            AddHttpController<ClientGameProfileItemsMoving>();
         }
     }
 }
