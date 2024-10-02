@@ -6,7 +6,7 @@ using System;
 using System.IO;
 using Elskom.Generic.Libs;
 
-namespace Zlib.Managed
+namespace Fuyu.Compression
 {
     public static class MemoryZlib
     {

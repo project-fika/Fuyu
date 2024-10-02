@@ -5,7 +5,7 @@
 
 using System;
 using System.Collections.Generic;
-using Zlib.Managed;
+using Fuyu.Compression;
 
 namespace Elskom.Generic.Libs
 {

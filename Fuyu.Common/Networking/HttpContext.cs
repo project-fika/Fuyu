@@ -2,7 +2,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Zlib.Managed;
+using Fuyu.Compression;
 using Fuyu.Common.Serialization;
 
 namespace Fuyu.Common.Networking

@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Zlib.Managed/Zlib.Managed.csproj" />
+    <ProjectReference Include="../Fuyu.Compression/Fuyu.Compression.csproj" />
   </ItemGroup>
 
 </Project>

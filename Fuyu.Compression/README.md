@@ -1,6 +1,6 @@
-# Zlib.Managed
+# Fuyu.Compression
 
-Reimplementing `bsg.componentace.compression.libs.zlib` on top of `Elskom/Zlib.Managed` with additional tweaks.
+Reimplementing `bsg.componentace.compression.libs.zlib` on top of `Elskom/Zlib.Managed` with additional changes.
 
 - Based on release [1.1.4.0](https://github.com/Elskom/zlib.managed/releases/tag/1.1.4.0)
 - Cherrypicked changes from [`main`](https://github.com/Elskom/zlib.managed)
@@ -21,12 +21,3 @@ Alternatively use `MemoryZlib` instead.
 - Made all classes inside `Elskom/` folder `internal` except `ZStream`
 - Uses `ReadOnlySpan<T>`, `Span<T>`
 - Improved code clarity
-
-## Todo
-
-- Implement `System.Buffer` (`ArrayPool`)
-- Implement `Microsoft.ObjectPool` (pooling streams)
-- Clean up codebase
-  - Change most of `ZlibConst` to enums
-  - Remove duplicate constant definitions
-  - Rename methods to use .NET style conformance

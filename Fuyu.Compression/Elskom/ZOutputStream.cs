@@ -6,7 +6,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Zlib.Managed;
+using Fuyu.Compression;
 
 namespace Elskom.Generic.Libs
 {

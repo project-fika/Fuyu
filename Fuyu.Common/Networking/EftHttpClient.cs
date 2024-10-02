@@ -1,6 +1,6 @@
 using System;
 using System.Net.Http;
-using Zlib.Managed;
+using Fuyu.Compression;
 
 namespace Fuyu.Common.Networking
 {

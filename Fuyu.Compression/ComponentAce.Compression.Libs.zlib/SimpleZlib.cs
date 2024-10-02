@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 using Elskom.Generic.Libs;
-using Zlib.Managed;
+using Fuyu.Compression;
 
 namespace ComponentAce.Compression.Libs.zlib
 {

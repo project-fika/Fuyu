@@ -4,7 +4,7 @@
 // license: see LICENSE for more details.
 
 using System;
-using Zlib.Managed;
+using Fuyu.Compression;
 
 namespace Elskom.Generic.Libs
 {
