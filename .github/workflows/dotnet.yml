@@ -21,17 +21,20 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    - name: Setup dotnet
+    - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: '8.0.x'
 
-    - name: Install dependencies
-      run: dotnet restore --configfile Nuget.config
+    - name: .NET restore
+      run: dotnet restore --nologo --configfile Nuget.config
 
-    - name: Build
+    - name: .NET clean
+      run: dotnet clean --nologo
+
+    - name: .NET build
       run: dotnet build --nologo --no-restore --configuration Debug
 
-    - name: Test
+    - name: .NET test
       run: dotnet test --nologo --no-restore --no-build --blame-hang-timeout 1min
   

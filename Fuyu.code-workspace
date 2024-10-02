@@ -67,17 +67,17 @@
 		},
 		"tasks": [
 			{
-				"label": "dotnet: clean",
-				"type": "shell",
-				"command": "dotnet clean --nologo",
-				"problemMatcher": []
-			},
-			{
 				"label": "dotnet: restore",
 				"type": "shell",
 				"command": "dotnet restore --nologo --configfile Nuget.config",
+				"problemMatcher": []
+			},
+			{
+				"label": "dotnet: clean",
+				"type": "shell",
+				"command": "dotnet clean --nologo",
 				"problemMatcher": [],
-				"dependsOn": ["dotnet: clean"],
+				"dependsOn": ["dotnet: restore"],
 				"dependsOrder": "sequence"
 			},
 			{
@@ -85,7 +85,7 @@
 				"type": "shell",
 				"command": "dotnet build --nologo --no-restore --configuration Debug",
 				"problemMatcher": [],
-				"dependsOn": ["dotnet: restore"],
+				"dependsOn": ["dotnet: clean"],
 				"dependsOrder": "sequence",
 				"group": "build"
 			},
@@ -94,7 +94,7 @@
 				"type": "shell",
 				"command": "dotnet build --nologo --no-restore --configuration Release",
 				"problemMatcher": [],
-				"dependsOn": ["dotnet: restore"],
+				"dependsOn": ["dotnet: clean"],
 				"dependsOrder": "sequence",
 				"group": "build"
 			},

@@ -1,9 +1,5 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
-using System.Text;
-using Fuyu.Common.Compression;
-using Fuyu.Common.Serialization;
 
 namespace Fuyu.Common.Networking
 {
