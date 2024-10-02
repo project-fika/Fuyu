@@ -86,7 +86,7 @@ namespace Fuyu.Common.Networking
                 ? "application/octet-stream"
                 : "application/json; charset=utf-8";
 
-            await SendAsync(encoded, mime, HttpStatusCode.Accepted, zipped);
+            await SendAsync(encoded, mime, HttpStatusCode.OK, zipped);
         }
 
         public void Close()
