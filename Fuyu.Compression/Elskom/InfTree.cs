@@ -1,12 +1,7 @@
-// Copyright (c) 2018-2020, Els_kom org.
-// https://github.com/Elskom/
-// All rights reserved.
-// license: see LICENSE for more details.
+using System;
 
 namespace Elskom.Generic.Libs
 {
-    using System;
-
     internal static class InfTree
     {
         internal const int FixedBl = 9;
@@ -15,7 +10,7 @@ namespace Elskom.Generic.Libs
         // If BMAX needs to be larger than 16, then h and x[] should be uLong.
         internal const int BMAX = 15; // maximum bit length of any code
 
-        internal static readonly int[] FixedTl = new int[]
+        internal static ReadOnlySpan<int> FixedTl => new[]
         {
             96, 7, 256, 0, 8, 80, 0, 8, 16, 84, 8, 115, 82, 7, 31, 0, 8, 112, 0, 8,
             48, 0, 9, 192, 80, 7, 10, 0, 8, 96, 0, 8, 32, 0, 9, 160, 0, 8, 0, 0, 8,
@@ -88,7 +83,7 @@ namespace Elskom.Generic.Libs
             143, 0, 8, 79, 0, 9, 255,
         };
 
-        internal static readonly int[] FixedTd = new int[]
+        internal static ReadOnlySpan<int> FixedTd => new[]
         {
             80, 5, 1, 87, 5, 257, 83, 5, 17, 91, 5, 4097, 81, 5, 5, 89, 5, 1025, 85, 5, 65,
             93, 5, 16385, 80, 5, 3, 88, 5, 513, 84, 5, 33, 92, 5, 8193, 82, 5, 9, 90, 5,
@@ -98,25 +93,25 @@ namespace Elskom.Generic.Libs
         };
 
         // Tables for deflate from PKZIP's appnote.txt.
-        internal static readonly int[] Cplens = new int[]
+        internal static ReadOnlySpan<int> Cplens => new[]
         {
             3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83,
             99, 115, 131, 163, 195, 227, 258, 0, 0,
         };
 
-        internal static readonly int[] Cplext = new int[]
+        internal static ReadOnlySpan<int> Cplext => new[]
         {
             0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5,
             5, 0, 112, 112,
         };
 
-        internal static readonly int[] Cpdist = new int[]
+        internal static ReadOnlySpan<int> Cpdist => new[]
         {
             1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769,
             1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577,
         };
 
-        internal static readonly int[] Cpdext = new int[]
+        internal static ReadOnlySpan<int> Cpdext => new[]
         {
             0, 0, 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9, 10, 10, 11,
             11, 12, 12, 13, 13,
@@ -134,7 +129,7 @@ namespace Elskom.Generic.Libs
         private const int ZBUFERROR = -5;
 
         // private const int ZVERSIONERROR = -6;
-        internal static int Huft_build(int[] b, int bindex, int n, int s, int[] d, int[] e, int[] t, int[] m, int[] hp, int[] hn, int[] v)
+        internal static int Huft_build(int[] b, int bindex, int n, int s, ReadOnlySpan<int> d, ReadOnlySpan<int> e, int[] t, int[] m, int[] hp, int[] hn, int[] v)
         {
             // Given a list of code lengths and a maximum table size, make a set of
             // tables to decode that set of codes.  Return Z_OK on success, Z_BUF_ERROR
@@ -450,8 +445,8 @@ namespace Elskom.Generic.Libs
         {
             bl[0] = FixedBl;
             bd[0] = FixedBd;
-            tl[0] = FixedTl;
-            td[0] = FixedTd;
+            tl[0] = FixedTl.ToArray();
+            td[0] = FixedTd.ToArray();
             return ZOK;
         }
     }

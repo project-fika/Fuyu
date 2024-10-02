@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Text;
-using Fuyu.Common.Compression;
 
 namespace Fuyu.Common.Networking
 {

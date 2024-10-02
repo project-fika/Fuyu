@@ -1,16 +1,12 @@
-// Copyright (c) 2018-2020, Els_kom org.
-// https://github.com/Elskom/
-// All rights reserved.
-// license: see LICENSE for more details.
+using System;
+using Fuyu.Compression;
 
 namespace Elskom.Generic.Libs
 {
-    using System;
-
     /// <summary>
     /// The zlib stream class.
     /// </summary>
-    internal sealed class ZStream
+    public sealed class ZStream
     {
         private const int MAXWBITS = 15; // 32K LZ77 window
 
@@ -149,14 +145,14 @@ namespace Elskom.Generic.Libs
         /// <param name="dictionary">The dictionary to use.</param>
         /// <param name="dictLength">The dictionary length.</param>
         /// <returns>The zlib status state.</returns>
-        internal int InflateSetDictionary(byte[] dictionary, int dictLength) => this.Istate == null ? ZSTREAMERROR : Libs.Inflate.InflateSetDictionary(this, dictionary, dictLength);
+        internal int InflateSetDictionary(Span<byte> dictionary, int dictLength) => this.Istate == null ? ZSTREAMERROR : Libs.Inflate.InflateSetDictionary(this, dictionary, dictLength);
 
         /// <summary>
         /// Initializes compression.
         /// </summary>
         /// <param name="level">The compression level to use.</param>
         /// <returns>The zlib status state.</returns>
-        internal int DeflateInit(int level) => this.DeflateInit(level, MAXWBITS);
+        internal int DeflateInit(CompressionLevel level) => this.DeflateInit(level, MAXWBITS);
 
         /// <summary>
         /// Initializes compression.
@@ -164,7 +160,7 @@ namespace Elskom.Generic.Libs
         /// <param name="level">The compression level to use.</param>
         /// <param name="bits">The window bits to use.</param>
         /// <returns>The zlib status state.</returns>
-        internal int DeflateInit(int level, int bits)
+        internal int DeflateInit(CompressionLevel level, int bits)
         {
             this.Dstate = new Deflate();
             return this.Dstate.DeflateInit(this, level, bits);
@@ -199,7 +195,7 @@ namespace Elskom.Generic.Libs
         /// <param name="level">The compression level to use.</param>
         /// <param name="strategy">The strategy to use for compression.</param>
         /// <returns>The zlib status state.</returns>
-        internal int DeflateParams(int level, int strategy) => this.Dstate == null ? ZSTREAMERROR : this.Dstate.DeflateParams(this, level, strategy);
+        internal int DeflateParams(CompressionLevel level, CompressionStrategy strategy) => this.Dstate == null ? ZSTREAMERROR : this.Dstate.DeflateParams(this, level, strategy);
 
         /// <summary>
         /// Sets the deflate dictionary.
@@ -207,7 +203,7 @@ namespace Elskom.Generic.Libs
         /// <param name="dictionary">The dictionary to use.</param>
         /// <param name="dictLength">The dictionary length.</param>
         /// <returns>The zlib status state.</returns>
-        internal int DeflateSetDictionary(byte[] dictionary, int dictLength) => this.Dstate == null ? ZSTREAMERROR : this.Dstate.DeflateSetDictionary(this, dictionary, dictLength);
+        internal int DeflateSetDictionary(ReadOnlySpan<byte> dictionary, int dictLength) => this.Dstate == null ? ZSTREAMERROR : this.Dstate.DeflateSetDictionary(this, dictionary.ToArray(), dictLength);
 
         /// <summary>
         /// Frees everything.

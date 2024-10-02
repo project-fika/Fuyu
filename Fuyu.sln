@@ -35,7 +35,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.Core", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.EFT", "Fuyu.Tests.Backend.EFT\Fuyu.Tests.Backend.EFT.csproj", "{BEC4515F-F90C-4055-9D26-0000408E516E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zlib.Managed", "Zlib.Managed\Zlib.Managed.csproj", "{AFCA8CD1-4DFC-4D64-8DC7-872000BEE1EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Compression", "Fuyu.Compression\Fuyu.Compression.csproj", "{AFCA8CD1-4DFC-4D64-8DC7-872000BEE1EA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Compression", "Fuyu.Tests.Compression\Fuyu.Tests.Compression.csproj", "{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -114,5 +116,9 @@ Global
 		{AFCA8CD1-4DFC-4D64-8DC7-872000BEE1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFCA8CD1-4DFC-4D64-8DC7-872000BEE1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AFCA8CD1-4DFC-4D64-8DC7-872000BEE1EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,16 +1,10 @@
-// Copyright (c) 2018-2020, Els_kom org.
-// https://github.com/Elskom/
-// All rights reserved.
-// license: see LICENSE for more details.
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.IO;
+using Fuyu.Compression;
 
-using Elskom.Generic.Libs;
-
-namespace ComponentAce.Compression.Libs.zlib
+namespace Elskom.Generic.Libs
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.IO;
-
     /// <summary>
     /// Class that provices a zlib output stream that supports
     /// compression and decompression.
@@ -34,7 +28,7 @@ namespace ComponentAce.Compression.Libs.zlib
         /// </summary>
         /// <param name="output">The output stream.</param>
         /// <param name="level">The compression level for the data to compress.</param>
-        public ZOutputStream(Stream output, int level)
+        public ZOutputStream(Stream output, CompressionLevel level)
         {
             this.BaseStream = output;
             this.InitBlock();

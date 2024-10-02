@@ -1,13 +1,8 @@
-// Copyright (c) 2018-2020, Els_kom org.
-// https://github.com/Elskom/
-// All rights reserved.
-// license: see LICENSE for more details.
+using System;
+using System.IO;
 
 namespace Elskom.Generic.Libs
 {
-    using System;
-    using System.IO;
-
     /// <summary>
     /// The exception that is thrown when an zlib error occurs.
     /// </summary>

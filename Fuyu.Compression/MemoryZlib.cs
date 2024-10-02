@@ -4,11 +4,11 @@
 
 using System;
 using System.IO;
-using ComponentAce.Compression.Libs.zlib;
+using Elskom.Generic.Libs;
 
-namespace Fuyu.Common.Compression
+namespace Fuyu.Compression
 {
-    public static class Zlib
+    public static class MemoryZlib
     {
         public static bool IsCompressed(byte[] data)
         {
@@ -37,16 +37,16 @@ namespace Fuyu.Common.Compression
             }
         }
 
-        public static byte[] Compress(byte[] data, ZlibCompression level)
+        public static byte[] Compress(byte[] data, CompressionLevel level)
         {
-            if (level == ZlibCompression.NoCompression)
+            if (level == CompressionLevel.NoCompression)
             {
                 throw new ArgumentException("level cannot be ZlibCompression.NoCompression");
             }
 
             using (var ms = new MemoryStream())
             {
-                using (var zs = new ZOutputStream(ms, (int)level))
+                using (var zs = new ZOutputStream(ms, level))
                 {
                     zs.Write(data, 0, data.Length);
                 }

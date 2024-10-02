@@ -1,16 +1,13 @@
-// Copyright (c) 2018-2020, Els_kom org.
-// https://github.com/Elskom/
-// All rights reserved.
-// license: see LICENSE for more details.
+using System;
+using System.Collections.Generic;
+using Fuyu.Compression;
 
 namespace Elskom.Generic.Libs
 {
-    using System;
-
     /// <summary>
     /// Class for compressing data through zlib.
     /// </summary>
-    internal sealed class Deflate
+    internal sealed partial class Deflate
     {
         private const int MAXMEMLEVEL = 9;
 
@@ -18,9 +15,6 @@ namespace Elskom.Generic.Libs
 
         private const int MAXWBITS = 15; // 32K LZ77 window
         private const int DEFMEMLEVEL = 8;
-        private const int STORED = 0;
-        private const int FAST = 1;
-        private const int SLOW = 2;
 
         // block not completed, need more input or more output
         private const int NeedMore = 0;
@@ -36,10 +30,6 @@ namespace Elskom.Generic.Libs
 
         // preset dictionary flag in zlib header
         private const int PRESETDICT = 0x20;
-
-        private const int ZFILTERED = 1;
-        private const int ZHUFFMANONLY = 2;
-        private const int ZDEFAULTSTRATEGY = 0;
 
         private const int ZNOFLUSH = 0;
         private const int ZPARTIALFLUSH = 1;
@@ -100,7 +90,20 @@ namespace Elskom.Generic.Libs
         private const int LCODES = LITERALS + 1 + LENGTHCODES;
         private const int HEAPSIZE = (2 * LCODES) + 1;
 
-        private static readonly Config[] ConfigTable;
+        private static readonly Dictionary<CompressionLevel, Config> ConfigTable = new Dictionary<CompressionLevel, Config>()
+        {
+        //    level                                      good lazy nice chain function
+            { CompressionLevel.NoCompression, new Config(0,   0,   0,   0,    CompressionFunction.Stored) },
+            { CompressionLevel.Level1,        new Config(4,   4,   8,   4,    CompressionFunction.Fast  ) },
+            { CompressionLevel.Level2,        new Config(4,   5,   16,  8,    CompressionFunction.Fast  ) },
+            { CompressionLevel.Level3,        new Config(4,   6,   32,  32,   CompressionFunction.Fast  ) },
+            { CompressionLevel.Level4,        new Config(4,   4,   16,  16,   CompressionFunction.Slow  ) },
+            { CompressionLevel.Level5,        new Config(8,   16,  32,  32,   CompressionFunction.Slow  ) },
+            { CompressionLevel.Level6,        new Config(8,   16,  128, 128,  CompressionFunction.Slow  ) },
+            { CompressionLevel.Level7,        new Config(8,   32,  128, 256,  CompressionFunction.Slow  ) },
+            { CompressionLevel.Level8,        new Config(32,  128, 258, 1024, CompressionFunction.Slow  ) },
+            { CompressionLevel.Level9,        new Config(32,  258, 258, 4096, CompressionFunction.Slow  ) }
+        };
 
         private static readonly string[] ZErrmsg = new string[]
         {
@@ -108,26 +111,6 @@ namespace Elskom.Generic.Libs
             "data error", "insufficient memory", "buffer error", "incompatible version",
             string.Empty,
         };
-
-        static Deflate()
-        {
-            {
-                ConfigTable = new Config[10];
-
-                // good  lazy  nice  chain
-                ConfigTable[0] = new Config(0, 0, 0, 0, STORED);
-                ConfigTable[1] = new Config(4, 4, 8, 4, FAST);
-                ConfigTable[2] = new Config(4, 5, 16, 8, FAST);
-                ConfigTable[3] = new Config(4, 6, 32, 32, FAST);
-
-                ConfigTable[4] = new Config(4, 4, 16, 16, SLOW);
-                ConfigTable[5] = new Config(8, 16, 32, 32, SLOW);
-                ConfigTable[6] = new Config(8, 16, 128, 128, SLOW);
-                ConfigTable[7] = new Config(8, 32, 128, 256, SLOW);
-                ConfigTable[8] = new Config(32, 128, 258, 1024, SLOW);
-                ConfigTable[9] = new Config(32, 258, 258, 4096, SLOW);
-            }
-        }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Deflate"/> class.
@@ -231,9 +214,9 @@ namespace Elskom.Generic.Libs
         // Insert new strings in the hash table only if the match length is not
         // greater than this length. This saves time but degrades compression.
         // max_insert_length is used only for compression levels <= 3.
-        internal int Level { get; private set; } // compression level (1..9)
+        internal CompressionLevel Level { get; private set; } // compression level (1..9)
 
-        internal int Strategy { get; private set; } // favor or force Huffman coding
+        internal CompressionStrategy Strategy { get; private set; } // favor or force Huffman coding
 
         // Use a faster search when the previous match is longer than this
         internal int GoodMatch { get; private set; }
@@ -636,7 +619,7 @@ namespace Elskom.Generic.Libs
             this.Put_byte((byte)b);
         }
 
-        internal void Send_code(int c, short[] tree) => this.Send_bits(tree[c * 2] & 0xffff, tree[(c * 2) + 1] & 0xffff);
+        internal void Send_code(int c, ReadOnlySpan<short> tree) => this.Send_bits(tree[c * 2] & 0xffff, tree[(c * 2) + 1] & 0xffff);
 
         internal void Send_bits(int value_Renamed, int length)
         {
@@ -714,7 +697,7 @@ namespace Elskom.Generic.Libs
                 this.DynDtree[Tree.D_code(dist) * 2]++;
             }
 
-            if ((this.LastLit & 0x1fff) == 0 && this.Level > 2)
+            if ((this.LastLit & 0x1fff) == 0 && this.Level > CompressionLevel.Level2)
             {
                 // Compute an upper bound for the compressed length
                 var out_length = this.LastLit * 8;
@@ -740,7 +723,7 @@ namespace Elskom.Generic.Libs
         }
 
         // Send the block data compressed using the given Huffman trees
-        internal void Compress_block(short[] ltree, short[] dtree)
+        internal void Compress_block(ReadOnlySpan<short> ltree, ReadOnlySpan<short> dtree)
         {
             int dist; // distance of matched string
             int lc; // match length or unmatched char (if dist == 0)
@@ -882,77 +865,6 @@ namespace Elskom.Generic.Libs
             this.Tr_flush_block(this.BlockStart >= 0 ? this.BlockStart : -1, this.Strstart - this.BlockStart, eof);
             this.BlockStart = this.Strstart;
             this.Strm.Flush_pending();
-        }
-
-        // Copy without compression as much as possible from the input stream, return
-        // the current block state.
-        // This function does not insert new strings in the dictionary since
-        // uncompressible data is probably not useful. This function is used
-        // only for the level=0 compression option.
-        // NOTE: this function should be optimized to avoid extra copying from
-        // window to pending_buf.
-        internal int Deflate_stored(int flush)
-        {
-            // Stored blocks are limited to 0xffff bytes, pending_buf is limited
-            // to pending_buf_size, and each stored block has a 5 byte header:
-            var max_block_size = 0xffff;
-            int max_start;
-
-            if (max_block_size > this.PendingBufSize - 5)
-            {
-                max_block_size = this.PendingBufSize - 5;
-            }
-
-            // Copy as much as possible from input to output:
-            while (true)
-            {
-                // Fill the window as much as possible:
-                if (this.Lookahead <= 1)
-                {
-                    this.Fill_window();
-                    if (this.Lookahead == 0 && flush == ZNOFLUSH)
-                    {
-                        return NeedMore;
-                    }
-
-                    if (this.Lookahead == 0)
-                    {
-                        break; // flush the current block
-                    }
-                }
-
-                this.Strstart += this.Lookahead;
-                this.Lookahead = 0;
-
-                // Emit a stored block if pending_buf will be full:
-                max_start = this.BlockStart + max_block_size;
-                if (this.Strstart == 0 || this.Strstart >= max_start)
-                {
-                    // strstart == 0 is possible when wraparound on 16-bit machine
-                    this.Lookahead = this.Strstart - max_start;
-                    this.Strstart = max_start;
-
-                    this.Flush_block_only(false);
-                    if (this.Strm.AvailOut == 0)
-                    {
-                        return NeedMore;
-                    }
-                }
-
-                // Flush if we may have to slide, otherwise block_start may become
-                // negative and the data will be gone:
-                if (this.Strstart - this.BlockStart >= this.WSize - MINLOOKAHEAD)
-                {
-                    this.Flush_block_only(false);
-                    if (this.Strm.AvailOut == 0)
-                    {
-                        return NeedMore;
-                    }
-                }
-            }
-
-            this.Flush_block_only(flush == ZFINISH);
-            return this.Strm.AvailOut == 0 ? (flush == ZFINISH) ? FinishStarted : NeedMore : flush == ZFINISH ? FinishDone : BlockDone;
         }
 
         // Send a stored block
@@ -1137,276 +1049,6 @@ namespace Elskom.Generic.Libs
             while (this.Lookahead < MINLOOKAHEAD && this.Strm.AvailIn != 0);
         }
 
-        // Compress as much as possible from the input stream, return the current
-        // block state.
-        // This function does not perform lazy evaluation of matches and inserts
-        // new strings in the dictionary only for unmatched strings or for short
-        // matches. It is used only for the fast compression options.
-        internal int Deflate_fast(int flush)
-        {
-            // short hash_head = 0; // head of the hash chain
-            var hash_head = 0; // head of the hash chain
-            bool bflush; // set if current block must be flushed
-
-            while (true)
-            {
-                // Make sure that we always have enough lookahead, except
-                // at the end of the input file. We need MAX_MATCH bytes
-                // for the next match, plus MIN_MATCH bytes to insert the
-                // string following the next match.
-                if (this.Lookahead < MINLOOKAHEAD)
-                {
-                    this.Fill_window();
-                    if (this.Lookahead < MINLOOKAHEAD && flush == ZNOFLUSH)
-                    {
-                        return NeedMore;
-                    }
-
-                    if (this.Lookahead == 0)
-                    {
-                        break; // flush the current block
-                    }
-                }
-
-                // Insert the string window[strstart .. strstart+2] in the
-                // dictionary, and set hash_head to the head of the hash chain:
-                if (this.Lookahead >= MINMATCH)
-                {
-                    this.InsH = ((this.InsH << this.HashShift) ^ (this.Window[this.Strstart + (MINMATCH - 1)] & 0xff)) & this.HashMask;
-
-                    // prev[strstart&w_mask]=hash_head=head[ins_h];
-                    hash_head = this.Head[this.InsH] & 0xffff;
-                    this.Prev[this.Strstart & this.WMask] = this.Head[this.InsH];
-                    this.Head[this.InsH] = (short)this.Strstart;
-                }
-
-                // Find the longest match, discarding those <= prev_length.
-                // At this point we have always match_length < MIN_MATCH
-                if (hash_head != 0L && ((this.Strstart - hash_head) & 0xffff) <= this.WSize - MINLOOKAHEAD)
-                {
-                    // To simplify the code, we prevent matches with the string
-                    // of window index 0 (in particular we have to avoid a match
-                    // of the string with itself at the start of the input file).
-                    if (this.Strategy != ZHUFFMANONLY)
-                    {
-                        this.MatchLength = this.Longest_match(hash_head);
-                    }
-
-                    // longest_match() sets match_start
-                }
-
-                if (this.MatchLength >= MINMATCH)
-                {
-                    // check_match(strstart, match_start, match_length);
-                    bflush = this.Tr_tally(this.Strstart - this.MatchStart, this.MatchLength - MINMATCH);
-
-                    this.Lookahead -= this.MatchLength;
-
-                    // Insert new strings in the hash table only if the match length
-                    // is not too large. This saves time but degrades compression.
-                    if (this.MatchLength <= this.MaxLazyMatch && this.Lookahead >= MINMATCH)
-                    {
-                        this.MatchLength--; // string at strstart already in hash table
-                        do
-                        {
-                            this.Strstart++;
-
-                            this.InsH = ((this.InsH << this.HashShift) ^ (this.Window[this.Strstart + (MINMATCH - 1)] & 0xff)) & this.HashMask;
-
-                            // prev[strstart&w_mask]=hash_head=head[ins_h];
-                            hash_head = this.Head[this.InsH] & 0xffff;
-                            this.Prev[this.Strstart & this.WMask] = this.Head[this.InsH];
-                            this.Head[this.InsH] = (short)this.Strstart;
-
-                            // strstart never exceeds WSIZE-MAX_MATCH, so there are
-                            // always MIN_MATCH bytes ahead.
-                        }
-                        while (--this.MatchLength != 0);
-                        this.Strstart++;
-                    }
-                    else
-                    {
-                        this.Strstart += this.MatchLength;
-                        this.MatchLength = 0;
-                        this.InsH = this.Window[this.Strstart] & 0xff;
-
-                        this.InsH = ((this.InsH << this.HashShift) ^ (this.Window[this.Strstart + 1] & 0xff)) & this.HashMask;
-
-                        // If lookahead < MIN_MATCH, ins_h is garbage, but it does not
-                        // matter since it will be recomputed at next deflate call.
-                    }
-                }
-                else
-                {
-                    // No match, output a literal byte
-                    bflush = this.Tr_tally(0, this.Window[this.Strstart] & 0xff);
-                    this.Lookahead--;
-                    this.Strstart++;
-                }
-
-                if (bflush)
-                {
-                    this.Flush_block_only(false);
-                    if (this.Strm.AvailOut == 0)
-                    {
-                        return NeedMore;
-                    }
-                }
-            }
-
-            this.Flush_block_only(flush == ZFINISH);
-            return this.Strm.AvailOut == 0 ? flush == ZFINISH ? FinishStarted : NeedMore : flush == ZFINISH ? FinishDone : BlockDone;
-        }
-
-        // Same as above, but achieves better compression. We use a lazy
-        // evaluation for matches: a match is finally adopted only if there is
-        // no better match at the next window position.
-        internal int Deflate_slow(int flush)
-        {
-            // short hash_head = 0;    // head of hash chain
-            var hash_head = 0; // head of hash chain
-            bool bflush; // set if current block must be flushed
-
-            // Process the input block.
-            while (true)
-            {
-                // Make sure that we always have enough lookahead, except
-                // at the end of the input file. We need MAX_MATCH bytes
-                // for the next match, plus MIN_MATCH bytes to insert the
-                // string following the next match.
-                if (this.Lookahead < MINLOOKAHEAD)
-                {
-                    this.Fill_window();
-                    if (this.Lookahead < MINLOOKAHEAD && flush == ZNOFLUSH)
-                    {
-                        return NeedMore;
-                    }
-
-                    if (this.Lookahead == 0)
-                    {
-                        break; // flush the current block
-                    }
-                }
-
-                // Insert the string window[strstart .. strstart+2] in the
-                // dictionary, and set hash_head to the head of the hash chain:
-                if (this.Lookahead >= MINMATCH)
-                {
-                    this.InsH = ((this.InsH << this.HashShift) ^ (this.Window[this.Strstart + (MINMATCH - 1)] & 0xff)) & this.HashMask;
-
-                    // prev[strstart&w_mask]=hash_head=head[ins_h];
-                    hash_head = this.Head[this.InsH] & 0xffff;
-                    this.Prev[this.Strstart & this.WMask] = this.Head[this.InsH];
-                    this.Head[this.InsH] = (short)this.Strstart;
-                }
-
-                // Find the longest match, discarding those <= prev_length.
-                this.PrevLength = this.MatchLength;
-                this.PrevMatch = this.MatchStart;
-                this.MatchLength = MINMATCH - 1;
-
-                if (hash_head != 0 && this.PrevLength < this.MaxLazyMatch && ((this.Strstart - hash_head) & 0xffff) <= this.WSize - MINLOOKAHEAD)
-                {
-                    // To simplify the code, we prevent matches with the string
-                    // of window index 0 (in particular we have to avoid a match
-                    // of the string with itself at the start of the input file).
-                    if (this.Strategy != ZHUFFMANONLY)
-                    {
-                        this.MatchLength = this.Longest_match(hash_head);
-                    }
-
-                    // longest_match() sets match_start
-                    if (this.MatchLength <= 5 && (this.Strategy == ZFILTERED || (this.MatchLength == MINMATCH && this.Strstart - this.MatchStart > 4096)))
-                    {
-                        // If prev_match is also MIN_MATCH, match_start is garbage
-                        // but we will ignore the current match anyway.
-                        this.MatchLength = MINMATCH - 1;
-                    }
-                }
-
-                // If there was a match at the previous step and the current
-                // match is not better, output the previous match:
-                if (this.PrevLength >= MINMATCH && this.MatchLength <= this.PrevLength)
-                {
-                    var max_insert = this.Strstart + this.Lookahead - MINMATCH;
-
-                    // Do not insert strings in hash table beyond this.
-
-                    // check_match(strstart-1, prev_match, prev_length);
-                    bflush = this.Tr_tally(this.Strstart - 1 - this.PrevMatch, this.PrevLength - MINMATCH);
-
-                    // Insert in hash table all strings up to the end of the match.
-                    // strstart-1 and strstart are already inserted. If there is not
-                    // enough lookahead, the last two strings are not inserted in
-                    // the hash table.
-                    this.Lookahead -= this.PrevLength - 1;
-                    this.PrevLength -= 2;
-                    do
-                    {
-                        if (++this.Strstart <= max_insert)
-                        {
-                            this.InsH = ((this.InsH << this.HashShift) ^ (this.Window[this.Strstart + (MINMATCH - 1)] & 0xff)) & this.HashMask;
-
-                            // prev[strstart&w_mask]=hash_head=head[ins_h];
-                            hash_head = this.Head[this.InsH] & 0xffff;
-                            this.Prev[this.Strstart & this.WMask] = this.Head[this.InsH];
-                            this.Head[this.InsH] = (short)this.Strstart;
-                        }
-                    }
-                    while (--this.PrevLength != 0);
-                    this.MatchAvailable = 0;
-                    this.MatchLength = MINMATCH - 1;
-                    this.Strstart++;
-
-                    if (bflush)
-                    {
-                        this.Flush_block_only(false);
-                        if (this.Strm.AvailOut == 0)
-                        {
-                            return NeedMore;
-                        }
-                    }
-                }
-                else if (this.MatchAvailable != 0)
-                {
-                    // If there was no match at the previous position, output a
-                    // single literal. If there was a match but the current match
-                    // is longer, truncate the previous match to a single literal.
-                    bflush = this.Tr_tally(0, this.Window[this.Strstart - 1] & 0xff);
-
-                    if (bflush)
-                    {
-                        this.Flush_block_only(false);
-                    }
-
-                    this.Strstart++;
-                    this.Lookahead--;
-                    if (this.Strm.AvailOut == 0)
-                    {
-                        return NeedMore;
-                    }
-                }
-                else
-                {
-                    // There is no previous match to compare with, wait for
-                    // the next step to decide.
-                    this.MatchAvailable = 1;
-                    this.Strstart++;
-                    this.Lookahead--;
-                }
-            }
-
-            if (this.MatchAvailable != 0)
-            {
-                bflush = this.Tr_tally(0, this.Window[this.Strstart - 1] & 0xff);
-                this.MatchAvailable = 0;
-            }
-
-            this.Flush_block_only(flush == ZFINISH);
-
-            return this.Strm.AvailOut == 0 ? flush == ZFINISH ? FinishStarted : NeedMore : flush == ZFINISH ? FinishDone : BlockDone;
-        }
-
         internal int Longest_match(int cur_match)
         {
             var chain_length = this.MaxChainLength; // max hash chain length
@@ -1488,11 +1130,13 @@ namespace Elskom.Generic.Libs
             return best_len <= this.Lookahead ? best_len : this.Lookahead;
         }
 
-        internal int DeflateInit(ZStream strm, int level, int bits) => this.DeflateInit2(strm, level, ZDEFLATED, bits, DEFMEMLEVEL, ZDEFAULTSTRATEGY);
+        internal int DeflateInit(ZStream strm, CompressionLevel level, int bits)
+            => this.DeflateInit2(strm, level, ZDEFLATED, bits, DEFMEMLEVEL, CompressionStrategy.DefaultStrategy);
 
-        internal int DeflateInit(ZStream strm, int level) => this.DeflateInit(strm, level, MAXWBITS);
+        internal int DeflateInit(ZStream strm, CompressionLevel level)
+            => this.DeflateInit(strm, level, MAXWBITS);
 
-        internal int DeflateInit2(ZStream strm, int level, int method, int windowBits, int memLevel, int strategy)
+        internal int DeflateInit2(ZStream strm, CompressionLevel level, int method, int windowBits, int memLevel, CompressionStrategy strategy)
         {
             var noheader = 0;
 
@@ -1505,11 +1149,6 @@ namespace Elskom.Generic.Libs
             //  }
             strm.Msg = null;
 
-            if (level == ZDEFAULTCOMPRESSION)
-            {
-                level = 6;
-            }
-
             if (windowBits < 0)
             {
                 // undocumented feature: suppress zlib header
@@ -1517,7 +1156,7 @@ namespace Elskom.Generic.Libs
                 windowBits = -windowBits;
             }
 
-            if (memLevel < 1 || memLevel > MAXMEMLEVEL || method != ZDEFLATED || windowBits < 9 || windowBits > 15 || level < 0 || level > 9 || strategy < 0 || strategy > ZHUFFMANONLY)
+            if (memLevel < 1 || memLevel > MAXMEMLEVEL || method != ZDEFLATED || windowBits < 9 || windowBits > 15 || level < CompressionLevel.NoCompression || level > CompressionLevel.Level9 || strategy < 0 || strategy > CompressionStrategy.HuffmanOnly)
             {
                 return ZSTREAMERROR;
             }
@@ -1599,16 +1238,11 @@ namespace Elskom.Generic.Libs
             return this.Status == BUSYSTATE ? ZDATAERROR : ZOK;
         }
 
-        internal int DeflateParams(ZStream strm, int level, int strategy)
+        internal int DeflateParams(ZStream strm, CompressionLevel level, CompressionStrategy strategy)
         {
             var err = ZOK;
 
-            if (level == ZDEFAULTCOMPRESSION)
-            {
-                level = 6;
-            }
-
-            if (level < 0 || level > 9 || strategy < 0 || strategy > ZHUFFMANONLY)
+            if (level < CompressionLevel.NoCompression || level > CompressionLevel.Level9 || strategy < 0 || strategy > CompressionStrategy.HuffmanOnly)
             {
                 return ZSTREAMERROR;
             }
@@ -1632,7 +1266,8 @@ namespace Elskom.Generic.Libs
             return err;
         }
 
-        internal int DeflateSetDictionary(ZStream strm, byte[] dictionary, int dictLength)
+        // TODO: Check if ReadOnlySpan<byte> dictionary is okay
+        internal int DeflateSetDictionary(ZStream strm, ReadOnlySpan<byte> dictionary, int dictLength)
         {
             var length = dictLength;
             var index = 0;
@@ -1655,7 +1290,11 @@ namespace Elskom.Generic.Libs
                 index = dictLength - length; // use the tail of the dictionary
             }
 
-            Array.Copy(dictionary, index, this.Window, 0, length);
+            // Array.Copy(dictionary.ToArray(), index, this.Window, 0, length);
+            var source = dictionary.Slice(index, length);
+            var target = new Span<byte>(this.Window, 0, length);
+            source.CopyTo(target);
+
             this.Strstart = length;
             this.BlockStart = length;
 
@@ -1704,7 +1343,7 @@ namespace Elskom.Generic.Libs
             if (this.Status == INITSTATE)
             {
                 var header = (ZDEFLATED + ((this.WBits - 8) << 4)) << 8;
-                var level_flags = ((this.Level - 1) & 0xff) >> 1;
+                var level_flags = ((int)(this.Level - 1) & 0xff) >> 1;
 
                 if (level_flags > 3)
                 {
@@ -1771,15 +1410,15 @@ namespace Elskom.Generic.Libs
                 var bstate = -1;
                 switch (ConfigTable[this.Level].Func)
                 {
-                    case STORED:
+                    case CompressionFunction.Stored:
                         bstate = this.Deflate_stored(flush);
                         break;
 
-                    case FAST:
+                    case CompressionFunction.Fast:
                         bstate = this.Deflate_fast(flush);
                         break;
 
-                    case SLOW:
+                    case CompressionFunction.Slow:
                         bstate = this.Deflate_slow(flush);
                         break;
 
@@ -1861,31 +1500,6 @@ namespace Elskom.Generic.Libs
             // to flush the rest.
             this.Noheader = -1; // write the trailer only once!
             return this.Pending != 0 ? ZOK : ZSTREAMEND;
-        }
-
-        private class Config
-        {
-            internal Config(int good_length, int max_lazy, int nice_length, int max_chain, int func)
-            {
-                this.GoodLength = good_length;
-                this.MaxLazy = max_lazy;
-                this.NiceLength = nice_length;
-                this.MaxChain = max_chain;
-                this.Func = func;
-            }
-
-            // reduce lazy search above this match length
-            internal int GoodLength { get; set; }
-
-            // do not perform lazy search above this match length
-            internal int MaxLazy { get; set; }
-
-            // quit search above this match length
-            internal int NiceLength { get; set; }
-
-            internal int MaxChain { get; set; }
-
-            internal int Func { get; set; }
         }
     }
 }

@@ -1,16 +1,11 @@
-// Copyright (c) 2018-2020, Els_kom org.
-// https://github.com/Elskom/
-// All rights reserved.
-// license: see LICENSE for more details.
+using System;
 
 namespace Elskom.Generic.Libs
 {
-    using System;
-
     internal sealed class InfBlocks
     {
         // Table for deflate from PKZIP's appnote.txt.
-        internal static readonly int[] Border = new int[]
+        internal static ReadOnlySpan<int> Border => new[]
         {
             16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15,
         };
@@ -40,7 +35,7 @@ namespace Elskom.Generic.Libs
         private const int BAD = 9; // ot a data error--stuck here
 
         // And'ing with mask[n] masks the lower n bits
-        private static readonly int[] InflateMask = new int[]
+        private static ReadOnlySpan<int> InflateMask => new[]
         {
             0x00000000, 0x00000001, 0x00000003, 0x00000007, 0x0000000f, 0x0000001f, 0x0000003f,
             0x0000007f, 0x000000ff, 0x000001ff, 0x000003ff, 0x000007ff, 0x00000fff, 0x00001fff,
@@ -689,9 +684,14 @@ namespace Elskom.Generic.Libs
             // ZFREE(z, s);
         }
 
-        internal void Set_dictionary(byte[] d, int start, int n)
+        // TODO: Check if ReadOnlySpan<byte> d is okay
+        internal void Set_dictionary(ReadOnlySpan<byte> d, int start, int n)
         {
-            Array.Copy(d, start, this.Window, 0, n);
+            //Array.Copy(d, start, this.Window, 0, n);
+            var source = d.Slice(start);
+            var target = new Span<byte>(this.Window, 0, n);
+            source.CopyTo(target);
+            
             this.Read = this.Write = n;
         }
 

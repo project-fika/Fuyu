@@ -1,8 +1,3 @@
-// Copyright (c) 2018-2020, Els_kom org.
-// https://github.com/Elskom/
-// All rights reserved.
-// license: see LICENSE for more details.
-
 namespace Elskom.Generic.Libs
 {
     /// <summary>
@@ -31,23 +26,6 @@ namespace Elskom.Generic.Libs
         /// The default compression level.
         /// </summary>
         internal const int ZDEFAULTCOMPRESSION = -1;
-
-        // compression strategy
-
-        /// <summary>
-        /// Filtered compression strategy.
-        /// </summary>
-        internal const int ZFILTERED = 1;
-
-        /// <summary>
-        /// huffman compression strategy.
-        /// </summary>
-        internal const int ZHUFFMANONLY = 2;
-
-        /// <summary>
-        /// The default compression strategy.
-        /// </summary>
-        internal const int ZDEFAULTSTRATEGY = 0;
 
         /// <summary>
         /// No flush.
@@ -118,11 +96,5 @@ namespace Elskom.Generic.Libs
         /// Zlib version error.
         /// </summary>
         internal const int ZVERSIONERROR = -6;
-
-        /// <summary>
-        /// Gets the version to zlib.net.
-        /// </summary>
-        /// <returns>The version string to this version of zlib.net.</returns>
-        internal static string Version() => typeof(ZlibConst).Assembly.GetName().Version.ToString(3);
     }
 }
