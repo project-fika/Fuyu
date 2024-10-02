@@ -118,8 +118,7 @@ namespace Fuyu.Common.Networking
 
         public HttpResponse Get(string path)
         {
-            return GetAsync(path)
-                .ConfigureAwait(false)
+            return Task.Run(() => GetAsync(path))
                 .GetAwaiter()
                 .GetResult();
         }
@@ -131,8 +130,7 @@ namespace Fuyu.Common.Networking
 
         public HttpResponse Post(string path, byte[] data)
         {
-            return PostAsync(path, data)
-                .ConfigureAwait(false)
+            return Task.Run(() => PostAsync(path, data))
                 .GetAwaiter()
                 .GetResult();
         }
@@ -144,8 +142,7 @@ namespace Fuyu.Common.Networking
 
         public HttpResponse Put(string path, byte[] data)
         {
-            return PutAsync(path, data)
-                .ConfigureAwait(false)
+            return Task.Run(() => PutAsync(path, data))
                 .GetAwaiter()
                 .GetResult();
         }
