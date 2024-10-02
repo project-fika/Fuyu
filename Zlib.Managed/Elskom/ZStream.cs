@@ -4,6 +4,7 @@
 // license: see LICENSE for more details.
 
 using System;
+using Zlib.Managed;
 
 namespace Elskom.Generic.Libs
 {
@@ -156,7 +157,7 @@ namespace Elskom.Generic.Libs
         /// </summary>
         /// <param name="level">The compression level to use.</param>
         /// <returns>The zlib status state.</returns>
-        internal int DeflateInit(int level) => this.DeflateInit(level, MAXWBITS);
+        internal int DeflateInit(CompressionLevel level) => this.DeflateInit(level, MAXWBITS);
 
         /// <summary>
         /// Initializes compression.
@@ -164,7 +165,7 @@ namespace Elskom.Generic.Libs
         /// <param name="level">The compression level to use.</param>
         /// <param name="bits">The window bits to use.</param>
         /// <returns>The zlib status state.</returns>
-        internal int DeflateInit(int level, int bits)
+        internal int DeflateInit(CompressionLevel level, int bits)
         {
             this.Dstate = new Deflate();
             return this.Dstate.DeflateInit(this, level, bits);

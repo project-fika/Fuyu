@@ -15,7 +15,7 @@ namespace Fuyu.Common.Networking
 
         protected override byte[] OnSendBody(byte[] body)
         {
-            return MemoryZlib.Compress(body, ZlibCompression.Level9);
+            return MemoryZlib.Compress(body, CompressionLevel.BestCompression);
         }
 
         protected override byte[] OnReceiveBody(byte[] body)

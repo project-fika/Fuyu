@@ -4,6 +4,7 @@
 // license: see LICENSE for more details.
 
 using System;
+using Zlib.Managed;
 
 namespace Elskom.Generic.Libs
 {
@@ -1133,13 +1134,13 @@ namespace Elskom.Generic.Libs
             return best_len <= this.Lookahead ? best_len : this.Lookahead;
         }
 
-        internal int DeflateInit(ZStream strm, int level, int bits)
+        internal int DeflateInit(ZStream strm, CompressionLevel level, int bits)
             => this.DeflateInit2(strm, level, ZDEFLATED, bits, DEFMEMLEVEL, CompressionStrategy.DefaultStrategy);
 
-        internal int DeflateInit(ZStream strm, int level)
+        internal int DeflateInit(ZStream strm, CompressionLevel level)
             => this.DeflateInit(strm, level, MAXWBITS);
 
-        internal int DeflateInit2(ZStream strm, int level, int method, int windowBits, int memLevel, CompressionStrategy strategy)
+        internal int DeflateInit2(ZStream strm, CompressionLevel level, int method, int windowBits, int memLevel, CompressionStrategy strategy)
         {
             var noheader = 0;
 
@@ -1152,11 +1153,6 @@ namespace Elskom.Generic.Libs
             //  }
             strm.Msg = null;
 
-            if (level == ZDEFAULTCOMPRESSION)
-            {
-                level = 6;
-            }
-
             if (windowBits < 0)
             {
                 // undocumented feature: suppress zlib header
@@ -1164,7 +1160,7 @@ namespace Elskom.Generic.Libs
                 windowBits = -windowBits;
             }
 
-            if (memLevel < 1 || memLevel > MAXMEMLEVEL || method != ZDEFLATED || windowBits < 9 || windowBits > 15 || level < 0 || level > 9 || strategy < 0 || strategy > CompressionStrategy.HuffmanOnly)
+            if (memLevel < 1 || memLevel > MAXMEMLEVEL || method != ZDEFLATED || windowBits < 9 || windowBits > 15 || level < CompressionLevel.NoCompression || level > CompressionLevel.Level9 || strategy < 0 || strategy > CompressionStrategy.HuffmanOnly)
             {
                 return ZSTREAMERROR;
             }

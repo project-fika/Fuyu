@@ -61,7 +61,7 @@ namespace Fuyu.Common.Networking
 
             if (zipped)
             {
-                data = MemoryZlib.Compress(data, ZlibCompression.Level9);
+                data = MemoryZlib.Compress(data, CompressionLevel.BestCompression);
             }
 
             Response.StatusCode = (int)status;

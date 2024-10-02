@@ -22,7 +22,7 @@ namespace ComponentAce.Compression.Libs.zlib
 			}
 
 			var bytes = encoding.GetBytes(text);
-			var deflated = MemoryZlib.Compress(bytes, (ZlibCompression)compressLevel);
+			var deflated = MemoryZlib.Compress(bytes, (CompressionLevel)compressLevel);
 
 			return encoding.GetString(deflated);
 		}
@@ -35,7 +35,7 @@ namespace ComponentAce.Compression.Libs.zlib
 			}
 
             _ = encoding.GetBytes(text, 0, text.Length, encodingGetBytesBuffer, 0);
-			resultBuffer = MemoryZlib.Compress(encodingGetBytesBuffer, (ZlibCompression)compressLevel);
+			resultBuffer = MemoryZlib.Compress(encodingGetBytesBuffer, (CompressionLevel)compressLevel);
 
             return resultBuffer.Length;
 		}
@@ -49,12 +49,12 @@ namespace ComponentAce.Compression.Libs.zlib
     
 			var bytes = encoding.GetBytes(text);
 
-			return MemoryZlib.Compress(bytes, (ZlibCompression)compressLevel);
+			return MemoryZlib.Compress(bytes, (CompressionLevel)compressLevel);
 		}
 
 		public static byte[] CompressToBytes(byte[] bytes, int length, int compressLevel)
 		{
-            return MemoryZlib.Compress(bytes, (ZlibCompression)compressLevel);
+            return MemoryZlib.Compress(bytes, (CompressionLevel)compressLevel);
 		}
 
         public static int CompressWithZStream(ref ZStream zstream, byte[] bytes, int startIndex, int length, byte[] compressedBytes, int compressLevel)

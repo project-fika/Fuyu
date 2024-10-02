@@ -6,6 +6,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
+using Zlib.Managed;
 
 namespace Elskom.Generic.Libs
 {
@@ -32,7 +33,7 @@ namespace Elskom.Generic.Libs
         /// </summary>
         /// <param name="output">The output stream.</param>
         /// <param name="level">The compression level for the data to compress.</param>
-        public ZOutputStream(Stream output, int level)
+        public ZOutputStream(Stream output, CompressionLevel level)
         {
             this.BaseStream = output;
             this.InitBlock();

@@ -37,16 +37,16 @@ namespace Zlib.Managed
             }
         }
 
-        public static byte[] Compress(byte[] data, ZlibCompression level)
+        public static byte[] Compress(byte[] data, CompressionLevel level)
         {
-            if (level == ZlibCompression.NoCompression)
+            if (level == CompressionLevel.NoCompression)
             {
                 throw new ArgumentException("level cannot be ZlibCompression.NoCompression");
             }
 
             using (var ms = new MemoryStream())
             {
-                using (var zs = new ZOutputStream(ms, (int)level))
+                using (var zs = new ZOutputStream(ms, level))
                 {
                     zs.Write(data, 0, data.Length);
                 }
