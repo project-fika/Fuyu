@@ -15,16 +15,20 @@ namespace Fuyu.Backend.EFT.ItemEvents
             Controllers.Add(controller);
         }
 
-        public async Task RouteEvent(ItemEventContext context)
+        public async Task<bool> RouteEvent(ItemEventContext context)
         {
+            bool handled = false;
             foreach (var controller in Controllers)
             {
                 if (controller.Action == context.Action)
                 {
+                    handled = true;
                     Terminal.WriteLine($"Running {controller.GetType().Name}");
                     await controller.Handle(context);
                 }
             }
+
+            return handled;
         }
     }
 }
