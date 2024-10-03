@@ -12,6 +12,9 @@ namespace Fuyu.Backend.EFT.DTO.Items
         public int[] ScopesSelectedModes;
 
         [DataMember]
+        public float ScopeZoomValue;
+
+        [DataMember]
         public int SelectedScope;
     }
 }
