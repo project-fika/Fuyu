@@ -18,6 +18,12 @@ namespace Fuyu.Common.Collections
             _lock = new object();
         }
 
+        public ThreadDictionary(IDictionary<T1, T2> enumerable)
+        {
+            _dictionary = new Dictionary<T1, T2>(enumerable);
+            _lock = new object();
+        }
+
         public Dictionary<T1, T2> ToDictionary()
         {
             lock (_lock)
@@ -31,6 +37,14 @@ namespace Fuyu.Common.Collections
             lock (_lock)
             {
                 return _dictionary[key];
+            }
+        }
+
+        public bool TryGet(T1 key, out T2 value)
+        {
+            lock (_lock)
+            {
+                return _dictionary.TryGetValue(key, out value);
             }
         }
 
