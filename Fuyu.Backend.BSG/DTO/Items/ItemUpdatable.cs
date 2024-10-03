@@ -31,6 +31,54 @@ namespace Fuyu.Backend.EFT.DTO.Items
 
         // does not emit when 'null'
         [DataMember(EmitDefaultValue = false)]
+        public ItemCultistAmulet CultistAmulet;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemBuff Buff;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemDogtag Dogtag;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemFaceShield FaceShield;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemFoodDrink FoodDrink;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemKey Key;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemLockable Lockable;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemMap Map;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemRecodable Recodable;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemRepairKit RepairKit;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemSideEffect SideEffect;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemTag Tag;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
         public bool? SpawnedInSession;
 
         // does not emit when 'null'
