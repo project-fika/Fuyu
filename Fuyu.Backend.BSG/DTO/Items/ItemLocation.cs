@@ -1,3 +1,4 @@
+using Fuyu.Backend.BSG.DTO.Common;
 using System.Runtime.Serialization;
 
 namespace Fuyu.Backend.EFT.DTO.Items
@@ -12,7 +13,7 @@ namespace Fuyu.Backend.EFT.DTO.Items
         public int y;
 
         [DataMember]
-        public int r;
+        public EItemRotation r;
 
         // emits when 'false'
         [DataMember(EmitDefaultValue = false)]
