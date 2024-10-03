@@ -6,6 +6,6 @@ namespace Fuyu.Backend.EFT.DTO.Items
     public class ItemMedKit
     {
         [DataMember]
-        public int HpResource;
+        public float HpResource;
     }
 }
