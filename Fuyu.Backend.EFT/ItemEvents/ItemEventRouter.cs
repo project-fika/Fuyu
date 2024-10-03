@@ -24,7 +24,7 @@ namespace Fuyu.Backend.EFT.ItemEvents
                 {
                     handled = true;
                     Terminal.WriteLine($"Running {controller.GetType().Name}");
-                    await controller.Handle(context);
+                    await controller.RunAsync(context);
                 }
             }
 

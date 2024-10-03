@@ -11,7 +11,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
         {
         }
 
-        public override Task Handle(ItemEventContext context, ReadEncyclopediaItemEvent request)
+        public override Task RunAsync(ItemEventContext context, ReadEncyclopediaItemEvent request)
         {
             return Task.CompletedTask;
         }

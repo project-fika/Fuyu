@@ -11,7 +11,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
         {
         }
 
-        public override Task Handle(ItemEventContext context, InterGameTransferItemEvent request)
+        public override Task RunAsync(ItemEventContext context, InterGameTransferItemEvent request)
         {
             return Task.CompletedTask;
         }

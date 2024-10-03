@@ -11,7 +11,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
         {
         }
 
-        public override Task Handle(ItemEventContext context, MoveItemEvent request)
+        public override Task RunAsync(ItemEventContext context, MoveItemEvent request)
         {
             var account = EftOrm.GetAccount(context.SessionId);
             var profile = EftOrm.GetProfile(account.PveId);

@@ -7,11 +7,11 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
     {
         public string Action { get; } = action;
 
-        public Task Handle(ItemEventContext context)
+        public Task RunAsync(ItemEventContext context)
         {
-            return Handle(context, context.GetData<TEvent>());
+            return RunAsync(context, context.GetData<TEvent>());
         }
 
-        public abstract Task Handle(ItemEventContext context, TEvent request);
+        public abstract Task RunAsync(ItemEventContext context, TEvent request);
     }
 }

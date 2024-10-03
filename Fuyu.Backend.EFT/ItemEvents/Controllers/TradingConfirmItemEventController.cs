@@ -11,7 +11,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
         {
         }
 
-        public override Task Handle(ItemEventContext context, TradingConfirmItemEvent request)
+        public override Task RunAsync(ItemEventContext context, TradingConfirmItemEvent request)
         {
             return Task.CompletedTask;
         }

@@ -11,7 +11,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
         {
         }
 
-        public override Task Handle(ItemEventContext context, TraderRepairItemEvent request)
+        public override Task RunAsync(ItemEventContext context, TraderRepairItemEvent request)
         {
             return Task.CompletedTask;
         }

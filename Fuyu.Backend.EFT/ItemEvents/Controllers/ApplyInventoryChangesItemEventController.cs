@@ -12,7 +12,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
         {
         }
 
-        public override Task Handle(ItemEventContext context, ApplyInventoryChangesEvent request)
+        public override Task RunAsync(ItemEventContext context, ApplyInventoryChangesEvent request)
         {
             var account = EftOrm.GetAccount(context.SessionId);
             var profile = EftOrm.GetProfile(account.PveId);

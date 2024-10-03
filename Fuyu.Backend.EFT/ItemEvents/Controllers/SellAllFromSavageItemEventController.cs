@@ -11,7 +11,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
         {
         }
 
-        public override Task Handle(ItemEventContext context, SellAllFromSavageItemEvent request)
+        public override Task RunAsync(ItemEventContext context, SellAllFromSavageItemEvent request)
         {
             return Task.CompletedTask;
         }

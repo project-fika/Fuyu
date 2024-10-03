@@ -12,7 +12,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
         {
         }
 
-        public override Task Handle(ItemEventContext context, CustomizationBuyItemEvent request)
+        public override Task RunAsync(ItemEventContext context, CustomizationBuyItemEvent request)
         {
             return Task.CompletedTask;
         }
