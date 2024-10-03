@@ -17,6 +17,11 @@ namespace Fuyu.Backend.EFT.DTO.Items
         // emits when 'false'
         [DataMember(EmitDefaultValue = false)]
         public bool isSearched;
+
+        public override string ToString()
+        {
+            return $"{x},{y}:{r}|{(isSearched ? 's' : 'u')}";
+        }
     }
     
     public enum EItemRotation
