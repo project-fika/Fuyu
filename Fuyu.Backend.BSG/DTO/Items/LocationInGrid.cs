@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public struct ItemLocation
+    public struct LocationInGrid
     {
         [DataMember]
         public int x;

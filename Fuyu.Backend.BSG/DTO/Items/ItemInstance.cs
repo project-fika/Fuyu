@@ -21,7 +21,7 @@ namespace Fuyu.Backend.EFT.DTO.Items
 
         // emits when 'null'
         [DataMember(EmitDefaultValue = true)]
-        public ItemLocation location;
+        public LocationInGrid location;
 
         // emits when 'null'
         [DataMember(EmitDefaultValue = true)]
