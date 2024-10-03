@@ -5,35 +5,35 @@ namespace Fuyu.Backend.EFT.DTO.Items
     [DataContract]
     public class ItemUpdatable
     {
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
         public ItemFireMode FireMode;
 
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
         public ItemRepairable Repairable;
 
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
         public ItemFoldable Foldable;
 
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
         public ItemSight Sight;
 
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
         public ItemLight Light;
 
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
         public ItemMedKit MedKit;
 
-        // emits when 'null'
+        // does not emit when 'null'
         [DataMember(EmitDefaultValue = false)]
         public bool? SpawnedInSession;
 
-        // emits when 'null'
+        // does not emit when 'null'
         [DataMember(EmitDefaultValue = false)]
         public int? StackObjectsCount;
     }
