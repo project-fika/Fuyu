@@ -26,6 +26,7 @@ namespace Fuyu.Backend.EFT.Controllers
             _router.AddController<SellAllFromSavageEventController>();
             _router.AddController<TraderRepairEventController>();
             _router.AddController<TradingConfirmEventController>();
+            _router.AddController<ApplyInventoryChangesItemEventController>();
         }
 
         public override async Task RunAsync(HttpContext context)
