@@ -12,10 +12,16 @@ namespace Fuyu.Backend.EFT.DTO.Items
         public int y;
 
         [DataMember]
-        public int r;
+        public EItemRotation r;
 
         // emits when 'false'
         [DataMember(EmitDefaultValue = false)]
         public bool isSearched;
+    }
+    
+    public enum EItemRotation
+    {
+        Horizontal,
+        Vertical
     }
 }
