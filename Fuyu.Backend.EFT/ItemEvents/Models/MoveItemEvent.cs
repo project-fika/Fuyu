@@ -11,11 +11,11 @@ namespace Fuyu.Backend.EFT.ItemEvents.Models
         public MongoId Item { get; set; }
 
         [DataMember(Name = "to")]
-        public To To { get; set; }
+        public LocationInGrid To { get; set; }
     }
 
     [DataContract]
-    public class To
+    public class LocationInGrid
     {
         [DataMember(Name = "id")]
         public MongoId Id { get; set; }
