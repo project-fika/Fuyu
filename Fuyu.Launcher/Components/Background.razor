@@ -1,12 +1,18 @@
 <div>
     @if (Glass)
     {
-        <div class="bg bg-glass"></div>
+        <div class="bg bg-glass" style="left: @GlassLeftPos;"></div>
     }
-    <div class="bg bg-img"></div>
+    <div class="bg bg-img" style="background-image: url(@($"../img/{BackgroundImage}"));"></div>
 </div>
 
 @code {
     [Parameter]
     public bool Glass { get; set; } = false;
+
+    [Parameter]
+    public string GlassLeftPos { get; set; } = "0";
+
+    [Parameter]
+    public string BackgroundImage { get; set; } = "bg.png";
 }
