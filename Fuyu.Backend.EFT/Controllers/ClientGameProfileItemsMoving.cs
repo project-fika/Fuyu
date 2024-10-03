@@ -2,13 +2,11 @@
 using Fuyu.Backend.EFT.DTO.Responses;
 using Fuyu.Backend.EFT.ItemEvents;
 using Fuyu.Backend.EFT.ItemEvents.Controllers;
-using Fuyu.Common.Collections;
 using Fuyu.Common.IO;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Fuyu.Backend.EFT.Controllers
@@ -34,8 +32,8 @@ namespace Fuyu.Backend.EFT.Controllers
         {
             var requestText = await context.GetTextAsync();
             var requestObject = JObject.Parse(requestText);
-            Terminal.WriteLine($"requestObject:{requestObject}");
             var requestData = requestObject.Value<JArray>("data");
+            Terminal.WriteLine($"requestData:{requestData.ToString(Formatting.None)}");
             var response = new ItemEventResponse
             {
                 ProfileChanges = [],
@@ -43,15 +41,13 @@ namespace Fuyu.Backend.EFT.Controllers
             };
 
             var sessionId = context.GetSessionId();
-            var tasks = new List<Task>(requestData.Count);
             foreach (var itemRequest in requestData)
             {
                 var action = itemRequest.Value<string>("Action");
                 var itemEventContext = new ItemEventContext(sessionId, action, itemRequest, response);
-                tasks.Add(_router.RouteEvent(itemEventContext));
+                await _router.RouteEvent(itemEventContext);
             }
 
-            await Task.WhenAll(tasks);
             await context.SendJsonAsync(Json.Stringify(new ResponseBody<ItemEventResponse>
             {
                 data = response
