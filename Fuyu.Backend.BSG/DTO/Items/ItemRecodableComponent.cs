@@ -3,9 +3,9 @@
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemSideEffect
+    public class ItemRecodableComponent
     {
         [DataMember]
-        public float Value;
+        public bool IsEncoded;
     }
 }

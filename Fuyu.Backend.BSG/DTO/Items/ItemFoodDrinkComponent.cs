@@ -3,9 +3,9 @@
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemKey
+    public class ItemFoodDrinkComponent
     {
         [DataMember]
-        public int NumberOfUsages;
+        public float HpPercent;
     }
 }

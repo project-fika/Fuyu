@@ -3,9 +3,9 @@
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemRecodable
+    public class ItemLockableComponent
     {
         [DataMember]
-        public bool IsEncoded;
+        public bool Locked;
     }
 }

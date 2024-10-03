@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemSight
+    public class ItemSightComponent
     {
         [DataMember]
         public int[] ScopesCurrentCalibPointIndexes;

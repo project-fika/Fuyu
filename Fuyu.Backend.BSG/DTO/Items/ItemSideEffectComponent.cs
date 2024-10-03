@@ -3,12 +3,9 @@
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemFaceShield
+    public class ItemSideEffectComponent
     {
         [DataMember]
-        public byte Hits;
-
-        [DataMember]
-        public byte HitSeed;
+        public float Value;
     }
 }

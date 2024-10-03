@@ -1,11 +1,12 @@
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemMedKit
+    public class ItemMapComponent
     {
         [DataMember]
-        public float HpResource;
+        public List<MapMarker> Markers;
     }
 }

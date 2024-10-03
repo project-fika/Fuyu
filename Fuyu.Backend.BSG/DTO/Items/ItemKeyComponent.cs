@@ -3,9 +3,9 @@
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemRepairKit
+    public class ItemKeyComponent
     {
         [DataMember]
-        public float Resource;
+        public int NumberOfUsages;
     }
 }

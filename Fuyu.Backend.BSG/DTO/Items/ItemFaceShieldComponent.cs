@@ -3,12 +3,12 @@
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemTag
+    public class ItemFaceShieldComponent
     {
         [DataMember]
-        public int Color;
+        public byte Hits;
 
         [DataMember]
-        public string Name;
+        public byte HitSeed;
     }
 }

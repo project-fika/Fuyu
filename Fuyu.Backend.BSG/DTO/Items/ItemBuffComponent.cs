@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemBuff
+    public class ItemBuffComponent
     {
         [DataMember(Name = "buffType")]
         public ERepairBuffType BuffType { get; set; }
