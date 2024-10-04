@@ -10,6 +10,8 @@
 
 @if (SessionState.Value.IsLoggedIn)
 {
+    <Background Glass="true" BackgroundImage="bg-index.png" />
+
     <MudContainer Class="mt-6" Fixed="true">
         @if (string.IsNullOrWhiteSpace(ActiveGameState.Value.GameId))
         {

@@ -8,7 +8,8 @@
 
 @page "/login"
 
-<Background Glass="true" />
+<Background Glass="true" GlassLeftPos="50%" />
+
 <MudGrid Style="height: calc(100vh - 64px);" Spacing="0">
     <MudItem xs="6">
     </MudItem>
@@ -22,8 +23,8 @@
 
                 <MudPaper Class="pa-4" Elevation="4">
                     <MudForm @ref="_form" @bind-IsValid="@_success" @bind-Errors="@_errors" Spacing="4">
-                        <MudTextField @bind-Value="_username" Label="Username" Required="true" RequiredError="User name is required!" />
-                        <MudTextField @bind-Value="_password" Label="Password" Required="true" RequiredError="Password is required!" InputType="InputType.Password" />
+                        <MudTextField @bind-Value="_username" Label="Username" Required="true" RequiredError="Required" />
+                        <MudTextField @bind-Value="_password" Label="Password" Required="true" RequiredError="Required" InputType="InputType.Password" />
                         <div class="d-flex align-center justify-center mt-6">
                             <MudButton Variant="Variant.Filled" Color="Color.Tertiary" Disabled="@(!_success)" OnClick="Login_Clicked">Login</MudButton>
                         </div>
@@ -64,11 +65,11 @@
                 break;
 
             case ELoginStatus.AccountBanned:
-                Snackbar.Add("Account is banned!", Severity.Warning);
+                Snackbar.Add("Account is banned.", Severity.Warning);
                 break;
 
             case ELoginStatus.AccountNotFound:
-                Snackbar.Add("Account not found!", Severity.Warning);
+                Snackbar.Add("Account not found.", Severity.Warning);
                 break;
 
             case ELoginStatus.SessionAlreadyExists:

@@ -5,7 +5,7 @@
 
 @page "/register"
 
-<Background Glass="true" />
+<Background Glass="true" GlassLeftPos="50%" />
 
 <MudGrid Style="height: calc(100vh - 64px);" Spacing="0">
     <MudItem xs="6">
@@ -15,16 +15,16 @@
             <MudStack Style="width: 400px;">
                 <MudPaper Class="pa-4" Elevation="4">
                     <MudText Typo="Typo.body1">Register</MudText>
-                    <MudText Typo="Typo.body2">Choose your username, password and game edition.</MudText>
+                    <MudText Typo="Typo.body2">Choose your account credentials.</MudText>
                 </MudPaper>
 
                 <MudPaper Class="pa-4" Elevation="4">
                     <MudForm @ref="_form" @bind-IsValid="@_success" @bind-Errors="@_errors">
-                        <MudTextField @bind-Value="_username" Label="Username" Required="true" RequiredError="User name is required!" />
-                        <MudTextField @bind-Value="_password" Label="Password" Required="true" RequiredError="Password is required!"
+                        <MudTextField @bind-Value="_username" Label="Username" Required="true" RequiredError="Required" />
+                        <MudTextField @bind-Value="_password" Label="Password" Required="true" RequiredError="Required"
                                         InputType="InputType.Password"
                                         HelperText="Choose a strong password" />
-                        <MudTextField T="string" Label="Repeat the Password" InputType="InputType.Password" Validation="@(new Func<string, string>(PasswordMatch))" />
+                        <MudTextField T="string" Label="Repeat the Password" Required="true" InputType="InputType.Password" Validation="@(new Func<string, string>(PasswordMatch))" />
                         <div class="d-flex align-center justify-center mt-6">
                             <MudButton Variant="Variant.Filled" Color="Color.Tertiary" Disabled="@(!_success)" OnClick="Register_Clicked">Register</MudButton>
                         </div>
@@ -61,43 +61,43 @@
         switch (status)
         {
             case ERegisterStatus.Success:
-                Snackbar.Add("Account registered successfully. You can now login!", Severity.Success);
+                Snackbar.Add("Account registered successfully. You can now login.", Severity.Success);
                 Navigation.NavigateTo("/login");
                 break;
 
             case ERegisterStatus.AlreadyExists:
-                Snackbar.Add("Account already exists!", Severity.Warning);
+                Snackbar.Add("Account already exists.", Severity.Warning);
                 break;
 
             case ERegisterStatus.PasswordInvalid:
-                Snackbar.Add("Password doesn't meet the requirements!", Severity.Warning);
+                Snackbar.Add("Password doesn't meet the requirements.", Severity.Warning);
                 break;
 
             case ERegisterStatus.PasswordTooLong:
-                Snackbar.Add("Password too long!", Severity.Warning);
+                Snackbar.Add("Password too long.", Severity.Warning);
                 break;
             case ERegisterStatus.PasswordTooShort:
-                Snackbar.Add("Password too short!", Severity.Warning);
+                Snackbar.Add("Password too short.", Severity.Warning);
                 break;
 
             case ERegisterStatus.PasswordEmpty:
-                Snackbar.Add("Didn't receive a password!", Severity.Warning);
+                Snackbar.Add("Didn't receive a password.", Severity.Warning);
                 break;
 
             case ERegisterStatus.UsernameInvalid:
-                Snackbar.Add("Username contains invalid characters!", Severity.Warning);
+                Snackbar.Add("Username contains invalid characters.", Severity.Warning);
                 break;
 
             case ERegisterStatus.UsernameTooLong:
-                Snackbar.Add("Username too long!", Severity.Warning);
+                Snackbar.Add("Username too long.", Severity.Warning);
                 break;
 
             case ERegisterStatus.UsernameTooShort:
-                Snackbar.Add("Username too short!", Severity.Warning);
+                Snackbar.Add("Username too short.", Severity.Warning);
                 break;
 
             case ERegisterStatus.UsernameEmpty:
-                Snackbar.Add("Didn't receive a username!", Severity.Warning);
+                Snackbar.Add("Didn't receive a username.", Severity.Warning);
                 break;
 
         }

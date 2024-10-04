@@ -5,8 +5,9 @@
 @inject IState<ActiveGameState> ActiveGameState
 @inject IDispatcher Dispatcher
 @inject IDialogService DialogService
+@inject NavigationManager Navigation
 
-@if (SessionState.Value.IsLoggedIn)
+@if (SessionState.Value.IsLoggedIn && Navigation.ToBaseRelativePath(Navigation.Uri) != "settings")
 {
     <MudDrawer Elevation="1" ClipMode="@DrawerClipMode.Always" Breakpoint="@Breakpoint.None" Variant="@DrawerVariant.Mini">
         <MudNavMenu>
@@ -42,6 +43,17 @@
         { "eft",   "EFT"        },
         { "arena", "EFT: Arena" }
     };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        this.Navigation.LocationChanged += this.LocationChanged;
+    }
+
+    private void LocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        this.InvokeAsync(StateHasChanged);
+    }
 
     private void Game_Clicked(string gameId)
     {

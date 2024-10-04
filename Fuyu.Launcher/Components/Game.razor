@@ -4,6 +4,8 @@
 @inject IState<GamesState> GamesState
 @inject IState<ActiveGameState> ActiveGameState
 
+<Background Glass="true" BackgroundImage=@($"bg-{ActiveGameState.Value.GameId}.png") />
+
 <div>
     <MudStack Style="width: 400px;">
         <MudPaper Class="pa-4" Elevation="4">

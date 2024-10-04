@@ -19,7 +19,7 @@ namespace Fuyu.Launcher.Store.GamesUseCase
         [ReducerMethod]
         public static GamesState ReduceAddGameAction(GamesState state, AddGameAction action)
         {
-            state.Games.Add(action.GameId, action.AccountId);
+            state.Games[action.GameId] = action.AccountId;
 
             return new GamesState(false, state.Games);
         }

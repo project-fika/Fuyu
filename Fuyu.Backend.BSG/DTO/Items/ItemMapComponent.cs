@@ -1,11 +1,12 @@
+﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemFireMode
+    public class ItemMapComponent
     {
         [DataMember]
-        public string FireMode;
+        public List<MapMarker> Markers;
     }
 }

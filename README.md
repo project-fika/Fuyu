@@ -51,4 +51,5 @@ SPTarkov.
 **Author** | **Reason**
 ---------- | ----------------------------------
 seionmoya  | Project creator, main author
+thesparta  | Most of the launcher code
 nexus      | Debugging issues inside EFT client
