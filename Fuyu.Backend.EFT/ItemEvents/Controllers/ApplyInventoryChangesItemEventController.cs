@@ -1,4 +1,6 @@
-﻿using Fuyu.Backend.EFT.DTO.Items;
+﻿using Fuyu.Backend.BSG.ItemEvents;
+using Fuyu.Backend.EFT.DTO.Items;
+using Fuyu.Backend.BSG.ItemEvents.Controllers;
 using Fuyu.Backend.EFT.ItemEvents.Models;
 using Fuyu.Common.Collections;
 using System.Linq;
@@ -23,6 +25,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
                 {
                     item.slotId = changedItem.Slot;
                     item.location = changedItem.Location;
+                    item.parentId = changedItem.ParentId;
                 }
             });
 

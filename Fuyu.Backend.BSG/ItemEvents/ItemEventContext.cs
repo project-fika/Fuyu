@@ -1,7 +1,7 @@
-﻿using Fuyu.Backend.EFT.DTO.Responses;
+﻿using Fuyu.Backend.BSG.DTO.Responses;
 using Newtonsoft.Json.Linq;
 
-namespace Fuyu.Backend.EFT.ItemEvents
+namespace Fuyu.Backend.BSG.ItemEvents
 {
     public class ItemEventContext
     {

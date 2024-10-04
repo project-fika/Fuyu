@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fuyu.Backend.BSG.ItemEvents.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

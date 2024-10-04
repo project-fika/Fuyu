@@ -1,4 +1,5 @@
 ﻿using Fuyu.Backend.BSG.DTO.Responses;
+using Fuyu.Backend.BSG.ItemEvents;
 using Fuyu.Backend.EFT.DTO.Responses;
 using Fuyu.Backend.EFT.ItemEvents;
 using Fuyu.Backend.EFT.ItemEvents.Controllers;

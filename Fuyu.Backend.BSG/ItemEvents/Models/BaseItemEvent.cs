@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Fuyu.Backend.EFT.ItemEvents.Models
+namespace Fuyu.Backend.BSG.ItemEvents.Models
 {
     [DataContract]
     public class BaseItemEvent

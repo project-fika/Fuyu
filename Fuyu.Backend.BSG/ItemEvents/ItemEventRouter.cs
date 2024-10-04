@@ -1,9 +1,9 @@
-﻿using Fuyu.Backend.EFT.ItemEvents.Controllers;
+﻿using Fuyu.Backend.BSG.ItemEvents.Controllers;
 using Fuyu.Common.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Fuyu.Backend.EFT.ItemEvents
+namespace Fuyu.Backend.BSG.ItemEvents
 {
     public class ItemEventRouter
     {

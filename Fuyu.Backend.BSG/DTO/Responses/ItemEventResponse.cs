@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Fuyu.Backend.EFT.DTO.Responses
+namespace Fuyu.Backend.BSG.DTO.Responses
 {
     [DataContract]
     public class ItemEventResponse

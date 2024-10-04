@@ -1,21 +1,23 @@
-﻿using Fuyu.Backend.EFT.DTO.Items;
+﻿using Fuyu.Backend.BSG.ItemEvents.Models;
+using Fuyu.Backend.EFT.DTO.Items;
 using Fuyu.Common.Hashing;
 using System.Runtime.Serialization;
 
 namespace Fuyu.Backend.EFT.ItemEvents.Models
 {
     [DataContract]
+    // There is more data to this I have not needed it so I have not added it yet
     public class MoveItemEvent : BaseItemEvent
     {
         [DataMember(Name = "item")]
         public MongoId Item { get; set; }
 
         [DataMember(Name = "to")]
-        public LocationInGrid To { get; set; }
+        public RelocateTarget To { get; set; }
     }
 
     [DataContract]
-    public class LocationInGrid
+    public class RelocateTarget
     {
         [DataMember(Name = "id")]
         public MongoId Id { get; set; }
@@ -24,6 +26,6 @@ namespace Fuyu.Backend.EFT.ItemEvents.Models
         public string Container { get; set; }
 
         [DataMember(Name = "location")]
-        public ItemLocation Location { get; set; }
+        public LocationInGrid Location { get; set; }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Fuyu.Backend.EFT.DTO.Items;
+﻿using Fuyu.Backend.BSG.ItemEvents.Models;
+using Fuyu.Backend.EFT.DTO.Items;
 using Fuyu.Common.Hashing;
 using System.Runtime.Serialization;
 
@@ -27,7 +28,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Models
         public string Slot { get; set; }
 
         [DataMember(Name = "location")]
-        public ItemLocation Location { get; set; }
+        public LocationInGrid Location { get; set; }
 
         // It is declared in the assembly but I haven't had it sent yet
         /*        [DataMember(Name = "")]

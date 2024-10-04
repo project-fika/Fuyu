@@ -1,5 +1,7 @@
-﻿using Fuyu.Backend.EFT.ItemEvents.Models;
+﻿using Fuyu.Backend.BSG.ItemEvents;
+using Fuyu.Backend.EFT.ItemEvents.Models;
 using Fuyu.Common.IO;
+using Fuyu.Backend.BSG.ItemEvents.Controllers;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,6 +21,8 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
             if (item is not null)
             {
                 item.location = request.To.Location;
+                item.parentId = request.To.Id;
+                item.slotId = request.To.Container;
                 Terminal.WriteLine($"{request.Item} moved to {request.To.Location}");
             }
             else

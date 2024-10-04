@@ -1,7 +1,7 @@
-﻿using Fuyu.Backend.EFT.ItemEvents.Models;
+﻿using Fuyu.Backend.BSG.ItemEvents.Models;
 using System.Threading.Tasks;
 
-namespace Fuyu.Backend.EFT.ItemEvents.Controllers
+namespace Fuyu.Backend.BSG.ItemEvents.Controllers
 {
     public abstract class ItemEventController<TEvent>(string action) : IItemEventController where TEvent : BaseItemEvent
     {

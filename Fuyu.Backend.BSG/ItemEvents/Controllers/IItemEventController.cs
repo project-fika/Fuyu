@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Fuyu.Backend.EFT.ItemEvents.Controllers
+namespace Fuyu.Backend.BSG.ItemEvents.Controllers
 {
     public interface IItemEventController
     {
