@@ -3,12 +3,12 @@ using System.Runtime.Serialization;
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemRepairable
+    public class ItemLightComponent
     {
         [DataMember]
-        public float Durability;
+        public bool IsActive;
 
         [DataMember]
-        public float MaxDurability;
+        public int SelectedMode;
     }
 }

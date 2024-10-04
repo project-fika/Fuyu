@@ -3,9 +3,9 @@ using System.Runtime.Serialization;
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemMedKit
+    public class ItemMedKitComponent
     {
         [DataMember]
-        public int HpResource;
+        public float HpResource;
     }
 }

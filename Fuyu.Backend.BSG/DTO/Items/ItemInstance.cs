@@ -12,19 +12,19 @@ namespace Fuyu.Backend.EFT.DTO.Items
         public string _tpl;
 
         // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
+        [DataMember(EmitDefaultValue = false)]
         public string parentId;
 
         // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
+        [DataMember(EmitDefaultValue = false)]
         public string slotId;
 
         // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
-        public ItemLocation location;
+        [DataMember(EmitDefaultValue = false)]
+        public LocationInGrid location;
 
         // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
+        [DataMember(EmitDefaultValue = false)]
         public ItemUpdatable upd;
     }
 }

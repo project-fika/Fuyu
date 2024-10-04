@@ -5,35 +5,83 @@ namespace Fuyu.Backend.EFT.DTO.Items
     [DataContract]
     public class ItemUpdatable
     {
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
-        public ItemFireMode FireMode;
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemFireModeComponent FireMode;
 
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
-        public ItemRepairable Repairable;
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemRepairableComponent Repairable;
 
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
-        public ItemFoldable Foldable;
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemFoldableComponent Foldable;
 
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
-        public ItemSight Sight;
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemSightComponent Sight;
 
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
-        public ItemLight Light;
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemLightComponent Light;
 
-        // emits when 'null'
-        [DataMember(EmitDefaultValue = true)]
-        public ItemMedKit MedKit;
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemMedKitComponent MedKit;
 
-        // emits when 'null'
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemCultistAmuletComponent CultistAmulet;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemBuffComponent Buff;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemDogtagComponent Dogtag;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemFaceShieldComponent FaceShield;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemFoodDrinkComponent FoodDrink;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemKeyComponent Key;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemLockableComponent Lockable;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemMapComponent Map;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemRecodableComponent Recodable;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemRepairKitComponent RepairKit;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemSideEffectComponent SideEffect;
+
+        // does not emit when 'null'
+        [DataMember(EmitDefaultValue = false)]
+        public ItemTagComponent Tag;
+
+        // does not emit when 'null'
         [DataMember(EmitDefaultValue = false)]
         public bool? SpawnedInSession;
 
-        // emits when 'null'
+        // does not emit when 'null'
         [DataMember(EmitDefaultValue = false)]
         public int? StackObjectsCount;
     }
