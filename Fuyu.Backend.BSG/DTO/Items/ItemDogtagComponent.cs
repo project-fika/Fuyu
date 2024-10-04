@@ -8,13 +8,13 @@ namespace Fuyu.Backend.EFT.DTO.Items
     public class ItemDogtagComponent
     {
         [DataMember]
-        public string AccountId = "";
+        public string AccountId;
 
         [DataMember]
-        public string ProfileId = "";
+        public string ProfileId;
 
         [DataMember]
-        public string Nickname = "";
+        public string Nickname;
 
         [DataMember]
         public EPlayerSide Side;
@@ -26,19 +26,19 @@ namespace Fuyu.Backend.EFT.DTO.Items
         public DateTime Time;
 
         [DataMember]
-        public string Status = "";
+        public string Status;
 
         [DataMember]
-        public string KillerAccountId = "";
+        public string KillerAccountId;
 
         [DataMember]
-        public string KillerProfileId = "";
+        public string KillerProfileId;
 
         [DataMember]
-        public string KillerName = "";
+        public string KillerName;
 
         [DataMember]
-        public string WeaponName = "";
+        public string WeaponName;
 
         [DataMember]
         public bool CarriedByGroupMember;
