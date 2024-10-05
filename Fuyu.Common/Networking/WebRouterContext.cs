@@ -3,13 +3,13 @@ using System.Net;
 
 namespace Fuyu.Common.Networking
 {
-    public class Context
+    public class WebRouterContext : IRouterContext
     {
         protected readonly HttpListenerRequest Request;
         protected readonly HttpListenerResponse Response;
         public readonly string Path;
 
-        public Context(HttpListenerRequest request, HttpListenerResponse response)
+        public WebRouterContext(HttpListenerRequest request, HttpListenerResponse response)
         {
             Request = request;
             Response = response;

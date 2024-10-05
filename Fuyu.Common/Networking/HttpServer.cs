@@ -105,15 +105,5 @@ namespace Fuyu.Common.Networking
 
             Terminal.WriteLine($"[{Name}] Started on {Address}");
         }
-
-        public void AddHttpController<T>() where T : HttpController, new()
-        {
-            HttpRouter.Controllers.Add(new T());
-        }
-
-        public void AddWsController<T>() where T : WsController, new()
-        {
-            WsRouter.Controllers.Add(new T());
-        }
     }
 }

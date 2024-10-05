@@ -1,9 +1,10 @@
 ﻿using Fuyu.Backend.BSG.DTO.Responses;
+using Fuyu.Common.Networking;
 using Newtonsoft.Json.Linq;
 
 namespace Fuyu.Backend.BSG.ItemEvents
 {
-    public class ItemEventContext
+    public class ItemEventContext : IRouterContext
     {
         public string SessionId { get; }
         public string Action { get; }

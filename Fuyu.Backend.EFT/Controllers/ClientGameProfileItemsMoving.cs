@@ -47,11 +47,8 @@ namespace Fuyu.Backend.EFT.Controllers
             {
                 var action = itemRequest.Value<string>("Action");
                 var itemEventContext = new ItemEventContext(sessionId, action, itemRequest, response);
-                if (!await _router.RouteEvent(itemEventContext))
-                {
-                    Terminal.WriteLine($"Unhandled:{itemRequest.ToString(Formatting.None)}");
-                }
-            }
+                await _router.RouteAsync(itemEventContext);
+			}
 
             await context.SendJsonAsync(Json.Stringify(new ResponseBody<ItemEventResponse>
             {

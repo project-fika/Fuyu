@@ -1,21 +1,9 @@
-using System.Threading.Tasks;
-
 namespace Fuyu.Common.Networking
 {
-    public class HttpRouter : Router<HttpController>
+    public class HttpRouter : Router<HttpController, HttpContext>
     {
         public HttpRouter() : base()
         {
-        }
-
-        public async Task RouteAsync(HttpContext context)
-        {
-            var matches = GetAllMatching(context);
-
-            foreach (var match in matches)
-            {
-                await Task.Run(() => match.RunAsync(context));
-            }
         }
     }
 }
