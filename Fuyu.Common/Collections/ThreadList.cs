@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 
 namespace Fuyu.Common.Collections
@@ -27,23 +28,33 @@ namespace Fuyu.Common.Collections
             }
         }
 
-        public T Get(int index)
+        public bool TryGet(int index, out T value)
         {
-            lock (_lock)
-            {
-                return _list[index];
-            }
-        }
+            value = default;
+			if (index < 0 || index >= _list.Count)
+			{
+                return false;
+			}
 
-        public void Set(int index, T value)
-        {
-            lock (_lock)
-            {
-                _list[index] = value;
-            }
-        }
+            value = _list[index];
+            return true;
+		}
 
-        public void Add(T value)
+		public bool TrySet(int index, T value)
+		{
+			lock (_lock)
+			{
+				if (index < 0 || index >= _list.Count)
+				{
+					return false;
+				}
+
+				_list[index] = value;
+				return true;
+			}
+		}
+
+		public void Add(T value)
         {
             lock (_lock)
             {
@@ -57,14 +68,20 @@ namespace Fuyu.Common.Collections
             {
                 _list.Remove(value);
             }
-        }
+		}
 
-        public void RemoveAt(int index)
-        {
-            lock (_lock)
-            {
-                _list.RemoveAt(index);
-            }
-        }
-    }
+		public bool TryRemoveAt(int index)
+		{
+			lock (_lock)
+			{
+				if (index < 0 || index >= _list.Count)
+				{
+					return false;
+				}
+
+				_list.RemoveAt(index);
+				return true;
+			}
+		}
+	}
 }

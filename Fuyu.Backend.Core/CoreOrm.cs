@@ -15,7 +15,12 @@ namespace Fuyu.Backend.Core
         public static Account GetAccount(string sessionId)
         {
             var accountId = GetSession(sessionId);
-            return CoreDatabase.Accounts.Get(accountId);
+            if (!CoreDatabase.Accounts.TryGet(accountId, out var account))
+            {
+                throw new Exception($"Failed to get account with sessionID: {sessionId}");
+            }
+
+            return account;
         }
 
         public static Account GetAccount(int accountId)
@@ -39,7 +44,7 @@ namespace Fuyu.Backend.Core
             {
                 if (accounts[i].Id == account.Id)
                 {
-                    CoreDatabase.Accounts.Set(i, account);
+                    CoreDatabase.Accounts.TrySet(i, account);
                     return;
                 }
             }
@@ -55,7 +60,7 @@ namespace Fuyu.Backend.Core
             {
                 if (accounts[i].Id == accountId)
                 {
-                    CoreDatabase.Accounts.RemoveAt(i);
+                    CoreDatabase.Accounts.TryRemoveAt(i);
                     return;
                 }
             }
@@ -70,7 +75,12 @@ namespace Fuyu.Backend.Core
 
         public static int GetSession(string sessionId)
         {
-            return CoreDatabase.Sessions.Get(sessionId);
+            if (!CoreDatabase.Sessions.TryGet(sessionId, out var id))
+            {
+                throw new Exception($"Failed to find ID for sessionId: {sessionId}");
+            }
+
+            return id;
         }
 
         public static void SetOrAddSession(string sessionId, int accountId)
@@ -81,7 +91,7 @@ namespace Fuyu.Backend.Core
             }
             else
             {
-                CoreDatabase.Sessions.Add(sessionId, accountId);
+                CoreDatabase.Sessions.Set(sessionId, accountId);
             }
         }
 

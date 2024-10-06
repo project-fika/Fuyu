@@ -32,14 +32,6 @@ namespace Fuyu.Common.Collections
             }
         }
 
-        public T2 Get(T1 key)
-        {
-            lock (_lock)
-            {
-                return _dictionary[key];
-            }
-        }
-
         public bool TryGet(T1 key, out T2 value)
         {
             lock (_lock)
@@ -56,14 +48,6 @@ namespace Fuyu.Common.Collections
             }
         }
 
-        public void Add(T1 key, T2 value)
-        {
-            lock (_lock)
-            {
-                _dictionary.Add(key, value);
-            }
-        }
-
         public void Remove(T1 key)
         {
             lock (_lock)
@@ -74,7 +58,7 @@ namespace Fuyu.Common.Collections
 
         public bool ContainsKey(T1 key)
         {
-            lock(_lock)
+            lock (_lock)
             {
                 return _dictionary.ContainsKey(key);
             }
