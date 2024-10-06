@@ -26,25 +26,25 @@ namespace Fuyu.Common.Networking
             }
 
             return path;
-        }
+		}
 
-        public Dictionary<string, string> GetPathParameters(HttpController behaviour)
-        {
-            var result = new Dictionary<string, string>();
-            var segments = Path.Split('/');
-            var i = 0;
+		public Dictionary<string, string> GetPathParameters(IRoutable routable)
+		{
+			var result = new Dictionary<string, string>();
+			var segments = Path.Split('/');
+			var i = 0;
 
-            foreach (var kvp in behaviour.Path)
-            {
-                if (kvp.Value == EPathSegment.Dynamic)
-                {
-                    result.Add(kvp.Key, segments[i]);
-                }
+			foreach (var kvp in routable.Path)
+			{
+				if (kvp.Value == EPathSegment.Dynamic)
+				{
+					result.Add(kvp.Key, segments[i]);
+				}
 
-                ++i;
-            }
+				++i;
+			}
 
-            return result;
-        }
-    }
+			return result;
+		}
+	}
 }

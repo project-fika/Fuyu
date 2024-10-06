@@ -3,9 +3,9 @@ using System.Threading.Tasks;
 
 namespace Fuyu.Common.Networking
 {
-    public abstract class WebController<TContext> : IRouterController<TContext> where TContext : WebRouterContext
+	public abstract class WebController<TContext> : IRoutable, IRouterController<TContext> where TContext : WebRouterContext
     {
-        public readonly Dictionary<string, EPathSegment> Path;
+        public Dictionary<string, EPathSegment> Path { get; }
 
         public WebController(string path)
         {
