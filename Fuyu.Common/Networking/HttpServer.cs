@@ -38,13 +38,15 @@ namespace Fuyu.Common.Networking
             {
                 var listenerContext = await _listener.GetContextAsync();
 
+                // NOTE: no await to fire and forget in order to handle multiple requests at once
+                // -- nexus4880, 2024-10-07
                 if (listenerContext.Request.IsWebSocketRequest)
                 {
-                    await OnWsRequestAsync(listenerContext);
+                    _ = Task.Run(() => OnWsRequestAsync(listenerContext));
                 }
                 else
                 {
-                    await OnHttpRequestAsync(listenerContext);
+                    _ = Task.Run(() => OnHttpRequestAsync(listenerContext));
                 }
             }
         }
