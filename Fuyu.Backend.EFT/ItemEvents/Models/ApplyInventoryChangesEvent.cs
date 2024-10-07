@@ -30,8 +30,10 @@ namespace Fuyu.Backend.EFT.ItemEvents.Models
         [DataMember(Name = "location")]
         public LocationInGrid Location { get; set; }
 
-        // It is declared in the assembly but I haven't had it sent yet
-        /*        [DataMember(Name = "")]
-                public ItemUpdatable Upd { get; set; }*/
-    }
+		// SKIPPED: Upd
+		// Reason: it is declared in the assembly but I haven't had it sent yet
+		// -- nexus4880, 2024-10-07
+		// [DataMember(Name = "upd")]
+		// public ItemUpdatable Upd { get; set; }*/
+	}
 }
