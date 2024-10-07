@@ -37,8 +37,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.EFT", "F
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.Core", "Fuyu.Tests.Backend.Core\Fuyu.Tests.Backend.Core.csproj", "{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Compression", "Fuyu.Tests.Compression\Fuyu.Tests.Compression.csproj", "{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -116,9 +114,5 @@ Global
 		{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

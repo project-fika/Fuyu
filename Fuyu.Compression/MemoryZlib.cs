@@ -1,10 +1,7 @@
-// ZOutputStream.Close() flushes itself.
-// ZOutputStream.Flush() flushes the target stream.
-// -- Waffle.Lord, 2022-12-01
-
 using System;
 using System.IO;
-using Elskom.Generic.Libs;
+using System.IO.Compression;
+using ComponentAce.Compression.Libs.zlib;
 
 namespace Fuyu.Compression
 {
@@ -39,35 +36,64 @@ namespace Fuyu.Compression
 
         public static byte[] Compress(byte[] data, CompressionLevel level)
         {
-            if (level == CompressionLevel.NoCompression)
+#if NET6_0_OR_GREATER
+            using (var msin = new MemoryStream(data))
             {
-                throw new ArgumentException("level cannot be ZlibCompression.NoCompression");
-            }
-
-            using (var ms = new MemoryStream())
-            {
-                using (var zs = new ZOutputStream(ms, level))
+                using (var msout = new MemoryStream())
                 {
-                    zs.Write(data, 0, data.Length);
+                    using (var zs = new ZLibStream(msout, level))
+                    {
+                        msin.CopyTo(zs);
+                        zs.Flush();
+                        return msout.ToArray();
+                    }
                 }
-                // <-- zs flushes everything here
-
-                return ms.ToArray();
             }
+#else
+            // NOTE: assumes this is running in EFT
+            // -- seionmoya, 2024-10-07
+            var compressLevel = 0;
+
+            switch (level)
+            {
+                case CompressionLevel.NoCompression:
+                    throw new Exception("CompressToBytes does not support level 0");
+
+                case CompressionLevel.Fastest:
+                    compressLevel = 1;
+                    break;
+
+                // NOTE: CompressionLevel.SmallestSize does not exist in
+                //       .NET 5 and below.
+                // -- seionmoya, 2024-10-07
+                case CompressionLevel.Optimal:
+                    compressLevel = 9;
+                    break;
+            }
+
+            return SimpleZlib.CompressToBytes(data, data.Length, compressLevel);
+#endif
         }
 
         public static byte[] Decompress(byte[] data)
         {
-            using (var ms = new MemoryStream())
+#if NET6_0_OR_GREATER
+            using (var msin = new MemoryStream(data))
             {
-                using (var zs = new ZOutputStream(ms))
+                using (var msout = new MemoryStream())
                 {
-                    zs.Write(data, 0, data.Length);
+                    using (var zs = new ZLibStream(msin, CompressionMode.Decompress))
+                    {
+                        zs.CopyTo(msout);
+                        return msout.ToArray();
+                    }
                 }
-                // <-- zs flushes everything here
-
-                return ms.ToArray();
             }
+#else
+            // NOTE: assumes this is running in EFT
+            // -- seionmoya, 2024-10-07
+            return SimpleZlib.DecompressToBytes(data);
+#endif
         }
     }
 }
