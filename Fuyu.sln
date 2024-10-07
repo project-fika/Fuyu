@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Backend.EFT", "Fuyu.Ba
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Common", "Fuyu.Common\Fuyu.Common.csproj", "{4396E84F-DCE9-4E5D-80AC-D8EC7C9A9D53}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Compression", "Fuyu.Compression\Fuyu.Compression.csproj", "{AFCA8CD1-4DFC-4D64-8DC7-872000BEE1EA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "bsg.componentace.compression.libs.zlib", "bsg.componentace.compression.libs.zlib\bsg.componentace.compression.libs.zlib.csproj", "{AFCA8CD1-4DFC-4D64-8DC7-872000BEE1EA}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Launcher", "Fuyu.Launcher\Fuyu.Launcher.csproj", "{7C62D77E-1C6E-4EF0-8436-49FD1603A1D6}"
 EndProject
@@ -36,8 +36,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.EFT", "Fuyu.Tests.Backend.EFT\Fuyu.Tests.Backend.EFT.csproj", "{BEC4515F-F90C-4055-9D26-0000408E516E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.Core", "Fuyu.Tests.Backend.Core\Fuyu.Tests.Backend.Core.csproj", "{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Compression", "Fuyu.Tests.Compression\Fuyu.Tests.Compression.csproj", "{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,9 +114,5 @@ Global
 		{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7756BCDD-7A6D-46C9-9AF2-05C934C96B93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

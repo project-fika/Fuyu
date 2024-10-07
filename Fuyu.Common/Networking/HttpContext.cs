@@ -1,8 +1,9 @@
 using System.IO;
+using System.IO.Compression;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Fuyu.Compression;
+using Fuyu.Common.Compression;
 using Fuyu.Common.Serialization;
 
 namespace Fuyu.Common.Networking
@@ -63,7 +64,17 @@ namespace Fuyu.Common.Networking
 
             if (hasData && zipped)
             {
-                data = MemoryZlib.Compress(data, CompressionLevel.BestCompression);
+                // NOTE: CompressionLevel.SmallestSize does not exist in
+                //       .NET 5 and below.
+                // -- seionmoya, 2024-10-07
+
+#if NET6_0_OR_GREATER
+                var level = CompressionLevel.SmallestSize;
+#else
+                var level = CompressionLevel.Optimal;
+#endif
+
+                data = MemoryZlib.Compress(data, level);
             }
 
             Response.StatusCode = (int)status;

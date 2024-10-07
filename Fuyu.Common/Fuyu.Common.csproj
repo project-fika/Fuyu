@@ -8,8 +8,8 @@
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="../Fuyu.Compression/Fuyu.Compression.csproj" />
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
+    <ProjectReference Include="../bsg.componentace.compression.libs.zlib/bsg.componentace.compression.libs.zlib.csproj" />
   </ItemGroup>
 
 </Project>
