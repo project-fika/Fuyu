@@ -31,6 +31,7 @@ namespace Fuyu.Backend.EFT.Servers
             HttpRouter.AddController<GameLogoutController>();
             HttpRouter.AddController<GameModeController>();
             HttpRouter.AddController<GameProfileCreateController>();
+            HttpRouter.AddController<GameProfileItemsMovingController>();
             HttpRouter.AddController<GameProfileListController>();
             HttpRouter.AddController<GameProfileNicknameReservedController>();
             HttpRouter.AddController<GameProfileNicknameValidateController>();
@@ -68,7 +69,6 @@ namespace Fuyu.Backend.EFT.Servers
             HttpRouter.AddController<SurveyController>();
             HttpRouter.AddController<TraderSettingsController>();
             HttpRouter.AddController<WeatherController>();
-            HttpRouter.AddController<ClientGameProfileItemsMoving>();
         }
     }
 }

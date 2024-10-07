@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class ClientGameProfileItemsMoving : HttpController
+    public class GameProfileItemsMovingController : HttpController
     {
         private ItemEventRouter _router = new ItemEventRouter();
 
-        public ClientGameProfileItemsMoving() : base("/client/game/profile/items/moving")
+        public GameProfileItemsMovingController() : base("/client/game/profile/items/moving")
         {
             _router.AddController<CustomizationBuyEventController>();
             _router.AddController<EatItemEventController>();
