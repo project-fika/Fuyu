@@ -18,6 +18,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
             var account = EftOrm.GetAccount(context.SessionId);
             var profile = EftOrm.GetProfile(account.PveId);
             var item = profile.Pmc.Inventory.items.FirstOrDefault(i => i._id == request.Item);
+
             if (item is not null)
             {
                 item.location = request.To.Location;
