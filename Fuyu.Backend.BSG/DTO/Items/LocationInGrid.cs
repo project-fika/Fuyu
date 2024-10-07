@@ -2,7 +2,7 @@ using System.Runtime.Serialization;
 
 namespace Fuyu.Backend.EFT.DTO.Items
 {
-    [DataContract]
+	[DataContract]
     public class LocationInGrid
     {
         [DataMember]
@@ -17,11 +17,5 @@ namespace Fuyu.Backend.EFT.DTO.Items
         // emits when 'false'
         [DataMember(EmitDefaultValue = false)]
         public bool isSearched;
-    }
-    
-    public enum EItemRotation
-    {
-        Horizontal,
-        Vertical
     }
 }
