@@ -11,9 +11,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Fuyu.Common/Fuyu.Common.csproj" />
-    <ProjectReference Include="../Fuyu.Backend.Core/Fuyu.Backend.Core.csproj" />
-    <ProjectReference Include="../Fuyu.Backend.EFT/Fuyu.Backend.EFT.csproj" />
+    <ProjectReference Include="../../Fuyu.Common/Fuyu.Common.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="embedded/test.txt" />
   </ItemGroup>
 
   <Target Name="PostClean" AfterTargets="Clean">
