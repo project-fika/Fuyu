@@ -1,12 +1,8 @@
 ﻿using Fuyu.Backend.BSG.DTO.Responses;
 using Fuyu.Backend.BSG.ItemEvents;
-using Fuyu.Backend.EFT.DTO.Responses;
-using Fuyu.Backend.EFT.ItemEvents;
 using Fuyu.Backend.EFT.ItemEvents.Controllers;
-using Fuyu.Common.IO;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
 
@@ -35,7 +31,6 @@ namespace Fuyu.Backend.EFT.Controllers
             var requestText = await context.GetTextAsync();
             var requestObject = JObject.Parse(requestText);
             var requestData = requestObject.Value<JArray>("data");
-            Terminal.WriteLine($"requestData:{requestData.ToString(Formatting.None)}");
             var response = new ItemEventResponse
             {
                 ProfileChanges = [],
