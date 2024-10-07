@@ -29,8 +29,8 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
         [DataMember]
         public long RegistrationDate;
 
-        // SKIPPED: GameVersion
-        // Reason: only used on BSG's internal server
+        [DataMember]
+        public string GameVersion;
 
         // SKIPPED: AccountType
         // Reason: only used on BSG's internal server
