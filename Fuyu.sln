@@ -29,13 +29,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin.Common", "Fuyu.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Plugin.EFT", "Fuyu.Plugin.EFT\Fuyu.Plugin.EFT.csproj", "{6C285025-50E9-4970-AFBF-4D216BCD4D7D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.Arena", "Fuyu.Tests.Backend.Arena\Fuyu.Tests.Backend.Arena.csproj", "{57699BC1-D80E-4CB2-BDEE-DF0136AF2526}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.Arena", "Tests\Fuyu.Tests.Backend.Arena\Fuyu.Tests.Backend.Arena.csproj", "{57699BC1-D80E-4CB2-BDEE-DF0136AF2526}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Common", "Fuyu.Tests.Common\Fuyu.Tests.Common.csproj", "{3F62947F-CA09-4B07-9922-C328EAA26EF5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Common", "Tests\Fuyu.Tests.Common\Fuyu.Tests.Common.csproj", "{3F62947F-CA09-4B07-9922-C328EAA26EF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.EFT", "Fuyu.Tests.Backend.EFT\Fuyu.Tests.Backend.EFT.csproj", "{BEC4515F-F90C-4055-9D26-0000408E516E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.EFT", "Tests\Fuyu.Tests.Backend.EFT\Fuyu.Tests.Backend.EFT.csproj", "{BEC4515F-F90C-4055-9D26-0000408E516E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.Core", "Fuyu.Tests.Backend.Core\Fuyu.Tests.Backend.Core.csproj", "{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fuyu.Tests.Backend.Core", "Tests\Fuyu.Tests.Backend.Core\Fuyu.Tests.Backend.Core.csproj", "{C36F6974-2E1E-4327-B82C-AE8DD0954DDD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
