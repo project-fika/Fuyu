@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <ProjectReference Include="../Shims/bsg.componentace.compression.libs.zlib/bsg.componentace.compression.libs.zlib.csproj" />
+    <ProjectReference Private="False" Include="../Shims/bsg.componentace.compression.libs.zlib/bsg.componentace.compression.libs.zlib.csproj" />
   </ItemGroup>
 
 </Project>
