@@ -19,6 +19,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
             var account = EftOrm.GetAccount(context.SessionId);
             var profile = EftOrm.GetProfile(account.PveId);
             var profileItems = new ThreadDictionary<string, ItemInstance>(profile.Pmc.Inventory.items.ToDictionary(i => i._id, i => i));
+
             Parallel.ForEach(request.ChangedItems, changedItem =>
             {
                 if (profileItems.TryGet(changedItem.Id, out var item))
