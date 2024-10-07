@@ -27,8 +27,9 @@ namespace Fuyu.Backend.EFT.Controllers
         }
 
         public override async Task RunAsync(HttpContext context)
-        {
-            var requestText = await context.GetTextAsync();
+		{
+			var sessionId = context.GetSessionId();
+			var requestText = await context.GetTextAsync();
             var requestObject = JObject.Parse(requestText);
             var requestData = requestObject.Value<JArray>("data");
             var response = new ItemEventResponse
@@ -37,7 +38,6 @@ namespace Fuyu.Backend.EFT.Controllers
                 InventoryWarnings = []
             };
 
-            var sessionId = context.GetSessionId();
             foreach (var itemRequest in requestData)
             {
                 var action = itemRequest.Value<string>("Action");
