@@ -1,12 +1,13 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Fuyu.Common.Networking
 {
-    public abstract class Controller
+	public abstract class WebController<TContext> : IRoutable, IRouterController<TContext> where TContext : WebRouterContext
     {
-        public readonly Dictionary<string, EPathSegment> Path;
+        public Dictionary<string, EPathSegment> Path { get; }
 
-        public Controller(string path)
+        public WebController(string path)
         {
             Path = InitializePath(path);
         }
@@ -32,29 +33,31 @@ namespace Fuyu.Common.Networking
             return result;
         }
 
-        public bool IsMatch(Context context)
-        {
-            var segments = context.Path.Split('/');
-            var i = 0;
+		public bool IsMatch(TContext context)
+		{
+			var segments = context.Path.Split('/');
+			var i = 0;
 
-            if (segments.Length != Path.Count)
-            {
-                // segment length does not match
-                return false;
-            }
+			if (segments.Length != Path.Count)
+			{
+				// segment length does not match
+				return false;
+			}
 
-            foreach (var kvp in Path)
-            {
-                // validate static segment
-                if (kvp.Value == EPathSegment.Static && segments[i] != kvp.Key)
-                {
-                    return false;
-                }
+			foreach (var kvp in Path)
+			{
+				// validate static segment
+				if (kvp.Value == EPathSegment.Static && segments[i] != kvp.Key)
+				{
+					return false;
+				}
 
-                ++i;
-            }
+				++i;
+			}
 
-            return true;
-        }
-    }
+			return true;
+		}
+
+		public abstract Task RunAsync(TContext context);
+	}
 }

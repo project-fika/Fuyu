@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Fuyu.Backend.BSG.DTO.Customization;
 using Fuyu.Backend.BSG.DTO.Profiles;
@@ -38,7 +39,7 @@ namespace Fuyu.Backend.EFT
             {
                 if (profiles[i].Pmc._id == profile.Pmc._id)
                 {
-                    EftDatabase.Profiles.Set(i, profile);
+                    EftDatabase.Profiles.TrySet(i, profile);
                     return;
                 }
             }
@@ -54,7 +55,7 @@ namespace Fuyu.Backend.EFT
             {
                 if (profiles[i].Pmc._id == profile.Pmc._id)
                 {
-                    EftDatabase.Profiles.RemoveAt(i);
+                    EftDatabase.Profiles.TryRemoveAt(i);
                     return;
                 }
             }
@@ -96,7 +97,7 @@ namespace Fuyu.Backend.EFT
             {
                 if (accounts[i].Id == account.Id)
                 {
-                    EftDatabase.Accounts.Set(i, account);
+                    EftDatabase.Accounts.TrySet(i, account);
                     return;
                 }
             }
@@ -112,7 +113,7 @@ namespace Fuyu.Backend.EFT
             {
                 if (accounts[i].Id == account.Id)
                 {
-                    EftDatabase.Accounts.RemoveAt(i);
+                    EftDatabase.Accounts.TryRemoveAt(i);
                     return;
                 }
             }
@@ -127,7 +128,12 @@ namespace Fuyu.Backend.EFT
 
         public static int GetSession(string sessionId)
         {
-            return EftDatabase.Sessions.Get(sessionId);
+            if (!EftDatabase.Sessions.TryGet(sessionId, out var session))
+            {
+                throw new Exception($"Failed to get session from sessionId: {sessionId}");
+            }
+
+            return session;
         }
 
         public static void SetOrAddSession(string sessionId, int accountId)
@@ -138,7 +144,7 @@ namespace Fuyu.Backend.EFT
             }
             else
             {
-                EftDatabase.Sessions.Add(sessionId, accountId);
+                EftDatabase.Sessions.Set(sessionId, accountId);
             }
         }
 
@@ -156,7 +162,12 @@ namespace Fuyu.Backend.EFT
 
         public static CustomizationTemplate GetCustomization(string customizationId)
         {
-            return EftDatabase.Customizations.Get(customizationId);
+            if (!EftDatabase.Customizations.TryGet(customizationId, out var customizationTemplate))
+            {
+                throw new Exception($"Failed to get customization with ID '{customizationId}'");
+            }
+
+            return customizationTemplate;
         }
 
         public static void SetOrAddCustomization(string customizationId, CustomizationTemplate template)
@@ -167,7 +178,7 @@ namespace Fuyu.Backend.EFT
             }
             else
             {
-                EftDatabase.Customizations.Add(customizationId, template);
+                EftDatabase.Customizations.Set(customizationId, template);
             }
         }
 
@@ -184,8 +195,13 @@ namespace Fuyu.Backend.EFT
         }
 
         public static string GetLanguage(string languageId)
-        {
-            return EftDatabase.Languages.Get(languageId);
+		{
+			if (!EftDatabase.Languages.TryGet(languageId, out var language))
+			{
+				throw new Exception($"Failed to get language from languageId: {languageId}");
+			}
+
+			return language;
         }
 
         public static void SetOrAddLanguage(string languageId, string name)
@@ -196,7 +212,7 @@ namespace Fuyu.Backend.EFT
             }
             else
             {
-                EftDatabase.Languages.Add(languageId, name);
+                EftDatabase.Languages.Set(languageId, name);
             }
         }
 
@@ -214,7 +230,12 @@ namespace Fuyu.Backend.EFT
 
         public static Dictionary<string, string> GetGlobalLocale(string languageId)
         {
-            return EftDatabase.GlobalLocales.Get(languageId);
+            if (!EftDatabase.GlobalLocales.TryGet(languageId, out var locale))
+            {
+                throw new Exception($"Failed to get locale '{languageId}'");
+            }
+
+            return locale;
         }
 
         public static void SetOrAddGlobalLocale(string languageId, Dictionary<string, string> globalLocale)
@@ -225,7 +246,7 @@ namespace Fuyu.Backend.EFT
             }
             else
             {
-                EftDatabase.GlobalLocales.Add(languageId, globalLocale);
+                EftDatabase.GlobalLocales.Set(languageId, globalLocale);
             }
         }
 
@@ -242,8 +263,13 @@ namespace Fuyu.Backend.EFT
         }
 
         public static MenuLocaleResponse GetMenuLocale(string languageId)
-        {
-            return EftDatabase.MenuLocales.Get(languageId);
+		{
+			if (!EftDatabase.MenuLocales.TryGet(languageId, out var menuLocale))
+			{
+				throw new Exception($"Failed to get menu locale from languageId: {languageId}");
+			}
+
+			return menuLocale;
         }
 
         public static void SetOrAddMenuLocale(string languageId, MenuLocaleResponse menuLocale)
@@ -254,7 +280,7 @@ namespace Fuyu.Backend.EFT
             }
             else
             {
-                EftDatabase.MenuLocales.Add(languageId, menuLocale);
+                EftDatabase.MenuLocales.Set(languageId, menuLocale);
             }
         }
 
@@ -272,7 +298,12 @@ namespace Fuyu.Backend.EFT
 
         public static Dictionary<EPlayerSide, Profile> GetWipeProfile(string edition)
         {
-            return EftDatabase.WipeProfiles.Get(edition);
+            if (!EftDatabase.WipeProfiles.TryGet(edition, out var profiles))
+            {
+                throw new Exception($"Failed to get profile(s) for edition '{edition}'");
+            }
+
+            return profiles;
         }
 
         public static void SetOrAddWipeProfile(string edition, Dictionary<EPlayerSide, Profile> profiles)
@@ -283,7 +314,7 @@ namespace Fuyu.Backend.EFT
             }
             else
             {
-                EftDatabase.WipeProfiles.Add(edition, profiles);
+                EftDatabase.WipeProfiles.Set(edition, profiles);
             }
         }
 

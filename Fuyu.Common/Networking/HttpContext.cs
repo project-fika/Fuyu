@@ -8,7 +8,7 @@ using Fuyu.Common.Serialization;
 
 namespace Fuyu.Common.Networking
 {
-    public class HttpContext : Context
+    public class HttpContext : WebRouterContext
     {
         public HttpContext(HttpListenerRequest request, HttpListenerResponse response) : base(request, response)
         {

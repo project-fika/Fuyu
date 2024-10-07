@@ -1,4 +1,5 @@
 ﻿using Fuyu.Backend.BSG.DTO.Profiles.Info;
+using Fuyu.Common.Hashing;
 using System;
 using System.Runtime.Serialization;
 
@@ -7,11 +8,12 @@ namespace Fuyu.Backend.EFT.DTO.Items
     [DataContract]
     public class ItemDogtagComponent
     {
+        // AccountId is the string version of the pmc.aid
         [DataMember]
         public string AccountId;
 
         [DataMember]
-        public string ProfileId;
+        public MongoId ProfileId;
 
         [DataMember]
         public string Nickname;
@@ -28,11 +30,12 @@ namespace Fuyu.Backend.EFT.DTO.Items
         [DataMember]
         public string Status;
 
-        [DataMember]
+		// AccountId is the string version of the pmc.aid
+		[DataMember]
         public string KillerAccountId;
 
         [DataMember]
-        public string KillerProfileId;
+        public MongoId KillerProfileId;
 
         [DataMember]
         public string KillerName;
@@ -40,6 +43,7 @@ namespace Fuyu.Backend.EFT.DTO.Items
         [DataMember]
         public string WeaponName;
 
+        // Whenever you carry out your own group member's dogtag it sells for 1 ruble
         [DataMember]
         public bool CarriedByGroupMember;
     }

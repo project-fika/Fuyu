@@ -11,11 +11,11 @@ namespace Fuyu.Backend.Core.Servers
 
         public void RegisterServices()
         {
-            AddHttpController<AccountLoginController>();
-            AddHttpController<AccountLogoutController>();
-            AddHttpController<AccountRegisterController>();
-            AddHttpController<AccountRegisterGameController>();
-            AddHttpController<AccountGamesController>();
+            HttpRouter.AddController<AccountLoginController>();
+            HttpRouter.AddController<AccountLogoutController>();
+            HttpRouter.AddController<AccountRegisterController>();
+            HttpRouter.AddController<AccountRegisterGameController>();
+            HttpRouter.AddController<AccountGamesController>();
         }
     }
 }

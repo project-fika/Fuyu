@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Fuyu.Common.Networking
 {
-    public class WsContext : Context
+    public class WsContext : WebRouterContext
     {
         private const int _bufferSize = 32000;
         private readonly WebSocket _ws;

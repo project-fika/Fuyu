@@ -12,12 +12,12 @@ namespace Fuyu.Backend.Core.Controllers
         {
         }
 
-        public override async Task RunAsync(HttpContext context)
-        {
-            var request = await context.GetJsonAsync<AccountLoginRequest>();
-            var response = AccountService.LoginAccount(request.Username, request.Password);
+		public override async Task RunAsync(HttpContext context)
+		{
+			var request = await context.GetJsonAsync<AccountLoginRequest>();
+			var response = AccountService.LoginAccount(request.Username, request.Password);
 
-            await context.SendJsonAsync(Json.Stringify(response));
-        }
-    }
+			await context.SendJsonAsync(Json.Stringify(response));
+		}
+	}
 }

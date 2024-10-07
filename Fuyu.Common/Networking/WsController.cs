@@ -1,15 +1,12 @@
-using System;
 using System.Threading.Tasks;
 
 namespace Fuyu.Common.Networking
 {
-    public abstract class WsController : Controller
+    public abstract class WsController : WebController<WsContext>
     {
         public WsController(string path) : base(path)
         {
         }
-
-        public abstract Task RunAsync(WsContext context);
 
         public virtual Task OnConnectAsync(WsContext context)
         {
@@ -38,5 +35,5 @@ namespace Fuyu.Common.Networking
             context.OnBinaryAsync = OnBinaryAsync;
             await OnConnectAsync(context);
         }
-    }
+	}
 }

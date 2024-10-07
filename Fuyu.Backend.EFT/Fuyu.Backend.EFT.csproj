@@ -77,5 +77,4 @@
     <EmbeddedResource Include="embedded/database/client.trading.api.traderSettings.json" />
     <EmbeddedResource Include="embedded/database/client.weather.json" />
   </ItemGroup>
-
 </Project>
