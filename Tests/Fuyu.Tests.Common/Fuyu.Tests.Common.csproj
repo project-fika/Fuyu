@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Fuyu.Common/Fuyu.Common.csproj" />
+    <ProjectReference Include="../../Fuyu.Common/Fuyu.Common.csproj" />
   </ItemGroup>
 
   <ItemGroup>

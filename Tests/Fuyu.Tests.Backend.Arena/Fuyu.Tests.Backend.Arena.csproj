@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Fuyu.Common/Fuyu.Common.csproj" />
-    <ProjectReference Include="../Fuyu.Backend.Arena/Fuyu.Backend.Arena.csproj" />
+    <ProjectReference Include="../../Fuyu.Common/Fuyu.Common.csproj" />
+    <ProjectReference Include="../../Fuyu.Backend.Arena/Fuyu.Backend.Arena.csproj" />
   </ItemGroup>
 
   <Target Name="PostClean" AfterTargets="Clean">
