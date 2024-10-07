@@ -3,7 +3,7 @@ using System.IO.Compression;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using Fuyu.Compression;
+using Fuyu.Common.Compression;
 using Fuyu.Common.Serialization;
 
 namespace Fuyu.Common.Networking

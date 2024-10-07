@@ -1,9 +1,13 @@
 using System;
-using System.IO;
 using System.IO.Compression;
-using ComponentAce.Compression.Libs.zlib;
 
-namespace Fuyu.Compression
+#if NET6_0_OR_GREATER
+using System.IO;
+#else
+using ComponentAce.Compression.Libs.zlib;
+#endif
+
+namespace Fuyu.Common.Compression
 {
     public static class MemoryZlib
     {
@@ -34,9 +38,11 @@ namespace Fuyu.Compression
             }
         }
 
+#if NET6_0_OR_GREATER
+        // NOTE: assumes this is running inside the backend or launcher
+        // -- seionmoya, 2024-10-07
         public static byte[] Compress(byte[] data, CompressionLevel level)
         {
-#if NET6_0_OR_GREATER
             using (var msin = new MemoryStream(data))
             {
                 using (var msout = new MemoryStream())
@@ -49,35 +55,42 @@ namespace Fuyu.Compression
                     }
                 }
             }
+        }
 #else
-            // NOTE: assumes this is running in EFT
-            // -- seionmoya, 2024-10-07
+        // NOTE: assumes this is running inside the client
+        // -- seionmoya, 2024-10-07
+        public static byte[] Compress(byte[] data, CompressionLevel level)
+        {
             var compressLevel = 0;
 
             switch (level)
             {
                 case CompressionLevel.NoCompression:
-                    throw new Exception("CompressToBytes does not support level 0");
+                    throw new Exception("CompressToBytes does not support 'no compression'");
 
                 case CompressionLevel.Fastest:
                     compressLevel = 1;
                     break;
 
+                case CompressionLevel.Optimal:
+                    compressLevel = 6;
+                    break;
+
                 // NOTE: CompressionLevel.SmallestSize does not exist in
                 //       .NET 5 and below.
                 // -- seionmoya, 2024-10-07
-                case CompressionLevel.Optimal:
-                    compressLevel = 9;
-                    break;
             }
 
             return SimpleZlib.CompressToBytes(data, data.Length, compressLevel);
-#endif
         }
+#endif
 
+#if NET6_0_OR_GREATER
+        // NOTE: assumes this is running inside the backend or launcher
+        // -- seionmoya, 2024-10-07
         public static byte[] Decompress(byte[] data)
         {
-#if NET6_0_OR_GREATER
+
             using (var msin = new MemoryStream(data))
             {
                 using (var msout = new MemoryStream())
@@ -89,11 +102,14 @@ namespace Fuyu.Compression
                     }
                 }
             }
-#else
-            // NOTE: assumes this is running in EFT
-            // -- seionmoya, 2024-10-07
-            return SimpleZlib.DecompressToBytes(data);
-#endif
         }
+#else
+        // NOTE: assumes this is running inside the client
+        // -- seionmoya, 2024-10-07
+        public static byte[] Decompress(byte[] data)
+        {
+            return SimpleZlib.DecompressToBytes(data);
+        }
+#endif
     }
 }

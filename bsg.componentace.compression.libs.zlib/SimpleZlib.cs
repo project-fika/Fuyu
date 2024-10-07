@@ -3,10 +3,10 @@ using System.Text;
 
 namespace ComponentAce.Compression.Libs.zlib
 {
+	// NOTE: hollowed type
+    // -- seionmoya, 2024-10-07
 	public static class SimpleZlib
 	{
-        public const int bufsize = 4096;
-
 		public static string Compress(string text, int compressLevel, Encoding encoding = null)
 		{
 			throw new NotImplementedException();

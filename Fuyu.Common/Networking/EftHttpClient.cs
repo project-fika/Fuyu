@@ -1,7 +1,7 @@
 using System;
 using System.IO.Compression;
 using System.Net.Http;
-using Fuyu.Compression;
+using Fuyu.Common.Compression;
 
 namespace Fuyu.Common.Networking
 {
