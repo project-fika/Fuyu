@@ -8,7 +8,12 @@ namespace Fuyu.Common.Serialization
 	{
 		public override MongoId ReadJson(JsonReader reader, Type objectType, MongoId existingValue, bool hasExistingValue, JsonSerializer serializer)
 		{
-			return new MongoId((string)reader.Value);
+			if (reader.Value != null)
+			{
+				return new MongoId((string)reader.Value);
+			}
+
+			return default;
 		}
 
 		public override void WriteJson(JsonWriter writer, MongoId value, JsonSerializer serializer)
