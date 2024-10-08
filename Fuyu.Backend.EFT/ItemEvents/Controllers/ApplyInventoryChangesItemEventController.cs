@@ -5,6 +5,7 @@ using Fuyu.Backend.EFT.ItemEvents.Models;
 using Fuyu.Common.Collections;
 using System.Linq;
 using System.Threading.Tasks;
+using Fuyu.Common.Hashing;
 
 namespace Fuyu.Backend.EFT.ItemEvents.Controllers
 {
@@ -18,7 +19,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
         {
             var account = EftOrm.GetAccount(context.SessionId);
             var profile = EftOrm.GetProfile(account.PveId);
-            var profileItems = new ThreadDictionary<string, ItemInstance>(profile.Pmc.Inventory.items.ToDictionary(i => i._id, i => i));
+            var profileItems = new ThreadDictionary<MongoId, ItemInstance>(profile.Pmc.Inventory.items.ToDictionary(i => i._id, i => i));
 
             Parallel.ForEach(request.ChangedItems, changedItem =>
             {
@@ -26,7 +27,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
                 {
                     item.slotId = changedItem.Slot;
                     item.location = changedItem.Location;
-                    item.parentId = changedItem.ParentId;
+                    item.parentId = changedItem.ParentId.GetValueOrDefault();
                 }
             });
 

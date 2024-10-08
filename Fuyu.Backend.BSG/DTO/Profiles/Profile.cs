@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using Fuyu.Common.Hashing;
 
 namespace Fuyu.Backend.BSG.DTO.Profiles
 {
@@ -8,13 +9,13 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
     public class Profile
     {
         [DataMember]
-        public string _id;
+        public MongoId _id;
 
         [DataMember]
         public int aid;
 
-        [DataMember]
-        public string savage;
+        [DataMember(EmitDefaultValue = false)]
+        public MongoId savage;
 
         [DataMember]
         public ProfileInfo Info;
@@ -35,7 +36,7 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
         public StatsInfo Stats;
 
         [DataMember]
-        public Dictionary<string, bool> Encyclopedia;
+        public Dictionary<MongoId, bool> Encyclopedia;
 
         [DataMember]
         public Dictionary<string, ConditionCounter> TaskConditionCounters;
@@ -61,13 +62,13 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
 
         // TODO: proper type
         [DataMember]
-        public Dictionary<string, string> Achievements;
+        public Dictionary<MongoId, int> Achievements;
 
         [DataMember]
         public RagfairInfo RagfairInfo;
 
         [DataMember]
-        public Dictionary<string, TraderInfo> TradersInfo;
+        public Dictionary<MongoId, TraderInfo> TradersInfo;
 
         [DataMember]
         public UnlockedInfo UnlockedInfo;
