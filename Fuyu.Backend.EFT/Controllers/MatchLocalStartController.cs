@@ -6,7 +6,7 @@ using Fuyu.Backend.EFT.DTO.Requests;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class MatchLocalStartController : HttpController
+    public class MatchLocalStartController : BodyAwareHttpController<MatchLocalStartRequest>
     {
         private readonly Dictionary<string, string> _locations;
 
@@ -15,10 +15,10 @@ namespace Fuyu.Backend.EFT.Controllers
             _locations = new Dictionary<string, string>()
             {
                 { "bigmap",         Resx.GetText("eft", "database.locations.bigmap.json")          },
-                { "factory4_day",   Resx.GetText("eft", "database.locations.bigmap.json")          },
-                { "factory4_night", string.Empty                                                    },
+                { "factory4_day",   Resx.GetText("eft", "database.locations.factory4_day.json")    },
+                { "factory4_night", string.Empty                                                   },
                 { "interchange",    Resx.GetText("eft", "database.locations.interchange.json")     },
-                { "laboratory",     string.Empty                                                    },
+                { "laboratory",     string.Empty                                                   },
                 { "lighthouse",     Resx.GetText("eft", "database.locations.lighthouse.json")      },
                 { "rezervbase",     Resx.GetText("eft", "database.locations.rezervbase.json")      },
                 { "sandbox",        Resx.GetText("eft", "database.locations.sandbox.json")         },
@@ -28,12 +28,11 @@ namespace Fuyu.Backend.EFT.Controllers
             };
         }
 
-        public override async Task RunAsync(HttpContext context)
+        public override Task RunAsync(HttpContext context, MatchLocalStartRequest request)
         {
-            var request = await context.GetJsonAsync<MatchLocalStartRequest>();
             var location = request.location;
 
-            await context.SendJsonAsync(_locations[location]);
+            return context.SendJsonAsync(_locations[location]);
         }
     }
 }

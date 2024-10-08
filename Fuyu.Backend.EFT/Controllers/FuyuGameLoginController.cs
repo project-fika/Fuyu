@@ -7,22 +7,21 @@ using Fuyu.Backend.Common.DTO.Responses;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class FuyuGameLoginController : HttpController
+    public class FuyuGameLoginController : BodyAwareHttpController<FuyuGameLoginRequest>
     {
         public FuyuGameLoginController() : base("/fuyu/game/login")
         {
         }
 
-        public override async Task RunAsync(HttpContext context)
+        public override Task RunAsync(HttpContext context, FuyuGameLoginRequest request)
         {
-            var request = await context.GetJsonAsync<FuyuGameLoginRequest>();
             var sessionId = AccountService.LoginAccount(request.AccountId);
             var response = new FuyuGameLoginResponse()
             {
                 SessionId = sessionId
             };
 
-            await context.SendJsonAsync(Json.Stringify(response));
+            return context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }

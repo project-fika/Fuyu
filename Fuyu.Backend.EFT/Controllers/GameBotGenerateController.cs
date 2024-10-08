@@ -8,22 +8,21 @@ using Fuyu.Backend.EFT.Services;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class GameBotGenerateController : HttpController
+    public class GameBotGenerateController : BodyAwareHttpController<GameBotGenerateRequest>
     {
         public GameBotGenerateController() : base("/client/game/bot/generate")
         {
         }
 
-        public override async Task RunAsync(HttpContext context)
+        public override Task RunAsync(HttpContext context, GameBotGenerateRequest request)
         {
-            var request = await context.GetJsonAsync<GameBotGenerateRequest>();
             var profiles = BotService.GetBots(request.conditions);
             var response = new ResponseBody<Profile[]>()
             {
                 data = profiles
             };
 
-            await context.SendJsonAsync(Json.Stringify(response));
+            return context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }
