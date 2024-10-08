@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Fuyu.Backend.EFT.DTO.Items;
+using Fuyu.Common.Hashing;
 
 namespace Fuyu.Backend.BSG.DTO.Profiles
 {
@@ -11,29 +12,29 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
         public ItemInstance[] items;
 
         [DataMember]
-        public string equipment;
+        public MongoId equipment;
 
         [DataMember]
-        public string stash;
+        public MongoId stash;
 
         [DataMember]
-        public string sortingTable;
+        public MongoId sortingTable;
 
         [DataMember]
-        public string questRaidItems;
+        public MongoId questRaidItems;
 
         [DataMember]
-        public string questStashItems;
-
-        // TODO: proper type
-        [DataMember]
-        public object fastPanel;
-
-        [DataMember]
-        public Dictionary<string, string> hideoutAreaStashes;
+        public MongoId questStashItems;
 
         // TODO: proper type
         [DataMember]
-        public object[] favoriteItems;
+        public Dictionary<string, MongoId> fastPanel;
+
+        [DataMember]
+        public Dictionary<string, MongoId> hideoutAreaStashes;
+
+        // TODO: proper type
+        [DataMember]
+        public MongoId[] favoriteItems;
     }
 }

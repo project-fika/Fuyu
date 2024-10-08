@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using Fuyu.Common.Hashing;
 
 namespace Fuyu.Backend.BSG.DTO.Profiles
 {
@@ -6,15 +7,15 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
     public class CustomizationInfo
     {
         [DataMember]
-        public string Head;
+        public MongoId Head;
 
         [DataMember]
-        public string Body;
+        public MongoId Body;
 
         [DataMember]
-        public string Feet;
+        public MongoId Feet;
 
         [DataMember]
-        public string Hands;
+        public MongoId Hands;
     }
 }

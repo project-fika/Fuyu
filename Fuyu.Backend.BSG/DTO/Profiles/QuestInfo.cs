@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Fuyu.Backend.BSG.DTO.Profiles.Quests;
+using Fuyu.Common.Hashing;
 
 namespace Fuyu.Backend.BSG.DTO.Profiles
 {
@@ -8,7 +9,7 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
     public class QuestInfo
     {
         [DataMember]
-        public string qid;
+        public MongoId qid;
 
         [DataMember]
         public long startTime;

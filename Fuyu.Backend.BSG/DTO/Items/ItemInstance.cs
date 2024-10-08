@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using Fuyu.Common.Hashing;
 
 namespace Fuyu.Backend.EFT.DTO.Items
 {
@@ -6,14 +7,14 @@ namespace Fuyu.Backend.EFT.DTO.Items
     public class ItemInstance
     {
         [DataMember]
-        public string _id;
+        public MongoId _id;
 
         [DataMember]
-        public string _tpl;
+        public MongoId _tpl;
 
         // emits when 'null'
         [DataMember(EmitDefaultValue = false)]
-        public string parentId;
+        public MongoId parentId;
 
         // emits when 'null'
         [DataMember(EmitDefaultValue = false)]

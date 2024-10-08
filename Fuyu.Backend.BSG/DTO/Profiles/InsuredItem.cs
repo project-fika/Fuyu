@@ -1,4 +1,5 @@
 using System.Runtime.Serialization;
+using Fuyu.Common.Hashing;
 
 namespace Fuyu.Backend.BSG.DTO.Profiles
 {
@@ -6,9 +7,9 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
     public class InsuredItem
     {
         [DataMember]
-        public string tid;
+        public MongoId tid;
 
         [DataMember]
-        public string itemId;
+        public MongoId itemId;
     }
 }
