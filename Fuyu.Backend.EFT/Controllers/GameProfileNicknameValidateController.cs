@@ -7,7 +7,7 @@ using Fuyu.Backend.EFT.DTO.Responses;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class GameProfileNicknameValidateController : BodyAwareHttpController<GameProfileNicknameValidateRequest>
+    public class GameProfileNicknameValidateController : HttpController<GameProfileNicknameValidateRequest>
     {
         public GameProfileNicknameValidateController() : base("/client/game/profile/nickname/validate")
         {

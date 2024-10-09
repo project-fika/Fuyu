@@ -7,7 +7,7 @@ using Fuyu.Backend.Common.DTO.Responses;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class FuyuGameRegisterController : BodyAwareHttpController<FuyuGameRegisterRequest>
+    public class FuyuGameRegisterController : HttpController<FuyuGameRegisterRequest>
     {
         public FuyuGameRegisterController() : base("/fuyu/game/register")
         {

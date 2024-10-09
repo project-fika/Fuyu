@@ -7,7 +7,7 @@ using Fuyu.Backend.Core.Services;
 
 namespace Fuyu.Backend.Core.Controllers
 {
-    public class AccountRegisterController : BodyAwareHttpController<AccountRegisterRequest>
+    public class AccountRegisterController : HttpController<AccountRegisterRequest>
     {
         public AccountRegisterController() : base("/account/register")
         {

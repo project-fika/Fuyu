@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class GameProfileItemsMovingController : BodyAwareHttpController<JObject>
+    public class GameProfileItemsMovingController : HttpController<JObject>
     {
         private ItemEventRouter _router = new ItemEventRouter();
 

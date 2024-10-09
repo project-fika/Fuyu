@@ -8,7 +8,7 @@ using Fuyu.Backend.EFT.Services;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class GameBotGenerateController : BodyAwareHttpController<GameBotGenerateRequest>
+    public class GameBotGenerateController : HttpController<GameBotGenerateRequest>
     {
         public GameBotGenerateController() : base("/client/game/bot/generate")
         {

@@ -7,7 +7,7 @@ using Fuyu.Backend.Common.DTO.Responses;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class FuyuGameLoginController : BodyAwareHttpController<FuyuGameLoginRequest>
+    public class FuyuGameLoginController : HttpController<FuyuGameLoginRequest>
     {
         public FuyuGameLoginController() : base("/fuyu/game/login")
         {

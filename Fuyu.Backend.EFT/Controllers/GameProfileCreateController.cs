@@ -11,7 +11,7 @@ namespace Fuyu.Backend.EFT.Controllers
     // TODO:
     // * move code into TemplateTable and ProfileService
     // -- seionmoya, 2024/09/02
-    public class GameProfileCreateController : BodyAwareHttpController<GameProfileCreateRequest>
+    public class GameProfileCreateController : HttpController<GameProfileCreateRequest>
     {
         public GameProfileCreateController() : base("/client/game/profile/create")
         {

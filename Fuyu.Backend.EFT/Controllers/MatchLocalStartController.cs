@@ -6,7 +6,7 @@ using Fuyu.Backend.EFT.DTO.Requests;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class MatchLocalStartController : BodyAwareHttpController<MatchLocalStartRequest>
+    public class MatchLocalStartController : HttpController<MatchLocalStartRequest>
     {
         private readonly Dictionary<string, string> _locations;
 

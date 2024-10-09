@@ -6,7 +6,7 @@ using Fuyu.Backend.Core.Services;
 
 namespace Fuyu.Backend.Core.Controllers
 {
-    public class AccountLoginController : BodyAwareHttpController<AccountLoginRequest>
+    public class AccountLoginController : HttpController<AccountLoginRequest>
     {
         public AccountLoginController() : base("/account/login")
         {
