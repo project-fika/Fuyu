@@ -6,19 +6,18 @@ using Fuyu.Backend.Core.Services;
 
 namespace Fuyu.Backend.Core.Controllers
 {
-    public class AccountRegisterGameController : HttpController
-    {
+    public class AccountRegisterGameController : HttpController<AccountRegisterGameRequest>
+	{
         public AccountRegisterGameController() : base("/account/register/game")
         {
         }
 
-        public override async Task RunAsync(HttpContext context)
+        public override Task RunAsync(HttpContext context, AccountRegisterGameRequest request)
         {
-            var request = await context.GetJsonAsync<AccountRegisterGameRequest>();
             var sessionId = context.GetSessionId();
             var result = AccountService.RegisterGame(sessionId, request.Game, request.Edition);
 
-            await context.SendJsonAsync(Json.Stringify(result));
+            return context.SendJsonAsync(Json.Stringify(result));
         }
     }
 }

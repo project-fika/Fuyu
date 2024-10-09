@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class GameProfileItemsMovingController : HttpController
+    public class GameProfileItemsMovingController : HttpController<JObject>
     {
         private ItemEventRouter _router = new ItemEventRouter();
 
@@ -26,12 +26,15 @@ namespace Fuyu.Backend.EFT.Controllers
             _router.AddController<ApplyInventoryChangesItemEventController>();
         }
 
-        public override async Task RunAsync(HttpContext context)
+        public override async Task RunAsync(HttpContext context, JObject request)
 		{
+            if (!request.ContainsKey("data"))
+            {
+                return;
+            }
+
 			var sessionId = context.GetSessionId();
-			var requestText = await context.GetTextAsync();
-            var requestObject = JObject.Parse(requestText);
-            var requestData = requestObject.Value<JArray>("data");
+            var requestData = request.Value<JArray>("data");
             var response = new ItemEventResponse
             {
                 ProfileChanges = [],
