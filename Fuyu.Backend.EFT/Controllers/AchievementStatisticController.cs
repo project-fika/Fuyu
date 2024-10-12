@@ -9,7 +9,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class AchievementStatisticController : HttpController
     {
-        public AchievementStatisticController() : base("/client/achievement/statistic")
+        public AchievementStatisticController() : base("^/client/achievement/statistic$")
         {
         }
 

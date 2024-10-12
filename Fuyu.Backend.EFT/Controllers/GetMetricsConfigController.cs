@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class GetMetricsConfigController : HttpController
     {
-        public GetMetricsConfigController() : base("/client/getMetricsConfig")
+        public GetMetricsConfigController() : base("^/client/getMetricsConfig$")
         {
         }
 

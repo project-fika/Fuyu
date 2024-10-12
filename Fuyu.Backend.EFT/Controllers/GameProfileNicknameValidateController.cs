@@ -9,7 +9,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class GameProfileNicknameValidateController : HttpController
     {
-        public GameProfileNicknameValidateController() : base("/client/game/profile/nickname/validate")
+        public GameProfileNicknameValidateController() : base("^/client/game/profile/nickname/validate$")
         {
         }
 

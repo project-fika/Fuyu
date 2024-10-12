@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class GameProfileSelectController : HttpController
     {
-        public GameProfileSelectController() : base("/client/game/profile/select")
+        public GameProfileSelectController() : base("^/client/game/profile/select$")
         {
         }
 

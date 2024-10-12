@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class HideoutSettingsController : HttpController
     {
-        public HideoutSettingsController() : base("/client/hideout/settings")
+        public HideoutSettingsController() : base("^/client/hideout/settings$")
         {
         }
 

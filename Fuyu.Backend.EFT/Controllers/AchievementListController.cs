@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class AchievementListController : HttpController
     {
-        public AchievementListController() : base("/client/achievement/list")
+        public AchievementListController() : base("^/client/achievement/list$")
         {
         }
 

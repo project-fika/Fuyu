@@ -5,7 +5,7 @@ namespace Fuyu.Backend.Core.Controllers
 {
     public class AccountLogoutController : HttpController
     {
-        public AccountLogoutController() : base("/account/logout")
+        public AccountLogoutController() : base("^/account/logout$")
         {
         }
 

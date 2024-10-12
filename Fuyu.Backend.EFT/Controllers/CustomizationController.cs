@@ -9,7 +9,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class CustomizationController : HttpController
     {
-        public CustomizationController() : base("/client/customization")
+        public CustomizationController() : base("^/client/customization$")
         {
         }
 

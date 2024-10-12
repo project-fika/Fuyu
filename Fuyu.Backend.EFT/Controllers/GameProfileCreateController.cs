@@ -16,7 +16,7 @@ namespace Fuyu.Backend.EFT.Controllers
     // -- seionmoya, 2024/09/02
     public class GameProfileCreateController : HttpController
     {
-        public GameProfileCreateController() : base("/client/game/profile/create")
+        public GameProfileCreateController() : base("^/client/game/profile/create$")
         {
         }
 

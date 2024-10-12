@@ -7,7 +7,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class SurveyController : HttpController
     {
-        public SurveyController() : base("/client/survey")
+        public SurveyController() : base("^/client/survey$")
         {
         }
 

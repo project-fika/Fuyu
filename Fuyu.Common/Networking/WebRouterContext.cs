@@ -7,41 +7,31 @@ namespace Fuyu.Common.Networking
     {
         protected readonly HttpListenerRequest Request;
         protected readonly HttpListenerResponse Response;
-        public readonly string Path;
+        public string Path { get; }
 
         public WebRouterContext(HttpListenerRequest request, HttpListenerResponse response)
         {
             Request = request;
             Response = response;
-            Path = GetPath();
+            Path = Request.Url.AbsolutePath;
         }
-
-        private string GetPath()
-        {
-            var path = Request.Url.PathAndQuery;
-
-            if (path.Contains("?"))
-            {
-                path = path.Split('?')[0];
-            }
-
-            return path;
-		}
 
 		public Dictionary<string, string> GetPathParameters(IRoutable routable)
 		{
 			var result = new Dictionary<string, string>();
-			var segments = Path.Split('/');
-			var i = 0;
+			var match = routable.Matcher.Match(Path);
 
-			foreach (var kvp in routable.Path)
+			if (match.Success)
 			{
-				if (kvp.Value == EPathSegment.Dynamic)
-				{
-					result.Add(kvp.Key, segments[i]);
-				}
+				var names = routable.Matcher.GetGroupNames();
 
-				++i;
+                // NOTE: index 0 is always "0"
+                // -- nexus4880, 2024/10/11
+				for (int i = 1; i < names.Length; i++)
+				{
+                    var groupName = names[i];
+					result[groupName] = match.Groups[groupName].Value;
+				}
 			}
 
 			return result;

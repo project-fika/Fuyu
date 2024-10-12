@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class SettingsController : HttpController
     {
-        public SettingsController() : base("/client/settings")
+        public SettingsController() : base("^/client/settings$")
         {
         }
 

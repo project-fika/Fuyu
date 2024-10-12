@@ -9,7 +9,7 @@ namespace Fuyu.Backend.Core.Controllers
 {
     public class AccountRegisterController : HttpController
     {
-        public AccountRegisterController() : base("/account/register")
+        public AccountRegisterController() : base("^/account/register$")
         {
         }
 

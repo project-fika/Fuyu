@@ -12,7 +12,7 @@ namespace Fuyu.Backend.EFT.Controllers
     {
         private ItemEventRouter _router = new ItemEventRouter();
 
-        public GameProfileItemsMovingController() : base("/client/game/profile/items/moving")
+        public GameProfileItemsMovingController() : base("^/client/game/profile/items/moving$")
         {
             _router.AddController<CustomizationBuyEventController>();
             _router.AddController<EatItemEventController>();

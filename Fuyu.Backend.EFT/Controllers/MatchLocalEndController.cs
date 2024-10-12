@@ -7,7 +7,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class MatchLocalEndController : HttpController
     {
-        public MatchLocalEndController() : base("/client/match/local/end")
+        public MatchLocalEndController() : base("^/client/match/local/end$")
         {
         }
 

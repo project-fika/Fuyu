@@ -9,7 +9,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class NotifierChannelCreateController : HttpController
     {
-        public NotifierChannelCreateController() : base("/client/notifier/channel/create")
+        public NotifierChannelCreateController() : base("^/client/notifier/channel/create$")
         {
         }
 

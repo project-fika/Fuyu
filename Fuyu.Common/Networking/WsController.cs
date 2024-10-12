@@ -4,7 +4,7 @@ namespace Fuyu.Common.Networking
 {
     public abstract class WsController : WebController<WsContext>
     {
-        public WsController(string path) : base(path)
+        public WsController(string pattern) : base(pattern)
         {
         }
 

@@ -6,7 +6,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class LocalGameWeatherController : HttpController
     {
-        public LocalGameWeatherController() : base("/client/localGame/weather")
+        public LocalGameWeatherController() : base("^/client/localGame/weather$")
         {
         }
 

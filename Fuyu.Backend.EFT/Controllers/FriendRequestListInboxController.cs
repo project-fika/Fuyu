@@ -7,7 +7,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class FriendRequestListInboxController : HttpController
     {
-        public FriendRequestListInboxController() : base("/client/friend/request/list/inbox")
+        public FriendRequestListInboxController() : base("^/client/friend/request/list/inbox$")
         {
         }
 

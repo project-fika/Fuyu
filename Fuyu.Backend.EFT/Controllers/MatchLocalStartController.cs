@@ -10,7 +10,7 @@ namespace Fuyu.Backend.EFT.Controllers
     {
         private readonly Dictionary<string, string> _locations;
 
-        public MatchLocalStartController() : base("/client/match/local/start")
+        public MatchLocalStartController() : base("^/client/match/local/start$")
         {
             _locations = new Dictionary<string, string>()
             {

@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class QuestListController : HttpController
     {
-        public QuestListController() : base("/client/quest/list")
+        public QuestListController() : base("^/client/quest/list$")
         {
         }
 

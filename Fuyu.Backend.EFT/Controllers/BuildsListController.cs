@@ -11,7 +11,7 @@ namespace Fuyu.Backend.EFT.Controllers
     {
         private readonly ResponseBody<BuildsListResponse> _response;
 
-        public BuildsListController() : base("/client/builds/list")
+        public BuildsListController() : base("^/client/builds/list$")
         {
             var json = Resx.GetText("eft", "database.client.builds.list.json");
             _response = Json.Parse<ResponseBody<BuildsListResponse>>(json);

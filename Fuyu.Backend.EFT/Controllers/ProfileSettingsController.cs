@@ -7,7 +7,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class ProfileSettingsController : HttpController
     {
-        public ProfileSettingsController() : base("/client/profile/settings")
+        public ProfileSettingsController() : base("^/client/profile/settings$")
         {
         }
 

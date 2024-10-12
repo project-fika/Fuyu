@@ -8,7 +8,7 @@ namespace Fuyu.Backend.Core.Controllers
 {
     public class AccountLoginController : HttpController
     {
-        public AccountLoginController() : base("/account/login")
+        public AccountLoginController() : base("^/account/login$")
         {
         }
 

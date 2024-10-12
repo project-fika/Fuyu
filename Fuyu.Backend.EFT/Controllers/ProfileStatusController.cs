@@ -9,7 +9,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class ProfileStatusController : HttpController
     {
-        public ProfileStatusController() : base("/client/profile/status")
+        public ProfileStatusController() : base("^/client/profile/status$")
         {
         }
 

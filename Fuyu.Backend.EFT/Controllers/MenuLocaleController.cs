@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class MenuLocaleController : HttpController
     {
-        public MenuLocaleController() : base("/client/menu/locale/{languageId}")
+        public MenuLocaleController() : base("^/client/menu/locale/(?<languageId>[A-Za-z]+)$")
         {
         }
 

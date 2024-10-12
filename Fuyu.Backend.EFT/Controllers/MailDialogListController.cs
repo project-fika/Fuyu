@@ -7,7 +7,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class MailDialogListController : HttpController
     {
-        public MailDialogListController() : base("/client/mail/dialog/list")
+        public MailDialogListController() : base("^/client/mail/dialog/list$")
         {
         }
 
