@@ -7,10 +7,12 @@ namespace Fuyu.Common.Networking
 	{
 		protected WsController(Regex pattern) : base(pattern)
 		{
+  			// match dynamic paths
 		}
 
 		protected WsController(string path) : base(path)
 		{
+  			// match static paths
 		}
 
 		public virtual Task OnConnectAsync(WsContext context)
