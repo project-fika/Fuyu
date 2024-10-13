@@ -9,7 +9,10 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public partial class LocaleController : HttpController
     {
-        public LocaleController() : base(MatcherExpression())
+        [GeneratedRegex("^/client/locale/(?<languageId>[a-z]+(-[a-z]+)?)$")]
+        private static partial Regex PathExpression();
+    
+        public LocaleController() : base(PathExpression())
         {
         }
 
@@ -26,8 +29,5 @@ namespace Fuyu.Backend.EFT.Controllers
 
             await context.SendJsonAsync(Json.Stringify(response));
         }
-
-		[GeneratedRegex("^/client/locale/(?<languageId>[A-Za-z]+(-[A-Za-z]+)?)$")]
-		private static partial Regex MatcherExpression();
-	}
+    }
 }
