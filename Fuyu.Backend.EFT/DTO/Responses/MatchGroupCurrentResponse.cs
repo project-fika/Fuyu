@@ -1,13 +1,13 @@
 using System.Runtime.Serialization;
+using Fuyu.Backend.EFT.DTO.Raid;
 
 namespace Fuyu.Backend.EFT.DTO.Responses
 {
     [DataContract]
     public class MatchGroupCurrentResponse
     {
-        // TODO: proper type
         [DataMember]
-        public object[] squad;
+        public SquadMember[] squad;
 
         // TODO: proper type
         [DataMember]

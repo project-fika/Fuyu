@@ -291,12 +291,12 @@ namespace Fuyu.Backend.EFT
 #endregion
 
 #region Wipe profiles
-        public static Dictionary<string, Dictionary<EPlayerSide, Profile>> GetWipeProfiles()
+        public static Dictionary<string, Dictionary<EPlayerSide, WipeProfile>> GetWipeProfiles()
         {
             return EftDatabase.WipeProfiles.ToDictionary();
         }
 
-        public static Dictionary<EPlayerSide, Profile> GetWipeProfile(string edition)
+        public static Dictionary<EPlayerSide, WipeProfile> GetWipeProfile(string edition)
         {
             if (!EftDatabase.WipeProfiles.TryGet(edition, out var profiles))
             {
@@ -306,7 +306,7 @@ namespace Fuyu.Backend.EFT
             return profiles;
         }
 
-        public static void SetOrAddWipeProfile(string edition, Dictionary<EPlayerSide, Profile> profiles)
+        public static void SetOrAddWipeProfile(string edition, Dictionary<EPlayerSide, WipeProfile> profiles)
         {
             if (EftDatabase.WipeProfiles.ContainsKey(edition))
             {

@@ -1,3 +1,4 @@
+using System;
 using Fuyu.Common.Hashing;
 using Fuyu.Common.IO;
 using Fuyu.Common.Serialization;
@@ -49,16 +50,25 @@ namespace Fuyu.Backend.EFT.Services
             // create profiles
             var edition = EftOrm.GetWipeProfile(account.Edition);
 
-            profile.Savage = edition[EPlayerSide.Savage];
+            profile.Savage = edition[EPlayerSide.Savage].Profile;
 
-            if (side == "bear")
+            // NOTE: Case-sensitive
+            // -- seionmoya, 2024-10-13
+            switch (side)
             {
-                profile.Pmc = edition[EPlayerSide.Bear];
-            }
-            else
-            {
-                profile.Pmc = edition[EPlayerSide.Usec];
-            }            
+                case "Bear":
+                    profile.Pmc = edition[EPlayerSide.Bear].Profile;
+                    profile.Suites = edition[EPlayerSide.Bear].Suites;
+                    break;
+
+                case "Usec":
+                    profile.Pmc = edition[EPlayerSide.Usec].Profile;
+                    profile.Suites = edition[EPlayerSide.Usec].Suites;
+                    break;
+                
+                default:
+                    throw new Exception("Unsupported faction");
+            }        
 
             // setup savage
             profile.Savage._id = savageId;
