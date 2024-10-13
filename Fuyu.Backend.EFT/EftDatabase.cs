@@ -37,7 +37,7 @@ namespace Fuyu.Backend.EFT
         internal static readonly ThreadDictionary<string, MenuLocaleResponse> MenuLocales;
 
         //                                        edition            side         profile
-        internal static readonly ThreadDictionary<string, Dictionary<EPlayerSide, Profile>> WipeProfiles;
+        internal static readonly ThreadDictionary<string, Dictionary<EPlayerSide, WipeProfile>> WipeProfiles;
 
         // TODO
         internal static readonly ThreadObject<string> AccountCustomization;
@@ -67,7 +67,7 @@ namespace Fuyu.Backend.EFT
             GlobalLocales = new ThreadDictionary<string, Dictionary<string, string>>();
             Languages = new ThreadDictionary<string, string>();
             MenuLocales = new ThreadDictionary<string, MenuLocaleResponse>();
-            WipeProfiles = new ThreadDictionary<string, Dictionary<EPlayerSide, Profile>>();
+            WipeProfiles = new ThreadDictionary<string, Dictionary<EPlayerSide, WipeProfile>>();
 
             // TODO
             AccountCustomization = new ThreadObject<string>(string.Empty);
@@ -217,11 +217,38 @@ namespace Fuyu.Backend.EFT
             var usecJson = Resx.GetText("eft", "database.profiles.player.unheard-usec.json");
             var savageJson = Resx.GetText("eft", "database.profiles.player.savage.json");
 
-            EftOrm.SetOrAddWipeProfile("unheard", new Dictionary<EPlayerSide, Profile>()
+            EftOrm.SetOrAddWipeProfile("unheard", new Dictionary<EPlayerSide, WipeProfile>()
             {
-                { EPlayerSide.Bear,     Json.Parse<Profile>(bearJson)   },
-                { EPlayerSide.Usec,     Json.Parse<Profile>(usecJson)   },
-                { EPlayerSide.Savage,   Json.Parse<Profile>(savageJson) }
+                {
+                    EPlayerSide.Bear,
+                    new WipeProfile()
+                    {
+                        Profile = Json.Parse<Profile>(bearJson),
+                        Suites = [
+                            "5cd946231388ce000d572fe3",
+                            "5cd945d71388ce000a659dfb"
+                        ]
+                    }
+                },
+                {
+                    EPlayerSide.Usec,
+                    new WipeProfile()
+                    {
+                        Profile = Json.Parse<Profile>(usecJson),
+                        Suites = [
+                            "5cde9ec17d6c8b04723cf479",
+                            "5cde9e957d6c8b0474535da7"
+                        ]
+                    }
+                },
+                {
+                    EPlayerSide.Savage,
+                    new WipeProfile()
+                    {
+                        Profile = Json.Parse<Profile>(savageJson),
+                        Suites = []
+                    }
+                }
             });
         }
 
