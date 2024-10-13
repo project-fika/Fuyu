@@ -7,16 +7,14 @@ using Fuyu.Backend.EFT.DTO.Responses;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class GameProfileNicknameValidateController : HttpController
+    public class GameProfileNicknameValidateController : HttpController<GameProfileNicknameValidateRequest>
     {
         public GameProfileNicknameValidateController() : base("/client/game/profile/nickname/validate")
         {
         }
 
-        public override async Task RunAsync(HttpContext context)
+        public override Task RunAsync(HttpContext context, GameProfileNicknameValidateRequest request)
         {
-            var request = await context.GetJsonAsync<GameProfileNicknameValidateRequest>();
-
             // TODO:
             // * validate nickname usage
             // -- seionmoya, 2024/08/28
@@ -29,7 +27,7 @@ namespace Fuyu.Backend.EFT.Controllers
                 }
             };
 
-            await context.SendJsonAsync(Json.Stringify(response));
+            return context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }
