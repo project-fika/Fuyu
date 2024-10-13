@@ -15,6 +15,7 @@ namespace Fuyu.Common.Networking
 		{
   			// match static paths
 		}
+	}
 
 	public abstract class HttpController<TRequest> : HttpController where TRequest : class
 	{
