@@ -6,7 +6,7 @@ using Fuyu.Backend.EFT.DTO.Requests;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class MatchLocalStartController : HttpController
+    public class MatchLocalStartController : HttpController<MatchLocalStartRequest>
     {
         private readonly Dictionary<string, string> _locations;
 
@@ -28,12 +28,11 @@ namespace Fuyu.Backend.EFT.Controllers
             };
         }
 
-        public override async Task RunAsync(HttpContext context)
+        public override Task RunAsync(HttpContext context, MatchLocalStartRequest request)
         {
-            var request = await context.GetJsonAsync<MatchLocalStartRequest>();
             var location = request.location;
 
-            await context.SendJsonAsync(_locations[location]);
+            return context.SendJsonAsync(_locations[location]);
         }
     }
 }

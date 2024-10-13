@@ -1,6 +1,7 @@
 using System.Runtime.Serialization;
 using Newtonsoft.Json.Converters;
 using Fuyu.Backend.BSG.DTO.Profiles.Bonusses;
+using Fuyu.Common.Hashing;
 
 namespace Fuyu.Backend.BSG.DTO.Profiles
 {
@@ -8,9 +9,9 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
     public class BonusInfo
     {
         [DataMember]
-        public string id;
+        public MongoId id;
 
-        [DataMember(EmitDefaultValue = true)]
+        [DataMember(EmitDefaultValue = false)]
         public string icon;
 
         [DataMember]
@@ -20,8 +21,8 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
         [DataMember]
         public float value;
 
-        [DataMember(EmitDefaultValue = true)]
-        public string templateId;
+        [DataMember(EmitDefaultValue = false)]
+        public MongoId templateId;
 
         [DataMember]
         public bool passive;
@@ -29,10 +30,10 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
         [DataMember]
         public bool visible;
 
-        [DataMember]
-        public bool production;
+		[DataMember(EmitDefaultValue = false)]
+		public bool production;
 
-        [DataMember(EmitDefaultValue = true)]
-        public string[] filter;
+        [DataMember(EmitDefaultValue = false)]
+        public MongoId[] filter;
     }
 }

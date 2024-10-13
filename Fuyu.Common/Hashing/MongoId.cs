@@ -1,9 +1,11 @@
 using System;
+using Fuyu.Common.Serialization;
 using Newtonsoft.Json;
 
 namespace Fuyu.Common.Hashing
 {
 	[Serializable]
+	[JsonConverter(typeof(MongoIdConverter))]
 	public readonly struct MongoId : IComparable<MongoId>, IEquatable<MongoId>
 	{
         private static readonly Random _random = new Random();
