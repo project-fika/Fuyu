@@ -7,9 +7,14 @@ namespace Fuyu.Common.Networking
     {
 		public Regex Matcher { get; }
 
-        public WebController(string pattern)
+		protected WebController(Regex pattern)
         {
-			Matcher = new Regex(pattern);
+			Matcher = pattern;
+        }
+
+		protected WebController(string path)
+        {
+			Matcher = new Regex($"^{path}$");
         }
 
 		public bool IsMatch(TContext context)

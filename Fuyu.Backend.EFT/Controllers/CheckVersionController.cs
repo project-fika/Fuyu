@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class CheckVersionController : HttpController
     {
-        public CheckVersionController() : base("^/client/checkVersion$")
+        public CheckVersionController() : base("/client/checkVersion")
         {
         }
 

@@ -7,7 +7,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class GameProfileNicknameReservedController : HttpController
     {
-        public GameProfileNicknameReservedController() : base("^/client/game/profile/nickname/reserved$")
+        public GameProfileNicknameReservedController() : base("/client/game/profile/nickname/reserved")
         {
         }
 

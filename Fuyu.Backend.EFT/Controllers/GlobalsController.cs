@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class GlobalsController : HttpController
     {
-        public GlobalsController() : base("^/client/globals$")
+        public GlobalsController() : base("/client/globals")
         {
         }
 

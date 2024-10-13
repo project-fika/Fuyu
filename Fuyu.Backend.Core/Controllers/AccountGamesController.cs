@@ -8,7 +8,7 @@ namespace Fuyu.Backend.Core.Controllers
 {
     public class AccountGamesController : HttpController
     {
-        public AccountGamesController() : base("^/account/games$")
+        public AccountGamesController() : base("/account/games")
         {
         }
 

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
 using Fuyu.Backend.BSG.DTO.Responses;
+using System.Text.RegularExpressions;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class LocaleController : HttpController
+    public partial class LocaleController : HttpController
     {
-        public LocaleController() : base("^/client/locale/(?<languageId>[A-Za-z]+(-[A-Za-z]+)?)$")
+        public LocaleController() : base(MatcherExpression())
         {
         }
 
@@ -25,5 +26,8 @@ namespace Fuyu.Backend.EFT.Controllers
 
             await context.SendJsonAsync(Json.Stringify(response));
         }
-    }
+
+		[GeneratedRegex("^/client/locale/(?<languageId>[A-Za-z]+(-[A-Za-z]+)?)$")]
+		private static partial Regex MatcherExpression();
+	}
 }

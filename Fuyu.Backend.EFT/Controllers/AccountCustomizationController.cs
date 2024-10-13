@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class AccountCustomizationController : HttpController
     {
-        public AccountCustomizationController() : base("^/client/account/customization$")
+        public AccountCustomizationController() : base("/client/account/customization")
         {
         }
 

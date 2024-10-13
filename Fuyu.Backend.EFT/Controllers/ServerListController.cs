@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class ServerListController : HttpController
     {
-        public ServerListController() : base("^/client/server/list$")
+        public ServerListController() : base("/client/server/list")
         {
         }
 

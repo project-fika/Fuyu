@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class TraderSettingsController : HttpController
     {
-        public TraderSettingsController() : base("^/client/trading/api/traderSettings$")
+        public TraderSettingsController() : base("/client/trading/api/traderSettings")
         {
         }
 

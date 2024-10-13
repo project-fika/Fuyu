@@ -9,7 +9,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class LocationsController : HttpController
     {
-        public LocationsController() : base("^/client/locations$")
+        public LocationsController() : base("/client/locations")
         {
         }
 

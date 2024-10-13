@@ -10,7 +10,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class GameBotGenerateController : HttpController
     {
-        public GameBotGenerateController() : base("^/client/game/bot/generate$")
+        public GameBotGenerateController() : base("/client/game/bot/generate")
         {
         }
 

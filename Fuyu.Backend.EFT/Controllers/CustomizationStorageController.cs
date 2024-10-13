@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class CustomizationStorageController : HttpController
     {
-        public CustomizationStorageController() : base("^/client/trading/customization/storage$")
+        public CustomizationStorageController() : base("/client/trading/customization/storage")
         {
         }
 

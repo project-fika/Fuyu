@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class GameModeController : HttpController
     {
-        public GameModeController() : base("^/client/game/mode$")
+        public GameModeController() : base("/client/game/mode")
         {
         }
 

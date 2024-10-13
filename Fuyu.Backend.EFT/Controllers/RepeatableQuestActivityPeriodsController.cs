@@ -7,7 +7,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class RepeatableQuestActivityPeriodsController : HttpController
     {
-        public RepeatableQuestActivityPeriodsController() : base("^/client/repeatalbeQuests/activityPeriods$")
+        public RepeatableQuestActivityPeriodsController() : base("/client/repeatalbeQuests/activityPeriods")
         {
         }
 

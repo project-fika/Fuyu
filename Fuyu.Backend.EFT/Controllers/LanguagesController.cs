@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class LanguagesController : HttpController
     {
-        public LanguagesController() : base("^/client/languages$")
+        public LanguagesController() : base("/client/languages")
         {
         }
 

@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class FriendListController : HttpController
     {
-        public FriendListController() : base("^/client/friend/list$")
+        public FriendListController() : base("/client/friend/list")
         {
         }
 

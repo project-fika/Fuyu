@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class GameKeepaliveController : HttpController
     {
-        public GameKeepaliveController() : base("^/client/game/keepalive$")
+        public GameKeepaliveController() : base("/client/game/keepalive")
         {
         }
 

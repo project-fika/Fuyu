@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class HideoutProductionRecipesController : HttpController
     {
-        public HideoutProductionRecipesController() : base("^/client/hideout/production/recipes$")
+        public HideoutProductionRecipesController() : base("/client/hideout/production/recipes")
         {
         }
 

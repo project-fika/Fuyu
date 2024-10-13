@@ -9,7 +9,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class FuyuGameLoginController : HttpController
     {
-        public FuyuGameLoginController() : base("^/fuyu/game/login$")
+        public FuyuGameLoginController() : base("/fuyu/game/login")
         {
         }
 

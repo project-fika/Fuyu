@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class WeatherController : HttpController
     {
-        public WeatherController() : base("^/client/weather$")
+        public WeatherController() : base("/client/weather")
         {
         }
 

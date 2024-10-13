@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class HideoutAreasController : HttpController
     {
-        public HideoutAreasController() : base("^/client/hideout/areas$")
+        public HideoutAreasController() : base("/client/hideout/areas")
         {
         }
 

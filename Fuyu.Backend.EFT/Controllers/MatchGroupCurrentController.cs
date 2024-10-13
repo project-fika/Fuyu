@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class MatchGroupCurrentController : HttpController
     {
-        public MatchGroupCurrentController() : base("^/client/match/group/current$")
+        public MatchGroupCurrentController() : base("/client/match/group/current")
         {
         }
 

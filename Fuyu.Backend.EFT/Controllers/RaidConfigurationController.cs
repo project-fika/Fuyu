@@ -7,7 +7,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class RaidConfigurationController : HttpController
     {
-        public RaidConfigurationController() : base("^/client/raid/configuration$")
+        public RaidConfigurationController() : base("/client/raid/configuration")
         {
         }
 

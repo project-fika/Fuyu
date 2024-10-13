@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class HandbookTemplatesController : HttpController
     {
-        public HandbookTemplatesController() : base("^/client/handbook/templates$")
+        public HandbookTemplatesController() : base("/client/handbook/templates")
         {
         }
 

@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class GameLogoutController : HttpController
     {
-        public GameLogoutController() : base("^/client/game/logout$")
+        public GameLogoutController() : base("/client/game/logout")
         {
         }
 

@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class ItemsController : HttpController
     {
-        public ItemsController() : base("^/client/items$")
+        public ItemsController() : base("/client/items")
         {
         }
 

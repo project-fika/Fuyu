@@ -1,14 +1,19 @@
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Fuyu.Common.Networking
 {
     public abstract class WsController : WebController<WsContext>
-    {
-        public WsController(string pattern) : base(pattern)
-        {
-        }
+	{
+		protected WsController(Regex pattern) : base(pattern)
+		{
+		}
 
-        public virtual Task OnConnectAsync(WsContext context)
+		protected WsController(string path) : base(path)
+		{
+		}
+
+		public virtual Task OnConnectAsync(WsContext context)
         {
             return Task.CompletedTask;
         }

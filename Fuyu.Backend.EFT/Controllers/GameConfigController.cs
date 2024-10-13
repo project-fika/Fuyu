@@ -8,7 +8,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class GameConfigController : HttpController
     {
-        public GameConfigController() : base("^/client/game/config$")
+        public GameConfigController() : base("/client/game/config")
         {
         }
 

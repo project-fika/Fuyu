@@ -7,7 +7,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class MatchGroupInviteCancelAllController : HttpController
     {
-        public MatchGroupInviteCancelAllController() : base("^/client/match/group/invite/cancel-all$")
+        public MatchGroupInviteCancelAllController() : base("/client/match/group/invite/cancel-all")
         {
         }
 

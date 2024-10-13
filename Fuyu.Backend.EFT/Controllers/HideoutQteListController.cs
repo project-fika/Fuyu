@@ -5,7 +5,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class HideoutQteListController : HttpController
     {
-        public HideoutQteListController() : base("^/client/hideout/qte/list$")
+        public HideoutQteListController() : base("/client/hideout/qte/list")
         {
         }
 

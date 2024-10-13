@@ -7,7 +7,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class MatchGroupExitFromMenuController : HttpController
     {
-        public MatchGroupExitFromMenuController() : base("^/client/match/group/exit_from_menu$")
+        public MatchGroupExitFromMenuController() : base("/client/match/group/exit_from_menu")
         {
         }
 

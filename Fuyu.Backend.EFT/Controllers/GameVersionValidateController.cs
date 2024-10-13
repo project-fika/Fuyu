@@ -7,7 +7,7 @@ namespace Fuyu.Backend.EFT.Controllers
 {
     public class GameVersionValidateController : HttpController
     {
-        public GameVersionValidateController() : base("^/client/game/version/validate$")
+        public GameVersionValidateController() : base("/client/game/version/validate")
         {
         }
 
