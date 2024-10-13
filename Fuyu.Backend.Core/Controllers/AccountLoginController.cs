@@ -6,18 +6,17 @@ using Fuyu.Backend.Core.Services;
 
 namespace Fuyu.Backend.Core.Controllers
 {
-    public class AccountLoginController : HttpController
+    public class AccountLoginController : HttpController<AccountLoginRequest>
     {
         public AccountLoginController() : base("/account/login")
         {
         }
 
-		public override async Task RunAsync(HttpContext context)
+		public override Task RunAsync(HttpContext context, AccountLoginRequest body)
 		{
-			var request = await context.GetJsonAsync<AccountLoginRequest>();
-			var response = AccountService.LoginAccount(request.Username, request.Password);
+			var response = AccountService.LoginAccount(body.Username, body.Password);
 
-			await context.SendJsonAsync(Json.Stringify(response));
+			return context.SendJsonAsync(Json.Stringify(response));
 		}
 	}
 }

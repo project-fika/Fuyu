@@ -7,22 +7,21 @@ using Fuyu.Backend.Common.DTO.Responses;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class FuyuGameRegisterController : HttpController
+    public class FuyuGameRegisterController : HttpController<FuyuGameRegisterRequest>
     {
         public FuyuGameRegisterController() : base("/fuyu/game/register")
         {
         }
 
-        public override async Task RunAsync(HttpContext context)
+        public override Task RunAsync(HttpContext context, FuyuGameRegisterRequest request)
         {
-            var request = await context.GetJsonAsync<FuyuGameRegisterRequest>();
             var accountId = AccountService.RegisterAccount(request.Username, request.Edition);
             var response = new FuyuGameRegisterResponse()
             {
                 AccountId = accountId
             };
 
-            await context.SendJsonAsync(Json.Stringify(response));
+            return context.SendJsonAsync(Json.Stringify(response));
         }
     }
 }
