@@ -6,10 +6,12 @@ namespace Fuyu.Common.Networking
 	{
 		protected HttpController(Regex pattern) : base(pattern)
 		{
+  			// match dynamic paths
 		}
 
 		protected HttpController(string path) : base(path)
 		{
+  			// match static paths
 		}
 	}
 }
