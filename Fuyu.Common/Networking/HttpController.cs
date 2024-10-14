@@ -1,19 +1,32 @@
 using System;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Fuyu.Common.Networking
 {
-    public abstract class HttpController : WebController<HttpContext>
-    {
-        public HttpController(string path) : base(path)
-        {
-        }
-    }
+	public abstract class HttpController : WebController<HttpContext>
+	{
+		protected HttpController(Regex pattern) : base(pattern)
+		{
+  			// match dynamic paths
+		}
+
+		protected HttpController(string path) : base(path)
+		{
+  			// match static paths
+		}
+	}
 
 	public abstract class HttpController<TRequest> : HttpController where TRequest : class
 	{
-		public HttpController(string path) : base(path)
+		protected HttpController(Regex pattern) : base(pattern)
 		{
+  			// match dynamic paths
+		}
+
+		protected HttpController(string path) : base(path)
+		{
+  			// match static paths
 		}
 
 		public override async Task RunAsync(HttpContext context)
