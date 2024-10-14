@@ -20,9 +20,9 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
         public BodyPartInfo BodyParts;
 
         [DataMember]
-        public long UpdateTime;
+        public int? UpdateTime;
 
-        [DataMember]
-        public bool Immortal;
+        // SKIPPED: Immortal
+        // Reason: only used on BSG's internal server
     }
 }

@@ -18,7 +18,8 @@ namespace Fuyu.Backend.EFT.Controllers
             {
                 data = new MatchGroupCurrentResponse()
                 {
-                    squad = []
+                    squad = [],
+                    raidSettings = null
                 }
             };
 

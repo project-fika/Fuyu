@@ -10,6 +10,11 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
         [DataMember]
         public string Nickname;
 
+        // NOTE: only available when player is scav
+        // -- seionmoya, 2024-10-07
+        [DataMember(EmitDefaultValue = false)]
+        public string MainProfileNickname;
+
         [DataMember]
         public string LowerNickname;
 
@@ -29,8 +34,8 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
         [DataMember]
         public long RegistrationDate;
 
-        // SKIPPED: GameVersion
-        // Reason: only used on BSG's internal server
+        [DataMember]
+        public string GameVersion;
 
         // SKIPPED: AccountType
         // Reason: only used on BSG's internal server
@@ -46,6 +51,16 @@ namespace Fuyu.Backend.BSG.DTO.Profiles
 
         [DataMember]
         public long SavageLockTime;
+
+        // NOTE: used in /client/match/local/end, not sure when emitted
+        // -- seionmoya, 2024-10-07
+        [DataMember(EmitDefaultValue = false)]
+        public string GroupId;
+
+        // NOTE: used in /client/match/local/end, not sure when emitted
+        // -- seionmoya, 2024-10-07
+        [DataMember(EmitDefaultValue = false)]
+        public string TeamId;
 
         [DataMember]
         public long LastTimePlayedAsSavage;
