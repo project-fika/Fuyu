@@ -1,13 +1,10 @@
 using System.Runtime.Serialization;
-using Fuyu.Backend.BSG.Serialization;
 using Fuyu.Common.Collections;
 using Fuyu.Common.Hashing;
-using Newtonsoft.Json;
 
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-	//[JsonConverter(typeof(ItemInstanceConverter))]
 	public class ItemInstance
     {
         [DataMember]
