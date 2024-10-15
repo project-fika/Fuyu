@@ -240,8 +240,8 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
             // get request data
             var request = new GameProfileCreateRequest()
             {
-                side        = "usec",
-                nickname    = "senko",
+                side        = "Usec",
+                nickname    = "Senko-san",
                 headId      = "5cde96047d6c8b20b577f016",
                 voiceId     = "5fc614f40b735e7b024c76e9"
             };
