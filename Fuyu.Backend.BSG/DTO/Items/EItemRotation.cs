@@ -1,4 +1,4 @@
-﻿namespace Fuyu.Backend.EFT.DTO.Items
+﻿namespace Fuyu.Backend.BSG.DTO.Items
 {
 	public enum EItemRotation
     {

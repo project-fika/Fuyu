@@ -1,7 +1,7 @@
-﻿using Fuyu.Backend.BSG.DTO.Common;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using Fuyu.Backend.BSG.DTO.Common;
 
-namespace Fuyu.Backend.EFT.DTO.Items
+namespace Fuyu.Backend.BSG.DTO.Items
 {
     [DataContract]
     public class ItemBuffComponent

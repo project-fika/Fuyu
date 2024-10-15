@@ -1,6 +1,6 @@
-﻿using Fuyu.Backend.BSG.DTO.Responses;
+﻿using Newtonsoft.Json.Linq;
+using Fuyu.Backend.BSG.DTO.Responses;
 using Fuyu.Common.Networking;
-using Newtonsoft.Json.Linq;
 
 namespace Fuyu.Backend.BSG.ItemEvents
 {

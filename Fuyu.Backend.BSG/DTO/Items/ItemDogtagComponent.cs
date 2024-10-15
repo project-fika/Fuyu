@@ -1,9 +1,9 @@
-﻿using Fuyu.Backend.BSG.DTO.Profiles.Info;
-using Fuyu.Common.Hashing;
-using System;
+﻿using System;
 using System.Runtime.Serialization;
+using Fuyu.Backend.BSG.DTO.Profiles.Info;
+using Fuyu.Common.Hashing;
 
-namespace Fuyu.Backend.EFT.DTO.Items
+namespace Fuyu.Backend.BSG.DTO.Items
 {
     [DataContract]
     public class ItemDogtagComponent
