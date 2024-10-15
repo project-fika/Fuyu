@@ -1,10 +1,14 @@
 using System.Runtime.Serialization;
+using Fuyu.Backend.BSG.Serialization;
+using Fuyu.Common.Collections;
 using Fuyu.Common.Hashing;
+using Newtonsoft.Json;
 
 namespace Fuyu.Backend.EFT.DTO.Items
 {
     [DataContract]
-    public class ItemInstance
+	//[JsonConverter(typeof(ItemInstanceConverter))]
+	public class ItemInstance
     {
         [DataMember]
         public MongoId _id;
@@ -14,7 +18,7 @@ namespace Fuyu.Backend.EFT.DTO.Items
 
         // emits when 'null'
         [DataMember(EmitDefaultValue = false)]
-        public MongoId parentId;
+        public MongoId? parentId;
 
         // emits when 'null'
         [DataMember(EmitDefaultValue = false)]
@@ -22,7 +26,7 @@ namespace Fuyu.Backend.EFT.DTO.Items
 
         // emits when 'null'
         [DataMember(EmitDefaultValue = false)]
-        public LocationInGrid location;
+        public Union<LocationInGrid, int> location;
 
         // emits when 'null'
         [DataMember(EmitDefaultValue = false)]

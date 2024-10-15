@@ -15,6 +15,7 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
 
         public override Task RunAsync(ItemEventContext context, MoveItemEvent request)
         {
+            var str = context.Data.ToString();
             var account = EftOrm.GetAccount(context.SessionId);
             var profile = EftOrm.GetProfile(account.PveId);
             var item = profile.Pmc.Inventory.items.FirstOrDefault(i => i._id == request.Item);

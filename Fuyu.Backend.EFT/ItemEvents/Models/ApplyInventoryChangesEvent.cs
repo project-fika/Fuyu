@@ -8,6 +8,6 @@ namespace Fuyu.Backend.EFT.ItemEvents.Models
     public class ApplyInventoryChangesEvent : BaseItemEvent
     {
         [DataMember(Name = "changedItems")]
-        public ChangedItem[] ChangedItems { get; set; }
+        public ItemInstance[] ChangedItems { get; set; }
     }
 }

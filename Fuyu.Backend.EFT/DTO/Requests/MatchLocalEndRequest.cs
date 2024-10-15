@@ -9,11 +9,13 @@ namespace Fuyu.Backend.EFT.DTO.Requests
     public class MatchLocalEndRequest
     {
         [DataMember]
+        public string serverId;
+
+        [DataMember]
         public MatchLocalEndResult results;
 
-        // TODO: proper type
         [DataMember]
-        public object lostInsuredItems;
+        public ItemInstance[] lostInsuredItems;
 
         [DataMember]
         public Dictionary<string, ItemInstance[]> transferItems;
