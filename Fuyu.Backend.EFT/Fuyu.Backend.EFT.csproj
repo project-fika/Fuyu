@@ -11,6 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="embedded/database/bots/assault.json" />
+    <EmbeddedResource Include="embedded/database/bots/bosstagilla.json" />
+    <EmbeddedResource Include="embedded/database/bots/marksman.json" />
     <EmbeddedResource Include="embedded/database/locales/client.languages.json" />
     <EmbeddedResource Include="embedded/database/locales/client.locale-ch.json" />
     <EmbeddedResource Include="embedded/database/locales/client.locale-cz.json" />
