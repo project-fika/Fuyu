@@ -13,5 +13,11 @@ namespace Fuyu.Common.Serialization
         {
             return JsonConvert.SerializeObject(o);
         }
+
+        public static T Clone<T>(object o)
+        {
+            var json = Stringify(o);
+            return Parse<T>(json);
+        }
     }
 }

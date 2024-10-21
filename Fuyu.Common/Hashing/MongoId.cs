@@ -47,7 +47,7 @@ namespace Fuyu.Common.Hashing
 			GenerateNew();
 		}
 
-		public MongoId(bool newProcessId = true)
+		public MongoId(bool newProcessId)
 		{
             _timeStamp = 0U;
 

@@ -8,6 +8,7 @@ using Fuyu.Backend.BSG.DTO.Profiles.Info;
 using Fuyu.Backend.BSG.DTO.Responses;
 using Fuyu.Backend.EFT.DTO.Responses;
 using Fuyu.Backend.EFT.DTO.Accounts;
+using Fuyu.Backend.BSG.DTO.Bots;
 
 namespace Fuyu.Backend.EFT
 {
