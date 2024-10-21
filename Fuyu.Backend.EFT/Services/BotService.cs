@@ -3,6 +3,7 @@ using Fuyu.Backend.BSG.DTO.Bots;
 using Fuyu.Backend.BSG.DTO.Profiles;
 using Fuyu.Backend.EFT.DTO.Bots;
 using Fuyu.Common.Hashing;
+using Fuyu.Common.IO;
 using Fuyu.Common.Serialization;
 
 namespace Fuyu.Backend.EFT.Services
@@ -21,8 +22,8 @@ namespace Fuyu.Backend.EFT.Services
         {
             _profiles = new Dictionary<EBotRole, string>()
             {
-                { EBotRole.marksman, null },
-                { EBotRole.assault, null },
+                { EBotRole.marksman, Resx.GetText("eft", "database.bots.marksman.json") },
+                { EBotRole.assault, Resx.GetText("eft", "database.bots.assault.json") },
                 { EBotRole.bossTest, null },
                 { EBotRole.bossBully, null },
                 { EBotRole.followerTest, null },
@@ -42,7 +43,7 @@ namespace Fuyu.Backend.EFT.Services
                 { EBotRole.assaultGroup, null },
                 { EBotRole.sectantWarrior, null },
                 { EBotRole.sectantPriest, null },
-                { EBotRole.bossTagilla, null },
+                { EBotRole.bossTagilla, Resx.GetText("eft", "database.bots.bosstagilla.json") },
                 { EBotRole.followerTagilla, null },
                 { EBotRole.exUsec, null },
                 { EBotRole.gifter, null },
