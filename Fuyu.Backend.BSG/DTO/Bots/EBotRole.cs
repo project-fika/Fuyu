@@ -55,6 +55,9 @@ namespace Fuyu.Backend.BSG.DTO.Bots
         peacemaker,
         pmcBEAR,
         pmcUSEC,
-        skier
+        skier,
+        sectantPredvestnik = 57,
+        sectantPrizrak,
+        sectantOni
 	}
 }

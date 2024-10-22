@@ -73,7 +73,10 @@ namespace Fuyu.Backend.EFT.Services
                 { EBotRole.peacemaker, null },
                 { EBotRole.pmcBEAR, null },
                 { EBotRole.pmcUSEC, null },
-                { EBotRole.skier, null }
+                { EBotRole.skier, null },
+                { EBotRole.sectantPredvestnik, Resx.GetText("eft", "database.bots.sectantpredvestnik.json") },
+                { EBotRole.sectantPrizrak, Resx.GetText("eft", "database.bots.sectantprizrak.json") },
+                { EBotRole.sectantOni, Resx.GetText("eft", "database.bots.sectantoni.json") }
             };
         }
 
