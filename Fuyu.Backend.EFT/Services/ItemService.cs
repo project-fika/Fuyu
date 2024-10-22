@@ -6,7 +6,7 @@ namespace Fuyu.Backend.EFT.Services
 {
     public class ItemService
     {
-        public static void RegenerateItemIds(ItemInstance[] items)
+        public static ItemInstance[] RegenerateItemIds(ItemInstance[] items)
         {
             var newIds = new Dictionary<MongoId, MongoId>();
 
@@ -25,6 +25,8 @@ namespace Fuyu.Backend.EFT.Services
                 item._id = newIds[item._id];
                 item.parentId = newIds[item.parentId];
             }
+
+            return items;
         }
     }
 }
