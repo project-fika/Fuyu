@@ -12,8 +12,18 @@
 
   <ItemGroup>
     <EmbeddedResource Include="embedded/database/bots/assault.json" />
+    <EmbeddedResource Include="embedded/database/bots/bossbully.json" />
     <EmbeddedResource Include="embedded/database/bots/bosstagilla.json" />
+    <EmbeddedResource Include="embedded/database/bots/bosspartisan.json" />
+    <EmbeddedResource Include="embedded/database/bots/followerbigpipe.json" />
+    <EmbeddedResource Include="embedded/database/bots/followerbirdeye.json" />
+    <EmbeddedResource Include="embedded/database/bots/followerbully.json" />
     <EmbeddedResource Include="embedded/database/bots/marksman.json" />
+    <EmbeddedResource Include="embedded/database/bots/sectantoni.json" />
+    <EmbeddedResource Include="embedded/database/bots/sectantpredvestnik.json" />
+    <EmbeddedResource Include="embedded/database/bots/sectantpriest.json" />
+    <EmbeddedResource Include="embedded/database/bots/sectantprizrak.json" />
+    <EmbeddedResource Include="embedded/database/bots/sectantwarrior.json" />
     <EmbeddedResource Include="embedded/database/locales/client.languages.json" />
     <EmbeddedResource Include="embedded/database/locales/client.locale-ch.json" />
     <EmbeddedResource Include="embedded/database/locales/client.locale-cz.json" />
