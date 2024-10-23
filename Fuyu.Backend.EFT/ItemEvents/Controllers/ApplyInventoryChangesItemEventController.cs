@@ -23,11 +23,11 @@ namespace Fuyu.Backend.EFT.ItemEvents.Controllers
 
             Parallel.ForEach(request.ChangedItems, changedItem =>
             {
-                if (profileItems.TryGet(changedItem.Id, out var item))
+                if (profileItems.TryGet(changedItem._id, out var item))
                 {
-                    item.slotId = changedItem.Slot;
-                    item.location = changedItem.Location;
-                    item.parentId = changedItem.ParentId.GetValueOrDefault();
+                    item.slotId = changedItem.slotId;
+                    item.location = changedItem.location;
+                    item.parentId = changedItem.parentId;
                 }
             });
 
