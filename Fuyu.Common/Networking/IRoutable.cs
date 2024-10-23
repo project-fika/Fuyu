@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Text.RegularExpressions;
 
 namespace Fuyu.Common.Networking
 {
 	public interface IRoutable
     {
-        Dictionary<string, EPathSegment> Path { get; }
+		Regex Matcher { get; }
 	}
 }

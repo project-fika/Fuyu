@@ -3,12 +3,16 @@ using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
 using Fuyu.Backend.BSG.DTO.Responses;
 using Fuyu.Backend.EFT.DTO.Responses;
+using System.Text.RegularExpressions;
 
 namespace Fuyu.Backend.EFT.Controllers
 {
-    public class MenuLocaleController : HttpController
+    public partial class MenuLocaleController : HttpController
     {
-        public MenuLocaleController() : base("/client/menu/locale/{languageId}")
+        [GeneratedRegex("^/client/menu/locale/(?<languageId>[a-z]+(-[a-z]+)?)$")]
+        private static partial Regex PathExpression();
+
+        public MenuLocaleController() : base(PathExpression())
         {
         }
 

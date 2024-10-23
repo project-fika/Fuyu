@@ -1,61 +1,25 @@
-using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Fuyu.Common.Networking
 {
 	public abstract class WebController<TContext> : IRoutable, IRouterController<TContext> where TContext : WebRouterContext
     {
-        public Dictionary<string, EPathSegment> Path { get; }
+		public Regex Matcher { get; }
 
-        public WebController(string path)
+		protected WebController(Regex pattern)
         {
-            Path = InitializePath(path);
+			Matcher = pattern;
         }
 
-        private static Dictionary<string, EPathSegment> InitializePath(string path)
+		protected WebController(string path)
         {
-            var result = new Dictionary<string, EPathSegment>();
-            var segments = path.Split('/');
-
-            foreach (var segment in segments)
-            {
-                if (segment.StartsWith("{") && segment.EndsWith("}"))
-                {
-                    var name = segment.Trim('{', '}');
-                    result.Add(name, EPathSegment.Dynamic);
-                }
-                else
-                {
-                    result.Add(segment, EPathSegment.Static);
-                }
-            }
-
-            return result;
+			Matcher = new Regex($"^{path}$");
         }
 
 		public bool IsMatch(TContext context)
 		{
-			var segments = context.Path.Split('/');
-			var i = 0;
-
-			if (segments.Length != Path.Count)
-			{
-				// segment length does not match
-				return false;
-			}
-
-			foreach (var kvp in Path)
-			{
-				// validate static segment
-				if (kvp.Value == EPathSegment.Static && segments[i] != kvp.Key)
-				{
-					return false;
-				}
-
-				++i;
-			}
-
-			return true;
+			return Matcher.IsMatch(context.Path);
 		}
 
 		public abstract Task RunAsync(TContext context);
