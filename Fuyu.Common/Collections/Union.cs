@@ -1,18 +1,14 @@
 using System;
-using Newtonsoft.Json;
 
 namespace Fuyu.Common.Collections
 {
-	public interface IUnion
-	{
-		object Value { get; }
-	}
-
-	[JsonConverter(typeof(UnionConverter))]
 	public readonly struct Union<T1, T2> : IUnion
 		where T1 : IEquatable<T1>
 		where T2 : IEquatable<T2>
 	{
+		// NOTE: While we could just use object I have intentionally used
+		// separate fields here in order to avoid boxing value types
+		// -- nexus4880, 2024-10-22
 		private readonly T1 _value1;
 		private readonly T2 _value2;
 		private readonly bool _isValue1;
@@ -172,45 +168,6 @@ namespace Fuyu.Common.Collections
 		public override string ToString()
 		{
 			return IsValue1 ? Value1.ToString() : Value2.ToString();
-		}
-	}
-
-	public class UnionConverter : JsonConverter
-	{
-		// NOTE: I don't think this gets ran at all but I'm leaving it
-		// -- nexus4880, 2024-10-14
-		public override bool CanConvert(Type objectType)
-		{
-			return objectType.IsAssignableFrom(typeof(IUnion));
-		}
-
-		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
-		{
-			foreach (var type in objectType.GenericTypeArguments)
-			{
-				try
-				{
-					// NOTE: This will intentionally cause an exception because there
-					// is no other way of seeing if a type can be deserialized
-					// -- nexus4880, 2024-10-14
-					var result = serializer.Deserialize(reader, type);
-
-					// NOTE: This intentionally uses Activator.CreateInstance in order
-					// to return a Union<T1, T2> from T1 or T2 directly
-					// -- nexus4880, 2024-10-14
-					return Activator.CreateInstance(objectType, result);
-				}
-				catch (JsonSerializationException)
-				{
-				}
-			}
-
-			throw new JsonSerializationException();
-		}
-
-		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
-		{
-			serializer.Serialize(writer, ((IUnion)value).Value);
 		}
 	}
 }
