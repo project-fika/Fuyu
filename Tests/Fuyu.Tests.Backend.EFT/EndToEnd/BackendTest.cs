@@ -5,12 +5,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Fuyu.Common.Hashing;
 using Fuyu.Common.Networking;
 using Fuyu.Common.Serialization;
+using Fuyu.Backend.BSG.DTO.Bots;
 using Fuyu.Backend.Core;
 using Fuyu.Backend.Core.DTO.Accounts;
 using Fuyu.Backend.Core.Servers;
-using Fuyu.Backend.BSG.DTO.Bots;
 using Fuyu.Backend.EFT;
 using Fuyu.Backend.EFT.DTO.Bots;
+using Fuyu.Backend.EFT.DTO.Raid;
 using Fuyu.Backend.EFT.DTO.Requests;
 using Fuyu.Backend.EFT.Servers;
 using AccountService = Fuyu.Backend.Core.Services.AccountService;
@@ -21,6 +22,7 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
     public class BackendTest
     {
         private static EftHttpClient _eftMainClient;
+        private static string _eftSessionId;
 
         private static string CreateFuyuAccount(string username, string password)
         {
@@ -75,10 +77,10 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
             // register test account
             var coreSessionId = CreateFuyuAccount("TestUser1", "TestPass1!");
             var eftAccountId = CreateGameAccount(coreSessionId, "eft", "unheard");
-            var eftSessionId = Fuyu.Backend.EFT.Services.AccountService.LoginAccount(eftAccountId);
+            _eftSessionId = Fuyu.Backend.EFT.Services.AccountService.LoginAccount(eftAccountId);
 
             // create request clients
-            _eftMainClient = new EftHttpClient("http://localhost:8010", eftSessionId);
+            _eftMainClient = new EftHttpClient("http://localhost:8010", _eftSessionId);
         }
 
         [TestMethod]
@@ -240,8 +242,8 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
             // get request data
             var request = new GameProfileCreateRequest()
             {
-                side        = "usec",
-                nickname    = "senko",
+                side        = "Usec",
+                nickname    = "Senko-san",
                 headId      = "5cde96047d6c8b20b577f016",
                 voiceId     = "5fc614f40b735e7b024c76e9"
             };
@@ -613,7 +615,24 @@ namespace Fuyu.Tests.Backend.EFT.EndToEnd
         [TestMethod]
         public async Task TestClientMatchLocalEnd()
         {
-            var response = await _eftMainClient.GetAsync("/client/match/local/end");
+            var account = EftOrm.GetAccount(_eftSessionId);
+            var profile = EftOrm.GetProfile(account.PveId);
+
+            // get request data
+            var request = new MatchLocalEndRequest()
+            {
+                results = new MatchLocalEndResult()
+                {
+                    profile = profile.Pmc
+                }
+            };
+
+            // get request body
+            var json = Json.Stringify(request);
+            var body = Encoding.UTF8.GetBytes(json);
+
+            // get response
+            var response = await _eftMainClient.PostAsync("/client/match/local/end", body);
             var result = Encoding.UTF8.GetString(response.Body);
 
             Assert.IsFalse(string.IsNullOrEmpty(result));
